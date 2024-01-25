@@ -89,7 +89,7 @@ export class Navbar extends Component<Props> {
     switch (menuItemChild.type) {
       case 'title':
         return (
-          <li class="text-slate-300 text-sm px-5 pt-2 cursor-default dark:text-background-foreground">
+          <li class="text-slate-300 dark:text-zinc-500 text-sm px-5 pt-2 cursor-default dark:text-background-foreground">
             {menuItemChild.text}
           </li>
         )
@@ -190,7 +190,7 @@ export class Navbar extends Component<Props> {
         </div>
         <div
           class={classNames(
-            'max-h-[calc(100vh-50px)] overflow-auto md:overflow-visible  w-full left-0 fixed top-14 pt-6 pb-14 md:pt-0 md:pb-0 whitespace-nowrap bg-[#fafafa] md:bg-transparent text-center md:w-auto md:flex-grow md:flex md:items-center md:static',
+            'max-h-[calc(100vh-50px)] overflow-auto md:overflow-visible  w-full left-0 fixed top-14 pt-6 pb-14 md:pt-0 md:pb-0 whitespace-nowrap bg-[#fafafa] md:bg-transparent text-center md:w-auto md:flex-grow md:flex md:items-center md:static dark:bg-background text-background-foreground',
             {
               hidden: !this.state.menu,
             },
@@ -202,9 +202,9 @@ export class Navbar extends Component<Props> {
                 <li
                   onClick={(evt) => this.onMenuClick(evt, menuItem)}
                   class={classNames(
-                    'md:relative md:mr-2 p-1 border-b md:border-none group md:rounded-md dark:hover:bg-zinc-600',
+                    'md:relative md:mr-2 p-1 border-b md:border-none group md:rounded-md',
                     {
-                      'hover:bg-slate-100': !menuItem.children,
+                      'hover:bg-slate-100 dark:hover:bg-zinc-600': !menuItem.children,
                     },
                   )}
                 >

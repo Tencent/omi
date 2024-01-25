@@ -19,12 +19,18 @@ export function Home() {
           >
             OMI Tailwind Templates
           </h1>
-          <p class="text-gray-600 mb-8 text-2xl">100+ 免费模板，站点、管理系统都有，开箱即用，自由定制，开源免费</p>
+          <p class="text-gray-600 mb-8 text-2xl dark:text-background-foreground">100+ 免费模板，站点、管理系统都有，开箱即用，自由定制，开源免费</p>
           <div class="flex space-x-4">
-            <button class="bg-primary text-primary-foreground px-6 py-2 rounded">开始使用</button>
+            <a
+              
+              href="/#/product-docs"
+              class="bg-primary text-primary-foreground px-6 py-2 rounded"
+            >
+              开始使用
+            </a>
             <a
               target="_blank"
-              href="https://github.com/Tencent/omi"
+              href="https://github.com/Tencent/omi/tree/master/packages/omi-templates"
               class="bg-secondary text-secondary-foreground px-6 py-2 rounded"
             >
               源代码
@@ -63,14 +69,14 @@ export function Home() {
       </div>
 
       <section class="container mx-auto flex items-center mt-12  px-4 md:px-10 rounded-xl shadow-lg bg-background text-background-foreground border">
-        <div class="w-1/2">
+        <div class="w-1/2 p-4">
           <h1 class="text-4xl font-bold mb-4">标题</h1>
           <p class="text-gray-600 mb-8 dark:text-background-foreground">
             这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。
           </p>
           <div class="flex space-x-4">
-            <button class="bg-primary text-white px-6 py-2 rounded">按钮1</button>
-            <button class="bg-gray-300 text-gray-700 px-6 py-2 rounded">按钮2</button>
+            <button class="bg-primary whitespace-nowrap text-white px-6 py-2 rounded">按钮1</button>
+            <button class="bg-gray-300 whitespace-nowrap text-gray-700 px-6 py-2 rounded">按钮2</button>
           </div>
         </div>
         <div class="w-1/2">
@@ -96,7 +102,7 @@ export function Home() {
             class="w-full dark:p-4 rounded-3xl overflow-hidden"
           />
         </div>
-        <div class="w-1/2">
+        <div class="w-1/2 p-4">
           <h1 class="text-4xl font-bold mb-4">标题</h1>
           <p class="text-gray-600 mb-8 dark:text-background-foreground">
             这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。
@@ -137,8 +143,8 @@ export function Home() {
           <h1 class="text-4xl font-bold mb-4  dark:text-gray-200">标题</h1>
           <p class="text-gray-600 mb-8 dark:text-background-foreground">这里是描述内容。</p>
           <div class="flex justify-center space-x-4">
-            <button class="bg-primary text-primary-foreground px-6 py-2 rounded">按钮1</button>
-            <button class="bg-secondary text-secondary-foreground px-6 py-2 rounded">按钮2</button>
+            <button class="bg-primary whitespace-nowrap text-primary-foreground px-6 py-2 rounded">按钮1</button>
+            <button class="bg-secondary whitespace-nowrap text-secondary-foreground px-6 py-2 rounded">按钮2</button>
           </div>
         </div>
       </section>

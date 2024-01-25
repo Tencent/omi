@@ -10,9 +10,9 @@ http://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascr
 /* stylelint-disable */
 code[class*='language-'],
 pre[class*='language-'] {
-  color: black;
+  color: hsl(var(--foreground));
   background: none;
-  text-shadow: 0 1px white;
+  /* text-shadow: 0 1px white; */
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 0.875rem;
   text-align: left;
@@ -98,7 +98,7 @@ pre[class*='language-'] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #905;
+  color: rgb(214, 2, 118);
 }
 
 .token.selector,
@@ -116,7 +116,7 @@ pre[class*='language-'] {
 .language-css .token.string,
 .style .token.string {
   color: #9a6e3a;
-  background: hsla(0, 0%, 100%, 0.5);
+  /* background: hsla(0, 0%, 100%, 0.5); */
 }
 
 .token.atrule,
@@ -549,72 +549,3 @@ pre[class*='language-'] {
   max-height: 450px;
 }
 
-/* dark mode */
-.dark .docs-pills .d-flex.justify-content-between {
-  border-bottom: 1px solid #686868 !important;
-}
-.dark code[class*='language-'],
-.dark pre[class*='language-'] {
-  color: white;
-  text-shadow: none;
-  background: #202022;
-}
-.dark .docs-pills pre[class*='language-'] {
-  border: 1px solid #525252;
-}
-.dark .token.operator,
-.dark .token.entity,
-.dark .token.url,
-.language-css .dark .token.string,
-.dark .style .token.string {
-  color: #c6e0e0;
-  background: transparent;
-}
-.dark .token.attr-name,
-.dark .token.char,
-.dark .token.builtin,
-.dark .token.inserted {
-  color: rgb(220, 220, 220);
-}
-
-.dark .token.selector,
-.dark .token.string {
-  color: #73a3e6;
-}
-
-.dark .token.function,
-.dark .token.class-name {
-  color: #b06edc;
-}
-.dark .token.property,
-.dark .token.tag,
-.dark .token.boolean,
-.dark .token.number,
-.dark .token.constant,
-.dark .token.symbol,
-.dark .token.deleted {
-  color: #dc6eaf;
-}
-.dark .token.atrule,
-.dark .token.attr-value,
-.dark .token.keyword {
-  color: #73c8e6;
-}
-.dark .token.comment {
-  color: #999;
-}
-
-.dark .code-toolbar pre::-webkit-scrollbar {
-  width: 15px;
-}
-.dark .code-toolbar pre::-webkit-scrollbar-track {
-  background-color: #272626 !important;
-}
-.dark .code-toolbar pre::-webkit-scrollbar-thumb {
-  background-color: #444242 !important;
-  border-radius: 2px;
-}
-.dark .code-toolbar pre::-webkit-scrollbar-corner {
-  background-color: #272626 !important;
-}
-/* stylelint-enable */
