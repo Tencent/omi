@@ -93,7 +93,7 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
         </section>
       )}
 
-      <div class="fixed right-0 bottom-0 m-6 bg-gray-300 dark:bg-background dark:text-background-foreground bg-opacity-40 backdrop-filter h-16 backdrop-blur-md p-2 rounded-full flex items-center">
+      <div class="fixed right-0 bottom-0 m-6 bg-gray-300 dark:bg-background dark:text-background-foreground bg-opacity-40 backdrop-filter h-16 backdrop-blur-md py-2 px-3 rounded-full flex items-center">
         <button
           class="flex border bg-gray-100 dark:bg-background dark:text-background-foreground p-2 rounded-full text-gray-600 hover:text-primary"
           onClick={(evt) => {
