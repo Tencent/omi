@@ -58,6 +58,9 @@ export class Navbar extends Component<Props> {
 
   @bind
   onMenuClick(evt: MouseEvent, menuItem: MenuItem) {
+    if (!menuItem.value) {
+      return
+    }
     this.state.menu = false
     this.state.active = menuItem.value
     this.update()
@@ -112,6 +115,7 @@ export class Navbar extends Component<Props> {
                   {
                     'text-gray-600 md:text-gray-800': this.state.active !== menuItemChild.value,
                     'text-primary md:text-primary': this.state.active === menuItemChild.value,
+                    'dark:bg-zinc-200/20': this.state.active === menuItemChild.value,
                   },
                 )}
                 target={menuItemChild.target || '_blank'}
@@ -137,6 +141,7 @@ export class Navbar extends Component<Props> {
                 {
                   'text-gray-600 md:text-gray-800': this.state.active !== menuItemChild.value,
                   'text-primary md:text-primary': this.state.active === menuItemChild.value,
+                  'dark:bg-zinc-200/20': this.state.active === menuItemChild.value,
                 },
               )}
               href={`#${menuItemChild.path}`}
@@ -201,12 +206,10 @@ export class Navbar extends Component<Props> {
               return (
                 <li
                   onClick={(evt) => this.onMenuClick(evt, menuItem)}
-                  class={classNames(
-                    'md:relative md:mr-2 p-1 border-b md:border-none group md:rounded-md',
-                    {
-                      'hover:bg-slate-100 dark:hover:bg-zinc-600': !menuItem.children,
-                    },
-                  )}
+                  class={classNames('md:relative md:mr-2 p-1 border-b md:border-none group md:rounded-md', {
+                    'hover:bg-slate-100 dark:hover:bg-zinc-600': !menuItem.children,
+                    'dark:bg-zinc-200/20': this.state.active === menuItem.value,
+                  })}
                 >
                   <a
                     class="block text-gray-800 cursor-pointer hover:text-primary p-2 md:py-1"

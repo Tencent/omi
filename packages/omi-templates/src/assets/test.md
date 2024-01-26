@@ -15,7 +15,6 @@ Omi (读音 /ˈomɪ/，类似于 欧米) 是 Web Components 框架，内置 JSX 
 - 💯 面向对象编程(OOP) 和 数据驱动编程(DOP) 两种范式都支持
 - 💒 使用 **Constructable Stylesheets** 轻松管理和共享样式
 
-
 ```tsx
 import { render, signal, tag, Component, h } from 'omi'
 
@@ -72,7 +71,7 @@ npm i omi
 
 ```bash
 $ npx omi-cli init my-app    # 或者创建js项目: npx omi-cli init-js my-app
-$ cd my-app           
+$ cd my-app
 $ npm start           # develop
 $ npm run build       # release
 ```
@@ -80,8 +79,8 @@ $ npm run build       # release
 快速创建 Omi + **Router** + **Signal** + **Suspense** + **Tailwindcss** + Vite + TS 项目：
 
 ```bash
-$ npx omi-cli init-spa my-app  
-$ cd my-app           
+$ npx omi-cli init-spa my-app
+$ cd my-app
 $ npm start           # develop
 $ npm run build       # release
 ```
@@ -106,7 +105,7 @@ $ npm run build       # release
   - [`omi-weui`](https://github.com/Tencent/omi/tree/master/packages/omi-weui) - Omi 版本的 WeUI。
   - [`omi-auto-animate`](https://github.com/Tencent/omi/tree/master/packages/omi-auto-animate) - Omi 版本的 @formkit/auto-animate。
   - [`omi-suspense`](https://github.com/Tencent/omi/tree/master/packages/omi-suspense) - 处理异步依赖。
-- 指令  
+- 指令
   - [`omi-transition`](https://github.com/Tencent/omi/tree/master/packages/omi-transition) - 提供进入和离开动画。
   - [`omi-ripple`](https://github.com/Tencent/omi/tree/master/packages/omi-ripple) - 用于为用户界面元素添加涟漪（ripple）效果。当用户与元素交互（例如点击按钮）时，涟漪效果会从交互点开始扩散开来。
 - 综合性例子 (未发布到 npm)
@@ -137,7 +136,6 @@ $ npm run build       # release
 
 在数据驱动编程中，我们将重点放在数据本身和对数据的操作上，而不是数据所在的对象或数据结构。这种编程范式强调的是数据的变化和流动，以及如何响应这些变化。基于响应式函数的 TodoApp 就是一个很好的例子，它使用了响应式编程的概念，当数据（即待办事项列表）发生变化时，UI 会自动更新以反映这些变化。
 
-
 ```tsx
 import { render, signal, computed, tag, Component, h } from 'omi'
 
@@ -145,11 +143,11 @@ const todos = signal([
   { text: 'Learn OMI', completed: true },
   { text: 'Learn Web Components', completed: false },
   { text: 'Learn JSX', completed: false },
-  { text: 'Learn Signal', completed: false }
+  { text: 'Learn Signal', completed: false },
 ])
 
 const completedCount = computed(() => {
-  return todos.value.filter(todo => todo.completed).length
+  return todos.value.filter((todo) => todo.completed).length
 })
 
 const newItem = signal('')
@@ -196,8 +194,7 @@ class TodoList extends Component {
                     }}
                   />
                   {todo.completed ? <s>{todo.text}</s> : todo.text}
-                </label>
-                {' '}
+                </label>{' '}
                 <button onClick={() => removeTodo(index)}>❌</button>
               </li>
             )
@@ -212,26 +209,23 @@ class TodoList extends Component {
 render(<todo-list />, document.body)
 ```
 
-
 ### TodoApp 使用信号类 Signal
 
 > 面向对象编程
 
 在面向对象编程中，我们将重点放在对象上，对象包含了数据和操作数据的方法。这种编程范式强调的是对象之间的交互和协作，以及如何通过对象的封装、继承和多态性来组织和管理代码。基于响应式函数的 TodoApp 也可以使用面向对象的方式来实现，例如，我们可以创建一个 TodoList 类，这个类包含了待办事项列表的数据和操作这些数据的方法，以及一个 `update` 方法来更新 UI。
 
-
-
 ```tsx
 import { render, Signal, tag, Component, h, computed } from 'omi'
 
-type Todo = { text: string, completed: boolean }
+type Todo = { text: string; completed: boolean }
 
-class TodoApp extends Signal<{ todos: Todo[], filter: string, newItem: string }> {
+class TodoApp extends Signal<{ todos: Todo[]; filter: string; newItem: string }> {
   completedCount: ReturnType<typeof computed>
 
   constructor(todos: Todo[] = []) {
     super({ todos, filter: 'all', newItem: '' })
-    this.completedCount = computed(() => this.value.todos.filter(todo => todo.completed).length)
+    this.completedCount = computed(() => this.value.todos.filter((todo) => todo.completed).length)
   }
 
   addTodo = () => {
@@ -263,7 +257,7 @@ const todoApp = new TodoApp([
   { text: 'Learn OMI', completed: true },
   { text: 'Learn Web Components', completed: false },
   { text: 'Learn JSX', completed: false },
-  { text: 'Learn Signal', completed: false }
+  { text: 'Learn Signal', completed: false },
 ])
 
 @tag('todo-list')
@@ -285,14 +279,9 @@ class TodoList extends Component {
             return (
               <li>
                 <label>
-                  <input
-                    type="checkbox"
-                    checked={todo.completed}
-                    onInput={() => toggleTodo(index)}
-                  />
+                  <input type="checkbox" checked={todo.completed} onInput={() => toggleTodo(index)} />
                   {todo.completed ? <s>{todo.text}</s> : todo.text}
-                </label>
-                {' '}
+                </label>{' '}
                 <button onClick={() => removeTodo(index)}>❌</button>
               </li>
             )
@@ -319,14 +308,13 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   esbuild: {
     jsxInject: "import { h } from 'omi'",
-    jsxFactory: "h",
-    jsxFragment: "h.f"
-  }
+    jsxFactory: 'h',
+    jsxFragment: 'h.f',
+  },
 })
 ```
 
 你可以在构建时候注入代码，这样就不用手动导出 `h`。
-
 
 ## 定义跨框架组件
 
@@ -348,12 +336,12 @@ class MyCounter extends Component {
       changed(newValue, oldValue) {
         this.state.count = newValue
         this.update()
-      }
-    }
+      },
+    },
   }
 
   state = {
-    count: null
+    count: null,
   }
 
   install() {
@@ -390,37 +378,31 @@ class MyCounter extends Component {
 
 ```html
 <script setup>
-import { ref } from 'vue'
-// 导入 omi 组件
-import './my-counter'
+  import { ref } from 'vue'
+  // 导入 omi 组件
+  import './my-counter'
 
-defineProps({
-  msg: String,
-})
+  defineProps({
+    msg: String,
+  })
 
-const count = ref(0)
+  const count = ref(0)
 
-const change = (e) => {
-  count.value = e.detail
-}
-
+  const change = (e) => {
+    count.value = e.detail
+  }
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
 
   <my-counter @change="change" :count="count" />
-  <p>
-    【Omi】 
-  </p>
+  <p>【Omi】</p>
 
   <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-     【Vue】 
-    </p>
+    <p>【Vue】</p>
   </div>
-
 </template>
 ```
 
@@ -435,7 +417,6 @@ this.fire('count-change', this.state.count)
 ```html
 <my-counter @count-change="change" :count="count" />
 ```
-
 
 ### 在 React 中使用
 
@@ -466,9 +447,7 @@ function App() {
       <h1>Omi + React</h1>
       <my-counter count={count} ref={myCounterRef}></my-counter>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
       </div>
     </>
   )
@@ -477,15 +456,11 @@ function App() {
 export default App
 ```
 
-
 ## License
 
 MIT © Tencent
 
-
 # 欢迎使用在线 Markdown 阅读器
-
-
 
 ## 如何使用
 
@@ -525,7 +500,6 @@ MIT © Tencent
 - [x] 🌟 增加对**所见即所得**编辑模式的支持(`⌘-⇧-M`)；
 
 ---
-
 
 ### 绘制表格
 

@@ -15,11 +15,11 @@ let currentTheme = ''
 class Customize extends Component {
   @bind
   onColorClick(evt: MouseEvent) {
-    const target = evt.currentTarget as HTMLElement;
-    this.state.selectedColor = target.dataset.color || '';
-    currentTheme = this.state.selectedColor;
-    this.update();
-    target.dataset.color && setPrimary(target.dataset.color.replace(/hsl\(|\)/g, ''));
+    const target = evt.currentTarget as HTMLElement
+    this.state.selectedColor = target.dataset.color || ''
+    currentTheme = this.state.selectedColor
+    this.update()
+    target.dataset.color && setPrimary(target.dataset.color.replace(/hsl\(|\)/g, ''))
   }
 
   colors = [

@@ -19,13 +19,11 @@ export function Home() {
           >
             OMI Tailwind Templates
           </h1>
-          <p class="text-gray-600 mb-8 text-2xl dark:text-background-foreground">100+ 免费模板，站点、管理系统都有，开箱即用，自由定制，开源免费</p>
+          <p class="text-gray-600 mb-8 text-2xl dark:text-background-foreground">
+            100+ 免费模板，站点、管理系统都有，开箱即用，自由定制，开源免费
+          </p>
           <div class="flex space-x-4">
-            <a
-              
-              href="/#/product-docs"
-              class="bg-primary text-primary-foreground px-6 py-2 rounded"
-            >
+            <a href="/#/product-docs" class="bg-primary text-primary-foreground px-6 py-2 rounded">
               开始使用
             </a>
             <a
