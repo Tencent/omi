@@ -24,7 +24,7 @@ export function Home() {
           </p>
           <div class="flex space-x-4">
             <a
-              href="/#/product-docs"
+              href="#/product-docs"
               class="bg-primary shadow hover:bg-primary/85 text-primary-foreground px-5 py-2 rounded"
             >
               开始使用
