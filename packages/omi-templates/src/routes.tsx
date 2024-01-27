@@ -20,6 +20,8 @@ export const routes = [
   createRoute('/results/system-maintenance', () => import('./pages/results/system-maintenance')),
   createRoute('/results/not-found', () => import('./pages/results/not-found')),
   createRoute('/product-docs', () => import('./pages/product-docs')),
+  createRoute('/personal', () => import('./pages/personal')),
+  createLoginRoute('/login', () => import('./pages/login')),
   createRoute('*', () => import('./pages/results/not-found')),
   {
     path: '/before-enter/test',
@@ -44,8 +46,33 @@ function createRoute(path: string, componentImport: () => Promise<unknown>) {
             }}
             fallback={fallback}
             pending={pending}
+            onLoaded={() => {
+              window.refreshDark()
+            }}
           ></o-suspense>
         </SiteLayout>
+      )
+    },
+  }
+}
+
+function createLoginRoute(path: string, componentImport: () => Promise<unknown>) {
+  return {
+    path,
+    render(router: Router) {
+      return (
+        <o-suspense
+          minLoadingTime={600}
+          imports={[componentImport()]}
+          customRender={(results: { [x: string]: Function }[]) => {
+            return results[0][Object.keys(results[0])[0]](router.params)
+          }}
+          fallback={fallback}
+          pending={pending}
+          onLoaded={() => {
+            window.refreshDark()
+          }}
+        ></o-suspense>
       )
     },
   }

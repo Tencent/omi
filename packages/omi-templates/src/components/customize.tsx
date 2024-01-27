@@ -64,16 +64,12 @@ class Customize extends Component {
 
   @bind
   setDarkMode() {
-    window.setDarkMode()
     isDark.value = true
-    this.update()
   }
 
   @bind
   setLightMode() {
-    window.setLightMode()
     isDark.value = false
-    this.update()
   }
 
   render() {

@@ -7,7 +7,9 @@ import { showCustomize } from './customize.tsx'
 @tag('navbar-wrpapper')
 class NavbarWrapper extends Component {
   render() {
-    return <o-navbar menuItems={menuItems.value} active={activeMenuItem.value}></o-navbar>
+    return (
+      <o-navbar menuItems={menuItems.value} active={activeMenuItem.value} onInstalled={window.refreshDark}></o-navbar>
+    )
   }
 }
 
