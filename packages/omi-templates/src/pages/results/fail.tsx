@@ -1,6 +1,6 @@
 export function Fail() {
   return (
-    <div class="flex items-center justify-center" style="height:calc(100vh - 349px)">
+    <div class="flex items-center justify-center" style="height:calc(100vh - 58px)">
       <div class="p-8  text-center">
         <div class="mb-4 text-gray-600 dark:text-foreground">
           <svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="w-16 h-16 mx-auto">

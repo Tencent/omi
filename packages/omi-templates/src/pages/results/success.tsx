@@ -1,6 +1,6 @@
 export function SuccessResult() {
   return (
-    <div class="flex items-center justify-center" style="height:calc(100vh - 349px)">
+    <div class="flex items-center justify-center" style="height:calc(100vh - 58px)">
       <div class="p-8  text-center">
         <div class="mb-4">
           <svg
