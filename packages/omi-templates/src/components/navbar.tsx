@@ -92,7 +92,7 @@ export class Navbar extends Component<Props> {
     switch (menuItemChild.type) {
       case 'title':
         return (
-          <li class="text-slate-300 dark:text-zinc-500 text-sm px-5 pt-2 cursor-default dark:text-background-foreground">
+          <li class="text-slate-300 dark:text-zinc-500 text-sm px-5 pt-2 cursor-default dark:text-foreground">
             {menuItemChild.text}
           </li>
         )
@@ -107,11 +107,11 @@ export class Navbar extends Component<Props> {
           return (
             <li
               onClick={(evt) => this.onSubMenuClick(evt, menuItemChild)}
-              class="p-1 dark:bg-background dark:text-background-foreground"
+              class="p-1 dark:bg-background dark:text-foreground"
             >
               <a
                 class={classNames(
-                  'no-underline block px-4 py-2 hover:text-primary hover:bg-slate-100 dark:hover:bg-zinc-600  rounded-md p-2 dark:text-background-foreground',
+                  'no-underline block px-4 py-2 hover:text-primary hover:bg-slate-100 dark:hover:bg-zinc-600  rounded-md p-2 dark:text-foreground',
                   {
                     'text-gray-600 md:text-gray-800': this.state.active !== menuItemChild.value,
                     'text-primary md:text-primary': this.state.active === menuItemChild.value,
@@ -137,7 +137,7 @@ export class Navbar extends Component<Props> {
           <li onClick={(evt) => this.onSubMenuClick(evt, menuItemChild)} class="p-1 dark:bg-background">
             <a
               class={classNames(
-                'no-underline block px-4 py-2 hover:text-primary hover:bg-slate-100 dark:hover:bg-zinc-600 rounded-md  p-2 dark:text-background-foreground',
+                'no-underline block px-4 py-2 hover:text-primary hover:bg-slate-100 dark:hover:bg-zinc-600 rounded-md  p-2 dark:text-foreground',
                 {
                   'text-gray-600 md:text-gray-800': this.state.active !== menuItemChild.value,
                   'text-primary md:text-primary': this.state.active === menuItemChild.value,
@@ -195,7 +195,7 @@ export class Navbar extends Component<Props> {
         </div>
         <div
           class={classNames(
-            'max-h-[calc(100vh-50px)] overflow-auto md:overflow-visible  w-full left-0 fixed top-14 pt-6 pb-14 md:pt-0 md:pb-0 whitespace-nowrap bg-[#fafafa] md:bg-transparent text-center md:w-auto md:flex-grow dark:bg-background md:dark:bg-transparent md:flex md:items-center md:static text-background-foreground',
+            'max-h-[calc(100vh-50px)] overflow-auto md:overflow-visible  w-full left-0 fixed top-14 pt-6 pb-14 md:pt-0 md:pb-0 whitespace-nowrap bg-[#fafafa] md:bg-transparent text-center md:w-auto md:flex-grow dark:bg-background md:dark:bg-transparent md:flex md:items-center md:static text-foreground',
             {
               hidden: !this.state.menu,
             },
@@ -220,20 +220,17 @@ export class Navbar extends Component<Props> {
                     }
                   >
                     {menuItem.img && (
-                      <img
-                        class="h-6 w-6 inline-block rounded-full border mr-1 relative -top-0.5"
-                        src={menuItem.img}
-                      ></img>
+                      <img class="h-6 w-6 inline-block rounded-full mr-1 relative -top-0.5" src={menuItem.img}></img>
                     )}
                     <span
-                      class={classNames('dark:text-background-foreground', {
+                      class={classNames('dark:text-foreground', {
                         'text-primary': this.state.active === menuItem.value,
                       })}
                     >
                       {menuItem.name}
                     </span>
                     {menuItem.href && (
-                      <div class="w-3 h-3 inline-block text-gray-600 ml-1 dark:text-background-foreground">
+                      <div class="w-3 h-3 inline-block text-gray-600 ml-1 dark:text-foreground">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="currentColor"
@@ -248,7 +245,7 @@ export class Navbar extends Component<Props> {
 
                     {menuItem.children && (
                       <svg
-                        className="dark:text-background-foreground md:inline-block ml-1 relative -top-0.5 hidden"
+                        className="dark:text-foreground md:inline-block ml-1 relative -top-0.5 hidden"
                         xmlns="http://www.w3.org/2000/svg"
                         width="12"
                         height="12"

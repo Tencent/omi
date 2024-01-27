@@ -86,17 +86,13 @@ class Customize extends Component {
         <div class="theme-zinc w-full flex flex-col space-y-4 md:space-y-6" style="--radius: 0.5rem;">
           <div class="flex items-start pt-4 md:pt-0">
             <div class="space-y-1 pr-2">
-              <div class="font-semibold leading-none tracking-tight text-lg dark:text-background-foreground">
-                自定义
-              </div>
-              <div class="text-muted-foreground text-gray-600 dark:text-background-foreground">
-                为你的模板选择一个颜色和样式。
-              </div>
+              <div class="font-semibold leading-none tracking-tight text-lg dark:text-foreground">自定义</div>
+              <div class="text-muted-foreground text-gray-600 dark:text-foreground">为你的模板选择一个颜色和样式。</div>
             </div>
           </div>
           <div class="flex flex-1 flex-col space-y-4 md:space-y-6">
             <div class="space-y-1.5">
-              <label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:text-background-foreground">
+              <label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:text-foreground">
                 颜色
               </label>
               <div class="grid grid-cols-3 gap-2">
@@ -104,7 +100,7 @@ class Customize extends Component {
                   return (
                     <button
                       onClick={this.onColorClick}
-                      class="inline-flex items-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs justify-start dark:text-background-foreground"
+                      class="inline-flex items-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs justify-start dark:text-foreground"
                       data-color={item.color}
                       style={`--theme-primary: ${item.color};`}
                     >
@@ -153,7 +149,7 @@ class Customize extends Component {
                 </button>
               </div>
             </div> */}
-            <div class="space-y-1.5 dark:text-background-foreground">
+            <div class="space-y-1.5 dark:text-foreground">
               <label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70">模式</label>
               <div class="grid grid-cols-3 gap-2">
                 <button

@@ -508,7 +508,7 @@ export function Chat() {
                           </span>
                         </div>
                         <div class="flex-1">
-                          <button class="bg-primary w-10 h-10 rounded-full inline-block">
+                          <button class="bg-primary hover:bg-primary/85 w-10 h-10 rounded-full inline-block">
                             <span class="inline-block align-text-bottom">
                               <svg
                                 fill="none"

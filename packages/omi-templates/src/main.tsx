@@ -1,10 +1,10 @@
 import { routes } from './routes'
-import { Router} from 'omi-router'
+import { Router } from 'omi-router'
 import './tailwind/index'
 
 const router = new Router({
   routes,
-  renderTo: '#app'
+  renderTo: '#app',
 })
 
 router.afterEach(() => {

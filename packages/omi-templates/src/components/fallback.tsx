@@ -35,7 +35,7 @@ export const fallback = (
       <p class="text-gray-600 mb-6">网络异常，请稍后再试</p>
 
       <div class="flex justify-center space-x-4">
-        <a href="#/" class="py-2 px-4 bg-primary text-white rounded hover:bg-blue-600">
+        <a href="#/" class="py-2 px-4 bg-primary text-white rounded hover:bg-primary/85">
           重新加载
         </a>
         <a href="#/" class="py-2 px-4 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">

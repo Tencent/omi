@@ -27,7 +27,7 @@ export const routes = [
       // reject the navigation
       return false
     },
-  }
+  },
 ]
 
 function createRoute(path: string, componentImport: () => Promise<unknown>) {
@@ -38,18 +38,15 @@ function createRoute(path: string, componentImport: () => Promise<unknown>) {
         <SiteLayout current={router.currentRoute?.path}>
           <o-suspense
             minLoadingTime={600}
-            imports={[
-              componentImport(),
-            ]}
+            imports={[componentImport()]}
             customRender={(results: { [x: string]: Function }[]) => {
               return results[0][Object.keys(results[0])[0]](router.params)
             }}
             fallback={fallback}
             pending={pending}
-          >
-          </o-suspense>
+          ></o-suspense>
         </SiteLayout>
       )
-    }
+    },
   }
 }

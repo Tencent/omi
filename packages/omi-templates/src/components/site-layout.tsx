@@ -1,23 +1,23 @@
 import { Component, VNode, tag } from 'omi'
 import './navbar.tsx'
-import { menuItems } from '../store.ts'
+import { menuItems, activeMenuItem } from '../store.ts'
 import { showCustomize } from './customize.tsx'
 
 /* Because the menu needs to update user avatars, a separate component is packaged for local updates */
 @tag('navbar-wrpapper')
 class NavbarWrapper extends Component {
   render() {
-    return <o-navbar menuItems={menuItems.value} active="home"></o-navbar>
+    return <o-navbar menuItems={menuItems.value} active={activeMenuItem.value}></o-navbar>
   }
 }
 
 export function SiteLayout(props: { hideFooter?: boolean; current?: string; children?: VNode | VNode[] }) {
   return (
-    <div class="bg-[#fafafa] pt-[56px] dark:bg-background dark:text-background-foreground">
-      <header class="bg-white dark:bg-background/10 dark:text-background-foreground bg-opacity-40 backdrop-filter backdrop-blur-md py-2 top-0 shadow fixed w-full px-4 md:px-0 z-[100000]">
+    <div class="bg-[#fafafa] pt-[56px] dark:bg-background dark:text-foreground">
+      <header class="bg-white dark:bg-background/10 dark:text-foreground bg-opacity-40 backdrop-filter backdrop-blur-md py-2 top-0 shadow fixed w-full px-4 md:px-0 z-[100000]">
         <div class="container mx-auto flex justify-between items-center">
           <div class="text-xl font-bold">
-            <a href="#" class="text-gray-800 dark:text-background-foreground">
+            <a href="#" class="text-gray-800 dark:text-foreground">
               LOGO
             </a>
           </div>
@@ -31,11 +31,11 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
       {props.children}
 
       {!props.hideFooter && (
-        <section class="bg-[#eeeeee] dark:bg-background dark:text-background-foreground px-4 md:px-0 border-t">
+        <section class="bg-[#eeeeee] dark:bg-background dark:text-foreground px-4 md:px-0 border-t">
           <div class="container  mx-auto py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h2 class="text-xl font-bold mb-4">友情链接1</h2>
-              <ul class="text-gray-600 dark:text-background-foreground">
+              <ul class="text-gray-600 dark:text-foreground">
                 <li>
                   <a href="#">链接1</a>
                 </li>
@@ -49,7 +49,7 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
             </div>
             <div>
               <h2 class="text-xl font-bold mb-4">友情链接2</h2>
-              <ul class="text-gray-600 dark:text-background-foreground">
+              <ul class="text-gray-600 dark:text-foreground">
                 <li>
                   <a href="#">链接1</a>
                 </li>
@@ -63,7 +63,7 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
             </div>
             <div>
               <h2 class="text-xl font-bold mb-4">友情链接3</h2>
-              <ul class="text-gray-600 dark:text-background-foreground">
+              <ul class="text-gray-600 dark:text-foreground">
                 <li>
                   <a href="#">链接1</a>
                 </li>
@@ -77,7 +77,7 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
             </div>
             <div>
               <h2 class="text-xl font-bold mb-4">友情链接4</h2>
-              <ul class="text-gray-600 dark:text-background-foreground">
+              <ul class="text-gray-600 dark:text-foreground">
                 <li>
                   <a href="#">链接1</a>
                 </li>
@@ -93,9 +93,9 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
         </section>
       )}
 
-      <div class="fixed right-0 bottom-0 m-6 bg-gray-300 dark:bg-background dark:text-background-foreground bg-opacity-40 backdrop-filter h-16 backdrop-blur-md py-2 px-3 rounded-full flex items-center">
+      <div class="fixed right-0 bottom-0 m-6 bg-gray-300 dark:bg-background dark:text-foreground bg-opacity-40 backdrop-filter h-16 backdrop-blur-md py-2 px-3 rounded-full flex items-center">
         <button
-          class="flex border bg-gray-100 dark:bg-background dark:text-background-foreground p-2 rounded-full text-gray-600 hover:text-primary"
+          class="flex border bg-gray-100 dark:bg-background dark:text-foreground p-2 rounded-full text-gray-600 hover:text-primary"
           onClick={(evt) => {
             evt.stopPropagation()
             showCustomize()
@@ -121,9 +121,9 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
       </div>
 
       {!props.hideFooter && (
-        <footer class="bg-[#e7e7e7] dark:bg-background dark:text-background-foreground py-6">
+        <footer class="bg-[#e7e7e7] dark:bg-background dark:text-foreground py-6">
           <div class="container mx-auto text-center">
-            <p class="text-gray-600 dark:text-background-foreground">© 2024 Tencent OMI. All rights reserved.</p>
+            <p class="text-gray-600 dark:text-foreground">© 2024 Tencent OMI. All rights reserved.</p>
           </div>
         </footer>
       )}

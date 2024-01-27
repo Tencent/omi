@@ -29,7 +29,7 @@ export function ProductDocs() {
                       </li>
                       <li class="relative">
                         <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full font-semibold text-primary before:bg-blue-500"
+                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full font-semibold text-primary before:bg-primary brightness-125"
                           href="/docs/installation"
                         >
                           Installation
@@ -220,7 +220,7 @@ export function ProductDocs() {
           <div class="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16">
             <article>
               <header class="mb-9 space-y-1">
-                <p class="font-display text-sm font-medium text-primary">Introduction</p>
+                <p class="font-display text-sm font-medium text-primary brightness-125">Introduction</p>
                 <h1 class="font-display text-3xl tracking-tight text-slate-900 dark:text-white">Installation</h1>
               </header>
 
@@ -265,7 +265,7 @@ export function ProductDocs() {
               <ol role="list" class="mt-4 space-y-3 text-sm">
                 <li>
                   <h3>
-                    <a class="text-primary" href="#quis-vel-iste-dicta">
+                    <a class="text-primary brightness-125" href="#quis-vel-iste-dicta">
                       Quis vel iste dicta
                     </a>
                   </h3>
