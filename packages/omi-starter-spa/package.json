@@ -1,5 +1,5 @@
 {
-  "name": "omi-starter-ts",
+  "name": "omi-starter-spa",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "prettier --write src/**/*.{ts,tsx,scss,less,styl,html,md} && eslint --fix src/**/*.{ts,tsx}"
+    "p": "prettier --write src"
   },
   "dependencies": {
     "omi": "latest",

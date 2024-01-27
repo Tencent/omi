@@ -21,3 +21,10 @@ npm start
 ```bash
 npm run build
 ```
+
+## Prettier
+
+
+```bash
+npm run p
+```

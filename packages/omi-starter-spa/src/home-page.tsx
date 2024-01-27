@@ -1,13 +1,12 @@
 import { tag, signal, Component } from 'omi'
 import css from './app.css?raw'
 import './components/site-card'
-import { tailwind } from './tailwind'
 
 const count = signal(0)
 
 @tag('home-page')
 export default class extends Component {
-  static css = [tailwind, css]
+  static css = css
 
   render() {
     return (

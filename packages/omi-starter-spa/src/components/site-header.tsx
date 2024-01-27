@@ -1,10 +1,9 @@
 import { tag, Component } from 'omi'
 import css from '../app.css?raw'
-import { tailwind } from '../tailwind'
 
 @tag('site-header')
 export default class extends Component {
-  static css = [tailwind, css]
+  static css = css
 
   render() {
     return (
@@ -14,7 +13,7 @@ export default class extends Component {
           OMI
         </a>
         <div class="flex items-center">
-          <div class="hidden md:flex items-center">
+          <div class="flex items-center">
             <nav>
               <ul class="flex items-center gap-x-8">
                 <li>

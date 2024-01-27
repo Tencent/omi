@@ -2,16 +2,23 @@ import 'omi-suspense'
 import './index.css'
 import './components/site-header'
 import { userState } from './store'
+import { VNode } from 'omi'
+
+const Layout = ({ children }: { children: VNode | VNode[] }) => {
+  return (
+    <div class="container mx-auto">
+      <site-header></site-header>
+      {children}
+    </div>
+  )
+}
 
 export const routes = [
   {
     path: '/',
-    transition: 'fade',
-    meta: {},
     render() {
       return (
-        <>
-          <site-header></site-header>
+        <Layout>
           <o-suspense
             imports={[
               import('./home-page'),
@@ -19,7 +26,7 @@ export const routes = [
           >
             <home-page />
           </o-suspense>
-        </>
+        </Layout>
 
 
       )
@@ -29,8 +36,7 @@ export const routes = [
     path: '/user/:id/profile',
     render() {
       return (
-        <>
-          <site-header></site-header>
+        <Layout>
           <o-suspense
             imports={[
               import('./components/user-info'),
@@ -65,7 +71,7 @@ export const routes = [
               <user-profile></user-profile>
             </user-info>
           </o-suspense>
-        </>
+        </Layout>
 
       )
     }
@@ -74,8 +80,7 @@ export const routes = [
     path: '/user/:id/posts',
     render() {
       return (
-        <>
-          <site-header></site-header>
+        <Layout>
           <o-suspense imports={[
             import('./components/user-info'),
             import('./components/user-posts'),
@@ -85,7 +90,7 @@ export const routes = [
               <user-posts></user-posts>
             </user-info>
           </o-suspense>
-        </>
+        </Layout>
 
       )
     }
@@ -98,7 +103,7 @@ export const routes = [
   }, {
     path: '*',
     render() {
-      return <h1>404</h1>
+      return <h1 class='text-3xl'>404</h1>
     }
   }
 ]

@@ -1,9 +1,8 @@
 import { tag, Component } from 'omi'
-import { tailwind } from '../tailwind'
 
 @tag('site-card')
 export class MyComponent extends Component {
-  static css = [tailwind, `h1 { color: red }`]
+  static css = `h1 { color: red }`
 
   render() {
     return (
