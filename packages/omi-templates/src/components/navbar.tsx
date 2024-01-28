@@ -1,11 +1,10 @@
 import { tag, Component, bind, classNames } from 'omi'
 import './dark-switch'
 
-type MenuItem = {
+type NavbarItem = {
   text: string
   href: string
   target: string
-  name: string
   path: string
   value: string
   type: string
@@ -16,7 +15,7 @@ type MenuItem = {
 }
 
 type Props = {
-  menuItems: MenuItem[]
+  items: NavbarItem[]
   active: string
 }
 
@@ -29,7 +28,7 @@ export class Navbar extends Component<Props> {
   `
 
   state = {
-    menu: false,
+    isOpen: false,
     active: '',
   }
 
@@ -38,43 +37,43 @@ export class Navbar extends Component<Props> {
   }
 
   @bind
-  onMenuClick(evt: MouseEvent, menuItem: MenuItem) {
-    if (!menuItem.value) {
+  onItemClick(evt: MouseEvent, navbarItem: NavbarItem) {
+    if (!navbarItem.value) {
       return
     }
-    this.state.menu = false
-    this.state.active = menuItem.value
+    this.state.isOpen = false
+    this.state.active = navbarItem.value
     this.update()
-    this.fire('menu-click', {
-      menuItem: menuItem,
+    this.fire('item-click', {
+      item: navbarItem,
       nativeEvent: evt,
     })
   }
 
   @bind
-  onSubMenuClick(evt: MouseEvent, menuItem: MenuItem) {
-    this.state.menu = false
+  onSubItemClick(evt: MouseEvent, navbarItem: NavbarItem) {
+    this.state.isOpen = false
     evt.stopPropagation()
-    this.state.active = menuItem.value
+    this.state.active = navbarItem.value
     this.update()
-    this.fire('menu-click', {
-      menuItem: menuItem,
+    this.fire('item-click', {
+      item: navbarItem,
       nativeEvent: evt,
     })
   }
 
   @bind
   onClick() {
-    this.state.menu = !this.state.menu
+    this.state.isOpen = !this.state.isOpen
     this.update()
   }
 
-  renderMenuItemChild(menuItemChild: MenuItem) {
-    switch (menuItemChild.type) {
+  renderNavbarItemChild(navbarItemChild: NavbarItem) {
+    switch (navbarItemChild.type) {
       case 'title':
         return (
           <li class="text-slate-300 dark:text-zinc-500 text-sm px-5 pt-2 cursor-default dark:text-foreground">
-            {menuItemChild.text}
+            {navbarItemChild.text}
           </li>
         )
       case 'spliter':
@@ -84,25 +83,25 @@ export class Navbar extends Component<Props> {
           </li>
         )
       default:
-        if (menuItemChild.href) {
+        if (navbarItemChild.href) {
           return (
             <li
-              onClick={(evt) => this.onSubMenuClick(evt, menuItemChild)}
+              onClick={(evt) => this.onSubItemClick(evt, navbarItemChild)}
               class="p-1 dark:bg-background dark:text-foreground"
             >
               <a
                 class={classNames(
                   'no-underline block px-4 py-2 hover:text-primary hover:bg-slate-100 dark:hover:bg-zinc-600  rounded-md p-2 dark:text-foreground',
                   {
-                    'text-gray-600 md:text-gray-800': this.state.active !== menuItemChild.value,
-                    'text-primary md:text-primary': this.state.active === menuItemChild.value,
-                    'dark:bg-zinc-200/20': this.state.active === menuItemChild.value,
+                    'text-gray-600 md:text-gray-800': this.state.active !== navbarItemChild.value,
+                    'text-primary md:text-primary': this.state.active === navbarItemChild.value,
+                    'dark:bg-zinc-200/20': this.state.active === navbarItemChild.value,
                   },
                 )}
-                target={menuItemChild.target || '_blank'}
-                href={`${menuItemChild.href}`}
+                target={navbarItemChild.target || '_blank'}
+                href={`${navbarItemChild.href}`}
               >
-                {menuItemChild.name}
+                {navbarItemChild.text}
                 <div class="w-3 h-3 inline-block text-gray-600 ml-1">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-full h-full">
                     <path d="M0 0h24v24H0V0z" fill="none" />
@@ -115,19 +114,19 @@ export class Navbar extends Component<Props> {
         }
 
         return (
-          <li onClick={(evt) => this.onSubMenuClick(evt, menuItemChild)} class="p-1 dark:bg-background">
+          <li onClick={(evt) => this.onSubItemClick(evt, navbarItemChild)} class="p-1 dark:bg-background">
             <a
               class={classNames(
                 'no-underline block px-4 py-2 hover:text-primary hover:bg-slate-100 dark:hover:bg-zinc-600 rounded-md  p-2 dark:text-foreground',
                 {
-                  'text-gray-600 md:text-gray-800': this.state.active !== menuItemChild.value,
-                  'text-primary md:text-primary': this.state.active === menuItemChild.value,
-                  'dark:bg-zinc-200/20': this.state.active === menuItemChild.value,
+                  'text-gray-600 md:text-gray-800': this.state.active !== navbarItemChild.value,
+                  'text-primary md:text-primary': this.state.active === navbarItemChild.value,
+                  'dark:bg-zinc-200/20': this.state.active === navbarItemChild.value,
                 },
               )}
-              href={`#${menuItemChild.path}`}
+              href={`#${navbarItemChild.path}`}
             >
-              {menuItemChild.name}
+              {navbarItemChild.text}
             </a>
           </li>
         )
@@ -145,7 +144,7 @@ export class Navbar extends Component<Props> {
             aria-controls="navbar-multi-level"
             aria-expanded="false"
           >
-            {this.state.menu ? (
+            {this.state.isOpen ? (
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path
                   fill="none"
@@ -178,46 +177,50 @@ export class Navbar extends Component<Props> {
           class={classNames(
             'max-h-[calc(100vh-50px)] overflow-auto md:overflow-visible  w-full left-0 fixed top-14 pt-6 pb-14 md:pt-0 md:pb-0 whitespace-nowrap bg-[#fafafa] md:bg-transparent text-center md:w-auto md:flex-grow dark:bg-background md:dark:bg-transparent md:flex md:items-center md:static text-foreground',
             {
-              hidden: !this.state.menu,
+              hidden: !this.state.isOpen,
             },
           )}
         >
           <ul class="w-[288px] mx-auto md:w-full md:flex md:flex-row text-left">
-            {this.props.menuItems.map((menuItem: MenuItem) => {
-              if (menuItem.tag) {
+            {this.props.items.map((navbarItem: NavbarItem) => {
+              if (navbarItem.tag) {
                 return (
                   <li class="md:relative md:mr-2 p-1 border-b md:border-none group md:rounded-md">
-                    <menuItem.tag></menuItem.tag>
+                    <navbarItem.tag></navbarItem.tag>
                   </li>
                 )
               }
               return (
                 <li
-                  onClick={(evt) => this.onMenuClick(evt, menuItem)}
+                  onClick={(evt) => this.onItemClick(evt, navbarItem)}
                   class={classNames('md:relative md:mr-2 p-1 border-b md:border-none group md:rounded-md', {
-                    'hover:bg-slate-100 dark:hover:bg-zinc-600': !menuItem.children,
-                    'dark:bg-zinc-200/20': this.state.active === menuItem.value,
+                    'hover:bg-slate-100 dark:hover:bg-zinc-600': !navbarItem.children,
+                    'dark:bg-zinc-200/20': this.state.active && this.state.active === navbarItem.value,
                   })}
                 >
                   <a
                     class="block text-gray-800 cursor-pointer hover:text-primary p-2 md:py-1"
-                    target={menuItem.href ? menuItem.target || '_blank' : '_self'}
-                    unsafeHTML={menuItem.inner ? { html: menuItem.inner } : null}
+                    target={navbarItem.href ? navbarItem.target || '_blank' : '_self'}
+                    unsafeHTML={navbarItem.inner ? { html: navbarItem.inner } : null}
                     href={
-                      menuItem.children ? 'javascript:void(0)' : menuItem.href ? menuItem.href : `#${menuItem.path}`
+                      navbarItem.children
+                        ? 'javascript:void(0)'
+                        : navbarItem.href
+                        ? navbarItem.href
+                        : `#${navbarItem.path}`
                     }
                   >
-                    {menuItem.img && (
-                      <img class="h-6 w-6 inline-block rounded-full mr-1 relative -top-0.5" src={menuItem.img}></img>
+                    {navbarItem.img && (
+                      <img class="h-6 w-6 inline-block rounded-full mr-1 relative -top-0.5" src={navbarItem.img}></img>
                     )}
                     <span
                       class={classNames('dark:text-foreground', {
-                        'text-primary': this.state.active === menuItem.value,
+                        'text-primary': this.state.active && this.state.active === navbarItem.value,
                       })}
                     >
-                      {menuItem.name}
+                      {navbarItem.text}
                     </span>
-                    {menuItem.href && (
+                    {navbarItem.href && (
                       <div class="w-3 h-3 inline-block text-gray-600 ml-1 dark:text-foreground">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -231,7 +234,7 @@ export class Navbar extends Component<Props> {
                       </div>
                     )}
 
-                    {menuItem.children && (
+                    {navbarItem.children && (
                       <svg
                         className="dark:text-foreground md:inline-block ml-1 relative -top-0.5 hidden"
                         xmlns="http://www.w3.org/2000/svg"
@@ -247,10 +250,10 @@ export class Navbar extends Component<Props> {
                         />
                       </svg>
                     )}
-                    {menuItem.children && (
+                    {navbarItem.children && (
                       <ul class="md:absolute md:left-1/2 md:-translate-x-1/2 w-auto  mt-2 text-sm md:text-base dark:bg-background bg-[#fafafa] md:border static text-gray-600 overflow-hidden md:shadow-md md:invisible group-hover:visible transition-all duration-150 delay-100 rounded-md hover:text-primary">
-                        {menuItem.children.map((menuItemChild: MenuItem) => {
-                          return this.renderMenuItemChild(menuItemChild)
+                        {navbarItem.children.map((navbarItemChild: NavbarItem) => {
+                          return this.renderNavbarItemChild(navbarItemChild)
                         })}
                       </ul>
                     )}

@@ -15,11 +15,10 @@ effect(() => {
   }
 })
 
-interface MenuItem {
-  name?: string
+interface NavbarItem {
   path?: string
   value?: string
-  children?: MenuItem[]
+  children?: NavbarItem[]
   type?: string
   text?: string
   href?: string
@@ -27,24 +26,26 @@ interface MenuItem {
   img?: string
   inner?: string
   tag?: string
+  icon?: string
+  isOpen?: boolean
 }
 
-export const menuItems = signal<MenuItem[]>([
+export const navbarItems = signal<NavbarItem[]>([
   {
-    name: '首页',
+    text: '首页',
     path: '/',
     value: 'home',
   },
   {
-    name: '产品',
+    text: '产品',
     children: [
       {
-        name: '产品A',
+        text: '产品A',
         path: '/product/a',
         value: 'product-a',
       },
       {
-        name: '产品B',
+        text: '产品B',
         path: '/product/b',
         value: 'product-b',
       },
@@ -53,23 +54,42 @@ export const menuItems = signal<MenuItem[]>([
         type: 'spliter',
       },
       {
-        name: '产品文档',
+        text: '产品文档',
         path: '/product-docs',
         value: 'product-docs',
+      },
+      {
+        text: '图标库',
+        path: '/icons',
+        value: 'icons',
       },
     ],
   },
   {
-    name: '其他页',
+    text: '其他页',
     children: [
       {
         type: 'title',
         text: '收集用户反馈',
       },
       {
-        name: '调查问卷',
+        text: '调查问卷',
         path: '/questionnaire',
         value: 'questionnaire',
+      },
+      {
+        text: '联系我们',
+        path: '/chat',
+        value: 'chat',
+      },
+      {
+        // 分割
+        type: 'spliter',
+      },
+      {
+        text: '关于',
+        path: '/about',
+        value: 'about',
       },
       {
         // 分割
@@ -80,73 +100,63 @@ export const menuItems = signal<MenuItem[]>([
         text: '结果页',
       },
       {
-        name: '成功页',
+        text: '成功页',
         path: '/results/success',
         value: 'result-success',
       },
       {
-        name: '失败页',
+        text: '失败页',
         path: '/results/fail',
         value: 'result-fail',
       },
       {
-        name: '网络异常',
+        text: '网络异常',
         path: '/results/network-error',
         value: 'result-network-error',
       },
       {
-        name: '无权限',
+        text: '无权限',
         path: '/results/forbidden',
         value: 'result-forbidden',
       },
       {
-        name: '访问页面不存在',
+        text: '访问页面不存在',
         path: '/results/not-found',
         value: 'result-not-found',
       },
       {
-        name: '服务器出错页',
+        text: '服务器出错页',
         path: '/results/server-error',
         value: 'result-server-error',
       },
       {
-        name: '浏览器不兼容',
+        text: '浏览器不兼容',
         path: '/results/browser-not-support',
         value: 'result-browser-not-support',
       },
       {
-        name: '系统维护页',
+        text: '系统维护页',
         path: '/results/system-maintenance',
         value: 'result-system-maintenance',
       },
     ],
   },
-  {
-    name: '关于',
-    path: '/about',
-    value: 'about',
-  },
 
   {
-    name: '联系我们',
-    path: '/chat',
-    value: 'chat',
-  },
-  {
-    name: 'OMI官网',
+    text: 'OMI官网',
     href: 'http://omijs.org/',
   },
   {
-    name: '张三',
+    text: '张三',
     img: 'https://omi.cdn-go.cn/admin/latest/home/omi.svg',
     children: [
       {
-        name: '个人中心',
+        text: '个人中心',
         path: '/personal',
         value: 'personal',
       },
       {
-        name: '退出登录',
+        text: '退出登录',
         path: '/login',
       },
     ],
@@ -163,19 +173,88 @@ export const menuItems = signal<MenuItem[]>([
   },
 ])
 
-const value = getValueByPath(location.hash.slice(1), menuItems.value)
+const value = getValueByPath(location.hash.slice(1), navbarItems.value)
 export const activeMenuItem = signal(value || 'home')
 
-export function getValueByPath(path: string, menuItems: MenuItem[]): string | null {
-  for (let i = 0; i < menuItems.length; i++) {
-    if (menuItems[i].path === path) {
-      return menuItems[i].value || null
+export function getValueByPath(path: string, navbarItems: NavbarItem[]): string | null {
+  for (let i = 0; i < navbarItems.length; i++) {
+    if (navbarItems[i].path === path) {
+      return navbarItems[i].value || null
     }
-    if (menuItems[i].children) {
+    if (navbarItems[i].children) {
       // @ts-ignore
-      let found = getValueByPath(path, menuItems[i].children)
+      let found = getValueByPath(path, navbarItems[i].children)
       if (found) return found
     }
   }
   return null // return null if no matching path is found
 }
+
+export const sidebarItems = signal<NavbarItem[]>([
+  {
+    text: '仪表盘',
+    icon: 'dashboard',
+    children: [
+      {
+        text: '概览仪表盘',
+      },
+      {
+        text: '统计报表',
+      },
+    ],
+    tag: '',
+  },
+  {
+    text: '列表页',
+    icon: 'root-list',
+    children: [
+      {
+        text: '基础列表',
+      },
+      {
+        text: '卡片列表',
+      },
+      {
+        text: '筛选列表',
+      },
+      {
+        text: '树状筛选列表',
+      },
+    ],
+  },
+  {
+    text: '表单页',
+    icon: 'edit',
+    isOpen: true,
+    children: [
+      {
+        text: '基础表单页',
+      },
+      {
+        text: '分步表单页',
+      },
+    ],
+  },
+  {
+    text: '详情页',
+    icon: 'layers',
+    isOpen: true,
+    children: [
+      {
+        text: '基础详情页',
+      },
+      {
+        text: '多卡片详情页',
+      },
+      {
+        text: '数据详情页',
+      },
+      {
+        text: '二级详情页',
+      },
+    ],
+  },
+])
+
+export const activeSidebarItem = signal('Dashboard')
+export const isSidebarOpen = signal(true)

@@ -4,12 +4,7 @@ export function Fail() {
       <div class="p-8  text-center">
         <div class="mb-4 text-gray-600 dark:text-foreground">
           <svg fill="none" viewBox="0 0 16 16" width="1em" height="1em" class="w-16 h-16 mx-auto">
-            <path
-              data-v-544cac2e=""
-              fill="currentColor"
-              d="M8.5 4v5.5h-1V4h1zM8.6 10.5H7.4v1.2h1.2v-1.2z"
-              fill-opacity="0.9"
-            ></path>
+            <path fill="currentColor" d="M8.5 4v5.5h-1V4h1zM8.6 10.5H7.4v1.2h1.2v-1.2z" fill-opacity="0.9"></path>
             <path
               fill="currentColor"
               d="M15 8A7 7 0 101 8a7 7 0 0014 0zm-1 0A6 6 0 112 8a6 6 0 0112 0z"

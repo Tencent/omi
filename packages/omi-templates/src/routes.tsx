@@ -1,6 +1,7 @@
 import 'omi-suspense'
 import './index.css'
 import { SiteLayout } from './components/site-layout'
+import { AdminLayout } from './components/admin-layout'
 import { pending } from './components/pending'
 import { fallback } from './components/fallback'
 import { Router } from 'omi-router'
@@ -20,8 +21,10 @@ export const routes = [
   createRoute('/results/system-maintenance', () => import('./pages/results/system-maintenance')),
   createRoute('/results/not-found', () => import('./pages/results/not-found')),
   createRoute('/product-docs', () => import('./pages/product-docs')),
+  createRoute('/icons', () => import('./pages/icons')),
   createRoute('/personal', () => import('./pages/personal')),
-  createLoginRoute('/login', () => import('./pages/login')),
+  createBaseRoute('/login', () => import('./pages/login')),
+  createAdminRoute('/admin/home', () => import('./pages/admin/home')),
   createRoute('*', () => import('./pages/results/not-found')),
   {
     path: '/before-enter/test',
@@ -39,7 +42,7 @@ function createRoute(path: string, componentImport: () => Promise<unknown>) {
       return (
         <SiteLayout current={router.currentRoute?.path}>
           <o-suspense
-            minLoadingTime={600}
+            minLoadingTime={400}
             imports={[componentImport()]}
             customRender={(results: { [x: string]: Function }[]) => {
               return results[0][Object.keys(results[0])[0]](router.params)
@@ -56,13 +59,37 @@ function createRoute(path: string, componentImport: () => Promise<unknown>) {
   }
 }
 
-function createLoginRoute(path: string, componentImport: () => Promise<unknown>) {
+function createAdminRoute(path: string, componentImport: () => Promise<unknown>) {
+  return {
+    path,
+    render(router: Router) {
+      return (
+        <AdminLayout current={router.currentRoute?.path}>
+          <o-suspense
+            minLoadingTime={400}
+            imports={[componentImport()]}
+            customRender={(results: { [x: string]: Function }[]) => {
+              return results[0][Object.keys(results[0])[0]](router.params)
+            }}
+            fallback={fallback}
+            pending={pending}
+            onLoaded={() => {
+              window.refreshDark()
+            }}
+          ></o-suspense>
+        </AdminLayout>
+      )
+    },
+  }
+}
+
+function createBaseRoute(path: string, componentImport: () => Promise<unknown>) {
   return {
     path,
     render(router: Router) {
       return (
         <o-suspense
-          minLoadingTime={600}
+          minLoadingTime={400}
           imports={[componentImport()]}
           customRender={(results: { [x: string]: Function }[]) => {
             return results[0][Object.keys(results[0])[0]](router.params)

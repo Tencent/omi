@@ -3,7 +3,7 @@ export function NetworkError() {
     <div class="flex items-center justify-center" style="height:calc(100vh - 58px)">
       <div class="p-8  text-center">
         <div class="mb-4 text-primary">
-          <svg data-v-452ecc15="" xmlns="http://www.w3.org/2000/svg" width="200" height="140" fill="none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="200" height="140" fill="none">
             <g>
               <path
                 fill="#97A3B7"

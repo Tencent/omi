@@ -20,7 +20,7 @@ export function Home() {
             OMI Tailwind Templates
           </h1>
           <p class="text-gray-600 mb-8 text-2xl dark:text-foreground">
-            100+ 免费模板，站点、管理系统都有，开箱即用，自由定制，开源免费
+            100+ 免费模板，对外站点、对内管理系统，开箱即用，自由定制，开源免费
           </p>
           <div class="flex space-x-4">
             <a
@@ -42,6 +42,13 @@ export function Home() {
               </svg>
               源代码
             </a>
+
+            <a
+              href="#/admin/home"
+              class="bg-primary shadow hover:bg-primary/85 text-primary-foreground px-5 py-2 rounded"
+            >
+              🎉 管理系统
+            </a>
           </div>
         </div>
       </section>
@@ -54,7 +61,7 @@ export function Home() {
             </div>
             <h2 class="text-2xl font-bold mb-2">刀锋锐利</h2>
             <p class="text-gray-600 dark:text-card-foreground">
-              Tailwind CSS为基础的响应式布局，直接复制粘贴，到处都能用
+              Tailwind CSS为基础的响应式布局站点和管理系统，直接复制粘贴，到处都能用
             </p>
           </div>
           <div class="bg-card text-card-foreground rounded-lg p-4 shadow">
@@ -62,7 +69,9 @@ export function Home() {
               🎁
             </div>
             <h2 class="text-2xl font-bold mb-2">开箱即用</h2>
-            <p class="text-gray-600 dark:text-card-foreground">100+的模板，直接修修改改，打造成您自己的站点</p>
+            <p class="text-gray-600 dark:text-card-foreground">
+              100+的模板，直接修修改改，打造成您自己的站点，也可以只配置 JSON，不需要任何前端知识
+            </p>
           </div>
 
           <div class="bg-card text-card-foreground rounded-lg p-4 shadow">
@@ -70,7 +79,9 @@ export function Home() {
               ⚙️
             </div>
             <h2 class="text-2xl font-bold mb-2">自由定制</h2>
-            <p class="text-gray-600 dark:text-card-foreground">颜色、圆角、白天黑夜模式、多语言切换，自由设定</p>
+            <p class="text-gray-600 dark:text-card-foreground">
+              颜色、圆角、白天黑夜模式、多语言切换，自由设定，所有模板都是可扩展的 JSON
+            </p>
           </div>
         </div>
       </div>

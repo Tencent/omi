@@ -12,7 +12,9 @@
     "lint": "prettier --write src"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
     "@types/prismjs": "^1.26.3",
+    "copy-to-clipboard": "^3.3.3",
     "markdown-it": "^14.0.0",
     "omi": "7.6.4",
     "omi-router": "latest",
