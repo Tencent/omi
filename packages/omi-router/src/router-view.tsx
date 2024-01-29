@@ -116,6 +116,18 @@ export class RouterView extends Component<Props> {
           }
           return
         }
+        if (this.beforeEachCallback) {
+          const shouldProceed = this.beforeEachCallback({ path }, { path: window.location.pathname })
+          if (shouldProceed === false) {
+            return
+          } else if (typeof shouldProceed === 'string') {
+            this.push(shouldProceed)
+            return
+          } else if (typeof shouldProceed === 'object') {
+            this.push(shouldProceed.path)
+            return
+          }
+        }
         if (route.beforeEnter) {
           const shouldProceed = route.beforeEnter({ path }, { path: window.location.pathname })
           if (shouldProceed === false) {
