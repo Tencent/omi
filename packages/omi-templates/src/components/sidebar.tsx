@@ -153,7 +153,7 @@ export class Sidebar extends Component<Props> {
                 hidden: !this.state.isOpen,
               })}
             >
-              <input type="text" placeholder="Search" class="w-full p-1 border rounded" />
+              <input type="text" placeholder="Search" class="px-3 w-full p-1 border rounded" />
             </div>
             <nav class="h-[calc(100vh-300px)] overflow-auto">
               <ul>

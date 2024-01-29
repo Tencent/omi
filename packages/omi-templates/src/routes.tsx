@@ -5,6 +5,7 @@ import { AdminLayout } from './components/admin-layout'
 import { pending } from './components/pending'
 import { fallback } from './components/fallback'
 import { Router } from 'omi-router'
+import './components/appear'
 
 export const routes = [
   createRoute('/', () => import('./pages/home')),
@@ -45,7 +46,16 @@ function createRoute(path: string, componentImport: () => Promise<unknown>) {
             minLoadingTime={400}
             imports={[componentImport()]}
             customRender={(results: { [x: string]: Function }[]) => {
-              return results[0][Object.keys(results[0])[0]](router.params)
+              return (
+                <o-appear
+                  class="opacity-0 translate-y-4"
+                  onTransitionStart={() => {
+                    window.refreshDark()
+                  }}
+                >
+                  {results[0][Object.keys(results[0])[0]](router.params)}
+                </o-appear>
+              )
             }}
             fallback={fallback}
             pending={pending}
@@ -69,7 +79,16 @@ function createAdminRoute(path: string, componentImport: () => Promise<unknown>)
             minLoadingTime={400}
             imports={[componentImport()]}
             customRender={(results: { [x: string]: Function }[]) => {
-              return results[0][Object.keys(results[0])[0]](router.params)
+              return (
+                <o-appear
+                  class="opacity-0 translate-y-4"
+                  onTransitionStart={() => {
+                    window.refreshDark()
+                  }}
+                >
+                  {results[0][Object.keys(results[0])[0]](router.params)}
+                </o-appear>
+              )
             }}
             fallback={fallback}
             pending={pending}
@@ -92,7 +111,16 @@ function createBaseRoute(path: string, componentImport: () => Promise<unknown>) 
           minLoadingTime={400}
           imports={[componentImport()]}
           customRender={(results: { [x: string]: Function }[]) => {
-            return results[0][Object.keys(results[0])[0]](router.params)
+            return (
+              <o-appear
+                class="opacity-0 translate-y-4"
+                onTransitionStart={() => {
+                  window.refreshDark()
+                }}
+              >
+                {results[0][Object.keys(results[0])[0]](router.params)}
+              </o-appear>
+            )
           }}
           fallback={fallback}
           pending={pending}

@@ -9,36 +9,48 @@ export function Product(props: { id: string }) {
             alt="Product Image"
           />
           <div class="relative text-gray-400 overflow-x-scroll whitespace-nowrap grid grid-cols-7 gap-2 mt-4">
-            <svg class="mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg
+              class="mt-1 w-16 h-16 hover:text-primary cursor-pointer"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
             <img
               src="https://img14.360buyimg.com/n5/s54x54_jfs/t1/109268/30/44215/20629/6500cf96F725ec03f/b77300890e78bbaa.jpg.avif"
-              class="h-16 object-cover w-full rounded-lg shadow-md"
+              class="h-16 object-cover w-16 rounded-lg shadow-md"
               alt="Small Product Image"
             />
             <img
               src="https://img14.360buyimg.com/n5/s54x54_jfs/t1/183198/7/37470/61411/6500cf96Faa2fc356/b3ea84bed2c925c5.jpg.avif"
-              class="h-16 object-cover w-full rounded-lg shadow-md"
+              class="h-16 object-cover w-16 rounded-lg shadow-md"
               alt="Small Product Image"
             />
             <img
               src="https://img14.360buyimg.com/n5/s54x54_jfs/t1/190924/14/41483/35175/6500cf96F13b6162c/87a9e0d8a7c5fa8a.jpg.avif"
-              class="h-16 object-cover w-full rounded-lg shadow-md"
+              class="h-16 object-cover w-16 rounded-lg shadow-md"
               alt="Small Product Image"
             />
             <img
               src="https://img14.360buyimg.com/n5/s54x54_jfs/t1/214372/25/36493/8804/6500cf96F23d42147/d28c318c26cd36f6.jpg.avif"
-              class="h-16 object-cover w-full rounded-lg shadow-md"
+              class="h-16 object-cover w-16 rounded-lg shadow-md"
               alt="Small Product Image"
             />
             <img
               src="https://img14.360buyimg.com/n5/s54x54_jfs/t1/185575/2/37934/34612/6500cf96F6c6548a8/d8a1fffe5d6c7e57.jpg.avif"
-              class="h-16 object-cover w-full rounded-lg shadow-md"
+              class="h-16 object-cover w-16 rounded-lg shadow-md"
               alt="Small Product Image"
             />
 
-            <svg class="mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg
+              class="mt-1 w-16 h-16 hover:text-primary cursor-pointer"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </div>
