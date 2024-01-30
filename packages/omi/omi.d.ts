@@ -64,6 +64,7 @@ declare namespace Omi {
   interface WeElement<P> extends HTMLElement {
     install?(): void;
     installed?(): void;
+    ready?(): void;
     uninstall?(): void;
     beforeUpdate?(): void;
     updated?(): void;
@@ -78,6 +79,7 @@ declare namespace Omi {
   interface Component<P> extends HTMLElement {
     install?(): void;
     installed?(): void;
+    ready?(): void;
     uninstall?(): void;
     beforeUpdate?(): void;
     updated?(): void;

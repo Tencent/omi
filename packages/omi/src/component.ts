@@ -238,6 +238,11 @@ export class Component extends HTMLElement {
     this.installed()
     this.fire('installed', this)
     this.isInstalled = true
+
+    Promise.resolve().then(() => {
+      this.ready()
+      this.fire('ready', this)
+    })
   }
 
   disconnectedCallback(): void {
@@ -391,6 +396,8 @@ export class Component extends HTMLElement {
   install() {}
 
   installed() {}
+
+  ready() {}
 
   uninstall() {}
 
