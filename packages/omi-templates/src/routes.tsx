@@ -49,7 +49,7 @@ function createRoute(path: string, componentImport: () => Promise<unknown>) {
               return (
                 <o-appear
                   class="opacity-0 translate-y-4"
-                  onTransitionStart={() => {
+                  onReady={() => {
                     window.refreshDark()
                   }}
                 >

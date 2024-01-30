@@ -6,23 +6,19 @@ export class Appear extends Component {
 
   isLightDOM = true
 
-  async installed(): Promise<void> {
+  ready() {
+    const arr: string[] = []
+    this.classList.forEach((item) => {
+      arr.push(item)
+    })
+
     setTimeout(() => {
-      const arr: string[] = []
-      this.classList.forEach((item) => {
-        arr.push(item)
+      this.classList.add('transition-all', 'duration-300', 'ease-in')
+      arr.forEach((item) => {
+        this.classList.add(item)
+        this.classList.remove(item)
       })
-
-      setTimeout(() => {
-        this.classList.add('transition-all', 'duration-300', 'ease-in')
-        arr.forEach((item) => {
-          this.classList.add(item)
-          this.classList.remove(item)
-        })
-
-        this.fire('transition-start')
-      }, 10)
-    }, 0)
+    }, 10)
   }
 
   render(props: { children: VNode }) {
