@@ -1,3 +1,5 @@
+import '../components/select'
+
 export function Product(props: { id: string }) {
   return (
     <>
@@ -104,15 +106,24 @@ export function Product(props: { id: string }) {
             <label for="flavor" class="text-gray-500 w-32">
               选择口味:
             </label>
-            <select
-              id="flavor"
-              style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e'); background-size: 1em;  background-position: right 0.5rem center;"
-              class="mt-1 max-w-32 block w-full px-2 py-1 rounded-md shadow-sm border focus:border-primary focus:ring-1 focus:ring-primary focus:ring-opacity-50 bg-no-repeat appearance-none dark:text-foreground dark:border-gray-600 dark:bg-gray-700 dark:focus:ring-primary dark:focus:border-primary dark:focus:ring-opacity-50"
-            >
-              <option>香草</option>
-              <option>巧克力</option>
-              <option>草莓</option>
-            </select>
+
+            <o-select
+              selected="香草"
+              options={[
+                {
+                  text: '香草',
+                  value: '香草',
+                },
+                {
+                  text: '巧克力',
+                  value: '巧克力',
+                },
+                {
+                  text: '草莓',
+                  value: '草莓',
+                },
+              ]}
+            ></o-select>
           </div>
 
           <hr class="my-8"></hr>

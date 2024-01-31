@@ -5,6 +5,7 @@ import { AdminLayout } from './components/admin-layout'
 import { pending } from './components/pending'
 import { fallback } from './components/fallback'
 import { Router } from 'omi-router'
+import { Component } from 'omi'
 import './components/appear'
 
 export const routes = [
@@ -58,6 +59,10 @@ function createRoute(path: string, componentImport: () => Promise<unknown>) {
               )
             }}
             fallback={fallback}
+            beforePending={async (suspense: Component) => {
+              suspense.shadowRoot?.firstElementChild?.classList.add('opacity-0', 'translate-y-4')
+              return new Promise((resolve) => setTimeout(resolve, 300))
+            }}
             pending={pending}
             onLoaded={() => {
               window.refreshDark()
@@ -82,7 +87,7 @@ function createAdminRoute(path: string, componentImport: () => Promise<unknown>)
               return (
                 <o-appear
                   class="opacity-0 translate-y-4"
-                  onTransitionStart={() => {
+                  onReady={() => {
                     window.refreshDark()
                   }}
                 >
@@ -91,6 +96,10 @@ function createAdminRoute(path: string, componentImport: () => Promise<unknown>)
               )
             }}
             fallback={fallback}
+            beforePending={async (suspense: Component) => {
+              suspense.shadowRoot?.firstElementChild?.classList.add('opacity-0', 'translate-y-4')
+              return new Promise((resolve) => setTimeout(resolve, 300))
+            }}
             pending={pending}
             onLoaded={() => {
               window.refreshDark()
@@ -114,7 +123,7 @@ function createBaseRoute(path: string, componentImport: () => Promise<unknown>) 
             return (
               <o-appear
                 class="opacity-0 translate-y-4"
-                onTransitionStart={() => {
+                onReady={() => {
                   window.refreshDark()
                 }}
               >
