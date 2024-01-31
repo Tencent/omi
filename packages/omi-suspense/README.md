@@ -46,6 +46,10 @@ npm i omi-suspense
   onLoaded={(event: CustomEvent) => {
     userProfile.value = event.detail[2]
   }}
+  beforePending={async (suspense: Component) => {
+    // do something such as: fade out the root el of custom render
+    return new Promise((resolve) => setTimeout(resolve, 300))
+  }}
   pending={<div>Loading user profile...</div>}
   customRender={(results)=> {
     return (

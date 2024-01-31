@@ -4,7 +4,8 @@ interface Props {
   imports: Promise<unknown>[]
   data: Function | null
   minLoadingTime: number
-  customRender: (results: unknown[]) => (VNode | VNode[])
+  customRender: (results: unknown[]) => VNode | VNode[]
+  beforePending: (component: Component) => Promise<void>
   pending: () => (VNode | VNode[]) | VNode | VNode[]
   fallback: (error: unknown, results: unknown[]) => (VNode | VNode[]) | VNode | VNode[]
 }
@@ -22,7 +23,6 @@ define(
     }
 
     receiveProps() {
-      this.state = 'pending'
       this.handleTasks(this.props.imports)
     }
 
@@ -40,6 +40,9 @@ define(
      * @param imports - Array of import promises
      */
     async handleTasks(imports: Promise<unknown>[]) {
+      if (this.props.beforePending) {
+        await this.props.beforePending(this)
+      }
       this.timeout !== null && clearTimeout(this.timeout)
       let startTime = Date.now()
       const tasks = [...imports]
@@ -47,8 +50,9 @@ define(
         tasks.push(this.props.data())
       }
       if (tasks.length === 0) {
-        this.state = 'pending'
+        this.state = 'resolve'
       } else {
+        this.state = 'pending'
         this.fire('pending')
 
         try {
