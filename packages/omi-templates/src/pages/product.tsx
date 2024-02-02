@@ -108,7 +108,7 @@ export function Product(props: { id: string }) {
             </label>
 
             <o-select
-              selected="香草"
+              value="香草"
               options={[
                 {
                   text: '香草',

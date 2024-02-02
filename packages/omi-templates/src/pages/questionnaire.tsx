@@ -1,3 +1,5 @@
+import '../components/calendar/index'
+
 export function Questionnaire() {
   return (
     <div class="max-w-[800px] mx-auto px-4 py-10">
@@ -32,7 +34,13 @@ export function Questionnaire() {
             </div>
           </div>
           <div class="mb-6">
-            <label class="block text-gray-700 mb-2">问题 3：您最喜欢的颜色是？</label>
+            <label class="block text-gray-700 mb-2">问题 4：您的出生日期？</label>
+            <div>
+              <o-calendar value="2023-12-26" locale="zh"></o-calendar>
+            </div>
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-700 mb-2">问题 4：您最喜欢的颜色是？</label>
             <div>
               <input type="checkbox" name="color" id="red" class="mr-2" />
               <label for="red">红色</label>
@@ -47,7 +55,7 @@ export function Questionnaire() {
             </div>
           </div>
           <div class="mb-6">
-            <label class="block text-gray-700 mb-2">问题 4：您对我们的产品有什么建议？</label>
+            <label class="block text-gray-700 mb-2">问题 5：您对我们的产品有什么建议？</label>
             <textarea class="w-full rounded-md border py-2 px-3 text-gray-700 h-24"></textarea>
           </div>
           <div class="text-center">

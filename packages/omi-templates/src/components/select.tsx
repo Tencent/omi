@@ -3,13 +3,15 @@ import { createPopper, Instance } from '@popperjs/core'
 
 type Props = {
   options: { text: string; value: string }[]
-  selected: string
+  value: string
 }
 @tag('o-select')
 export class Select extends Component<Props> {
-  static css = `:host: {
+  static css = `
+  :host {
     display: inline-block;
-  }`
+  }
+  `
 
   state = {
     isOpen: false,
@@ -18,10 +20,25 @@ export class Select extends Component<Props> {
   }
 
   install() {
-    const selectedOption = this.props.options.find((option) => this.props.selected === option.value)
+    const selectedOption = this.props.options.find((option) => this.props.value === option.value)
     if (selectedOption) {
       this.state.selectedValue = selectedOption.value
       this.state.selectedText = selectedOption.text
+    }
+
+    // 添加事件监听器
+    document.addEventListener('click', this.handleClickOutside.bind(this))
+  }
+
+  uninstall() {
+    // 移除事件监听器
+    document.removeEventListener('click', this.handleClickOutside.bind(this))
+  }
+
+  handleClickOutside(event: MouseEvent) {
+    if (this.button && !this.button.contains(event.target as Node) && this.state.isOpen) {
+      this.state.isOpen = false
+      this.update()
     }
   }
 
@@ -29,7 +46,9 @@ export class Select extends Component<Props> {
   menu: HTMLElement | null = null
   popper: Instance | null = null
 
-  onToggleOpen() {
+  onToggleOpen(event: MouseEvent) {
+    event.stopPropagation()
+
     this.state.isOpen = !this.state.isOpen
     this.update()
     this.popper && this.popper.destroy()
@@ -49,20 +68,20 @@ export class Select extends Component<Props> {
 
   render() {
     return (
-      <div class="relative inline-block text-left bg-background text-foreground">
-        <div>
+      <div class="relative w-full inline-block text-left">
+        <div class='bg-background text-foreground rounded border overflow-hidden'>
           <button
             type="button"
-            class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-3 py-1.5  text-sm font-medium bg-background text-foreground hover:bg-zinc-50  dark:hover:bg-zinc-500 "
+            class="inline-flex justify-between w-full shadow-sm px-2 py-1.5 text-sm font-medium hover:bg-zinc-50  dark:hover:bg-zinc-700"
             id="options-menu"
             aria-haspopup="true"
             aria-expanded="true"
-            onClick={this.onToggleOpen.bind(this)}
+            onClick={(event) => this.onToggleOpen(event)}
             ref={(e) => (this.button = e)}
           >
-            {this.state.selectedText || ''}
+            <div class='overflow-hidden text-ellipsis whitespace-nowrap'>{this.state.selectedText || '　'}</div>
             <svg
-              class="-mr-1 mt-0.5 ml-2 h-4 w-5"
+              class="-mr-1 mt-0.5 ml-2 h-4 w-5 min-w-5"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
@@ -78,7 +97,7 @@ export class Select extends Component<Props> {
         </div>
 
         <div
-          class="border origin-top-right z-50 absolute whitespace-nowrap right-0 mt-2 rounded-md shadow-lg bg-background text-foreground ring-1 ring-black ring-opacity-5"
+          class="border origin-top-right z-50 absolute whitespace-nowrap right-0 mt-2 rounded shadow-lg bg-background text-foreground ring-1 ring-black ring-opacity-5 max-h-96 overflow-auto"
           ref={(e) => (this.menu = e)}
           style={{ display: this.state.isOpen ? 'block' : 'none' }}
         >
@@ -86,7 +105,7 @@ export class Select extends Component<Props> {
             {this.props.options.map((option) => (
               <a
                 href="javascript:"
-                class="block px-4 py-2 text-sm  hover:bg-zinc-100 rounded-md dark:hover:bg-zinc-400 hover:text-gray-900"
+                class="block px-4 py-2 text-sm  hover:bg-zinc-100 rounded dark:hover:bg-zinc-400 hover:text-gray-900"
                 role="menuitem"
                 onClick={() => this.onSelectOption(option)}
               >
