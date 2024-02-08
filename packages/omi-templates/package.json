@@ -14,12 +14,15 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@types/prismjs": "^1.26.3",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "copy-to-clipboard": "^3.3.3",
     "markdown-it": "^14.0.0",
     "omi": "7.6.5",
     "omi-router": "latest",
     "omi-suspense": "latest",
-    "prismjs": "^1.29.0"
+    "prismjs": "^1.29.0",
+    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",

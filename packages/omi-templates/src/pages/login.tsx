@@ -1,4 +1,5 @@
 import { isDark } from '../store.ts'
+import '../components/button'
 
 export function Login() {
   return (
@@ -26,7 +27,7 @@ export function Login() {
                 type="text"
                 id="username"
                 placeholder="请输入账号：admin"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-primary"
               />
             </div>
             <div class="mb-4">
@@ -37,7 +38,7 @@ export function Login() {
                 type="password"
                 id="password"
                 placeholder="请输入登录密码：admin"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-primary"
               />
             </div>
             <div class="flex items-center justify-between mb-6">
@@ -51,15 +52,15 @@ export function Login() {
                 忘记账号？
               </a>
             </div>
-            <button
+            <o-button
               type="submit"
-              class="w-full py-2 bg-primary text-white font-semibold rounded-lg"
-              onClick={() => {
-                location.href = '#/'
-              }}
+              className="block w-full"
+              clsn="w-full"
+              href="#/"
+              tag="a"
             >
               登录
-            </button>
+            </o-button>
           </form>
 
           <div class="mt-6 flex items-center justify-center">

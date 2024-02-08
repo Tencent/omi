@@ -1,3 +1,5 @@
+import '../../components/button'
+
 export function SuccessResult() {
   return (
     <div class="flex items-center justify-center" style="height:calc(100vh - 58px)">
@@ -18,12 +20,8 @@ export function SuccessResult() {
         <p class="text-gray-600 mb-6 dark:text-foreground">可以联系负责人分发应用</p>
 
         <div class="flex justify-center space-x-4">
-          <a href="#/" class="py-2 px-4 bg-primary text-white rounded hover:bg-primary/85">
-            返回首页
-          </a>
-          <button class="bg-background shadow-sm border border-input hover:bg-accent hover:text-accent-foreground px-4 py-2 rounded flex items-center">
-            查看进度
-          </button>
+          <o-button tag="a" href="#/">返回首页</o-button>
+          <o-button variant="outline">查看进度</o-button>
         </div>
       </div>
     </div>

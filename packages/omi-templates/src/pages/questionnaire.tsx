@@ -1,4 +1,5 @@
 import '../components/calendar/index'
+import '../components/button'
 
 export function Questionnaire() {
   return (
@@ -59,9 +60,9 @@ export function Questionnaire() {
             <textarea class="w-full rounded-md border py-2 px-3 text-gray-700 h-24"></textarea>
           </div>
           <div class="text-center">
-            <button type="submit" class="bg-primary w-48 mx-auto text-white px-6 py-2 rounded hover:bg-primary/85">
+            <o-button type="submit" clsn="px-14">
               提交
-            </button>
+            </o-button>
           </div>
         </div>
       </form>

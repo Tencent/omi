@@ -1,4 +1,5 @@
 import '../components/select'
+import '../components/button'
 
 export function Product(props: { id: string }) {
   return (
@@ -182,9 +183,7 @@ export function Product(props: { id: string }) {
                 </svg>
               </button>
             </div>
-            <button class="bg-primary text-primary-foreground whitespace-nowrap text-white px-4 py-2 rounded-md transition ease-in-out duration-150 hover:bg-primary/85 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
-              添加到购物车
-            </button>
+            <o-button>添加到购物车</o-button>
           </div>
         </div>
       </div>
