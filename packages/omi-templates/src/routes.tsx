@@ -159,7 +159,11 @@ function createDocsRoute(path: string, componentImport: () => Promise<unknown>) 
                     window.refreshDark()
                   }}
                 >
-                  {results[0][Object.keys(results[0])[0]](results[1].default, router.params)}
+                  <product-docs
+                    markdownContent={results[1].default}
+                    lang={router.params.lang}
+                    section={router.params.section}
+                  ></product-docs>
                 </o-appear>
               )
             }}

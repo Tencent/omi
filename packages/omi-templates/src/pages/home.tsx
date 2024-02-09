@@ -24,7 +24,7 @@ export function Home() {
             100+ 免费模板，对外站点、对内管理系统，开箱即用，自由定制，开源免费
           </p>
           <div class="flex space-x-4">
-            <o-button tag="a" href="#/product-docs/zh/introduction">
+            <o-button tag="a" href="#/product-docs/zh/getting-started">
               开始使用
             </o-button>
             <o-button

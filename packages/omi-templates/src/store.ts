@@ -55,7 +55,7 @@ export const navbarItems = signal<NavbarItem[]>([
       },
       {
         text: '产品文档',
-        path: '/product-docs/zh/introduction',
+        path: '/product-docs/zh/getting-started',
         value: 'product-docs',
       },
       {
