@@ -22,7 +22,7 @@ export const routes = [
   createRoute('/results/server-error', () => import('./pages/results/server-error')),
   createRoute('/results/system-maintenance', () => import('./pages/results/system-maintenance')),
   createRoute('/results/not-found', () => import('./pages/results/not-found')),
-  createRoute('/product-docs', () => import('./pages/product-docs')),
+  createDocsRoute('/product-docs/:lang/:section', () => import('./pages/product-docs')),
   createRoute('/icons', () => import('./pages/icons')),
   createRoute('/personal', () => import('./pages/personal')),
   createBaseRoute('/login', () => import('./pages/login')),
@@ -137,6 +137,39 @@ function createBaseRoute(path: string, componentImport: () => Promise<unknown>) 
             window.refreshDark()
           }}
         ></o-suspense>
+      )
+    },
+  }
+}
+
+function createDocsRoute(path: string, componentImport: () => Promise<unknown>) {
+  return {
+    path,
+    render(router: Router) {
+      return (
+        <SiteLayout current={router.currentRoute?.path}>
+          <o-suspense
+            minLoadingTime={400}
+            imports={[componentImport(), import(`./docs/${router.params.lang}/${router.params.section}.md?raw`)]}
+            customRender={(results: { [x: string]: Function }[]) => {
+              return (
+                <o-appear
+                  class="opacity-0 translate-y-4"
+                  onReady={() => {
+                    window.refreshDark()
+                  }}
+                >
+                  {results[0][Object.keys(results[0])[0]](results[1].default, router.params)}
+                </o-appear>
+              )
+            }}
+            fallback={fallback}
+            pending={pending}
+            onLoaded={() => {
+              window.refreshDark()
+            }}
+          ></o-suspense>
+        </SiteLayout>
       )
     },
   }

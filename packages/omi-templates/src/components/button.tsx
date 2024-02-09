@@ -29,7 +29,7 @@ export const buttonVariants = cva(
 )
 
 export type ButtonProps = VariantProps<typeof buttonVariants> & {
-  // 使用 cls， 避免使用 className 同时作用 host 和 内部的 root
+  // 使用 clsn， 避免使用 className 同时作用 host 和 内部的 root
   cls?: string
   tag: string
   className?: string

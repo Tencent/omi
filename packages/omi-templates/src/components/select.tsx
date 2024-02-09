@@ -69,7 +69,7 @@ export class Select extends Component<Props> {
   render() {
     return (
       <div class="relative w-full inline-block text-left">
-        <div class='bg-background text-foreground rounded border overflow-hidden'>
+        <div class="bg-background text-foreground rounded border overflow-hidden">
           <button
             type="button"
             class="inline-flex justify-between w-full shadow-sm px-2 py-1.5 text-sm font-medium hover:bg-zinc-50  dark:hover:bg-zinc-700"
@@ -79,7 +79,7 @@ export class Select extends Component<Props> {
             onClick={(event) => this.onToggleOpen(event)}
             ref={(e) => (this.button = e)}
           >
-            <div class='overflow-hidden text-ellipsis whitespace-nowrap'>{this.state.selectedText || '　'}</div>
+            <div class="overflow-hidden text-ellipsis whitespace-nowrap">{this.state.selectedText || '　'}</div>
             <svg
               class="-mr-1 mt-0.5 ml-2 h-4 w-5 min-w-5"
               xmlns="http://www.w3.org/2000/svg"

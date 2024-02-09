@@ -1,7 +1,7 @@
 import '../components/md-docs'
-import testContent from '@/assets/test.md?raw'
+import '../components/docs-sidebar'
 
-export function ProductDocs() {
+export function ProductDocs(markdownContent: string) {
   return (
     <div class="flex min-h-full bg-white dark:bg-zinc-800">
       <div class="flex w-full flex-col">
@@ -11,210 +11,7 @@ export function ProductDocs() {
             <div class="absolute bottom-0 right-0 top-16 hidden h-12 w-px bg-gradient-to-t from-slate-800 dark:block"></div>
             <div class="absolute bottom-0 right-0 top-28 hidden w-px bg-slate-800 dark:block"></div>
             <div class="sticky top-[4.75rem] -ml-0.5 h-[calc(100vh-4.75rem)] w-64 overflow-y-auto overflow-x-hidden py-16 pl-0.5 pr-8 xl:w-72 xl:pr-16">
-              <nav class="text-base lg:text-sm">
-                <ul role="list" class="space-y-9">
-                  <li>
-                    <h2 class="font-display font-medium text-slate-900 dark:text-white">Introduction</h2>
-                    <ul
-                      role="list"
-                      class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200 dark:border-slate-800"
-                    >
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/"
-                        >
-                          Getting started
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full font-semibold text-primary before:bg-primary brightness-125"
-                          href="/docs/installation"
-                        >
-                          Installation
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <h2 class="font-display font-medium text-slate-900 dark:text-white">Core concepts</h2>
-                    <ul
-                      role="list"
-                      class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200 dark:border-slate-800"
-                    >
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/understanding-caching"
-                        >
-                          Understanding caching
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/predicting-user-behavior"
-                        >
-                          Predicting user behavior
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/basics-of-time-travel"
-                        >
-                          Basics of time-travel
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/introduction-to-string-theory"
-                        >
-                          Introduction to string theory
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/the-butterfly-effect"
-                        >
-                          The butterfly effect
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <h2 class="font-display font-medium text-slate-900 dark:text-white">Advanced guides</h2>
-                    <ul
-                      role="list"
-                      class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200 dark:border-slate-800"
-                    >
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/writing-plugins"
-                        >
-                          Writing plugins
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/neuralink-integration"
-                        >
-                          Neuralink integration
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/temporal-paradoxes"
-                        >
-                          Temporal paradoxes
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/testing"
-                        >
-                          Testing
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/compile-time-caching"
-                        >
-                          Compile-time caching
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/predictive-data-generation"
-                        >
-                          Predictive data generation
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <h2 class="font-display font-medium text-slate-900 dark:text-white">API reference</h2>
-                    <ul
-                      role="list"
-                      class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200 dark:border-slate-800"
-                    >
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/cacheadvance-predict"
-                        >
-                          CacheAdvance.predict()
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/cacheadvance-flush"
-                        >
-                          CacheAdvance.flush()
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/cacheadvance-revert"
-                        >
-                          CacheAdvance.revert()
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/cacheadvance-regret"
-                        >
-                          CacheAdvance.regret()
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <h2 class="font-display font-medium text-slate-900 dark:text-white">Contributing</h2>
-                    <ul
-                      role="list"
-                      class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200 dark:border-slate-800"
-                    >
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/how-to-contribute"
-                        >
-                          How to contribute
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/architecture-guide"
-                        >
-                          Architecture guide
-                        </a>
-                      </li>
-                      <li class="relative">
-                        <a
-                          class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
-                          href="/docs/design-principles"
-                        >
-                          Design principles
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </nav>
+              <o-docs-sidebar></o-docs-sidebar>
             </div>
           </div>
           <div class="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16">
@@ -224,7 +21,7 @@ export function ProductDocs() {
                 <h1 class="font-display text-3xl tracking-tight text-slate-900 dark:text-white">Installation</h1>
               </header>
 
-              <md-docs content={testContent}></md-docs>
+              <md-docs content={markdownContent}></md-docs>
             </article>
             <dl class="mt-12 flex border-t border-slate-200 pt-6 dark:border-slate-800">
               <div>

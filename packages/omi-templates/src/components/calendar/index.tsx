@@ -41,16 +41,16 @@ export class CalendarComponent extends Component<Props> {
     currentMonth: number | null
     currentDay: number | null
   } = {
-      selectedYear: null,
-      selectedMonth: null,
-      selectedDay: null,
+    selectedYear: null,
+    selectedMonth: null,
+    selectedDay: null,
 
-      currentYear: null,
-      currentMonth: null,
-      currentDay: null,
-    }
+    currentYear: null,
+    currentMonth: null,
+    currentDay: null,
+  }
 
-  // @ts-ignore  
+  // @ts-ignore
   years: number[]
 
   @bind
@@ -147,14 +147,10 @@ export class CalendarComponent extends Component<Props> {
   }
 
   @bind
-  onYearShow() {
-
-  }
+  onYearShow() {}
 
   @bind
-  onMonthShow() {
-
-  }
+  onMonthShow() {}
 
   render() {
     return (
@@ -162,9 +158,7 @@ export class CalendarComponent extends Component<Props> {
         <div class="relative h-full bg-background text-foreground">
           <div class="px-1 pt-2 pb-0 flex justify-between bg-background text-foreground items-center">
             <o-select
-              value={
-                this.calendar.getMonth()
-              }
+              value={this.calendar.getMonth()}
               onChange={this.onMonthClick}
               class="w-20 h-8"
               options={this.calendar.translations.months.map((month, index) => {
@@ -274,12 +268,14 @@ export class CalendarComponent extends Component<Props> {
                             class={classNames(theme.td, {
                               'text-primary-foreground':
                                 `${year}-${month}-${day}` ===
-                                `${this.state.selectedYear}-${(this.state.selectedMonth as number) + 1}-${this.state.selectedDay
+                                `${this.state.selectedYear}-${(this.state.selectedMonth as number) + 1}-${
+                                  this.state.selectedDay
                                 }`,
                             })}
                             dpk-cell-selected={
                               `${year}-${month}-${day}` ===
-                              `${this.state.selectedYear}-${(this.state.selectedMonth as number) + 1}-${this.state.selectedDay
+                              `${this.state.selectedYear}-${(this.state.selectedMonth as number) + 1}-${
+                                this.state.selectedDay
                               }`
                             }
                             dpk-cell-disabled={day === ''}
