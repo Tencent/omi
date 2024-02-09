@@ -60,7 +60,7 @@ export function Questionnaire() {
             <textarea class="w-full rounded-md border py-2 px-3 text-gray-700 h-24"></textarea>
           </div>
           <div class="text-center">
-            <o-button type="submit" clsn="px-14">
+            <o-button type="submit" cls="px-14">
               提交
             </o-button>
           </div>

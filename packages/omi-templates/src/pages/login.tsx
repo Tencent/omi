@@ -55,7 +55,7 @@ export function Login() {
             <o-button
               type="submit"
               className="block w-full"
-              clsn="w-full"
+              cls="w-full"
               href="#/"
               tag="a"
             >

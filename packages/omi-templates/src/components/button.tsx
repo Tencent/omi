@@ -29,9 +29,10 @@ export const buttonVariants = cva(
 )
 
 export type ButtonProps = VariantProps<typeof buttonVariants> & {
-  // 使用 clsn， 避免使用 className 同时作用 host 和 内部的 root
-  clsn?: string
+  // 使用 cls， 避免使用 className 同时作用 host 和 内部的 root
+  cls?: string
   tag: string
+  className?: string
 }
 
 @tag('o-button')
@@ -48,10 +49,10 @@ export class Button extends Component<ButtonProps> {
 
   render() {
     // 取出 className 不使用，防止覆盖
-    const { tag: Tag, clsn, variant, size, className, ...props } = this.props
+    const { tag: Tag, cls, variant, size, className, ...props } = this.props
 
     return (
-      <Tag className={cn(buttonVariants({ variant, size, className: clsn }))} {...props}>
+      <Tag className={cn(buttonVariants({ variant, size, className: cls }))} {...props}>
         <slot></slot>
       </Tag>
     )
