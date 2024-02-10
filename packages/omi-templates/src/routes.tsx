@@ -168,6 +168,10 @@ function createDocsRoute(path: string, componentImport: () => Promise<unknown>) 
               )
             }}
             fallback={fallback}
+            beforePending={async (suspense: Component) => {
+              suspense.shadowRoot?.firstElementChild?.classList.add('opacity-0', 'translate-y-4')
+              return new Promise((resolve) => setTimeout(resolve, 300))
+            }}
             pending={pending}
             onLoaded={() => {
               window.refreshDark()

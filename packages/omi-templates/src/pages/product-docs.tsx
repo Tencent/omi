@@ -1,7 +1,16 @@
 import '../components/md-docs'
 import '../components/docs-sidebar'
-import { Component, tag, bind } from 'omi'
+import { Component, tag, bind, classNames } from 'omi'
 import { docsConfig } from '../docs/config'
+import * as MarkdownIt from 'markdown-it'
+
+// @ts-ignore
+const MdIt = MarkdownIt.default ? MarkdownIt.default : MarkdownIt
+
+type NavTreeNode = {
+  title: string
+  children: NavTreeNode[]
+}
 
 type Props = {
   lang: string
@@ -13,8 +22,14 @@ type Lang = 'zh' | 'en'
 
 @tag('product-docs')
 export class ProductDocs extends Component<Props> {
-  state = {
+  state: {
+    markdownContent: string
+    navTree: NavTreeNode
+    active: [string, string]
+  } = {
     markdownContent: '',
+    navTree: { title: '', children: [] },
+    active: ['', ''],
   }
 
   @bind
@@ -27,8 +42,75 @@ export class ProductDocs extends Component<Props> {
     this.update()
   }
 
+  md: MarkdownIt = new MdIt()
+
   install() {
     this.state.markdownContent = this.props.markdownContent
+
+    this.setNavTree()
+  }
+
+  // 提取 markdown 中的标题
+  setNavTree() {
+    const tokens = this.md.parse(this.state.markdownContent, {})
+
+    let currentNode: NavTreeNode = this.state.navTree
+
+    for (let i = 0; i < tokens.length; i++) {
+      const token = tokens[i]
+      if (token.type === 'heading_open') {
+        const title = tokens[i + 1].content
+        const newNode: NavTreeNode = { title, children: [] }
+
+        if (token.tag === 'h2') {
+          this.state.navTree.children.push(newNode)
+          currentNode = newNode
+        } else if (token.tag === 'h3') {
+          currentNode.children.push(newNode)
+        }
+      }
+    }
+    this.state.active = [this.state.navTree.children[0].title, this.state.navTree.children[0].children?.[0]?.title]
+  }
+
+  goToSection = (item: NavTreeNode) => () => {
+    this.state.active = [item.title, '']
+    this.update()
+    this.scrollToH2(item.title)
+  }
+
+  goToSubSection = (item: NavTreeNode, child: NavTreeNode) => () => {
+    this.state.active = [item.title, child.title]
+    this.update()
+    this.scrollToH3(child.title)
+  }
+
+  scrollToH2(title: string) {
+    const h2Elements = (
+      this.rootElement?.querySelector('md-docs') as HTMLElement & {
+        rootElement: HTMLElement
+      }
+    )?.rootElement.getElementsByTagName('h2')
+    for (let i = 0; i < h2Elements.length; i++) {
+      if (h2Elements[i].textContent === title) {
+        h2Elements[i].scrollIntoView({ behavior: 'smooth' })
+        break
+      }
+    }
+  }
+
+  scrollToH3(title: string) {
+    const h2Elements = (
+      this.rootElement?.querySelector('md-docs') as HTMLElement & {
+        rootElement: HTMLElement
+      }
+    ).rootElement.getElementsByTagName('h3')
+    for (let i = 0; i < h2Elements.length; i++) {
+      if (h2Elements[i].textContent === title) {
+        h2Elements[i].scrollIntoView({ behavior: 'smooth' })
+        break
+      }
+    }
   }
 
   render() {
@@ -94,69 +176,41 @@ export class ProductDocs extends Component<Props> {
                   On this page
                 </h2>
                 <ol role="list" class="mt-4 space-y-3 text-sm">
-                  <li>
-                    <h3>
-                      <a class="text-primary brightness-125" href="#quis-vel-iste-dicta">
-                        Quis vel iste dicta
-                      </a>
-                    </h3>
-                    <ol role="list" class="mt-2 space-y-3 pl-5 text-slate-500 dark:text-slate-400">
-                      <li>
-                        <a class="hover:text-slate-600 dark:hover:text-slate-300" href="#et-pariatur-ab-quas">
-                          Et pariatur ab quas
-                        </a>
+                  {this.state.navTree.children.map((item: NavTreeNode) => {
+                    return (
+                      <li class="text-slate-500 dark:text-slate-400">
+                        <h3 onClick={this.goToSection(item)}>
+                          <a
+                            class={classNames({
+                              'text-primary brightness-125': this.state.active[0] === item.title,
+                              'hover:text-slate-600 dark:hover:text-slate-300': this.state.active[0] !== item.title,
+                            })}
+                            href="javascript:void(0)"
+                          >
+                            {item.title}
+                          </a>
+                        </h3>
+                        <ol role="list" class="mt-2 space-y-3 pl-5">
+                          {item.children.map((child: NavTreeNode) => {
+                            return (
+                              <li onClick={this.goToSubSection(item, child)}>
+                                <a
+                                  class={classNames({
+                                    'text-primary brightness-125': this.state.active[1] === child.title,
+                                    'hover:text-slate-600 dark:hover:text-slate-300':
+                                      this.state.active[1] !== child.title,
+                                  })}
+                                  href="javascript:void(0)"
+                                >
+                                  {child.title}
+                                </a>
+                              </li>
+                            )
+                          })}
+                        </ol>
                       </li>
-                      <li>
-                        <a class="hover:text-slate-600 dark:hover:text-slate-300" href="#natus-aspernatur-iste">
-                          Natus aspernatur iste
-                        </a>
-                      </li>
-                    </ol>
-                  </li>
-                  <li>
-                    <h3>
-                      <a
-                        class="font-normal text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
-                        href="#quos-porro-ut-molestiae"
-                      >
-                        Quos porro ut molestiae
-                      </a>
-                    </h3>
-                    <ol role="list" class="mt-2 space-y-3 pl-5 text-slate-500 dark:text-slate-400">
-                      <li>
-                        <a class="hover:text-slate-600 dark:hover:text-slate-300" href="#voluptatem-quas-possimus">
-                          Voluptatem quas possimus
-                        </a>
-                      </li>
-                      <li>
-                        <a class="hover:text-slate-600 dark:hover:text-slate-300" href="#id-vitae-minima">
-                          Id vitae minima
-                        </a>
-                      </li>
-                    </ol>
-                  </li>
-                  <li>
-                    <h3>
-                      <a
-                        class="font-normal text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
-                        href="#vitae-laborum-maiores"
-                      >
-                        Vitae laborum maiores
-                      </a>
-                    </h3>
-                    <ol role="list" class="mt-2 space-y-3 pl-5 text-slate-500 dark:text-slate-400">
-                      <li>
-                        <a class="hover:text-slate-600 dark:hover:text-slate-300" href="#corporis-exercitationem">
-                          Corporis exercitationem
-                        </a>
-                      </li>
-                      <li>
-                        <a class="hover:text-slate-600 dark:hover:text-slate-300" href="#reprehenderit-magni">
-                          Reprehenderit magni
-                        </a>
-                      </li>
-                    </ol>
-                  </li>
+                    )
+                  })}
                 </ol>
               </nav>
             </div>
