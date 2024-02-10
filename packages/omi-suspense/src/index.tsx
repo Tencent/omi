@@ -24,6 +24,7 @@ define(
 
     receiveProps() {
       this.handleTasks(this.props.imports)
+      return false
     }
 
     state = 'pending'
