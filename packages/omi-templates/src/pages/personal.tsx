@@ -1,3 +1,5 @@
+import '../components/table'
+
 export function Personal() {
   return (
     <div class="container mx-auto px-4 pt-8 mb-6">
@@ -61,140 +63,9 @@ export function Personal() {
 
               <div class="mt-4">
                 <div class="bg-background text-foreground">
-                  <div class="container mx-auto px-4 py-5">
+                  <div class="container mx-auto">
                     <div class="overflow-x-auto">
-                      <table class="w-full table-auto border-collapse">
-                        <thead>
-                          <tr class="text-left bg-gray-100 dark:bg-zinc-600">
-                            <th class="px-4 py-2 whitespace-nowrap">名称</th>
-                            <th class="px-4 py-2 whitespace-nowrap">类别</th>
-                            <th class="px-4 py-2 whitespace-nowrap">添加日期</th>
-                            <th class="px-4 py-2 whitespace-nowrap">描述</th>
-                            <th class="px-4 py-2 whitespace-nowrap">标签</th>
-                            <th class="px-4 py-2 whitespace-nowrap">状态</th>
-                            <th class="px-4 py-2 whitespace-nowrap">价格</th>
-                            <th class="px-4 py-2 whitespace-nowrap">评分</th>
-
-                            <th class="px-4 py-2 whitespace-nowrap">操作</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="bg-white dark:bg-zinc-700">
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              示例项目 1
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              类别 A
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              2021-01-01
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              这是一个描述
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              标签1, 标签2
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              已完成
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">$100</td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">4.5</td>
-
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              <button class="bg-background shadow-sm border border-input hover:bg-accent hover:text-accent-foreground px-4 py-2 rounded flex items-center whitespace-nowrap">
-                                查看
-                              </button>
-                            </td>
-                          </tr>
-                          <tr class="bg-gray-100 dark:bg-zinc-600">
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              示例项目 2
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              类别 B
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              2021-02-01
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              这是一个描述
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              标签1, 标签2
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              进行中
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">$200</td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">5.0</td>
-
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              <button class="bg-background shadow-sm border border-input hover:bg-accent hover:text-accent-foreground px-4 py-2 rounded flex items-center whitespace-nowrap">
-                                查看
-                              </button>
-                            </td>
-                          </tr>
-
-                          <tr class="bg-white dark:bg-zinc-700">
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              示例项目 2
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              类别 B
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              2021-02-01
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              这是一个描述
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              标签1, 标签2
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              进行中
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">$200</td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">5.0</td>
-
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              <button class="bg-background shadow-sm border border-input hover:bg-accent hover:text-accent-foreground px-4 py-2 rounded flex items-center whitespace-nowrap">
-                                查看
-                              </button>
-                            </td>
-                          </tr>
-
-                          <tr class="bg-gray-100 dark:bg-zinc-600">
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              示例项目 2
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              类别 B
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              2021-02-01
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              这是一个描述
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              标签1, 标签2
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              进行中
-                            </td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">$200</td>
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">5.0</td>
-
-                            <td class="bgborder px-4 py-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                              <button class="bg-background shadow-sm border border-input hover:bg-accent hover:text-accent-foreground px-4 py-2 rounded flex items-center whitespace-nowrap">
-                                查看
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <o-table></o-table>
                     </div>
                   </div>
                 </div>
