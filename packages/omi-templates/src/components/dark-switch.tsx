@@ -15,11 +15,11 @@ export class DarkSwitch extends Component {
 
   render() {
     return (
-      <div class="w-[60px] h-8 bg-gray-300 dark:bg-zinc-400 rounded-[2px] relative">
+      <div class="w-[60px] h-8 bg-zinc-300 dark:bg-zinc-400 rounded-[2px] relative">
         <div
           class={classNames('absolute z-0  w-[28px] h-[28px] top-[2px] rounded-[2px] transition-all duration-300', {
             'left-[2px] bg-white': !isDark.value,
-            'left-[30px] bg-gray-500': isDark.value,
+            'left-[30px] bg-zinc-500': isDark.value,
           })}
         ></div>
 
@@ -72,7 +72,7 @@ export class DarkSwitch extends Component {
         <div
           class={classNames('absolute transition-all duration-300 w-[30px] h-[30px] right-0 px-1.5 py-[7px]', {
             'text-white': isDark.value,
-            'text-gray-500 cursor-pointer': !isDark.value,
+            'text-zinc-500 cursor-pointer': !isDark.value,
           })}
           onClick={this.onDarkClick}
         >

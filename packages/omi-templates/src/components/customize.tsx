@@ -83,7 +83,7 @@ class Customize extends Component {
           <div class="flex items-start pt-4 md:pt-0">
             <div class="space-y-1 pr-2">
               <div class="font-semibold leading-none tracking-tight text-lg dark:text-foreground">自定义</div>
-              <div class="text-muted-foreground text-gray-600 dark:text-foreground">为你的模板选择一个颜色和样式。</div>
+              <div class="text-muted-foreground text-zinc-600 dark:text-foreground">为你的模板选择一个颜色和样式。</div>
             </div>
           </div>
           <div class="flex flex-1 flex-col space-y-4 md:space-y-6">

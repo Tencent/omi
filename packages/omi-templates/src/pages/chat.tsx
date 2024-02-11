@@ -7,12 +7,12 @@ export function Chat() {
   return (
     <div class="w-full h-[calc(100vh-60px)] dark:brightness-90">
       <div class="flex h-full">
-        <div class="hidden xl:block sm:flex-2 w-64 bg-gray-200">
+        <div class="hidden xl:block sm:flex-2 w-64 bg-zinc-200">
           <div class="user-profile text-center">
             <div class="w-32 h-32 rounded-full m-auto mt-16 border-2 border-white bg-white shadow-lg">
               <img src="https://omi.cdn-go.cn/admin/latest/home/omi.svg" alt="user" class="block" />
             </div>
-            <div class="text-gray-800 mt-8">
+            <div class="text-zinc-800 mt-8">
               Omer Mohamed Ali
               <span class="inline-block align-text-bottom">
                 <svg
@@ -32,7 +32,7 @@ export function Chat() {
 
           <div class="menu mt-8">
             <a
-              class="block py-4 px-12 border-l-4 text-gray-600 hover:bg-gray-300 hover:text-black"
+              class="block py-4 px-12 border-l-4 text-zinc-600 hover:bg-zinc-300 hover:text-black"
               href="javascript:return false;"
             >
               <span class="inline-block align-text-bottom mr-2">
@@ -51,7 +51,7 @@ export function Chat() {
               Home
             </a>
             <a
-              class="block py-4 px-12 border-l-4 border-gray-800 bg-gray-300 text-black hover:bg-gray-300 hover:text-black"
+              class="block py-4 px-12 border-l-4 border-zinc-800 bg-zinc-300 text-black hover:bg-zinc-300 hover:text-black"
               href="javascript:return false;"
             >
               <span class="inline-block align-text-bottom mr-2">
@@ -70,7 +70,7 @@ export function Chat() {
               Chat
             </a>
             <a
-              class="block py-4 px-12 border-l-4 text-gray-600 hover:bg-gray-300 hover:text-black"
+              class="block py-4 px-12 border-l-4 text-zinc-600 hover:bg-zinc-300 hover:text-black"
               href="javascript:return false;"
             >
               <span class="inline-block align-text-bottom mr-2">
@@ -89,7 +89,7 @@ export function Chat() {
               Calendar
             </a>
             <a
-              class="block py-4 px-12 border-l-4 text-gray-600 hover:bg-gray-300 hover:text-black"
+              class="block py-4 px-12 border-l-4 text-zinc-600 hover:bg-zinc-300 hover:text-black"
               href="javascript:return false;"
             >
               <span class="inline-block align-text-bottom mr-2">
@@ -108,7 +108,7 @@ export function Chat() {
               Files
             </a>
             <a
-              class="block py-4 px-12 border-l-4 text-gray-600 hover:bg-gray-300 hover:text-black"
+              class="block py-4 px-12 border-l-4 text-zinc-600 hover:bg-zinc-300 hover:text-black"
               href="javascript:return false;"
             >
               <span class="inline-block align-text-bottom mr-2">
@@ -127,7 +127,7 @@ export function Chat() {
               Jobs
             </a>
             <a
-              class="block py-4 px-12 border-l-4 text-gray-600 hover:bg-gray-300 hover:text-black"
+              class="block py-4 px-12 border-l-4 text-zinc-600 hover:bg-zinc-300 hover:text-black"
               href="javascript:return false;"
             >
               <span class="inline-block align-text-bottom mr-2">
@@ -148,12 +148,12 @@ export function Chat() {
             </a>
           </div>
         </div>
-        <div class="flex-1 bg-gray-100 w-full h-full">
+        <div class="flex-1 bg-zinc-100 w-full h-full">
           <div class="main-body container m-auto w-11/12 h-full flex flex-col">
             <div class="py-4 flex-2 flex flex-row">
               <div class="flex-1">
-                <span class="xl:hidden inline-block text-gray-700 hover:text-gray-900 align-bottom">
-                  <span class="block h-6 w-6 p-1 rounded-full hover:bg-gray-400">
+                <span class="xl:hidden inline-block text-zinc-700 hover:text-zinc-900 align-bottom">
+                  <span class="block h-6 w-6 p-1 rounded-full hover:bg-zinc-400">
                     <svg
                       class="w-4 h-4"
                       fill="none"
@@ -167,8 +167,8 @@ export function Chat() {
                     </svg>
                   </span>
                 </span>
-                <span class="lg:hidden inline-block ml-8 text-gray-700 hover:text-gray-900 align-bottom">
-                  <span class="block h-6 w-6 p-1 rounded-full hover:bg-gray-400">
+                <span class="lg:hidden inline-block ml-8 text-zinc-700 hover:text-zinc-900 align-bottom">
+                  <span class="block h-6 w-6 p-1 rounded-full hover:bg-zinc-400">
                     <svg
                       class="h-4 w-4"
                       fill="none"
@@ -184,7 +184,7 @@ export function Chat() {
                 </span>
               </div>
               <div class="flex-1 text-right">
-                <span class="inline-block text-gray-700">
+                <span class="inline-block text-zinc-700">
                   Status:{' '}
                   <span class="inline-block align-text-bottom w-4 h-4 bg-green-400 rounded-full border-2 border-white"></span>{' '}
                   <b>Online</b>
@@ -203,8 +203,8 @@ export function Chat() {
                   </span>
                 </span>
 
-                <span class="inline-block ml-8 text-gray-700 hover:text-gray-900 align-bottom">
-                  <span class="block h-6 w-6 p-1 rounded-full hover:bg-gray-400">
+                <span class="inline-block ml-8 text-zinc-700 hover:text-zinc-900 align-bottom">
+                  <span class="block h-6 w-6 p-1 rounded-full hover:bg-zinc-400">
                     <svg
                       fill="none"
                       stroke="currentColor"
@@ -223,7 +223,7 @@ export function Chat() {
 
             <div class="main flex-1 flex flex-col">
               <div class="hidden lg:block heading flex-2">
-                <h1 class="text-3xl text-gray-700 mb-4">Chat</h1>
+                <h1 class="text-3xl text-zinc-700 mb-4">Chat</h1>
               </div>
 
               <div class="flex-1 flex h-full">
@@ -231,7 +231,7 @@ export function Chat() {
                   <div class="search flex-2 pb-6 px-2">
                     <input
                       type="text"
-                      class="outline-none py-2 block w-full bg-transparent border-b-2 border-gray-200"
+                      class="outline-none py-2 block w-full bg-transparent border-b-2 border-zinc-200"
                       placeholder="Search"
                     />
                   </div>
@@ -249,15 +249,15 @@ export function Chat() {
                       </div>
                       <div class="flex-1 px-2">
                         <div class="truncate w-32">
-                          <span class="text-gray-800">Ryann Remo</span>
+                          <span class="text-zinc-800">Ryann Remo</span>
                         </div>
                         <div>
-                          <small class="text-gray-600">Yea, Sure!</small>
+                          <small class="text-zinc-600">Yea, Sure!</small>
                         </div>
                       </div>
                       <div class="flex-2 text-right">
                         <div>
-                          <small class="text-gray-500">15 April</small>
+                          <small class="text-zinc-500">15 April</small>
                         </div>
                         <div>
                           <small class="text-xs bg-red-500 text-white rounded-full h-6 w-6 leading-6 text-center inline-block">
@@ -274,20 +274,20 @@ export function Chat() {
                             src="https://omi.cdn-go.cn/admin/latest/home/omi.svg"
                             alt="chat-user"
                           />
-                          <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
+                          <span class="absolute w-4 h-4 bg-zinc-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
                         </div>
                       </div>
                       <div class="flex-1 px-2">
                         <div class="truncate w-32">
-                          <span class="text-gray-800">Karp Bonolo</span>
+                          <span class="text-zinc-800">Karp Bonolo</span>
                         </div>
                         <div>
-                          <small class="text-gray-600">Yea, Sure!</small>
+                          <small class="text-zinc-600">Yea, Sure!</small>
                         </div>
                       </div>
                       <div class="flex-2 text-right">
                         <div>
-                          <small class="text-gray-500">15 April</small>
+                          <small class="text-zinc-500">15 April</small>
                         </div>
                         <div>
                           <small class="text-xs bg-red-500 text-white rounded-full h-6 w-6 leading-6 text-center inline-block">
@@ -304,20 +304,20 @@ export function Chat() {
                             src="https://omi.cdn-go.cn/admin/latest/home/omi.svg"
                             alt="chat-user"
                           />
-                          <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
+                          <span class="absolute w-4 h-4 bg-zinc-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
                         </div>
                       </div>
                       <div class="flex-1 px-2">
                         <div class="truncate w-32">
-                          <span class="text-gray-800">Mercedes Yemelyan</span>
+                          <span class="text-zinc-800">Mercedes Yemelyan</span>
                         </div>
                         <div>
-                          <small class="text-gray-600">Yea, Sure!</small>
+                          <small class="text-zinc-600">Yea, Sure!</small>
                         </div>
                       </div>
                       <div class="flex-2 text-right">
                         <div>
-                          <small class="text-gray-500">15 April</small>
+                          <small class="text-zinc-500">15 April</small>
                         </div>
                       </div>
                     </div>
@@ -329,20 +329,20 @@ export function Chat() {
                             src="https://omi.cdn-go.cn/admin/latest/home/omi.svg"
                             alt="chat-user"
                           />
-                          <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
+                          <span class="absolute w-4 h-4 bg-zinc-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
                         </div>
                       </div>
                       <div class="flex-1 px-2">
                         <div class="truncate w-32">
-                          <span class="text-gray-800">Cadi Kajetán</span>
+                          <span class="text-zinc-800">Cadi Kajetán</span>
                         </div>
                         <div>
-                          <small class="text-gray-600">Yea, Sure!</small>
+                          <small class="text-zinc-600">Yea, Sure!</small>
                         </div>
                       </div>
                       <div class="flex-2 text-right">
                         <div>
-                          <small class="text-gray-500">15 April</small>
+                          <small class="text-zinc-500">15 April</small>
                         </div>
                       </div>
                     </div>
@@ -354,20 +354,20 @@ export function Chat() {
                             src="https://omi.cdn-go.cn/admin/latest/home/omi.svg"
                             alt="chat-user"
                           />
-                          <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
+                          <span class="absolute w-4 h-4 bg-zinc-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
                         </div>
                       </div>
                       <div class="flex-1 px-2">
                         <div class="truncate w-32">
-                          <span class="text-gray-800">Rina Samuel</span>
+                          <span class="text-zinc-800">Rina Samuel</span>
                         </div>
                         <div>
-                          <small class="text-gray-600">Yea, Sure!</small>
+                          <small class="text-zinc-600">Yea, Sure!</small>
                         </div>
                       </div>
                       <div class="flex-2 text-right">
                         <div>
-                          <small class="text-gray-500">15 April</small>
+                          <small class="text-zinc-500">15 April</small>
                         </div>
                       </div>
                     </div>
@@ -375,7 +375,7 @@ export function Chat() {
                 </div>
                 <div class="chat-area flex-1 flex flex-col">
                   <div class="flex-3">
-                    <h2 class="text-xl py-1 mb-8 border-b-2 border-gray-200">
+                    <h2 class="text-xl py-1 mb-8 border-b-2 border-zinc-200">
                       Chatting with <b>Mercedes Yemelyan</b>
                     </h2>
                   </div>
@@ -388,17 +388,17 @@ export function Chat() {
                             src="https://omi.cdn-go.cn/admin/latest/home/omi.svg"
                             alt="chat-user"
                           />
-                          <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
+                          <span class="absolute w-4 h-4 bg-zinc-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
                         </div>
                       </div>
                       <div class="flex-1 px-2">
-                        <div class="inline-block bg-gray-300 rounded-full p-2 px-6 text-gray-700">
+                        <div class="inline-block bg-zinc-300 rounded-full p-2 px-6 text-zinc-700">
                           <span>
                             Hey there. We would like to invite you over to our office for a visit. How about it?
                           </span>
                         </div>
                         <div class="pl-4">
-                          <small class="text-gray-500">15 April</small>
+                          <small class="text-zinc-500">15 April</small>
                         </div>
                       </div>
                     </div>
@@ -410,15 +410,15 @@ export function Chat() {
                             src="https://omi.cdn-go.cn/admin/latest/home/omi.svg"
                             alt="chat-user"
                           />
-                          <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
+                          <span class="absolute w-4 h-4 bg-zinc-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
                         </div>
                       </div>
                       <div class="flex-1 px-2">
-                        <div class="inline-block bg-gray-300 rounded-full p-2 px-6 text-gray-700">
+                        <div class="inline-block bg-zinc-300 rounded-full p-2 px-6 text-zinc-700">
                           <span>All travel expenses are covered by us of course :D</span>
                         </div>
                         <div class="pl-4">
-                          <small class="text-gray-500">15 April</small>
+                          <small class="text-zinc-500">15 April</small>
                         </div>
                       </div>
                     </div>
@@ -428,7 +428,7 @@ export function Chat() {
                           <span>It's like a dream come true</span>
                         </div>
                         <div class="pr-4">
-                          <small class="text-gray-500">15 April</small>
+                          <small class="text-zinc-500">15 April</small>
                         </div>
                       </div>
                     </div>
@@ -438,7 +438,7 @@ export function Chat() {
                           <span>I accept. Thank you very much.</span>
                         </div>
                         <div class="pr-4">
-                          <small class="text-gray-500">15 April</small>
+                          <small class="text-zinc-500">15 April</small>
                         </div>
                       </div>
                     </div>
@@ -450,15 +450,15 @@ export function Chat() {
                             src="https://omi.cdn-go.cn/admin/latest/home/omi.svg"
                             alt="chat-user"
                           />
-                          <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
+                          <span class="absolute w-4 h-4 bg-zinc-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
                         </div>
                       </div>
                       <div class="flex-1 px-2">
-                        <div class="inline-block bg-gray-300 rounded-full p-2 px-6 text-gray-700">
+                        <div class="inline-block bg-zinc-300 rounded-full p-2 px-6 text-zinc-700">
                           <span>You are welome. We will stay in touch.</span>
                         </div>
                         <div class="pl-4">
-                          <small class="text-gray-500">15 April</small>
+                          <small class="text-zinc-500">15 April</small>
                         </div>
                       </div>
                     </div>
@@ -466,7 +466,7 @@ export function Chat() {
                   <div class="flex-2 pt-4 pb-10">
                     <div class="write bg-white shadow flex rounded-lg">
                       <div class="flex-3 flex content-center items-center text-center p-4 pr-0">
-                        <span class="block text-center text-gray-400 hover:text-gray-800">
+                        <span class="block text-center text-zinc-400 hover:text-zinc-800">
                           <svg
                             fill="none"
                             stroke-linecap="round"
@@ -491,7 +491,7 @@ export function Chat() {
                       </div>
                       <div class="flex-2 w-32 p-2 flex content-center items-center">
                         <div class="flex-1 text-center">
-                          <span class="text-gray-400 hover:text-gray-800">
+                          <span class="text-zinc-400 hover:text-zinc-800">
                             <span class="inline-block align-text-bottom">
                               <svg
                                 fill="none"

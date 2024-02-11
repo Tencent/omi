@@ -2,9 +2,9 @@ import { showCustomize } from './customize.tsx'
 
 export function CustomizeButton() {
   return (
-    <div class="fixed right-0 bottom-0 m-6 bg-gray-300 dark:bg-background dark:text-foreground bg-opacity-40 backdrop-filter h-16 backdrop-blur-md py-2 px-3 rounded-full flex items-center">
+    <div class="fixed right-0 bottom-0 m-6 bg-zinc-300 dark:bg-background dark:text-foreground bg-opacity-40 backdrop-filter h-16 backdrop-blur-md py-2 px-3 rounded-full flex items-center">
       <button
-        class="flex border bg-gray-100 dark:bg-background dark:text-foreground p-2 rounded-full text-gray-600 hover:text-primary"
+        class="flex border bg-zinc-100 dark:bg-background dark:text-foreground p-2 rounded-full text-zinc-600 hover:text-primary"
         onClick={(evt) => {
           evt.stopPropagation()
           showCustomize()

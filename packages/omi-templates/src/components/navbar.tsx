@@ -93,7 +93,7 @@ export class Navbar extends Component<Props> {
                 class={classNames(
                   'no-underline block px-4 py-2 hover:text-primary hover:bg-slate-100 dark:hover:bg-zinc-600  rounded-md p-2 dark:text-foreground',
                   {
-                    'text-gray-600 md:text-gray-800': this.state.active !== navbarItemChild.value,
+                    'text-zinc-600 md:text-zinc-800': this.state.active !== navbarItemChild.value,
                     'text-primary md:text-primary': this.state.active === navbarItemChild.value,
                     'dark:bg-zinc-200/20': this.state.active === navbarItemChild.value,
                   },
@@ -102,7 +102,7 @@ export class Navbar extends Component<Props> {
                 href={`${navbarItemChild.href}`}
               >
                 {navbarItemChild.text}
-                <div class="w-3 h-3 inline-block text-gray-600 ml-1">
+                <div class="w-3 h-3 inline-block text-zinc-600 ml-1">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-full h-full">
                     <path d="M0 0h24v24H0V0z" fill="none" />
                     <path d="M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5H9z" />
@@ -119,7 +119,7 @@ export class Navbar extends Component<Props> {
               class={classNames(
                 'no-underline block px-4 py-2 hover:text-primary hover:bg-slate-100 dark:hover:bg-zinc-600 rounded-md  p-2 dark:text-foreground',
                 {
-                  'text-gray-600 md:text-gray-800': this.state.active !== navbarItemChild.value,
+                  'text-zinc-600 md:text-zinc-800': this.state.active !== navbarItemChild.value,
                   'text-primary md:text-primary': this.state.active === navbarItemChild.value,
                   'dark:bg-zinc-200/20': this.state.active === navbarItemChild.value,
                 },
@@ -140,7 +140,7 @@ export class Navbar extends Component<Props> {
             onClick={this.onClick}
             data-collapse-toggle="navbar-multi-level"
             type="button"
-            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-zinc-500 rounded-lg md:hidden hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-200 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:focus:ring-zinc-600"
             aria-controls="navbar-multi-level"
             aria-expanded="false"
           >
@@ -199,7 +199,7 @@ export class Navbar extends Component<Props> {
                   })}
                 >
                   <a
-                    class="block text-gray-800 cursor-pointer hover:text-primary p-2 md:py-1"
+                    class="block text-zinc-800 cursor-pointer hover:text-primary p-2 md:py-1"
                     target={navbarItem.href ? navbarItem.target || '_blank' : '_self'}
                     unsafeHTML={navbarItem.inner ? { html: navbarItem.inner } : null}
                     href={
@@ -221,7 +221,7 @@ export class Navbar extends Component<Props> {
                       {navbarItem.text}
                     </span>
                     {navbarItem.href && (
-                      <div class="w-3 h-3 inline-block text-gray-600 ml-1 dark:text-foreground">
+                      <div class="w-3 h-3 inline-block text-zinc-600 ml-1 dark:text-foreground">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="currentColor"
@@ -251,7 +251,7 @@ export class Navbar extends Component<Props> {
                       </svg>
                     )}
                     {navbarItem.children && (
-                      <ul class="md:absolute md:left-1/2 md:-translate-x-1/2 w-auto  mt-2 text-sm md:text-base dark:bg-background bg-[#fafafa] md:border static text-gray-600 overflow-hidden md:shadow-md md:invisible group-hover:visible transition-all duration-150 delay-100 rounded-md hover:text-primary">
+                      <ul class="md:absolute md:left-1/2 md:-translate-x-1/2 w-auto  mt-2 text-sm md:text-base dark:bg-background bg-[#fafafa] md:border static text-zinc-600 overflow-hidden md:shadow-md md:invisible group-hover:visible transition-all duration-150 delay-100 rounded-md hover:text-primary">
                         {navbarItem.children.map((navbarItemChild: NavbarItem) => {
                           return this.renderNavbarItemChild(navbarItemChild)
                         })}

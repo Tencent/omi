@@ -31,9 +31,9 @@ export function NetworkError() {
           </svg>
         </div>
 
-        <h2 class="text-2xl font-bold mb-2 text-gray-700 dark:text-foreground">网络异常</h2>
+        <h2 class="text-2xl font-bold mb-2 text-zinc-700 dark:text-foreground">网络异常</h2>
 
-        <p class="text-gray-600 mb-6 dark:text-foreground">网络异常，请稍后再试</p>
+        <p class="text-zinc-600 mb-6 dark:text-foreground">网络异常，请稍后再试</p>
 
         <div class="flex justify-center space-x-4">
           <a href="#/" class="py-2 px-4 bg-primary text-white rounded hover:bg-primary/85">

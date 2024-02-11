@@ -105,7 +105,7 @@ export class Select extends Component<Props> {
             {this.props.options.map((option) => (
               <a
                 href="javascript:"
-                class="block px-4 py-2 text-sm  hover:bg-zinc-100 rounded dark:hover:bg-zinc-400 hover:text-gray-900"
+                class="block px-4 py-2 text-sm  hover:bg-zinc-100 rounded dark:hover:bg-zinc-400 hover:text-zinc-900"
                 role="menuitem"
                 onClick={() => this.onSelectOption(option)}
               >

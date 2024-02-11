@@ -1,5 +1,5 @@
-import '../components/calendar/index'
-import '../components/button'
+import '../components/omiu/calendar/index'
+import '../components/omiu/button'
 
 export function Questionnaire() {
   return (
@@ -8,12 +8,12 @@ export function Questionnaire() {
       <form action="#" method="post">
         <div class="bg-white p-6 rounded-xl shadow dark:brightness-90">
           <div class="mb-6">
-            <label class="block text-gray-700 mb-2">问题 1：您的年龄范围是？</label>
+            <label class="block text-zinc-700 mb-2">问题 1：您的年龄范围是？</label>
 
             <select
               id="flavor"
               style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e'); background-size: 1em;  background-position: right 0.5rem center;"
-              class="mt-1 block w-full px-2 py-1 rounded-md shadow-sm bg-white border border-gray-300 focus:border-primary focus:ring-1 focus:ring-primary focus:ring-opacity-50 bg-no-repeat appearance-none "
+              class="mt-1 block w-full px-2 py-1 rounded-md shadow-sm bg-white border border-zinc-300 focus:border-primary focus:ring-1 focus:ring-primary focus:ring-opacity-50 bg-no-repeat appearance-none "
             >
               <option>18-24</option>
               <option>25-34</option>
@@ -24,7 +24,7 @@ export function Questionnaire() {
             </select>
           </div>
           <div class="mb-6">
-            <label class="block text-gray-700 mb-2">问题 2：您的性别是？</label>
+            <label class="block text-zinc-700 mb-2">问题 2：您的性别是？</label>
             <div>
               <input type="radio" name="gender" id="male" class="mr-2" />
               <label for="male">男</label>
@@ -35,13 +35,13 @@ export function Questionnaire() {
             </div>
           </div>
           <div class="mb-6">
-            <label class="block text-gray-700 mb-2">问题 4：您的出生日期？</label>
+            <label class="block text-zinc-700 mb-2">问题 3：您的出生日期？</label>
             <div>
               <o-calendar value="2023-12-26" locale="zh"></o-calendar>
             </div>
           </div>
           <div class="mb-6">
-            <label class="block text-gray-700 mb-2">问题 4：您最喜欢的颜色是？</label>
+            <label class="block text-zinc-700 mb-2">问题 4：您最喜欢的颜色是？</label>
             <div>
               <input type="checkbox" name="color" id="red" class="mr-2" />
               <label for="red">红色</label>
@@ -56,8 +56,8 @@ export function Questionnaire() {
             </div>
           </div>
           <div class="mb-6">
-            <label class="block text-gray-700 mb-2">问题 5：您对我们的产品有什么建议？</label>
-            <textarea class="w-full rounded-md border py-2 px-3 text-gray-700 h-24"></textarea>
+            <label class="block text-zinc-700 mb-2">问题 5：您对我们的产品有什么建议？</label>
+            <textarea class="w-full rounded-md border py-2 px-3 text-zinc-700 h-24"></textarea>
           </div>
           <div class="text-center">
             <o-button type="submit" cls="px-14">

@@ -18,7 +18,6 @@ export class Appear extends Component {
         this.classList.add(item)
         this.classList.remove(item)
       })
-      // o-table 和 日历组件的切换时，需要刷新一下
       window.refreshDark()
     }, 10)
   }

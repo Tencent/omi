@@ -1,5 +1,5 @@
 export const fallback = (
-  <div class="flex items-center justify-center bg-gray-100" style="height:calc(100vh - 349px)">
+  <div class="flex items-center justify-center bg-zinc-100" style="height:calc(100vh - 349px)">
     <div class="p-8  text-center">
       <div class="mb-4 text-primary">
         <svg data-v-452ecc15="" xmlns="http://www.w3.org/2000/svg" width="200" height="140" fill="none">
@@ -30,15 +30,15 @@ export const fallback = (
         </svg>
       </div>
 
-      <h2 class="text-2xl font-bold mb-2 text-gray-700">网络异常</h2>
+      <h2 class="text-2xl font-bold mb-2 text-zinc-700">网络异常</h2>
 
-      <p class="text-gray-600 mb-6">网络异常，请稍后再试</p>
+      <p class="text-zinc-600 mb-6">网络异常，请稍后再试</p>
 
       <div class="flex justify-center space-x-4">
         <a href="#/" class="py-2 px-4 bg-primary text-white rounded hover:bg-primary/85">
           重新加载
         </a>
-        <a href="#/" class="py-2 px-4 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+        <a href="#/" class="py-2 px-4 bg-zinc-200 text-zinc-700 rounded hover:bg-zinc-300">
           返回首页
         </a>
       </div>

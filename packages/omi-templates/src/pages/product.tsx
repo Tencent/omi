@@ -1,5 +1,5 @@
-import '../components/select'
-import '../components/button'
+import '../components/omiu/select'
+import '../components/omiu/button'
 
 export function Product(props: { id: string }) {
   return (
@@ -11,7 +11,7 @@ export function Product(props: { id: string }) {
             class="h-[450px] object-cover w-full rounded-lg shadow-md"
             alt="Product Image"
           />
-          <div class="relative text-gray-400 overflow-x-scroll whitespace-nowrap grid grid-cols-7 gap-2 mt-4">
+          <div class="relative text-zinc-400 overflow-x-scroll whitespace-nowrap grid grid-cols-7 gap-2 mt-4">
             <svg
               class="mt-1 w-16 h-16 hover:text-primary cursor-pointer"
               xmlns="http://www.w3.org/2000/svg"
@@ -61,50 +61,50 @@ export function Product(props: { id: string }) {
         <div class="md:w-[550px] w-full mt-4 md:mt-0">
           <h1 class="text-2xl font-bold">产品名称 - {props.id}</h1>
           <p class="text-md text-black mt-2 flex items-center">
-            <span class="text-gray-500 w-32">价格:</span> <span class="text-2xl dark:text-foreground">$99.99</span>
+            <span class="text-zinc-500 w-32">价格:</span> <span class="text-2xl dark:text-foreground">$99.99</span>
           </p>
-          <p class="text-md text-gray-500 mt-2 flex items-center">
-            <span class="text-gray-500 w-32">运送至:</span>
+          <p class="text-md text-zinc-500 mt-2 flex items-center">
+            <span class="text-zinc-500 w-32">运送至:</span>
             <span class="text-black dark:text-foreground">南山大道粤海街道103号1栋2单元9楼</span>
           </p>
-          <p class="text-md text-gray-500 mt-2 flex items-center">
-            <span class="text-gray-500 w-32">重量:</span>
+          <p class="text-md text-zinc-500 mt-2 flex items-center">
+            <span class="text-zinc-500 w-32">重量:</span>
             <span class="text-black dark:text-foreground">1kg</span>
           </p>
-          <p class="text-md text-gray-500 mt-2 flex items-center">
-            <span class="text-gray-500 w-32">描述:</span>
+          <p class="text-md text-zinc-500 mt-2 flex items-center">
+            <span class="text-zinc-500 w-32">描述:</span>
             <span class="text-black flex-1 dark:text-foreground">这是一个示例产品描述，提供有关产品的更多信息。</span>
           </p>
 
-          <p class="text-md text-gray-500 mt-2 flex items-center">
-            <span class="text-gray-500 w-32">材料:</span>
+          <p class="text-md text-zinc-500 mt-2 flex items-center">
+            <span class="text-zinc-500 w-32">材料:</span>
             <span class="text-black dark:text-foreground">优质原料，天然添加剂</span>
           </p>
-          <p class="text-md text-gray-500 mt-2 flex items-center">
-            <span class="text-gray-500 w-32">保质期:</span>
+          <p class="text-md text-zinc-500 mt-2 flex items-center">
+            <span class="text-zinc-500 w-32">保质期:</span>
             <span class="text-black dark:text-foreground">12个月</span>
           </p>
-          <p class="text-md text-gray-500 mt-2 flex items-center">
-            <span class="text-gray-500 w-32">包装:</span>
+          <p class="text-md text-zinc-500 mt-2 flex items-center">
+            <span class="text-zinc-500 w-32">包装:</span>
             <span class="text-black dark:text-foreground">精美包装，适合送礼</span>
           </p>
-          <p class="text-md text-gray-500 mt-2 flex items-center">
-            <span class="text-gray-500 w-32">使用方法:</span>
+          <p class="text-md text-zinc-500 mt-2 flex items-center">
+            <span class="text-zinc-500 w-32">使用方法:</span>
             <span class="text-black dark:text-foreground">根据个人口味，适量食用</span>
           </p>
-          <p class="text-md text-gray-500 mt-2 flex items-center">
-            <span class="text-gray-500 w-32">特点:</span>
+          <p class="text-md text-zinc-500 mt-2 flex items-center">
+            <span class="text-zinc-500 w-32">特点:</span>
             <span class="text-black dark:text-foreground">口感丰富，营养丰富，适合各年龄层</span>
           </p>
-          <p class="text-md text-gray-500 mt-2 flex items-center">
-            <span class="text-gray-500 w-32">评价:</span>
+          <p class="text-md text-zinc-500 mt-2 flex items-center">
+            <span class="text-zinc-500 w-32">评价:</span>
             <span class="text-black dark:text-foreground">
               <span class="text-yellow-400">⭐⭐⭐⭐⭐</span>
               <span class="text-md text-black ml-2 dark:text-foreground">4.8 (120条评价)</span>
             </span>
           </p>
           <div class="mt-4 flex items-center">
-            <label for="flavor" class="text-gray-500 w-32">
+            <label for="flavor" class="text-zinc-500 w-32">
               选择口味:
             </label>
 
@@ -134,10 +134,10 @@ export function Product(props: { id: string }) {
                 type="button"
                 id="decrement-button"
                 data-input-counter-decrement="quantity-input"
-                class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-10 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+                class="bg-zinc-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:border-zinc-600 hover:bg-zinc-200 border border-zinc-300 rounded-s-lg p-3 h-10 focus:ring-zinc-100 dark:focus:ring-zinc-700 focus:ring-2 focus:outline-none"
               >
                 <svg
-                  class="w-3 h-3 text-gray-900 dark:text-white"
+                  class="w-3 h-3 text-zinc-900 dark:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -157,17 +157,17 @@ export function Product(props: { id: string }) {
                 id="quantity-input"
                 data-input-counter
                 aria-describedby="helper-text-explanation"
-                class="bg-gray-50 border-x-0 border-gray-300 h-10 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 border dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="bg-zinc-50 border-x-0 border-zinc-300 h-10 text-center text-zinc-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 border dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="999"
               />
               <button
                 type="button"
                 id="increment-button"
                 data-input-counter-increment="quantity-input"
-                class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-10 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+                class="bg-zinc-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:border-zinc-600 hover:bg-zinc-200 border border-zinc-300 rounded-e-lg p-3 h-10 focus:ring-zinc-100 dark:focus:ring-zinc-700 focus:ring-2 focus:outline-none"
               >
                 <svg
-                  class="w-3 h-3 text-gray-900 dark:text-white"
+                  class="w-3 h-3 text-zinc-900 dark:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -192,7 +192,7 @@ export function Product(props: { id: string }) {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-20 mb-10 w-full mx-auto px-4 py-10 md:w-[1080px]">
           <div>
             <div class="flex items-center">
-              <div class="w-16 h-16 text-gray-700 rounded-md overflow-hidden mr-4 dark:text-foreground">
+              <div class="w-16 h-16 text-zinc-700 rounded-md overflow-hidden mr-4 dark:text-foreground">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="100%"
@@ -214,7 +214,7 @@ export function Product(props: { id: string }) {
               </div>
               <div class="flex-1">
                 <h2 class="text-xl font-bold">超强续航能力</h2>
-                <p class="text-gray-600 dark:text-foreground">
+                <p class="text-zinc-600 dark:text-foreground">
                   这款手机拥有出色的电池寿命，无论是长时间的工作还是娱乐，都能满足你的需求。它的超强续航能力让你无需担心电量问题，让你的生活更加便捷。
                 </p>
               </div>
@@ -223,7 +223,7 @@ export function Product(props: { id: string }) {
 
           <div>
             <div class="flex items-center">
-              <div class="w-16 h-16 text-gray-700 rounded-md overflow-hidden mr-4 dark:text-foreground">
+              <div class="w-16 h-16 text-zinc-700 rounded-md overflow-hidden mr-4 dark:text-foreground">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="100%"
@@ -246,7 +246,7 @@ export function Product(props: { id: string }) {
               </div>
               <div class="flex-1">
                 <h2 class="text-xl font-bold">卓越的摄像头性能</h2>
-                <p class="text-gray-600 dark:text-foreground">
+                <p class="text-zinc-600 dark:text-foreground">
                   这款手机配备了先进的摄像头系统，无论是拍摄日常照片还是专业级别的摄影作品，都能轻松应对。它的卓越摄像头性能让你的每一张照片都充满生活色彩。
                 </p>
               </div>
@@ -254,7 +254,7 @@ export function Product(props: { id: string }) {
           </div>
           <div>
             <div class="flex items-center">
-              <div class="w-16 h-16 text-gray-700 rounded-md overflow-hidden mr-4 dark:text-foreground">
+              <div class="w-16 h-16 text-zinc-700 rounded-md overflow-hidden mr-4 dark:text-foreground">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="100%"
@@ -275,7 +275,7 @@ export function Product(props: { id: string }) {
               </div>
               <div class="flex-1">
                 <h2 class="text-xl font-bold">流畅的操作体验</h2>
-                <p class="text-gray-600 dark:text-foreground">
+                <p class="text-zinc-600 dark:text-foreground">
                   这款手机的处理器强大，运行流畅，无论是打开应用、浏览网页还是玩游戏，都能提供流畅的操作体验。它的高效性能让你的生活更加顺畅。
                 </p>
               </div>
@@ -283,7 +283,7 @@ export function Product(props: { id: string }) {
           </div>
           <div>
             <div class="flex items-center">
-              <div class="w-16 h-16 text-gray-700 rounded-md overflow-hidden mr-4 dark:text-foreground">
+              <div class="w-16 h-16 text-zinc-700 rounded-md overflow-hidden mr-4 dark:text-foreground">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="100%"
@@ -302,7 +302,7 @@ export function Product(props: { id: string }) {
               </div>
               <div class="flex-1">
                 <h2 class="text-xl font-bold">优雅的设计风格</h2>
-                <p class="text-gray-600 dark:text-foreground">
+                <p class="text-zinc-600 dark:text-foreground">
                   这款手机的设计简洁而优雅，无论是手感还是视觉效果，都给人留下深刻的印象。它的优雅设计风格让你在众多手机中脱颖而出，展现你的独特品味。
                 </p>
               </div>
@@ -319,7 +319,7 @@ export function Product(props: { id: string }) {
                 style="background-image: url('https://tdesign.gtimg.com/site/images/banner-thumb.jpg'); background-size: cover; background-position: center;"
               ></div>
               <h2 class="text-xl font-bold mt-12">名称 3</h2>
-              <p class="text-gray-600 dark:text-foreground">描述 3</p>
+              <p class="text-zinc-600 dark:text-foreground">描述 3</p>
             </div>
           </div>
 
@@ -330,7 +330,7 @@ export function Product(props: { id: string }) {
                 style="background-image: url('https://tdesign.gtimg.com/site/images/banner-thumb.jpg'); background-size: cover; background-position: center;"
               ></div>
               <h2 class="text-xl font-bold mt-12">名称 3</h2>
-              <p class="text-gray-600 dark:text-foreground">描述 3</p>
+              <p class="text-zinc-600 dark:text-foreground">描述 3</p>
             </div>
           </div>
 
@@ -341,7 +341,7 @@ export function Product(props: { id: string }) {
                 style="background-image: url('https://tdesign.gtimg.com/site/images/banner-thumb.jpg'); background-size: cover; background-position: center;"
               ></div>
               <h2 class="text-xl font-bold mt-12">名称 3</h2>
-              <p class="text-gray-600 dark:text-foreground">描述 3</p>
+              <p class="text-zinc-600 dark:text-foreground">描述 3</p>
             </div>
           </div>
         </div>

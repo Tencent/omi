@@ -1,4 +1,4 @@
-import '../components/table'
+import '../components/omiu/table'
 
 export function Personal() {
   return (
@@ -41,20 +41,20 @@ export function Personal() {
                 <nav class="-mb-px flex gap-3" aria-label="Tabs">
                   <a
                     href="javascript:void(0)"
-                    class="text-gray-700 dark:text-white border-gray-300  py-4 px-1 text-center border-b-2 font-medium text-sm"
+                    class="text-zinc-700 dark:text-white border-zinc-300  py-4 px-1 text-center border-b-2 font-medium text-sm"
                     aria-current="page"
                   >
                     我的收藏
                   </a>
                   <a
                     href="javascript:void(0)"
-                    class="border-transparent text-gray-500 hover:text-foreground hover:border-gray-300 py-4 px-1 text-center border-b-2 font-medium text-sm"
+                    class="border-transparent text-zinc-500 hover:text-foreground hover:border-zinc-300 py-4 px-1 text-center border-b-2 font-medium text-sm"
                   >
                     我点的赞
                   </a>
                   <a
                     href="javascript:void(0)"
-                    class="border-transparent text-gray-500 hover:text-foreground hover:border-gray-300 py-4 px-1 text-center border-b-2 font-medium text-sm"
+                    class="border-transparent text-zinc-500 hover:text-foreground hover:border-zinc-300 py-4 px-1 text-center border-b-2 font-medium text-sm"
                   >
                     给我点赞
                   </a>

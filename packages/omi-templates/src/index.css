@@ -35,14 +35,14 @@ body {
 }
 
 .dark {
-  --background: 0 0% 20%;
+  --background: 0 0% 10%;
   --foreground: 0 0% 80%;
 
-  --card: 0 0% 30%;
+  --card: 0 0% 14%;
   --card-foreground: 0 0% 90%;
 
-  --popover: 222.2 84% 4.9%;
-  --popover-foreground: 210 40% 98%;
+  --popover: 0 0% 14%;
+  --popover-foreground: 0 0% 90%;
 
   /* --primary: 219 100% 43%; */
   --primary-foreground: 0 0% 85%;

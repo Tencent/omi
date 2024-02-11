@@ -20,7 +20,7 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
       <header class="bg-white dark:bg-background/10 dark:text-foreground bg-opacity-40 backdrop-filter backdrop-blur-md py-2 top-0 shadow fixed w-full px-4 md:px-0 z-[100000]">
         <div class="container mx-auto flex justify-between items-center">
           <div class="text-xl font-bold">
-            <a class="text-gray-800 dark:text-white" title="TDesign" unsafeHTML={{ html: tdesignLogo }} href="#/"></a>
+            <a class="text-zinc-800 dark:text-white" title="TDesign" unsafeHTML={{ html: tdesignLogo }} href="#/"></a>
           </div>
 
           <div class="flex items-center">
@@ -36,7 +36,7 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
           <div class="container  mx-auto py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h2 class="text-xl font-bold mb-4">友情链接1</h2>
-              <ul class="text-gray-600 dark:text-foreground">
+              <ul class="text-zinc-600 dark:text-foreground">
                 <li>
                   <a href="#">链接1</a>
                 </li>
@@ -50,7 +50,7 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
             </div>
             <div>
               <h2 class="text-xl font-bold mb-4">友情链接2</h2>
-              <ul class="text-gray-600 dark:text-foreground">
+              <ul class="text-zinc-600 dark:text-foreground">
                 <li>
                   <a href="#">链接1</a>
                 </li>
@@ -64,7 +64,7 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
             </div>
             <div>
               <h2 class="text-xl font-bold mb-4">友情链接3</h2>
-              <ul class="text-gray-600 dark:text-foreground">
+              <ul class="text-zinc-600 dark:text-foreground">
                 <li>
                   <a href="#">链接1</a>
                 </li>
@@ -78,7 +78,7 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
             </div>
             <div>
               <h2 class="text-xl font-bold mb-4">友情链接4</h2>
-              <ul class="text-gray-600 dark:text-foreground">
+              <ul class="text-zinc-600 dark:text-foreground">
                 <li>
                   <a href="#">链接1</a>
                 </li>
@@ -99,7 +99,7 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
       {!props.hideFooter && (
         <footer class="bg-[#e7e7e7] border-t dark:bg-background dark:text-foreground py-6">
           <div class="container mx-auto text-center">
-            <p class="text-gray-600 dark:text-foreground">© 2024 Tencent OMI. All rights reserved.</p>
+            <p class="text-zinc-600 dark:text-foreground">© 2024 Tencent OMI. All rights reserved.</p>
           </div>
         </footer>
       )}

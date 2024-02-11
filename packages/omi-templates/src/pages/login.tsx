@@ -1,5 +1,5 @@
 import { isDark } from '../store.ts'
-import '../components/button'
+import '../components/omiu/button.tsx'
 
 export function Login() {
   return (
@@ -27,7 +27,7 @@ export function Login() {
                 type="text"
                 id="username"
                 placeholder="请输入账号：admin"
-                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-primary"
+                class="w-full px-4 py-2 border border-zinc-300 rounded focus:outline-none focus:border-primary"
               />
             </div>
             <div class="mb-4">
@@ -38,7 +38,7 @@ export function Login() {
                 type="password"
                 id="password"
                 placeholder="请输入登录密码：admin"
-                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-primary"
+                class="w-full px-4 py-2 border border-zinc-300 rounded focus:outline-none focus:border-primary"
               />
             </div>
             <div class="flex items-center justify-between mb-6">
