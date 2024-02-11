@@ -130,10 +130,7 @@ export class Sidebar extends Component<Props> {
         >
           <div>
             <div
-              class={classNames('flex items-center h-[50px] space-x-2', {
-                'justify-start': this.state.isOpen,
-                'justify-center': !this.state.isOpen,
-              })}
+              class={classNames('flex items-center h-[50px] space-x-2 justify-center')}
             >
               <i class="h-8 w-8">
                 <img src="https://omi.cdn-go.cn/admin/latest/home/omi.svg"></img>
