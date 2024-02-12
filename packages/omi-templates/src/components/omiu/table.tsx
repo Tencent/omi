@@ -1,4 +1,5 @@
 import { Component, tag } from 'omi'
+import './tag.tsx'
 
 @tag('o-table')
 export class Table extends Component {
@@ -72,7 +73,9 @@ export class Table extends Component {
                     </th>
                     <td class="px-6 py-4 w-24">银色</td>
                     <td class="px-6 py-4 w-24">Laptop</td>
-                    <td class="px-6 py-4 w-20">是</td>
+                    <td class="px-6 py-4 w-20">
+                      <o-tag>带有</o-tag>
+                    </td>
                     <td class="px-6 py-4 w-20">是</td>
                     <td class="px-6 py-4 w-24">¥12999</td>
                     <td class="px-6 py-4 w-24">3.0kg</td>
