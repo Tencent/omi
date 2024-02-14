@@ -7,7 +7,6 @@
 - ⚡ **微小的**尺寸，**极速的**性能
 - 💗 [目标 100+ 模板](https://omi.cdn-go.cn/templates/latest/) & [OMI 模板源码](https://github.com/Tencent/omi/tree/master/packages/omi-templates)
 - 🐲 [OMI Form](https://omi.cdn-go.cn/form/latest/docs/) & [OMI Form 游乐场](https://omi.cdn-go.cn/form/latest/play/) & [Lucide Omi 图标](https://github.com/omijs/lucide-omi)
-- 🎉 [官方 OMIU 源码](https://github.com/Tencent/omi/tree/master/packages/omiu) 进行中.. & [OMIU 预览](https://omi.cdn-go.cn/omiu/latest/)
 - 🌐 你要的一切都有: **Web Components**, **JSX**, Function Components, Router, Suspense, Directive, Tailwindcss...
 - 💯 面向对象编程(OOP) 和 数据驱动编程(DOP) 两种范式都支持
 - 💒 使用 **Constructable Stylesheets** 轻松管理和共享样式
