@@ -7,7 +7,6 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
         base: 'bg-zinc-200 text-zinc-800 hover:bg-zinc-300 dark:text-primary-foreground dark:bg-zinc-600 dark:hover:bg-zinc-500', // Adjust base variant as needed
         outline: 'border border-input bg-background hover:text-primary hover:border-primary', // Existing outline variant
         dashed: 'border border-dashed border-zinc-300 hover:text-primary hover:border-primary', // Add dashed variant
@@ -38,14 +37,133 @@ export const buttonVariants = cva(
       },
 
       theme: {
-        primary: 'text-primary', // Add primary theme
-        danger: 'text-danger', // Add danger theme
-        warning: 'text-warning', // Add warning theme
-        success: 'text-success', // Add success theme
+        default: '',
+        primary: 'bg-primary text-white', // Add primary theme
+        danger: 'bg-red-600 text-white', // Add danger theme
+        warning: 'bg-orange-600 text-white', // Add warning theme
+        success: 'bg-green-600 text-white', // Add success theme
       },
     },
+    compoundVariants: [
+      {
+        variant: 'base',
+        theme: 'default',
+        className: 'hover:bg-zinc-300 dark:hover:bg-zinc-500',
+      },
+      {
+        variant: 'outline',
+        theme: 'default',
+        className: 'hover:!bg-transparent',
+      },
+      {
+        variant: 'dashed',
+        theme: 'default',
+        className: 'hover:!bg-transparent',
+      },
+      {
+        variant: 'text',
+        theme: 'default',
+        className: '',
+      },
+
+      {
+        variant: 'base',
+        theme: 'primary',
+        className: '!bg-primary !text-primary-foreground hover:!bg-primary/70',
+      },
+      {
+        variant: 'outline',
+        theme: 'primary',
+        className:
+          'bg-transparent text-primary border-primary hover:border-primary/70 hover:text-primary/70 dark:brightness-125',
+      },
+      {
+        variant: 'dashed',
+        theme: 'primary',
+        className:
+          'bg-transparent border border-dashed border-primary hover:text-primary/70 hover:border-primary/70 text-primary dark:brightness-125',
+      },
+      {
+        variant: 'text',
+        theme: 'primary',
+        className:
+          'bg-transparent text-primary hover:text-primary/70 hover:bg-zinc-200 dark:hover:bg-zinc-500 dark:brightness-125',
+      },
+
+      {
+        variant: 'base',
+        theme: 'danger',
+        className: '!bg-red-600 !text-primary-foreground hover:!bg-red-600/70',
+      },
+      {
+        variant: 'outline',
+        theme: 'danger',
+        className:
+          'bg-transparent text-red-600 border-red-600 hover:border-red-600/70 hover:text-red-600/70 dark:brightness-125',
+      },
+      {
+        variant: 'dashed',
+        theme: 'danger',
+        className:
+          'bg-transparent border border-dashed border-red-600 hover:text-red-600/70 hover:border-red-600/70 text-red-600 dark:brightness-125',
+      },
+      {
+        variant: 'text',
+        theme: 'danger',
+        className:
+          'bg-transparent text-red-600 hover:text-red-600/70 hover:bg-zinc-200 dark:hover:bg-zinc-500 dark:brightness-125',
+      },
+
+      {
+        variant: 'base',
+        theme: 'warning',
+        className: '!bg-orange-600 !text-primary-foreground hover:!bg-orange-600/70',
+      },
+      {
+        variant: 'outline',
+        theme: 'warning',
+        className:
+          'bg-transparent text-orange-600 border-orange-600 hover:border-orange-600/70 hover:text-orange-600/70 dark:brightness-125',
+      },
+      {
+        variant: 'dashed',
+        theme: 'warning',
+        className:
+          'bg-transparent border border-dashed border-orange-600 hover:text-orange-600/70 hover:border-orange-600/70 text-orange-600 dark:brightness-125',
+      },
+      {
+        variant: 'text',
+        theme: 'warning',
+        className:
+          'bg-transparent text-orange-600 hover:text-orange-600/70 hover:bg-zinc-200 dark:hover:bg-zinc-500 dark:brightness-125',
+      },
+
+      {
+        variant: 'base',
+        theme: 'success',
+        className: '!bg-green-600 !text-primary-foreground hover:!bg-green-600/70',
+      },
+      {
+        variant: 'outline',
+        theme: 'success',
+        className:
+          'bg-transparent text-green-600 border-green-600 hover:border-green-600/70 hover:text-green-600/70 dark:brightness-125',
+      },
+      {
+        variant: 'dashed',
+        theme: 'success',
+        className:
+          'bg-transparent border border-dashed border-green-600 hover:text-green-600/70 hover:border-green-600/70 text-green-600 dark:brightness-125',
+      },
+      {
+        variant: 'text',
+        theme: 'success',
+        className:
+          'bg-transparent text-green-600 hover:text-green-600/70 hover:bg-zinc-200 dark:hover:bg-zinc-500 dark:brightness-125',
+      },
+    ],
     defaultVariants: {
-      variant: 'default',
+      variant: 'base',
       size: 'medium',
       shape: 'rectangle',
       theme: 'primary',

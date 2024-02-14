@@ -31,6 +31,7 @@ export function Home() {
               variant="outline"
               tag="a"
               target="_blank"
+              theme="default"
               href="https://github.com/Tencent/omi/tree/master/packages/omi-templates"
             >
               <i class="t-icon t-icon-logo-github-filled mr-2 text-lg"></i>源代码
@@ -83,7 +84,9 @@ export function Home() {
           </p>
           <div class="flex space-x-4">
             <o-button>按钮1</o-button>
-            <o-button variant="outline">按钮2</o-button>
+            <o-button variant="outline" theme="default">
+              按钮2
+            </o-button>
           </div>
         </div>
         <div class="w-1/2">
@@ -149,7 +152,9 @@ export function Home() {
           <p class="text-zinc-600 mb-8 dark:text-foreground">这里是描述内容。</p>
           <div class="flex justify-center space-x-4">
             <o-button>按钮1</o-button>
-            <o-button variant="outline">按钮2</o-button>
+            <o-button variant="outline" theme="default">
+              按钮2
+            </o-button>
           </div>
         </div>
       </section>
