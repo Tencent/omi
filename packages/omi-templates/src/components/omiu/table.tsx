@@ -7,9 +7,9 @@ export class Table extends Component {
     return (
       <div class="relative overflow-auto shadow-md sm:rounded-t-lg">
         <table class="table-fixed w-full text-sm text-left rtl:text-right background text-card-foreground">
-          <thead class="text-xs uppercase">
-            <tr>
-              <th scope="col" class="p-4 w-4">
+          <thead>
+            <tr class="[&>th]:font-normal [&>th]:text-zinc-500">
+              <th scope="col" class="p-3 w-4">
                 <div class="flex items-center">
                   <input
                     id="checkbox-all-search"
@@ -42,7 +42,7 @@ export class Table extends Component {
               <th scope="col" class="px-6 py-3 w-24">
                 重量
               </th>
-              <th scope="col" class="px-6 py-3 sticky w-32 background right-0 text-right">
+              <th scope="col" class="px-6 py-3 sticky w-32 bg-background right-0 text-right">
                 操作
               </th>
             </tr>
@@ -53,7 +53,7 @@ export class Table extends Component {
               .map(() => {
                 return (
                   <tr class="group  border-b  dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-600">
-                    <td class="w-4 p-4">
+                    <td class="w-4 p-3">
                       <div class="flex items-center">
                         <input
                           id="checkbox-table-search-1"
@@ -67,19 +67,19 @@ export class Table extends Component {
                     </td>
                     <th
                       scope="row"
-                      class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap text-ellipsis overflow-hidden dark:text-white w-32"
+                      class="px-6 py-3 font-medium whitespace-nowrap text-ellipsis overflow-hidden w-32"
                     >
                       苹果笔记本
                     </th>
-                    <td class="px-6 py-4 w-24">银色</td>
-                    <td class="px-6 py-4 w-24">Laptop</td>
-                    <td class="px-6 py-4 w-20">
+                    <td class="px-6 py-3 w-24">银色</td>
+                    <td class="px-6 py-3 w-24">Laptop</td>
+                    <td class="px-6 py-3 w-20">
                       <o-tag>带有</o-tag>
                     </td>
-                    <td class="px-6 py-4 w-20">是</td>
-                    <td class="px-6 py-4 w-24">¥12999</td>
-                    <td class="px-6 py-4 w-24">3.0kg</td>
-                    <td class=" items-center px-6 py-4 sticky w-32 right-0 background group-hover:bg-zinc-50 dark:group-hover:bg-zinc-600 text-right">
+                    <td class="px-6 py-3 w-20">是</td>
+                    <td class="px-6 py-3 w-24">¥12999</td>
+                    <td class="px-6 py-3 w-24">3.0kg</td>
+                    <td class=" items-center px-6 py-3 sticky w-32 right-0 bg-background group-hover:bg-zinc-50 dark:group-hover:bg-zinc-600 text-right">
                       <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                         编辑
                       </a>

@@ -154,6 +154,10 @@ export class Calendar {
     }
   }
 
+  public currentMonth(): void {
+    this.currentDate = new Date()
+  }
+
   public nextMonth(): void {
     const currentMonth = this.currentDate.getMonth()
     if (currentMonth === 11) {

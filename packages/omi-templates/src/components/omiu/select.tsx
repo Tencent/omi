@@ -20,14 +20,21 @@ export class Select extends Component<Props> {
   }
 
   install() {
+    this.setSelectedOption()
+    // 添加事件监听器
+    document.addEventListener('click', this.handleClickOutside.bind(this))
+  }
+
+  setSelectedOption() {
     const selectedOption = this.props.options.find((option) => this.props.value === option.value)
     if (selectedOption) {
       this.state.selectedValue = selectedOption.value
       this.state.selectedText = selectedOption.text
     }
+  }
 
-    // 添加事件监听器
-    document.addEventListener('click', this.handleClickOutside.bind(this))
+  receiveProps() {
+    this.setSelectedOption()
   }
 
   uninstall() {
@@ -60,10 +67,16 @@ export class Select extends Component<Props> {
   }
 
   onSelectOption(option: { text: string; value: string }) {
+    if(option.value === this.state.selectedValue) {
+      return
+    }
     this.state.selectedValue = option.value
     this.state.selectedText = option.text
     this.state.isOpen = false
     this.update()
+    this.fire('change', {
+      value: option.value,
+    })
   }
 
   render() {
@@ -97,7 +110,7 @@ export class Select extends Component<Props> {
         </div>
 
         <div
-          class="border origin-top-right z-50 absolute whitespace-nowrap right-0 mt-2 rounded shadow-lg bg-background text-foreground ring-1 ring-black ring-opacity-5 max-h-96 overflow-auto"
+          class="border origin-top-right z-50 absolute whitespace-nowrap right-0 mt-2 rounded shadow-lg bg-background text-foreground ring-1 ring-black ring-opacity-5 max-h-48 overflow-auto"
           ref={(e) => (this.menu = e)}
           style={{ display: this.state.isOpen ? 'block' : 'none' }}
         >

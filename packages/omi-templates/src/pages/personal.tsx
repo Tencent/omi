@@ -2,12 +2,12 @@ import '../components/omiu/table'
 
 export function Personal() {
   return (
-    <div class="container mx-auto px-4 pt-8 mb-6">
+    <div class="container mx-auto px-4 pt-8 mb-6 text-sm">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div class="md:col-span-3">
           <div class="flex items-center justify-between mb-4 border bg-background text-foreground p-4 rounded-md">
             <div>
-              <h1 class="text-xl font-bold">Hi, 小Q</h1>
+              <h1 class="text-xl font-bold mb-2">Hi, 小Q</h1>
               <p>下午好，今天是你加入鹅厂的第 100 天～</p>
             </div>
             <img

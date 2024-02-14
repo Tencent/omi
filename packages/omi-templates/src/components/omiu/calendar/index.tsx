@@ -68,17 +68,17 @@ export class CalendarComponent extends Component<Props> {
   }
 
   @bind
-  onMonthClick(evt: MouseEvent) {
-    this.state.currentMonth = Number((evt.currentTarget as HTMLElement).dataset.month)
-    this.calendar.setMonth(this.state.currentYear as number, this.state.currentMonth)
+  onMonthClick(evt: CustomEvent) {
+    this.state.currentMonth = evt.detail.value
+    this.calendar.setMonth(this.state.currentYear as number, this.state.currentMonth as number)
     this.generateMonthCalendar()
     this.update()
   }
 
   @bind
-  onYearClick(evt: MouseEvent) {
-    this.state.currentYear = Number((evt.currentTarget as HTMLElement).dataset.year)
-    this.calendar.setMonth(this.state.currentYear, this.state.currentMonth as number)
+  onYearClick(evt: CustomEvent) {
+    this.state.currentYear = evt.detail.value
+    this.calendar.setMonth(this.state.currentYear as number, this.state.currentMonth as number)
     this.generateMonthCalendar()
     this.update()
   }
@@ -86,6 +86,15 @@ export class CalendarComponent extends Component<Props> {
   @bind
   prevMonth() {
     this.calendar.prevMonth()
+    this.state.currentYear = this.calendar.getYear()
+    this.state.currentMonth = this.calendar.getMonth()
+    this.generateMonthCalendar()
+    this.update()
+  }
+
+  @bind
+  currentMonth() {
+    this.calendar.currentMonth()
     this.state.currentYear = this.calendar.getYear()
     this.state.currentMonth = this.calendar.getMonth()
     this.generateMonthCalendar()
@@ -154,9 +163,9 @@ export class CalendarComponent extends Component<Props> {
 
   render() {
     return (
-      <div class={classNames('w-[280px] h-[280px] border rounded overflow-hidden')}>
-        <div class="relative h-full bg-background text-foreground">
-          <div class="px-1 pt-2 pb-0 flex justify-between bg-background text-foreground items-center">
+      <div class={classNames('w-[280px] h-[280px] border rounded')}>
+        <div class="relative h-full bg-background text-foreground rounded">
+          <div class="px-1 pt-2 pb-0 flex justify-between bg-background text-foreground items-center rounded ml-2">
             <o-select
               value={this.calendar.getMonth()}
               onChange={this.onMonthClick}
@@ -181,7 +190,7 @@ export class CalendarComponent extends Component<Props> {
               })}
             ></o-select>
 
-            <div class="flex gap-2 mr-2">
+            <div class="flex gap-2">
               <button
                 onClick={this.prevMonth}
                 class="p-0 w-5 h-5 leading-10 border-none outline-none m-0 bg-background text-foreground mr-1 hover:bg-zinc-200  dark:hover:bg-zinc-600 hover:rounded  focus:rounded [&>svg]:w-4 [&>svg]:h-4 [&>svg]:mx-auto"
@@ -200,7 +209,7 @@ export class CalendarComponent extends Component<Props> {
                 </svg>
               </button>
               <button
-                onClick={this.prevMonth}
+                onClick={this.currentMonth}
                 class="flex items-center justify-center w-5 h-5 leading-10 border-none outline-none m-0  mr-1 hover:bg-zinc-200  dark:hover:bg-zinc-600 hover:rounded  focus:rounded  [&>svg]:mx-auto"
                 aria-label="Previous month"
                 dpk-previous-button-ref=""
