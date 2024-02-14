@@ -65,10 +65,7 @@ export class Table extends Component {
                         </label>
                       </div>
                     </td>
-                    <th
-                      scope="row"
-                      class="px-6 py-3 font-medium whitespace-nowrap text-ellipsis overflow-hidden w-32"
-                    >
+                    <th scope="row" class="px-6 py-3 font-medium whitespace-nowrap text-ellipsis overflow-hidden w-32">
                       苹果笔记本
                     </th>
                     <td class="px-6 py-3 w-24">银色</td>

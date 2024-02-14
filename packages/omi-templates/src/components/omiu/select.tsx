@@ -67,7 +67,7 @@ export class Select extends Component<Props> {
   }
 
   onSelectOption(option: { text: string; value: string }) {
-    if(option.value === this.state.selectedValue) {
+    if (option.value === this.state.selectedValue) {
       return
     }
     this.state.selectedValue = option.value

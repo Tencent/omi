@@ -59,6 +59,11 @@ export const navbarItems = signal<NavbarItem[]>([
         value: 'product-docs',
       },
       {
+        text: '组件',
+        path: '/components',
+        value: 'components',
+      },
+      {
         text: '图标库',
         path: '/icons',
         value: 'icons',
