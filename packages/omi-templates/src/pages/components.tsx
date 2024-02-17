@@ -71,6 +71,38 @@ export function Questionnaire() {
           </o-button>
         </div>
       </div>
+
+      <h2 class="text-2xl font-bold my-6">图标按钮</h2>
+
+      <div>
+        <div class="flex gap-3 mb-2">
+          <o-button theme="primary">
+            <i class="t-icon t-icon-add text-base"></i>
+            新建
+          </o-button>
+          <o-button variant="outline" icon="cloud-upload">
+            上传文件
+          </o-button>
+          <o-button shape="circle" icon="discount" theme="primary"></o-button>
+          <o-button shape="circle" icon="cloud-download" theme="primary"></o-button>
+          <o-button variant="outline" icon="search">
+            搜索
+          </o-button>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-bold my-6">不同状态的按钮</h2>
+
+      <div>
+        <div class="flex gap-3 mb-2">
+          <o-button theme="primary" disabled>
+            禁用的按钮
+          </o-button>
+          <o-button theme="primary" loading>
+            加载中
+          </o-button>
+        </div>
+      </div>
     </div>
   )
 }

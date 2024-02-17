@@ -2,15 +2,55 @@ import { Component, tag } from 'omi'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from './utils'
 
+// In order to have tailwindcss scan containing these:
+// border-primary !bg-primary hover:!bg-primary/70 text-primary hover:border-primary/70 hover:text-primary/70
+// border-danger !bg-danger hover:!bg-danger/70 text-danger hover:border-danger/70 hover:text-danger/70
+// border-warning !bg-warning hover:!bg-warning/70 text-warning hover:border-warning/70 hover:text-warning/70
+// border-success !bg-success hover:!bg-success/70 text-success hover:border-success/70 hover:text-success/70
+
+type Theme = 'default' | 'primary' | 'danger' | 'warning' | 'success'
+type Variant = 'base' | 'outline' | 'dashed' | 'text'
+
+const getCompoundVariantsByTheme = (
+  theme: Theme,
+): {
+  variant: Variant
+  theme: Theme
+  className: string
+}[] => {
+  return [
+    {
+      variant: 'base',
+      theme,
+      className: `!bg-${theme} !text-primary-foreground hover:!bg-${theme}/70`,
+    },
+    {
+      variant: 'outline',
+      theme,
+      className: `bg-transparent text-${theme} border-${theme} hover:border-${theme}/70 hover:text-${theme}/70 dark:brightness-125`,
+    },
+    {
+      variant: 'dashed',
+      theme,
+      className: `bg-transparent border border-dashed border-${theme} hover:text-${theme}/70 hover:border-${theme}/70 text-${theme} dark:brightness-125`,
+    },
+    {
+      variant: 'text',
+      theme,
+      className: `bg-transparent text-${theme} hover:text-${theme}/70 hover:bg-zinc-200 dark:hover:bg-zinc-800 dark:brightness-125`,
+    },
+  ]
+}
+
 export const buttonVariants = cva(
-  'inline-flex text-sm items-center justify-center whitespace-nowrap rounded ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 box-border',
+  'inline-flex text-sm items-center justify-center whitespace-nowrap rounded ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 box-border gap-2',
   {
     variants: {
       variant: {
         base: 'bg-zinc-200 text-zinc-800 hover:bg-zinc-300 dark:text-primary-foreground dark:bg-zinc-600 dark:hover:bg-zinc-500', // Adjust base variant as needed
         outline: 'border border-input bg-background hover:text-primary hover:border-primary', // Existing outline variant
         dashed: 'border border-dashed border-zinc-300 hover:text-primary hover:border-primary', // Add dashed variant
-        text: 'bg-transparent hover:bg-accent hover:text-accent-foreground', // Add text variant
+        text: 'bg-transparent hover:bg-accent hover:text-accent-foreground dark:hover:bg-zinc-800', // Add text variant
       },
       block: {
         true: 'w-full', // Add block variant
@@ -39,134 +79,37 @@ export const buttonVariants = cva(
       theme: {
         default: '',
         primary: 'bg-primary text-white', // Add primary theme
-        danger: 'bg-red-600 text-white', // Add danger theme
-        warning: 'bg-orange-600 text-white', // Add warning theme
-        success: 'bg-green-600 text-white', // Add success theme
+        danger: 'bg-danger text-white', // Add danger theme
+        warning: 'bg-warning text-white', // Add warning theme
+        success: 'bg-success text-white', // Add success theme
       },
     },
     compoundVariants: [
+      ...getCompoundVariantsByTheme('primary'),
+      ...getCompoundVariantsByTheme('danger'),
+      ...getCompoundVariantsByTheme('warning'),
+      ...getCompoundVariantsByTheme('success'),
       {
-        variant: 'base',
-        theme: 'default',
-        className: 'hover:bg-zinc-300 dark:hover:bg-zinc-500',
+        size: 'small',
+        shape: 'circle',
+        className: 'w-8 h-8',
       },
       {
-        variant: 'outline',
-        theme: 'default',
-        className: 'hover:!bg-transparent',
+        size: 'medium',
+        shape: 'circle',
+        className: 'w-9 h-9',
       },
       {
-        variant: 'dashed',
-        theme: 'default',
-        className: 'hover:!bg-transparent',
-      },
-      {
-        variant: 'text',
-        theme: 'default',
-        className: '',
-      },
-
-      {
-        variant: 'base',
-        theme: 'primary',
-        className: '!bg-primary !text-primary-foreground hover:!bg-primary/70',
-      },
-      {
-        variant: 'outline',
-        theme: 'primary',
-        className:
-          'bg-transparent text-primary border-primary hover:border-primary/70 hover:text-primary/70 dark:brightness-125',
-      },
-      {
-        variant: 'dashed',
-        theme: 'primary',
-        className:
-          'bg-transparent border border-dashed border-primary hover:text-primary/70 hover:border-primary/70 text-primary dark:brightness-125',
-      },
-      {
-        variant: 'text',
-        theme: 'primary',
-        className:
-          'bg-transparent text-primary hover:text-primary/70 hover:bg-zinc-200 dark:hover:bg-zinc-500 dark:brightness-125',
-      },
-
-      {
-        variant: 'base',
-        theme: 'danger',
-        className: '!bg-red-600 !text-primary-foreground hover:!bg-red-600/70',
-      },
-      {
-        variant: 'outline',
-        theme: 'danger',
-        className:
-          'bg-transparent text-red-600 border-red-600 hover:border-red-600/70 hover:text-red-600/70 dark:brightness-125',
-      },
-      {
-        variant: 'dashed',
-        theme: 'danger',
-        className:
-          'bg-transparent border border-dashed border-red-600 hover:text-red-600/70 hover:border-red-600/70 text-red-600 dark:brightness-125',
-      },
-      {
-        variant: 'text',
-        theme: 'danger',
-        className:
-          'bg-transparent text-red-600 hover:text-red-600/70 hover:bg-zinc-200 dark:hover:bg-zinc-500 dark:brightness-125',
-      },
-
-      {
-        variant: 'base',
-        theme: 'warning',
-        className: '!bg-orange-600 !text-primary-foreground hover:!bg-orange-600/70',
-      },
-      {
-        variant: 'outline',
-        theme: 'warning',
-        className:
-          'bg-transparent text-orange-600 border-orange-600 hover:border-orange-600/70 hover:text-orange-600/70 dark:brightness-125',
-      },
-      {
-        variant: 'dashed',
-        theme: 'warning',
-        className:
-          'bg-transparent border border-dashed border-orange-600 hover:text-orange-600/70 hover:border-orange-600/70 text-orange-600 dark:brightness-125',
-      },
-      {
-        variant: 'text',
-        theme: 'warning',
-        className:
-          'bg-transparent text-orange-600 hover:text-orange-600/70 hover:bg-zinc-200 dark:hover:bg-zinc-500 dark:brightness-125',
-      },
-
-      {
-        variant: 'base',
-        theme: 'success',
-        className: '!bg-green-600 !text-primary-foreground hover:!bg-green-600/70',
-      },
-      {
-        variant: 'outline',
-        theme: 'success',
-        className:
-          'bg-transparent text-green-600 border-green-600 hover:border-green-600/70 hover:text-green-600/70 dark:brightness-125',
-      },
-      {
-        variant: 'dashed',
-        theme: 'success',
-        className:
-          'bg-transparent border border-dashed border-green-600 hover:text-green-600/70 hover:border-green-600/70 text-green-600 dark:brightness-125',
-      },
-      {
-        variant: 'text',
-        theme: 'success',
-        className:
-          'bg-transparent text-green-600 hover:text-green-600/70 hover:bg-zinc-200 dark:hover:bg-zinc-500 dark:brightness-125',
+        size: 'large',
+        shape: 'circle',
+        className: 'w-12 h-12',
       },
     ],
     defaultVariants: {
       variant: 'base',
       size: 'medium',
       shape: 'rectangle',
-      theme: 'primary',
+      theme: 'default',
     },
   },
 )
@@ -179,12 +122,13 @@ export type ButtonProps = VariantProps<typeof buttonVariants> & {
   block?: boolean
   disabled?: boolean
   ghost?: boolean
+  icon?: string
   loading?: boolean
   shape?: 'rectangle' | 'square' | 'round' | 'circle'
   size?: 'small' | 'medium' | 'large'
   type?: 'submit' | 'reset' | 'button'
-  variant?: 'base' | 'outline' | 'dashed' | 'text'
-  theme?: 'default' | 'primary' | 'danger' | 'warning' | 'success'
+  variant?: Variant
+  theme?: Theme
 }
 
 @tag('o-button')
@@ -238,6 +182,8 @@ export class Button extends Component<ButtonProps> {
         )}
         {...props}
       >
+        {props.icon && <i class={`t-icon t-icon-${props.icon} text-base`}></i>}
+        {loading && <i class="t-icon t-icon-loading text-base animate-spin"></i>}
         <slot></slot>
       </Tag>
     )

@@ -12,8 +12,12 @@ body {
   --popover: 0 0% 100%;
   --popover-foreground: 222.2 84% 4.9%;
 
-  --primary: 219 100% 43%;
+  --primary: 217 100% 43%;
   --primary-foreground: 210 40% 98%;
+
+  --danger: 3 64% 55%;
+  --warning: 27 81% 49%;
+  --success: 155 58% 41%;
 
   --secondary: 0, 0%, 90%;
   --secondary-foreground: 0, 0%, 20%;
