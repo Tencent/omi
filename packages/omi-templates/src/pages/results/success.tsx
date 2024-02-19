@@ -20,7 +20,7 @@ export function SuccessResult() {
         <p class="text-zinc-600 mb-6 dark:text-foreground">可以联系负责人分发应用</p>
 
         <div class="flex justify-center space-x-4">
-          <o-button tag="a" href="#/">
+          <o-button theme="primary" tag="a" href="#/">
             返回首页
           </o-button>
           <o-button variant="outline">查看进度</o-button>

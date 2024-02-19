@@ -24,7 +24,7 @@ export function Home() {
             100+ 免费模板，对外站点、对内管理系统，开箱即用，自由定制，开源免费
           </p>
           <div class="flex space-x-4">
-            <o-button tag="a" href="#/product-docs/zh/getting-started">
+            <o-button theme="primary" tag="a" href="#/product-docs/zh/getting-started">
               开始使用
             </o-button>
             <o-button
@@ -36,7 +36,7 @@ export function Home() {
             >
               <i class="t-icon t-icon-logo-github-filled mr-2 text-lg"></i>源代码
             </o-button>
-            <o-button tag="a" href="#/admin/home">
+            <o-button theme="primary" tag="a" href="#/admin/home">
               🎉 管理系统
             </o-button>
           </div>
@@ -83,7 +83,7 @@ export function Home() {
             这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。这里是描述内容。
           </p>
           <div class="flex space-x-4">
-            <o-button>按钮1</o-button>
+            <o-button theme="primary">按钮1</o-button>
             <o-button variant="outline" theme="default">
               按钮2
             </o-button>
@@ -151,7 +151,7 @@ export function Home() {
           <h1 class="text-4xl font-bold mb-4  dark:text-zinc-200">标题</h1>
           <p class="text-zinc-600 mb-8 dark:text-foreground">这里是描述内容。</p>
           <div class="flex justify-center space-x-4">
-            <o-button>按钮1</o-button>
+            <o-button theme="primary">按钮1</o-button>
             <o-button variant="outline" theme="default">
               按钮2
             </o-button>

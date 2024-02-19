@@ -52,7 +52,7 @@ export function Login() {
                 忘记账号？
               </a>
             </div>
-            <o-button type="submit" className="block w-full" cls="w-full" href="#/" tag="a">
+            <o-button theme="primary" type="submit" className="block w-full" cls="w-full" href="#/" tag="a">
               登录
             </o-button>
           </form>

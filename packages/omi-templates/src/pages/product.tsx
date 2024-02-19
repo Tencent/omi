@@ -183,7 +183,7 @@ export function Product(props: { id: string }) {
                 </svg>
               </button>
             </div>
-            <o-button>添加到购物车</o-button>
+            <o-button theme="primary">添加到购物车</o-button>
           </div>
         </div>
       </div>
