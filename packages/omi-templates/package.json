@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "start-host": "vite --host",
-    "start": "vite",
-    "dev": "vite",
+    "start": "vite --host",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "prettier --write src"
@@ -17,6 +17,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "copy-to-clipboard": "^3.3.3",
+    "echarts": "^5.5.0",
     "markdown-it": "^14.0.0",
     "omi": "7.6.5",
     "omi-router": "latest",

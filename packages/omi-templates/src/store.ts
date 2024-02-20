@@ -199,12 +199,17 @@ export const sidebarItems = signal<NavbarItem[]>([
   {
     text: '仪表盘',
     icon: 'dashboard',
+    isOpen: true,
     children: [
       {
         text: '概览仪表盘',
+        value: 'dashboard',
+        href: '#/admin/home',
       },
       {
         text: '统计报表',
+        value: 'chart',
+        href: '#/admin/chart',
       },
     ],
     tag: '',
@@ -261,5 +266,5 @@ export const sidebarItems = signal<NavbarItem[]>([
   },
 ])
 
-export const activeSidebarItem = signal('Dashboard')
+export const activeSidebarItem = signal('dashboard')
 export const isSidebarOpen = signal(true)

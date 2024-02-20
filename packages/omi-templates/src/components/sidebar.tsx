@@ -1,5 +1,10 @@
-import { tag, Component, classNames } from 'omi'
+import { tag, Component, classNames, bind } from 'omi'
 import { createPopper } from '@popperjs/core'
+import { Router } from 'omi-router'
+
+interface ComponentWithRouter extends Sidebar {
+  router?: Router
+}
 
 type SidebarItem = {
   text: string
@@ -99,10 +104,29 @@ export class Sidebar extends Component<Props> {
     })
   }
 
+  @bind
+  select(item: SidebarItem) {
+    ;(this as ComponentWithRouter).router?.push(item.href.replace('#', ''))
+
+    this.state.active = this.props.active
+    this.update()
+    this.fire('change', {
+      item,
+    })
+  }
+
   renderChild(child: SidebarItem) {
     return (
-      <li class="py-1 h-9 indent-10 rounded hover:bg-accent flex items-center text-sm text-zinc-500 dark:text-zinc-200">
-        <a href="#" class="flex items-center space-x-2 whitespace-nowrap">
+      <li
+        onClick={() => this.select(child)}
+        class={classNames(
+          'py-1 h-9 indent-10 rounded hover:bg-accent flex items-center text-sm text-zinc-500 dark:text-zinc-200 cursor-pointer',
+          {
+            'bg-accent': this.state.active === child.value,
+          },
+        )}
+      >
+        <a href="javascript:void()" class="flex items-center space-x-2 whitespace-nowrap">
           <span>{child.text}</span>
         </a>
       </li>
@@ -112,7 +136,7 @@ export class Sidebar extends Component<Props> {
   renderToolTipChild(child: SidebarItem) {
     return (
       <li class="py-1 h-9 px-3 rounded hover:bg-accent flex items-center text-sm text-zinc-500 dark:text-zinc-200">
-        <a href="#" class="flex items-center space-x-2 whitespace-nowrap">
+        <a href={child.href} class="flex items-center space-x-2 whitespace-nowrap">
           <span>{child.text}</span>
         </a>
       </li>

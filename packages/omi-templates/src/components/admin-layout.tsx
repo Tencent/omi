@@ -1,4 +1,4 @@
-import { Component, tag, classNames } from 'omi'
+import { Component, tag, classNames, VNode } from 'omi'
 import './sidebar.tsx'
 import { navbarItems, activeMenuItem } from '../store.ts'
 import { sidebarItems, activeSidebarItem, isSidebarOpen } from '../store.ts'
@@ -11,6 +11,7 @@ export class SidebarWrapper extends Component {
   render() {
     return (
       <o-sidebar
+        onChange={(evt: CustomEvent) => (activeSidebarItem.value = evt.detail.item.value)}
         items={sidebarItems.value}
         active={activeSidebarItem.value}
         isOpen={isSidebarOpen.value}
@@ -20,7 +21,7 @@ export class SidebarWrapper extends Component {
   }
 }
 
-export function AdminLayout() {
+export function AdminLayout(props: { current?: string; children?: VNode | VNode[] }) {
   return (
     <div class="flex h-screen">
       <div
@@ -60,53 +61,7 @@ export function AdminLayout() {
             ></o-navbar>
           </div>
         </header>
-        <main class="p-4">
-          <h3 class="text-xl font-semibold mb-2">Coming soon....</h3>
-          <div class="flex items-center justify-between mb-4">
-            <div class="container mx-auto">
-              <div class="grid grid-cols-1  md:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
-                <div class="bg-background shadow-md rounded p-4 dark:border h-40 text-5xl flex items-center justify-center">
-                  1
-                </div>
-                <div class="bg-background shadow-md rounded p-4 dark:border h-40 text-5xl flex items-center justify-center">
-                  2
-                </div>
-                <div class="bg-background shadow-md rounded p-4 dark:border h-40 text-5xl flex items-center justify-center">
-                  3
-                </div>
-                <div class="bg-background shadow-md rounded p-4 dark:border h-40 text-5xl flex items-center justify-center">
-                  4
-                </div>
-              </div>
-
-              <div class="grid grid-cols-4 gap-6 mb-6">
-                <div class="md:col-span-3 col-span-4 bg-background shadow-md rounded p-4 dark:border h-96 text-5xl flex items-center justify-center">
-                  5
-                </div>
-                <div class="md:col-span-1 col-span-4 bg-background shadow-md rounded p-4 dark:border h-96 text-5xl flex items-center justify-center">
-                  6
-                </div>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div class="bg-background shadow-md rounded p-4 dark:border h-96 text-5xl flex items-center justify-center">
-                  7
-                </div>
-                <div class="bg-background shadow-md rounded p-4 dark:border h-96 text-5xl flex items-center justify-center">
-                  8
-                </div>
-              </div>
-
-              <div class="bg-background shadow-md rounded p-4 dark:border">
-                <div class="flex justify-between items-center mb-4"></div>
-                <div class="grid grid-cols-4 gap-6">
-                  <div class="md:col-span-3 col-span-4 text-5xl flex items-center justify-center">9</div>
-                  <div class="md:col-span-1 col-span-4 text-5xl flex items-center justify-center">10</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </main>
+        <main class="p-4">{props.children}</main>
       </div>
 
       <CustomizeButton />

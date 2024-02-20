@@ -28,6 +28,7 @@ export const routes = [
   createRoute('/personal', () => import('./pages/personal')),
   createBaseRoute('/login', () => import('./pages/login')),
   createAdminRoute('/admin/home', () => import('./pages/admin/home')),
+  createAdminRoute('/admin/chart', () => import('./pages/admin/chart')),
   createRoute('*', () => import('./pages/results/not-found')),
   {
     path: '/before-enter/test',
@@ -85,6 +86,7 @@ function createAdminRoute(path: string, componentImport: () => Promise<unknown>)
             minLoadingTime={400}
             imports={[componentImport()]}
             customRender={(results: { [x: string]: Function }[]) => {
+              const Module = results[0][Object.keys(results[0])[0]]
               return (
                 <o-appear
                   class="opacity-0 translate-y-4"
@@ -92,7 +94,7 @@ function createAdminRoute(path: string, componentImport: () => Promise<unknown>)
                     window.refreshDark()
                   }}
                 >
-                  {results[0][Object.keys(results[0])[0]](router.params)}
+                  {isClassOrFunction(Module) === 'Function' ? Module(router.params) : <Module></Module>}
                 </o-appear>
               )
             }}
@@ -182,4 +184,19 @@ function createDocsRoute(path: string, componentImport: () => Promise<unknown>) 
       )
     },
   }
+}
+
+function isClassOrFunction(obj: any) {
+  if (typeof obj !== 'function') {
+    return 'Not a function or class'
+  }
+
+  if (obj.prototype && obj.prototype.constructor === obj) {
+    if (obj.toString().startsWith('class ')) {
+      return 'Class'
+    } else {
+      return 'Function'
+    }
+  }
+  return 'Not a function or class'
 }
