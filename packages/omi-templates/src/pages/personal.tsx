@@ -1,4 +1,5 @@
 import '../components/omiu/table'
+import '../components/omiu/switch'
 
 export function Personal() {
   return (
@@ -77,46 +78,53 @@ export function Personal() {
             <h2 class="text-xl font-bold mb-4">设置</h2>
             <div class="grid grid-cols-2 gap-4">
               <div class="flex items-center">
-                <div class="mr-2">
-                  <i class="icon-account-settings"></i>
+                <div class="mr-2 flex items-center">
+                  <i class="t-icon t-icon-address-book"></i>
                 </div>
-                <p>账户设置</p>
+                <p class="mr-4">账户设置</p>
+                <o-switch value={true} size="small"></o-switch>
               </div>
               <div class="flex items-center">
-                <div class="mr-2">
-                  <i class="icon-privacy-settings"></i>
+                <div class="mr-2 flex items-center">
+                  <i class="t-icon t-icon-alarm"></i>
                 </div>
-                <p>隐私设置</p>
+                <p class="mr-4">隐私设置</p>
+                <o-switch size="small"></o-switch>
               </div>
               <div class="flex items-center">
-                <div class="mr-2">
-                  <i class="icon-notification-settings"></i>
+                <div class="mr-2 flex items-center">
+                  <i class="t-icon t-icon-bridge-1"></i>
                 </div>
-                <p>通知设置</p>
+                <p class="mr-4">通知设置</p>
+                <o-switch size="small"></o-switch>
               </div>
               <div class="flex items-center">
-                <div class="mr-2">
-                  <i class="icon-permission-settings"></i>
+                <div class="mr-2 flex items-center">
+                  <i class="t-icon t-icon-cast"></i>
                 </div>
-                <p>权限设置</p>
+                <p class="mr-4">权限设置</p>
+                <o-switch value={true} size="small"></o-switch>
               </div>
               <div class="flex items-center">
-                <div class="mr-2">
-                  <i class="icon-like-settings"></i>
+                <div class="mr-2 flex items-center">
+                  <i class="t-icon t-icon-heart"></i>
                 </div>
-                <p>点赞设置</p>
+                <p class="mr-4">点赞设置</p>
+                <o-switch value={true} size="small"></o-switch>
               </div>
               <div class="flex items-center">
-                <div class="mr-2">
-                  <i class="icon-follow-settings"></i>
+                <div class="mr-2 flex items-center">
+                  <i class="t-icon t-icon-user-transmit"></i>
                 </div>
-                <p>关注设置</p>
+                <p class="mr-4">关注设置</p>
+                <o-switch size="small"></o-switch>
               </div>
               <div class="flex items-center">
-                <div class="mr-2">
-                  <i class="icon-view-settings"></i>
+                <div class="mr-2 flex items-center">
+                  <i class="t-icon t-icon-user-search"></i>
                 </div>
-                <p>查看设置</p>
+                <p class="mr-4">查看设置</p>
+                <o-switch size="small"></o-switch>
               </div>
             </div>
           </div>
