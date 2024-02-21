@@ -251,7 +251,7 @@ export class Navbar extends Component<Props> {
                       </svg>
                     )}
                     {navbarItem.children && (
-                      <ul class="md:absolute md:left-1/2 md:-translate-x-1/2 w-auto  mt-2 text-sm md:text-base dark:bg-background bg-[#fafafa] md:border static text-zinc-600 overflow-hidden md:shadow-md md:invisible group-hover:visible transition-all duration-150 delay-100 rounded-md hover:text-primary">
+                      <ul class="md:absolute md:left-1/2 md:-translate-x-1/2 w-auto  mt-2 text-sm md:text-base dark:bg-background bg-[#fafafa] md:border static text-zinc-600 overflow-hidden md:shadow-md md:invisible group-hover:visible transition-all duration-150 delay-100 rounded-md hover:text-primary z-50">
                         {navbarItem.children.map((navbarItemChild: NavbarItem) => {
                           return this.renderNavbarItemChild(navbarItemChild)
                         })}

@@ -1,6 +1,7 @@
 import '../components/omiu/calendar/index'
 import '../components/omiu/button'
 import '../components/omiu/switch'
+import '../components/omiu/breadcrumb'
 
 export function Questionnaire() {
   return (
@@ -105,7 +106,8 @@ export function Questionnaire() {
         </div>
       </div>
 
-      <h1 class="text-3xl font-bold mb-6">Switch 开关</h1>
+      <hr class="my-3"></hr>
+      <h1 class="text-3xl font-bold my-6">Switch 开关</h1>
       <p>用于两个互斥选项，用来打开或关闭选项的选择控件。</p>
 
       <h2 class="text-2xl font-bold my-6">不同尺寸</h2>
@@ -120,6 +122,28 @@ export function Questionnaire() {
         <o-switch disabled size="small"></o-switch>
         <o-switch disabled size="medium"></o-switch>
         <o-switch disabled size="large"></o-switch>
+      </div>
+
+      <hr class="my-3"></hr>
+      <h1 class="text-3xl font-bold my-6">Breadcrumb 面包屑</h1>
+      <p>显示当前页面在系统层级结构的位置，并能返回之前任意层级的页面。</p>
+
+      <h2 class="text-2xl font-bold my-6">默认</h2>
+      <div class="flex gap-6 items-center">
+        <o-breadcrumb
+          items={[
+            {
+              label: 'Home',
+              icon: 'home',
+            },
+            {
+              label: 'Project',
+            },
+            {
+              label: 'OMI',
+            },
+          ]}
+        ></o-breadcrumb>
       </div>
     </div>
   )
