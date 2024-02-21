@@ -54,6 +54,7 @@ function createRoute(path: string, componentImport: () => Promise<unknown>) {
                   class="opacity-0 translate-y-4"
                   onReady={() => {
                     window.refreshDark()
+                    window.scrollTo(0, 0)
                   }}
                 >
                   {results[0][Object.keys(results[0])[0]](router.params)}
@@ -92,6 +93,7 @@ function createAdminRoute(path: string, componentImport: () => Promise<unknown>)
                   class="opacity-0 translate-y-4"
                   onReady={() => {
                     window.refreshDark()
+                    window.scrollTo(0, 0)
                   }}
                 >
                   {isClassOrFunction(Module) === 'Function' ? Module(router.params) : <Module></Module>}
@@ -128,6 +130,7 @@ function createBaseRoute(path: string, componentImport: () => Promise<unknown>) 
                 class="opacity-0 translate-y-4"
                 onReady={() => {
                   window.refreshDark()
+                  window.scrollTo(0, 0)
                 }}
               >
                 {results[0][Object.keys(results[0])[0]](router.params)}
@@ -160,6 +163,7 @@ function createDocsRoute(path: string, componentImport: () => Promise<unknown>) 
                   class="opacity-0 translate-y-4"
                   onReady={() => {
                     window.refreshDark()
+                    window.scrollTo(0, 0)
                   }}
                 >
                   <product-docs

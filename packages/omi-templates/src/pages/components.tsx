@@ -135,6 +135,7 @@ export function Questionnaire() {
             {
               label: 'Home',
               icon: 'home',
+              href: '#/',
             },
             {
               label: 'Project',
