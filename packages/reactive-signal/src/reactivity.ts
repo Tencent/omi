@@ -45,7 +45,7 @@ export function getActiveComponent(): Component | null {
  * @param initialValue - The initial value of the signal.
  * @returns A signal object with `value` and `peek` properties.
  */
-export function signal<T>(initialValue: T): SignalValue<T> {
+export function signal<T>(initialValue?: T): SignalValue<T> {
   let value = initialValue
   const deps = new Set<EffectFn>()
   const depsComponents = new Set<Component>()
@@ -102,7 +102,7 @@ export function signal<T>(initialValue: T): SignalValue<T> {
  * @returns A computed signal object.
  */
 export function computed<T>(fn: ComputedFn<T>): SignalValue<T> {
-  const computedSignal = signal<T>({} as T)
+  const computedSignal = signal<T>()
   effect(() => {
     computedSignal.value = fn()
   })
