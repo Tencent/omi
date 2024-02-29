@@ -66,7 +66,6 @@ export function signal<T>(initialValue: T): SignalValue<T> {
         return () => {
           // prevent duplicate effect execution caused by computed
           batch(() => {
-            value = value
             deps.forEach((fn) => (inBatch ? effectsToRun.add(fn) : fn()))
             depsComponents.forEach(
               (component) => component[component._tempActiveUpdateFnName!]?.(),
@@ -103,7 +102,7 @@ export function signal<T>(initialValue: T): SignalValue<T> {
  * @returns A computed signal object.
  */
 export function computed<T>(fn: ComputedFn<T>): SignalValue<T> {
-  const computedSignal = signal<T>(fn())
+  const computedSignal = signal<T>({} as T)
   effect(() => {
     computedSignal.value = fn()
   })
