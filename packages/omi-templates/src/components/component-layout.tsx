@@ -1,4 +1,4 @@
-import { Component, VNode, tag } from 'omi'
+import { Component, VNode, classNames, tag } from 'omi'
 import './navbar.tsx'
 import { navbarItems, activeMenuItem } from '../store.ts'
 import { CustomizeButton } from './customize-button.tsx'
@@ -30,34 +30,45 @@ export function ComponentLayout(props: { hideFooter?: boolean; current?: string;
       </header>
 
       <div class="flex gap-6">
-        <div class="w-64  text-[#00000066] py-4 px-2 border-r">
+        <div class="w-64  text-[#00000066] py-4 px-2 border-r h-[calc(100vh-60px)] overflow-auto">
           <div>
-            <div class="text-xs uppercase px-2 py-1 mb-2">基础</div>
+            <div class="text-xs uppercase px-2 py-1 my-2">基础</div>
 
             <nav class="text-sm text-[#00000099]">
-              <a href="#/components/button" class="block px-2 py-3 mb-1 rounded bg-primary text-white  transition-colors duration-200">
+              <a
+                href="#/components/button"
+                class={classNames({
+                  'block px-2 py-3 mb-1 rounded  transition-colors duration-200': true,
+                  'bg-primary text-white': props.current === '/components/button',
+                  'hover:bg-zinc-100 hover:text-black/90': props.current !== '/components/button',
+                })}
+              >
                 Button 按钮
               </a>
               <a
                 href="#/components/icon"
-                class="block px-2 py-3 mb-1 rounded hover:bg-zinc-100 hover:text-black/90 transition-colors duration-200"
+                class={classNames({
+                  'block px-2 py-3 mb-1 rounded  transition-colors duration-200': true,
+                  'bg-primary text-white': props.current === '/components/icon',
+                  'hover:bg-zinc-100 hover:text-black/90': props.current !== '/components/icon',
+                })}
               >
                 Icon 图标
               </a>
-           
             </nav>
           </div>
 
-         
-
           <div>
-            <div class="text-xs uppercase px-2 py-1 mb-2">导航</div>
+            <div class="text-xs uppercase px-2 py-1 my-2">导航</div>
 
             <nav class="text-sm text-[#00000099]">
-             
               <a
                 href="#/components/breadcrumb"
-                class="block px-2 py-3 mb-1 rounded hover:bg-zinc-100 hover:text-black/90 transition-colors duration-200"
+                class={classNames({
+                  'block px-2 py-3 mb-1 rounded  transition-colors duration-200': true,
+                  'bg-primary text-white': props.current === '/components/breadcrumb',
+                  'hover:bg-zinc-100 hover:text-black/90': props.current !== '/components/breadcrumb',
+                })}
               >
                 Breadcrumb 面包屑
               </a>
@@ -65,20 +76,23 @@ export function ComponentLayout(props: { hideFooter?: boolean; current?: string;
           </div>
 
           <div>
-            <div class="text-xs uppercase px-2 py-1 mb-2">输入</div>
+            <div class="text-xs uppercase px-2 py-1 my-2">输入</div>
 
             <nav class="text-sm text-[#00000099]">
-             
               <a
                 href="#/components/switch"
-                class="block px-2 py-3 mb-1 rounded hover:bg-zinc-100 hover:text-black/90 transition-colors duration-200"
+                class={classNames({
+                  'block px-2 py-3 mb-1 rounded  transition-colors duration-200': true,
+                  'bg-primary text-white': props.current === '/components/switch',
+                  'hover:bg-zinc-100 hover:text-black/90': props.current !== '/components/switch',
+                })}
               >
                 Switch 开关
               </a>
             </nav>
           </div>
         </div>
-        <div class="w-full min-h-[calc(100vh-343px)]">{props.children}</div>
+        <div class="w-full h-[calc(100vh-60px)] overflow-auto">{props.children}</div>
       </div>
 
       {!props.hideFooter && (

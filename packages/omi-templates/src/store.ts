@@ -60,7 +60,7 @@ export const navbarItems = signal<NavbarItem[]>([
       },
       {
         text: '组件',
-        path: '/components',
+        path: '/components/button',
         value: 'components',
       },
       {

@@ -3,7 +3,6 @@ import '@/components/omiu/switch'
 export function Questionnaire() {
   return (
     <div class="max-w-[800px] mx-auto text-left px-4 py-10">
-     
       <h1 class="text-3xl font-bold my-6">Switch 开关</h1>
       <p>用于两个互斥选项，用来打开或关闭选项的选择控件。</p>
 
@@ -20,7 +19,6 @@ export function Questionnaire() {
         <o-switch disabled size="medium"></o-switch>
         <o-switch disabled size="large"></o-switch>
       </div>
-
     </div>
   )
 }
