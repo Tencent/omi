@@ -4,13 +4,14 @@
  * @param ctor - The constructor function for the custom element.
  */
 export function define(tagName: string, ctor: CustomElementConstructor): void {
+  // 重复定义也需要挂载 tagName，防止重复定义时候被使用没有 tagName 当作函数
+  Object.defineProperty(ctor, 'tagName', { value: tagName, writable: false })
   if (customElements.get(tagName)) {
     console.warn(
       `Failed to execute 'define' on 'CustomElementRegistry': the tag name "${tagName}" has already been used with this registry`,
     )
     return
   }
-  Object.defineProperty(ctor, 'tagName', { value: tagName, writable: false })
   customElements.define(tagName, ctor)
 }
 
