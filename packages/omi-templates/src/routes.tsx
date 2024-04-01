@@ -31,6 +31,9 @@ export const routes = [
   createAdminRoute('/admin/home', () => import('./pages/admin/home')),
   createAdminRoute('/admin/chart', () => import('./pages/admin/chart')),
   createComponentRoute('/components/button', () => import('./pages/components/button')),
+  createComponentRoute('/components/icon', () => import('./pages/components/icon')),
+  createComponentRoute('/components/switch', () => import('./pages/components/switch')),
+  createComponentRoute('/components/breadcrumb', () => import('./pages/components/breadcrumb')),
   createRoute('*', () => import('./pages/results/not-found')),
   {
     path: '/before-enter/test',

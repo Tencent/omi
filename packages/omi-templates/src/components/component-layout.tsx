@@ -24,28 +24,61 @@ export function ComponentLayout(props: { hideFooter?: boolean; current?: string;
           </div>
 
           <div class="flex items-center">
-            <NavbarWrapper.tagName />
+            <NavbarWrapper />
           </div>
         </div>
       </header>
 
       <div class="flex gap-6">
         <div class="w-64  text-[#00000066] py-4 px-2 border-r">
-          <div class="text-xs uppercase px-2 py-1 mb-2">基础</div>
+          <div>
+            <div class="text-xs uppercase px-2 py-1 mb-2">基础</div>
 
-          <nav class="text-sm text-[#00000099]">
-            <a href="#" class="block px-2 py-3 mb-1 rounded bg-primary text-white  transition-colors duration-200">
-             Button 按钮
-            </a>
-            <a href="#" class="block px-2 py-3 mb-1 rounded hover:bg-zinc-100 hover:text-black/90 transition-colors duration-200">
-              Icon 图标
-            </a>
-            <a href="#" class="block px-2 py-3 mb-1 rounded hover:bg-zinc-100 hover:text-black/90 transition-colors duration-200">
-              Link 链接
-            </a>
-          </nav>
+            <nav class="text-sm text-[#00000099]">
+              <a href="#/components/button" class="block px-2 py-3 mb-1 rounded bg-primary text-white  transition-colors duration-200">
+                Button 按钮
+              </a>
+              <a
+                href="#/components/icon"
+                class="block px-2 py-3 mb-1 rounded hover:bg-zinc-100 hover:text-black/90 transition-colors duration-200"
+              >
+                Icon 图标
+              </a>
+           
+            </nav>
+          </div>
+
+         
+
+          <div>
+            <div class="text-xs uppercase px-2 py-1 mb-2">导航</div>
+
+            <nav class="text-sm text-[#00000099]">
+             
+              <a
+                href="#/components/breadcrumb"
+                class="block px-2 py-3 mb-1 rounded hover:bg-zinc-100 hover:text-black/90 transition-colors duration-200"
+              >
+                Breadcrumb 面包屑
+              </a>
+            </nav>
+          </div>
+
+          <div>
+            <div class="text-xs uppercase px-2 py-1 mb-2">输入</div>
+
+            <nav class="text-sm text-[#00000099]">
+             
+              <a
+                href="#/components/switch"
+                class="block px-2 py-3 mb-1 rounded hover:bg-zinc-100 hover:text-black/90 transition-colors duration-200"
+              >
+                Switch 开关
+              </a>
+            </nav>
+          </div>
         </div>
-        <div class='w-full'>{props.children}</div>
+        <div class="w-full min-h-[calc(100vh-343px)]">{props.children}</div>
       </div>
 
       {!props.hideFooter && (

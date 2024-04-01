@@ -1,7 +1,4 @@
-import '@/components/omiu/calendar/index'
 import '@/components/omiu/button'
-import '@/components/omiu/switch'
-import '@/components/omiu/breadcrumb'
 
 export function Questionnaire() {
   return (
@@ -105,8 +102,6 @@ export function Questionnaire() {
           </o-button>
         </div>
       </div>
-
-    
     </div>
   )
 }
