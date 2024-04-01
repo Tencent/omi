@@ -1,5 +1,5 @@
 import * as copyToClipboard from 'copy-to-clipboard'
-import { showMsg } from '@/components/omiu/msg'
+import { showMsg } from '../../components/omiu/msg'
 
 // @ts-ignore
 const copy = copyToClipboard.default || copyToClipboard
