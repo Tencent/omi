@@ -34,7 +34,7 @@ export function Home() {
               theme="default"
               href="https://github.com/Tencent/omi/tree/master/packages/omi-templates"
             >
-              <i class="t-icon t-icon-logo-github-filled mr-2 text-lg"></i>源代码
+              <i class="t-icon t-icon-logo-github-filled text-lg"></i>源代码
             </o-button>
             <o-button theme="primary" tag="a" href="#/admin/home">
               🎉 管理系统

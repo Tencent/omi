@@ -2,6 +2,7 @@ import 'omi-suspense'
 import './index.css'
 import { SiteLayout } from './components/site-layout'
 import { AdminLayout } from './components/admin-layout'
+import { ComponentLayout } from './components/component-layout'
 import { pending } from './components/pending'
 import { fallback } from './components/fallback'
 import { Router } from 'omi-router'
@@ -29,6 +30,7 @@ export const routes = [
   createBaseRoute('/login', () => import('./pages/login')),
   createAdminRoute('/admin/home', () => import('./pages/admin/home')),
   createAdminRoute('/admin/chart', () => import('./pages/admin/chart')),
+  createComponentRoute('/components/button', () => import('./pages/components/button')),
   createRoute('*', () => import('./pages/results/not-found')),
   {
     path: '/before-enter/test',
@@ -72,6 +74,45 @@ function createRoute(path: string, componentImport: () => Promise<unknown>) {
             }}
           ></o-suspense>
         </SiteLayout>
+      )
+    },
+  }
+}
+
+function createComponentRoute(path: string, componentImport: () => Promise<unknown>) {
+  return {
+    path,
+    render(router: Router) {
+      return (
+        <ComponentLayout current={router.currentRoute?.path}>
+          <o-suspense
+            minLoadingTime={400}
+            imports={[componentImport()]}
+            customRender={(results: { [x: string]: Function }[]) => {
+              const Module = results[0][Object.keys(results[0])[0]]
+              return (
+                <o-appear
+                  class="opacity-0 translate-y-4"
+                  onReady={() => {
+                    window.refreshDark()
+                    window.scrollTo(0, 0)
+                  }}
+                >
+                  {isClassOrFunction(Module) === 'Function' ? Module(router.params) : <Module></Module>}
+                </o-appear>
+              )
+            }}
+            fallback={fallback}
+            beforePending={async (suspense: Component) => {
+              suspense.shadowRoot?.firstElementChild?.classList.add('opacity-0', 'translate-y-4')
+              return new Promise((resolve) => setTimeout(resolve, 300))
+            }}
+            pending={pending}
+            onLoaded={() => {
+              window.refreshDark()
+            }}
+          ></o-suspense>
+        </ComponentLayout>
       )
     },
   }
