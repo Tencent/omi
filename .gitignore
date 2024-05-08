@@ -20,6 +20,5 @@ dist
 *.sln
 *.sw?
 build
-docs
 coverage
 package.lock.json
