@@ -158,7 +158,9 @@ export function runBatch(): void {
   while (batchQueue.size) {
     const fn = batchQueue.values().next().value
     if (fn) {
+      // fn 函数内部的 set 还是触发 batch，导致 batchQueue.size 增加 ，所以上面需要判断 batchQueue.size === 1
       fn()
+      // 移除直到 batchQueue 清空
       batchQueue.delete(fn)
     }
   }

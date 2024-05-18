@@ -388,5 +388,6 @@ describe('batch', () => {
       testSignal.value = 40
     })
     expect(effectTimes).toBe(2)
+    expect(testSignal.value).toBe(40)
   })
 })
