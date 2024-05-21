@@ -151,7 +151,8 @@ import '../tailwind'
 
 const router = new Router({
   routes,
-  renderTo: 'body'
+  renderTo: 'body',
+  hash: false
 })
 ```
 

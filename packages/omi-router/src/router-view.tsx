@@ -20,6 +20,7 @@ export interface Route {
 interface Props {
   routes: Route[]
   base?: string
+  hash?: boolean
 }
 
 @tag('router-view')
@@ -41,6 +42,7 @@ export class RouterView extends Component<Props> {
       router: this,
     })
     this.base = this.props.base || ''
+    this.isHashMode = this.props.hash === false ? false : true
 
     this.routes = this.props.routes.map((route) => {
       const keys: Key[] = []

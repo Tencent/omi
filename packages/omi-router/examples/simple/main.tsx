@@ -5,4 +5,5 @@ import '../tailwind'
 const router = new Router({
   routes,
   renderTo: 'body',
+  // hash: false,
 })
