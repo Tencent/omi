@@ -4,7 +4,7 @@
 <h2 align="center">Omi - Web Components 框架</h2>
 
 - 📶 信号 **Signal** 驱动的响应式编程，[reactive-signal](https://github.com/Tencent/omi/tree/master/packages/reactive-signal)强力驱动
-_ 🧱 [TDesign Web 组件](https://github.com/TDesignOteam/tdesign-web-components) 
+- 🧱 [TDesign Web 组件](https://github.com/TDesignOteam/tdesign-web-components) 
 - ⚡ **微小的**尺寸，**极速的**性能
 - 💗 [目标 100+ 模板](https://omi.cdn-go.cn/templates/latest/) & [OMI 模板源码](https://github.com/Tencent/omi/tree/master/packages/omi-templates)
 - 🐲 [OMI Form](https://omi.cdn-go.cn/form/latest/docs/) & [OMI Form 游乐场](https://omi.cdn-go.cn/form/latest/play/) & [Lucide Omi 图标](https://github.com/omijs/lucide-omi)
