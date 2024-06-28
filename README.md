@@ -4,6 +4,7 @@ English | [简体中文](./README.CN.md)
 <h2 align="center">Omi - Web Components Framework</h2>
 
 - 📶 **Signal**-driven reactive programming by [reactive-signal](https://github.com/Tencent/omi/tree/master/packages/reactive-signal)
+_ 🧱 [TDesign Web Components](https://github.com/TDesignOteam/tdesign-web-components) 
 - 💗 [100+ OMI Templates](https://omi.cdn-go.cn/templates/latest/) & [OMI Templates Source Code](https://github.com/Tencent/omi/tree/master/packages/omi-templates)
 - 🐲 [OMI Form](https://omi.cdn-go.cn/form/latest/docs/) & [OMI Form Playground](https://omi.cdn-go.cn/form/latest/play/) & [Lucide Omi Icons](https://github.com/omijs/lucide-omi)
 - ⚡ **Tiny** size, **Fast** performance
