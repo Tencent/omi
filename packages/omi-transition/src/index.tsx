@@ -1,18 +1,20 @@
 import { registerDirective, Component } from 'omi'
 
+type DomType = HTMLElement | Component;
+
 interface TransitionOptions {
   name: string;
   delay?: number;
-  beforeEnter?: (dom: HTMLElement | Component) => void;
-  enter?: (dom: HTMLElement | Component)  => void;
-  afterEnter?: (dom: HTMLElement | Component) => void;
-  beforeLeave?: (dom: HTMLElement | Component) => void;
-  leave?: (dom: HTMLElement | Component) => void;
-  afterLeave?: (dom: HTMLElement | Component) => void;
+  beforeEnter?: (dom: DomType) => void;
+  enter?: (dom: DomType)  => void;
+  afterEnter?: (dom: DomType) => void;
+  beforeLeave?: (dom: DomType) => void;
+  leave?: (dom: DomType) => void;
+  afterLeave?: (dom: DomType) => void;
 }
 
 
-registerDirective('transition', (dom: HTMLElement | Component, options: TransitionOptions) => {
+registerDirective('transition', (dom: DomType, options: TransitionOptions) => {
   const { name, delay = 0 } = options
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
