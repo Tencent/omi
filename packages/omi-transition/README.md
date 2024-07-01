@@ -63,7 +63,7 @@ type DomType = HTMLElement | Component;
 interface TransitionOptions {
   name: string;
   delay?: number;
-   beforeEnter?: (dom: DomType) => void;
+  beforeEnter?: (dom: DomType) => void;
   enter?: (dom: DomType)  => void;
   afterEnter?: (dom: DomType) => void;
   beforeLeave?: (dom: DomType) => void;
