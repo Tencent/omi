@@ -376,18 +376,21 @@ export class Component extends HTMLElement {
     })
   }
 
-  fire(name: string, data: unknown): void {
+  fire(name: string, data: unknown,options?:{bubbles: boolean,composed: boolean}): void {
+    const {bubbles,composed} = Object.assign({{bubbles: false,composed:false},options)
     const handler = this.props[`on${capitalize(name)}`] as Function
     if (handler) {
       handler(
         new CustomEvent(name, {
           detail: data,
+          bubbles,composed
         }),
       )
     } else {
       this.dispatchEvent(
         new CustomEvent(name, {
           detail: data,
+          bubbles,composed
         }),
       )
     }
