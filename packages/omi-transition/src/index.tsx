@@ -1,18 +1,20 @@
 import { registerDirective, Component } from 'omi'
 
+type DomType = HTMLElement | Component;
+
 interface TransitionOptions {
   name: string;
   delay?: number;
-  beforeEnter?: () => void;
-  enter?: () => void;
-  afterEnter?: () => void;
-  beforeLeave?: () => void;
-  leave?: () => void;
-  afterLeave?: () => void;
+  beforeEnter?: (dom: DomType) => void;
+  enter?: (dom: DomType)  => void;
+  afterEnter?: (dom: DomType) => void;
+  beforeLeave?: (dom: DomType) => void;
+  leave?: (dom: DomType) => void;
+  afterLeave?: (dom: DomType) => void;
 }
 
 
-registerDirective('transition', (dom: HTMLElement | Component, options: TransitionOptions) => {
+registerDirective('transition', (dom: DomType, options: TransitionOptions) => {
   const { name, delay = 0 } = options
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
@@ -28,9 +30,9 @@ registerDirective('transition', (dom: HTMLElement | Component, options: Transiti
   const onTransitionEnd = debounce(() => {
     const show = getShowAttribute(dom)
     if (show) {
-      options.afterEnter?.()
+      options.afterEnter?.(dom)
     } else {
-      options.afterLeave?.()
+      options.afterLeave?.(dom)
       dom.style.display = 'none' // 添加这行代码
     }
     dom.classList.remove(`${name}-enter-active`)
@@ -67,13 +69,13 @@ function updateClasses(dom: HTMLElement, name: string, show: boolean, delay: num
   if (show) {
     isFirstRender = false;
     dom.style.display = previousDisplay || ''
-    options.beforeEnter?.()
+    options.beforeEnter?.(dom)
     dom.classList.remove(`${name}-leave-to`)
     dom.classList.remove(`${name}-leave-active`)
     dom.classList.add(`${name}-enter-from`)
     requestAnimationFrame(() => {
       setTimeout(() => {
-        options.enter?.()
+        options.enter?.(dom)
         dom.classList.remove(`${name}-enter-from`)
         dom.classList.add(`${name}-enter-to`)
         dom.classList.add(`${name}-enter-active`)
@@ -83,7 +85,7 @@ function updateClasses(dom: HTMLElement, name: string, show: boolean, delay: num
     if (dom.style.display !== 'none') {
       previousDisplay = dom.style.display; // 记录display的值
     }
-    options.beforeLeave?.()
+    options.beforeLeave?.(dom)
     if (isFirstRender) { // 如果是第一次渲染
       dom.style.display = 'none'; // 直接隐藏元素
       isFirstRender = false; // 更新 isFirstRender 的值
@@ -93,7 +95,7 @@ function updateClasses(dom: HTMLElement, name: string, show: boolean, delay: num
       dom.classList.add(`${name}-leave-from`)
       requestAnimationFrame(() => {
         setTimeout(() => {
-          options.leave?.()
+          options.leave?.(dom)
           dom.classList.remove(`${name}-leave-from`)
           dom.classList.add(`${name}-leave-to`)
           dom.classList.add(`${name}-leave-active`)

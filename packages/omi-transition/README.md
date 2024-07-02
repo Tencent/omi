@@ -58,14 +58,16 @@ render(<transition-demo />, document.body)
 ### Options
 
 ```tsx
+type DomType = HTMLElement | Component;
+
 interface TransitionOptions {
   name: string;
   delay?: number;
-  beforeEnter?: () => void;
-  enter?: () => void;
-  afterEnter?: () => void;
-  beforeLeave?: () => void;
-  leave?: () => void;
-  afterLeave?: () => void;
+  beforeEnter?: (dom: DomType) => void;
+  enter?: (dom: DomType)  => void;
+  afterEnter?: (dom: DomType) => void;
+  beforeLeave?: (dom: DomType) => void;
+  leave?: (dom: DomType) => void;
+  afterLeave?: (dom: DomType) => void;
 }
 ```
