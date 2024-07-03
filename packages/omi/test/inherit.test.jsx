@@ -74,7 +74,7 @@ describe('inherit', () => {
       static props = {
         name: {
           type:String ,
-          default:"🐶"
+          default:'🐶'
         }
       }
       render() {

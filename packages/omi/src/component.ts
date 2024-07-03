@@ -1,5 +1,11 @@
 // @ts-nocheck
-import { isArray, hyphenate, capitalize, createStyleSheet, getClassStaticValue } from './utils'
+import {
+  isArray,
+  hyphenate,
+  capitalize,
+  createStyleSheet,
+  getClassStaticValue,
+} from './utils'
 import { diff } from './diff'
 import { ExtendedElement } from './dom'
 import 'weakmap-polyfill'
@@ -83,34 +89,35 @@ export class Component extends HTMLElement {
 
   /**
    * 处理props
-   * 
-   * 为方便组件继承，会读取类继承链上的props、defaultProps、propTypes、reflectProps等属性进行合并  
+   *
+   * 为方便组件继承，会读取类继承链上的props、defaultProps、propTypes、reflectProps等属性进行合并
    * 这样子组件就可以继承父组件的props、defaultProps、propTypes、reflectProps等属性
-   * 
-   * 
+   *
+   *
    */
-  private handleProps(){
-    this.constructor.defaultProps = getClassStaticValue(this,'defaultProps',{default:{}}) || {}
-    this.constructor.propTypes    = getClassStaticValue(this,'propTypes',{default:{}}) || {}
-    this.constructor.reflectProps = getClassStaticValue(this,'reflectProps',{default:{}}) || {}
-    const props        = getClassStaticValue(this,'props',{default:{},merge:'uniqueMerge'})
+  private handleProps() {
+    this.constructor.defaultProps =
+      getClassStaticValue(this, 'defaultProps', { default: {} }) || {}
+    this.constructor.propTypes =
+      getClassStaticValue(this, 'propTypes', { default: {} }) || {}
+    this.constructor.reflectProps =
+      getClassStaticValue(this, 'reflectProps', { default: {} }) || {}
+    const props = getClassStaticValue(this, 'props', {
+      default: {},
+      merge: 'uniqueMerge',
+    })
 
-    
     if (this.constructor.props) {
       for (const propName in props) {
         const prop = props[propName]
         this.constructor.defaultProps[propName] = prop.default
-        this.constructor.propTypes[propName] =prop.type
-        this.constructor.reflectProps[propName] =prop.reflect
+        this.constructor.propTypes[propName] = prop.type
+        this.constructor.reflectProps[propName] = prop.reflect
       }
     }
 
     // @ts-ignore fix lazy load props missing
-    this.props = Object.assign(
-      {},
-      this.constructor.defaultProps,
-      this.props,
-    )
+    this.props = Object.assign({}, this.constructor.defaultProps, this.props)
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
