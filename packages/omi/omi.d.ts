@@ -124,7 +124,7 @@ declare namespace Omi {
     forceUpdate(): void;
     updateProps(obj: any): void;
     updateSelf(): void;
-    fire(name: string, data?: any): void;
+    fire(name: string, data?: any, options?: {bubbles?:boolean, composed?: boolean}): void;
 
     // Abstract methods don't infer argument types
     // https://github.com/Microsoft/TypeScript/issues/14887
@@ -169,7 +169,7 @@ declare namespace Omi {
     forceUpdate(): void;
     updateProps(obj: any): void;
     updateSelf(): void;
-    fire(name: string, data?: any): void;
+    fire(name: string, data?: any, options?: {bubbles?:boolean, composed?: boolean}): void;
 
     // Abstract methods don't infer argument types
     // https://github.com/Microsoft/TypeScript/issues/14887
