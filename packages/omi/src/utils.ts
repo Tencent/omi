@@ -154,3 +154,103 @@ export function bind(
 export function isObject(item: any) {
   return typeof item === 'object' && !Array.isArray(item) && item !== null
 }
+// 判断对象是否是一个类
+export function isClass(cls:any):boolean{
+  let result = false
+  if (typeof(cls) === 'function' && cls.prototype) {
+      try {
+          cls.arguments && cls.caller;
+      } catch(e) {
+          result=true
+      }
+  }
+  return result;
+}
+
+
+
+export interface GetClassStaticValueOptions{
+  merge?:'none' | 'merge' | 'uniqueMerge'          // 指定合并策略
+  default?:any                                    // 当不存在时提供一个默认值
+}
+/**
+ *
+ * 获取继承链上指定字段的值
+ * 获取类的静态变量值，会沿继承链向上查找，并能自动合并数组和{}值
+ *
+ * calss A{
+ *     static settings={a:1}
+ * }
+ * calss A1 extends A{
+ *     static settings={b:2}
+ * }
+ *
+ * getStaticFieldValue(new A1(),"settings") ==== {a:1,b:2}
+ *
+ * @param instanceOrClass
+ * @param fieldName
+ * @param options
+ */
+export function getClassStaticValue(instanceOrClass:object,fieldName:string,options?:GetClassStaticValueOptions){
+  const opts = Object.assign({
+      // 是否进行合并,0-代表不合并，也就是不会从原型链中读取，1-使用Object.assign合并,2-使用mergeDeepRigth合并
+      // 对数组,0-不合并，1-合并数组,   2-合并且删除重复项
+      merge:'uniqueMerge',
+      default:null                   // 提供默认值，如果{}和[]，会使用上述的合并策略
+  },options) as Required<GetClassStaticValueOptions>
+
+  let proto = isClass(instanceOrClass) ? instanceOrClass : instanceOrClass.constructor
+  let fieldValue = (proto as any)[fieldName]
+  // 0-{}, 1-[], 2-其他类型
+  let valueType = isObject(fieldValue) ? 0 : (Array.isArray(fieldValue) ? 1 : 2)
+  // 如果不是数组或者{}，则不需要在继承链上进行合并
+  if(opts.merge==='none' || valueType===2){
+      return fieldValue
+  }
+
+  const defaultValue = valueType===0 ? Object.assign({},opts.default) : (opts.default)
+
+  let values = [fieldValue]
+
+  // 依次读取继承链上的所有同名的字段值
+  while (proto){
+      proto = (proto as any).__proto__
+      if((proto as any)[fieldName]){
+          values.push((proto as any)[fieldName])
+      }else{
+          break
+      }
+  }
+  // 进行合并
+  let mergedResult = fieldValue
+  if(valueType===0){// Object
+      mergedResult =  values.reduce((result,item)=>{
+          if(isObject(item)){        // 只能合并字典
+              return opts.merge ==='merge' ? Object.assign({},defaultValue,item,result) : Object.assign({},defaultValue,item,result)
+          }else{
+              return result
+          }
+      },{})
+  }else{  // 数组
+      mergedResult =  values.reduce((result,item)=>{
+          if(Array.isArray(item)){ // 只能合并数组
+              result.push(...item)
+          }
+          return result
+      },[])
+  }
+  // 删除数组中的重复项
+  if(Array.isArray(mergedResult) && opts.merge==='uniqueMerge'){
+      mergedResult = Array.from(new Set(mergedResult))
+      // 如果提供defaultValue并且数组成员是一个{},则进行合并
+      if(isObject(defaultValue)){
+          mergedResult.forEach((value:any,index:number) =>{
+              if(isObject(value)){
+                  mergedResult[index] =  Object.assign({},defaultValue,value)
+              }
+          })
+      }
+  }
+  return mergedResult || defaultValue
+}
+
