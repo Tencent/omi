@@ -124,7 +124,9 @@ export class Component extends HTMLElement {
     if (this.constructor.props && this.constructor.props[name]) {
       const prop = this.constructor.props[name]
       if (prop.changed) {
-        prop.changed.call(this, newValue, oldValue)
+        const newTypeValue = this.getTypeValueofProp(name, newValue)
+        const oldTypeValue = this.getTypeValueofProp(name, oldValue)
+        prop.changed.call(this, newTypeValue, oldTypeValue)
       }
     }
   }
@@ -364,43 +366,9 @@ export class Component extends HTMLElement {
     const attrs = (this.constructor as typeof Component).propTypes
     if (!attrs) return
     Object.keys(attrs).forEach((key) => {
-      const types = isArray(attrs[key]) ? attrs[key] : [attrs[key]]
       const val = ele.getAttribute(hyphenate(key))
       if (val !== null) {
-        for (let i = 0; i < (types as Array<PropType>).length; i++) {
-          const type = (types as Array<PropType>)[i]
-          let matched = false
-          switch (type) {
-            case String:
-              ele.props[key] = val
-              matched = true
-              break
-            case Number:
-              ele.props[key] = Number(val)
-              matched = true
-              break
-            case Boolean:
-              if (val === 'false' || val === '0') {
-                ele.props[key] = false
-              } else {
-                ele.props[key] = true
-              }
-              matched = true
-              break
-            case Array:
-            case Object:
-              try {
-                ele.props[key] = JSON.parse(val)
-              } catch (e) {
-                console.warn(
-                  `The ${key} object prop does not comply with the JSON specification, the incorrect string is [${val}].`,
-                )
-              }
-              matched = true
-              break
-          }
-          if (matched) break
-        }
+        ele.props[key] = this.getTypeValueofProp(key, val)
       } else {
         if (
           (ele.constructor as typeof Component).defaultProps &&
@@ -414,6 +382,32 @@ export class Component extends HTMLElement {
         }
       }
     })
+  }
+
+  getTypeValueofProp(key: string, val: string) {
+    const attrs = (this.constructor as typeof Component).propTypes
+    const types = isArray(attrs[key]) ? attrs[key] : [attrs[key]]
+
+    for (let i = 0; i < (types as Array<PropType>).length; i++) {
+      const type = (types as Array<PropType>)[i]
+      switch (type) {
+        case String:
+          return val
+        case Number:
+          return Number(val)
+        case Boolean:
+          return Boolean(val !== 'false' && val !== '0')
+        case Array:
+        case Object:
+          try {
+            return JSON.parse(val)
+          } catch (e) {
+            console.warn(
+              `The ${key} object prop does not comply with the JSON specification, the incorrect string is [${val}].`,
+            )
+          }
+      }
+    }
   }
 
   fire(
