@@ -30,7 +30,7 @@ type ReflectProps = {
   [key: string]: boolean | ((propValue: any) => any)
 }
 
-export class Component extends HTMLElement {
+export class Component<State = any> extends HTMLElement {
   static is = 'Component'
   static defaultProps: Record<string, unknown>
   static reflectProps: ReflectProps
@@ -126,6 +126,19 @@ export class Component extends HTMLElement {
       if (prop.changed) {
         prop.changed.call(this, newValue, oldValue)
       }
+    }
+  }
+
+  state: State
+
+  setState(partialState: Partial<State>, beforeUpdate = false) {
+    if (typeof partialState !== 'object') {
+      throw new Error('takes an object of state variables to update')
+    }
+
+    Object.keys(partialState).forEach(key => this.state[key] = partialState[key])
+    if (!beforeUpdate) {
+      this.queuedUpdate()
     }
   }
 
