@@ -336,37 +336,30 @@ my-counter.tsx:
 import { tag, Component, h, bind } from 'omi'
 
 @tag('my-counter')
-class MyCounter extends Component {
+class MyCounter extends Component<{ count: number }> {
   static props = {
     count: {
       type: Number,
       default: 0,
       changed(newValue, oldValue) {
-        this.state.count = newValue
-        this.update()
+        this.setState({ count: newValue })
       }
     }
   }
 
   state = {
-    count: null
-  }
-
-  install() {
-    this.state.count = this.props.count
+    count: 1
   }
 
   @bind
   sub() {
-    this.state.count--
-    this.update()
+    this.setState({ count: this.state.count - 1 })
     this.fire('change', this.state.count)
   }
 
   @bind
   add() {
-    this.state.count++
-    this.update()
+    this.setState({ count: this.state.count + 1 })
     this.fire('change', this.state.count)
   }
 
