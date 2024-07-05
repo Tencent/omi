@@ -124,8 +124,8 @@ export class Component<State = any> extends HTMLElement {
     if (this.constructor.props && this.constructor.props[name]) {
       const prop = this.constructor.props[name]
       if (prop.changed) {
-        const newTypeValue = this.getTypeValueofProp(name, newValue)
-        const oldTypeValue = this.getTypeValueofProp(name, oldValue)
+        const newTypeValue = this.getTypeValueOfProp(name, newValue)
+        const oldTypeValue = this.getTypeValueOfProp(name, oldValue)
         prop.changed.call(this, newTypeValue, oldTypeValue)
       }
     }
@@ -381,7 +381,7 @@ export class Component<State = any> extends HTMLElement {
     Object.keys(attrs).forEach((key) => {
       const val = ele.getAttribute(hyphenate(key))
       if (val !== null) {
-        ele.props[key] = this.getTypeValueofProp(key, val)
+        ele.props[key] = this.getTypeValueOfProp(key, val)
       } else {
         if (
           (ele.constructor as typeof Component).defaultProps &&
@@ -397,7 +397,7 @@ export class Component<State = any> extends HTMLElement {
     })
   }
 
-  getTypeValueofProp(key: string, val: string) {
+  getTypeValueOfProp(key: string, val: string) {
     const attrs = (this.constructor as typeof Component).propTypes
     const types = isArray(attrs[key]) ? attrs[key] : [attrs[key]]
 
