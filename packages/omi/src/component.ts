@@ -5,6 +5,8 @@ import {
   capitalize,
   createStyleSheet,
   getClassStaticValue,
+  isObject,
+  createRef
 } from './utils'
 import { diff } from './diff'
 import { ExtendedElement } from './dom'
@@ -38,6 +40,13 @@ export class Component<State = any> extends HTMLElement {
   static css: CSSItem | CSSItem[]
   static isLightDOM: boolean
   static noSlot: boolean
+  
+  // 被所有组件继承
+  static props = {
+    ref:{
+      type: Object,
+    }
+  }
 
   // 可以延迟定义，防止 import { }  被 tree-shaking 掉
   static define(name: string): void {
@@ -53,6 +62,8 @@ export class Component<State = any> extends HTMLElement {
   injection?: { [key: string]: unknown }
   renderRoot?: ExtendedElement | ShadowRoot | Component
   rootElement: ExtendedElement | ExtendedElement[] | null
+
+  _ref :Partial<Record<'current', any>>= null
 
   constructor() {
     super()
@@ -87,6 +98,16 @@ export class Component<State = any> extends HTMLElement {
     this.rootElement = null
   }
 
+  get ref(){
+    if(!this._ref){
+      if(this.props.ref && isObject(this.props.ref)){
+        this._ref = this.props.ref 
+      }else{
+        this._ref = createRef()
+      }
+    }
+    return this._ref
+  }
   /**
    * 处理props
    *
