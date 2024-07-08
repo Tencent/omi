@@ -92,6 +92,11 @@ export const navbarItems = signal<NavbarItem[]>([
         type: 'spliter',
       },
       {
+        text: '组合/作品集',
+        path: '/portfolio',
+        value: 'portfolio',
+      },
+      {
         text: '关于',
         path: '/about',
         value: 'about',
