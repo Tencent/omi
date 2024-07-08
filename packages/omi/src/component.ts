@@ -6,6 +6,7 @@ import {
   createStyleSheet,
   getClassStaticValue,
   isObject,
+  createRef
 } from './utils'
 import { diff } from './diff'
 import { ExtendedElement } from './dom'
@@ -46,7 +47,7 @@ export class Component<State = any> extends HTMLElement {
       type: Object,
     }
   }
-  
+
   // 可以延迟定义，防止 import { }  被 tree-shaking 掉
   static define(name: string): void {
     define(name, this)
