@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "7.6.10",
+  "version": "7.6.11",
   "scripts": {
     "start": "vite",
     "dev-vite": "vite",
