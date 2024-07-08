@@ -1,7 +1,7 @@
 import { render, signal, tag, Component } from 'omi';
 import '../components/omiu/button';
 
-// 初始化分类数据
+// 分类数据
 const categories = signal([
   { name: '前端开发' },
   { name: '后端开发' },
@@ -10,7 +10,7 @@ const categories = signal([
   { name: '移动开发' },
 ]);
 
-// 初始化课程数据
+// 课程数据
 const allCourses = [
   {
     title: 'Python编程基础',
@@ -71,10 +71,10 @@ const allCourses = [
 
 const courses = signal(allCourses);
 
-@tag('course-list')
-class CourseList extends Component {
+@tag('education-template')
+class EducationTemplate extends Component {
   
-  activeCategory: string = "";
+  activeCategory: string = "全部";
   // 筛选课程
   filterCourses(category:string) {
     if (category === '全部') {
@@ -106,40 +106,46 @@ class CourseList extends Component {
             ))}
           </div>
 
-          {/* 课程section */}
+          {/* 课程section*/}
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {courses.value.map((course, index) => (
-              <div key={index} class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
-                <img class="w-full" src={course.image} alt="Course Image" />
-                <div class="p-4">
-                  <div class="flex justify-between items-center">
-                    <span class="text-gray-600 text-sm">
-                      <i class="far fa-calendar"></i> {course.date}
-                    </span>
-                    <span class="text-gray-600 text-sm">
-                      <i class="far fa-clock"></i> {course.duration}
-                    </span>
-                  </div>
-                  <div class="mt-2">
-                    <h3 class="text-xl font-semibold">
-                      <a href="#">{course.title}</a>
-                    </h3>
-                    <p class="text-gray-700 mt-2">{course.description}</p>
-                  </div>
-                  <div class="flex justify-between items-center mt-4">
-                    <div class="flex items-center">
-                      <img class="w-8 h-8 rounded-full" src={course.authorImage} alt="Author Image" />
-                      <span class="text-gray-700 ml-2">{course.author}</span>
+            {courses.value.length === 0 ? (
+              <div class="col-span-full text-center text-gray-500">
+                暂无相关课程
+              </div>
+            ) : (
+              courses.value.map((course, index) => (
+                <div key={index} class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
+                  <img class="w-full" src={course.image} alt="Course Image" />
+                  <div class="p-4">
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-600 text-sm">
+                        <i class="far fa-calendar"></i> {course.date}
+                      </span>
+                      <span class="text-gray-600 text-sm">
+                        <i class="far fa-clock"></i> {course.duration}
+                      </span>
                     </div>
-                    <div>
-                      <a href="#" class="text-green-500 font-semibold">
-                        {course.price}
-                      </a>
+                    <div class="mt-2">
+                      <h3 class="text-xl font-semibold">
+                        <a href="#">{course.title}</a>
+                      </h3>
+                      <p class="text-gray-700 mt-2">{course.description}</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                      <div class="flex items-center">
+                        <img class="w-8 h-8 rounded-full" src={course.authorImage} alt="Author Image" />
+                        <span class="text-gray-700 ml-2">{course.author}</span>
+                      </div>
+                      <div>
+                        <a href="#" class="text-green-500 font-semibold">
+                          {course.price}
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -148,6 +154,6 @@ class CourseList extends Component {
 }
 
 // 渲染组件到页面
-export function Questionnaire() {
-  return <course-list />;
+export function EducationPage() {
+  return <education-template />;
 }
