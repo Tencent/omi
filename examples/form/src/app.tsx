@@ -9,14 +9,16 @@ export default class extends Component {
   onSubmit(e:any){
     console.log(e)
     const formData = new FormData(e.target)
-    e.stopPropagation()    
-    return false
-  }
+    alert(`x=${formData.get('x')}\ny=${formData.get('y')}\nz=${formData.get('z')}`)
+    e.preventDefault()
+  } 
   render() { 
     return (
       <div>
          <form method='post' onSubmit={this.onSubmit}>  
-            <my-input/>
+            <my-input name="x" value={1}/>
+            <my-input name="y" value={2}/>
+            <my-input name="z" value={3}/>
             <input type="submit" value="Submit" />
          </form>
       </div>

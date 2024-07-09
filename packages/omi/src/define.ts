@@ -1,5 +1,5 @@
 import { default as formAssociatedHook } from './hooks/formAssociated'
-import { installHook } from './utils'
+import { executeComponentHooks, installHook } from './utils'
 
 /**
  * Defines a custom element.
@@ -30,9 +30,10 @@ export function component(options: {tagName: string,formAssociated:boolean}) {
   },options)
   return function (target: CustomElementConstructor) {
     if(formAssociated){
-      // @ts-ignore
-      target.constructor.formAssociated=true 
       installHook(target,formAssociatedHook as any)
+      // @ts-ignore
+      target.formAssociated=true 
+      executeComponentHooks(target,'define')       
     }
     define(tagName, target)
   }

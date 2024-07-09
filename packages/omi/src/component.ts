@@ -33,9 +33,11 @@ type ReflectProps = {
 }
 
 
-export type ComponentHookType = 'initial' | 'connected' | 'disconnected'  
+export type ComponentHookType = 'define' | 'initial' | 'connected' | 'disconnected'  
 export type ComponentHooks ={
-  [key in ComponentHookType]?: ((self:Component)=>void)
+  [key in Omit<ComponentHookType,'define'>]?: ((self:Component)=>void)
+} & {
+  define:(cls:typeof Component)=>void
 }
 export type ComponentHookRegistry = Record<ComponentHookType, ((self:Component)=>void)[]>
 
@@ -49,8 +51,7 @@ export class Component<State = any> extends HTMLElement {
   static css: CSSItem | CSSItem[]
   static isLightDOM: boolean
   static noSlot: boolean
-  static hooks: ComponentHookRegistry 
-  static formAssociated = true
+  static hooks: ComponentHookRegistry  
   // 被所有组件继承
   static props = {
     ref:{
@@ -74,7 +75,7 @@ export class Component<State = any> extends HTMLElement {
   rootElement: ExtendedElement | ExtendedElement[] | null
   _hooks: Record<ComponentHookType, Function[]>  
   _ref :Partial<Record<'current', any>>= null
-  
+  static formAssociated = true
   constructor() {
     super()
     this.handleProps()
@@ -82,14 +83,8 @@ export class Component<State = any> extends HTMLElement {
     this.elementId = id++
     this.isInstalled = false
     this.rootElement = null
-  }
-  formAssociatedCallback(form) {
-    this._form = form
-    if(this._form){
-      // 当组件被添加到表单元素内部时，监听 formdata 事件
-      this._form.addEventListener('formdata', this.handleFormData)
-    }	
   } 
+  
   get ref(){
     if(!this._ref){
       if(this.props.ref && isObject(this.props.ref)){
@@ -521,13 +516,14 @@ export class Component<State = any> extends HTMLElement {
 
 export class FormAssociatedComponent extends Component{
 	static formAssociated:boolean = false
-	_form:HTMLFormElement | null = null							// 引用表单元素
-	_input:HTMLInputElement | undefined | null = null			// 引用表单元素内部的 input 元素
-	_internals:ElementInternals | null = null					// 表单元素内部对象
-	formAssociatedCallback(form:HTMLFormElement){}				// 当组件被添加到表单元素内部时调用
-	handleFormData(event:FormDataEvent){}						// 处理表单数据事件
-	handleInput(event:Event){}									// 处理 input 事件
-	formDisabledCallback(){}									// 当表单元素被禁用时调用
-	formResetCallback(){}										// 当表单元素被重置时调用
-	formStateRestoreCallback(state:any, mode:any){}				// 当表单元素状态被恢复时调用
+	_form:HTMLFormElement | null = null							          // 引用表单元素
+	_inputs:HTMLInputElement[] = []			                      // 引用表单元素内部的 input 元素
+	_internals:ElementInternals | null = null					        // 表单元素内部对象
+	formAssociatedCallback(form:HTMLFormElement){}				    // 当组件被添加到表单元素内部时调用
+	handleFormData(event:FormDataEvent){}						          // 处理表单数据事件
+  getInputValue():Record<string,any>{}								      // 返回获取 input 元素的值
+	handleInput(event:Event){}									              // 处理 input 事件
+	formDisabledCallback(){}									                // 当表单元素被禁用时调用
+	formResetCallback(){}										                  // 当表单元素被重置时调用
+	formStateRestoreCallback(state:any, mode:any){}				    // 当表单元素状态被恢复时调用
 }

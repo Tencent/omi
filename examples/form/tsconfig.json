@@ -13,6 +13,7 @@
     "jsx": "preserve",
     "jsxFactory": "h",
     "jsxFragmentFactory": "h.f",
+    "noImplicitAny": false,
 
     /* Linting */
     "strict": true,

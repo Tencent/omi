@@ -13,40 +13,48 @@
 import { FormAssociatedComponent } from '../component'
 
 export default {
-	initial:(self:FormAssociatedComponent)=>{			  
-		self._internals = self.attachInternals()		
-
-		// self.formAssociatedCallback = function(form) {
-		// 	this._form = form
-		// 	if(this._form){
-		// 		// 当组件被添加到表单元素内部时，监听 formdata 事件
-		// 		this._form.addEventListener('formdata', this.handleFormData)
-		// 	}	
-		// } 
-		self.handleFormData = function({formData}) {
-			if(formData && this._input){
-				formData.append(this._input?.name, this._input?.value)
-			}
+	define:(cls:typeof FormAssociatedComponent)=>{			  
+		cls.prototype.formAssociatedCallback= function(form) { 
+			this._form = form
+			if(this._form){
+				// 当组件被添加到表单元素内部时，监听 formdata 事件
+				this._form.addEventListener('formdata', this.handleFormData.bind(this))
+			}	
+		}		
+		cls.prototype.formDisabledCallback = function() { 
+			//  禁用 input 元素			
 		} 
-		self.formDisabledCallback = function() { 
-			//  禁用 input 元素
-			
+		cls.prototype.formResetCallback = function() {
+			this._internals?.setFormValue('')
 		} 
-		self.formResetCallback = function() {
-			self._internals?.setFormValue('')
-		} 
-		self.formStateRestoreCallback = function(state:any, mode:any) {
+		cls.prototype.formStateRestoreCallback = function(state:any, mode:any) {
 			//  根据 state 和 mode 恢复表单元素状态
 		}
+	},
+	initial:(self:FormAssociatedComponent)=>{	
+		// 返回表单元素的值，格式为 [name, value]		 	
+		self.getInputValue = function() {
+			const values:Record<string,any> = {}
+			self._inputs = self.shadowRoot?.querySelectorAll('input') as unknown as HTMLInputElement[]
+			self._inputs.forEach(input => {
+				values[input.name] =input.value
+			}); 
+			return values
+		}
+		self.handleFormData = function({formData}) {
+			if(formData){	
+				const values = self.getInputValue() 
+				Object.entries(values).forEach(([name,value])=>{				
+					formData.append(name,value)
+				})
+				
+			}
+		} 
+		self._internals = self.attachInternals()		
+
 	} ,
 	connected:(self:FormAssociatedComponent)=>{
-		self._input = self.shadowRoot?.querySelector('input')
-		if(self._input){
-			self._input.addEventListener('input',self.handleInput) 
-			if(self._internals){
-				self._internals.setValidity(self._input.validity, self._input.validationMessage, self._input)
-			}
-		}
+		
 	}
 
 }
