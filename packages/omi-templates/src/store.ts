@@ -59,6 +59,11 @@ export const navbarItems = signal<NavbarItem[]>([
         value: 'product-docs',
       },
       {
+        text: '教育课程',
+        path: '/education',
+        value: 'education',
+      },
+      {
         text: '组件',
         path: '/components/button',
         value: 'components',

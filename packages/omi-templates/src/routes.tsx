@@ -14,6 +14,8 @@ export const routes = [
   createRoute('/about', () => import('./pages/about')),
   createRoute('/portfolio', () => import('./pages/portfolio')),
   createRoute('/product/:id', () => import('./pages/product')),
+  createRoute('/education', () => import('./pages/education')),
+
   createRoute('/chat', () => import('./pages/chat')),
   createRoute('/components', () => import('./pages/components')),
   createRoute('/questionnaire', () => import('./pages/questionnaire')),
