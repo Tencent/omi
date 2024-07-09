@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>iLogin</title>
+		<script>
+			window.iLogin = {
+				title: "iLogin",
+				<!-- subTitle:"灵活可扩展的登录页面组件", -->
+				copyright: "福建宇宙通信息科技股份公司 版权所有 ©2023-2024",
+				homepage: "http://",
+				logo: "logo.png",
+				login: {
+					basic: {
+						title: "帐号登录",
+						url: "api/login",
+						validate: {
+							on: "blur",
+						},
+						fields: [
+							{
+								type: "username",
+								length: [2, 16],
+								validate: (value) => {
+									if(value.length > 5) throw new Error("用户名长度不能超过5个字符");
+								},
+							},
+							{
+								type: "password",
+								label: "密码",
+								placeholder: "请输入密码",
+								validate: (value) => value.length > 6,
+							},
+							{
+								type: "captcha",
+								label: "验证码",
+								placeholder: "请输入验证码",
+								fetchUrl: "/captcha.png",
+								validate: (value) => value.length > 7,
+							},
+							[
+								{
+									type: "remember",
+									label: "记住登录",
+								},
+								{
+									type: "forgetPassword",
+									label: "忘记密码?",
+									url: "/forget-password",
+								},
+							],
+						],
+					},
+					verifyCode: {
+						title: "验证码登录",
+						fields: [
+							{
+								type: "username",
+								label: "手机号码",
+								placeholder: "请输入手机号码",
+								validate: (value) => value.length > 1,
+							},
+							{
+								type: "verifyCode",
+								label: "验证码",
+								placeholder: "请输入验证码",
+								length: 4,
+								validate: (value) => value.length > 1,
+							},
+						],
+					},
+				},
+        thirdPartyLogin: {
+          title: "第三方登录",
+          partys: [
+            {
+              type: "wechat",
+              label: "微信登录",
+              icon: "icons/wx.svg",
+              url: "/wechat-login",
+            },
+            {
+              type: "weibo",
+              label: "微博登录",   
+              icon: "icons/webo.svg",
+              url: "/weibo-login",
+            },
+            {
+              type: "qq",
+              label: "QQ登录",   
+              icon: "icons/qq.svg",
+              url: "/qq-login",
+            }
+          ],
+        },
+      };
+		</script>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="module" src="/src/main.tsx"></script>
+	</body>
+</html>
