@@ -1,3 +1,6 @@
+import { default as formAssociatedHook } from './hooks/formAssociated'
+import { installHook } from './utils'
+
 /**
  * Defines a custom element.
  * @param tagName - The tagName of the custom element.
@@ -17,6 +20,20 @@ export function define(tagName: string, ctor: CustomElementConstructor): void {
 
 export function tag(tagName: string) {
   return function (target: CustomElementConstructor) {
+    define(tagName, target)
+  }
+}
+
+export function component(options: {tagName: string,formAssociated:boolean}) {
+  const {tagName,formAssociated} = Object.assign({
+    formAssociated:false
+  },options)
+  return function (target: CustomElementConstructor) {
+    if(formAssociated){
+      // @ts-ignore
+      target.constructor.formAssociated=true 
+      installHook(target,formAssociatedHook as any)
+    }
     define(tagName, target)
   }
 }

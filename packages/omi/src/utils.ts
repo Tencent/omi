@@ -1,7 +1,7 @@
 import { ExtendedElement } from './dom'
 import { ObjectVNode, VNode } from './vdom'
-import './construct-style-sheets-polyfill'
-import { Component } from './component'
+import './construct-style-sheets-polyfill' 
+import {  ComponentHooks } from './component'
 
 /**
  * Check if the environment has native custom elements support
@@ -266,4 +266,17 @@ export function getClassStaticValue(
     }
   }
   return mergedResult || defaultValue
+}
+
+
+
+
+export function installHook(target: any,hooks:ComponentHooks){  
+  if(!target.hooks){
+    target.hooks = {}
+  }  
+  Object.entries(hooks).forEach(([key,hook])=>{
+    if(!target.hooks[key]) target.hooks[key] = []
+    target.hooks[key].push(hook)    
+  })
 }

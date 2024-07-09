@@ -32,6 +32,15 @@ type ReflectProps = {
   [key: string]: boolean | ((propValue: any) => any)
 }
 
+
+export type ComponentHookType = 'initial' | 'connected' | 'disconnected'  
+export type ComponentHooks ={
+  [key in ComponentHookType]?: ((self:Component)=>void)
+}
+export type ComponentHookRegistry = Record<ComponentHookType, ((self:Component)=>void)[]>
+
+
+
 export class Component<State = any> extends HTMLElement {
   static is = 'Component'
   static defaultProps: Record<string, unknown>
@@ -40,7 +49,8 @@ export class Component<State = any> extends HTMLElement {
   static css: CSSItem | CSSItem[]
   static isLightDOM: boolean
   static noSlot: boolean
-  
+  static hooks: ComponentHookRegistry 
+  static formAssociated = true
   // 被所有组件继承
   static props = {
     ref:{
@@ -62,42 +72,24 @@ export class Component<State = any> extends HTMLElement {
   injection?: { [key: string]: unknown }
   renderRoot?: ExtendedElement | ShadowRoot | Component
   rootElement: ExtendedElement | ExtendedElement[] | null
-
+  _hooks: Record<ComponentHookType, Function[]>  
   _ref :Partial<Record<'current', any>>= null
-
+  
   constructor() {
     super()
-
     this.handleProps()
-    // if (!this.constructor.defaultProps) {
-    //   this.constructor.defaultProps = {}
-    // }
-    // if (!this.constructor.propTypes) {
-    //   this.constructor.propTypes = {}
-    // }
-    // if (!this.constructor.reflectProps) {
-    //   this.constructor.reflectProps = {}
-    // }
-    // if (this.constructor.props) {
-    //   for (const propName in this.constructor.props) {
-    //     const prop = this.constructor.props[propName]
-    //     this.constructor.defaultProps[propName] = prop.default
-    //     this.constructor.propTypes[propName] = prop.type
-    //     this.constructor.reflectProps[propName] = prop.reflect
-    //   }
-    // }
-
-    // // @ts-ignore fix lazy load props missing
-    // this.props = Object.assign(
-    //   {},
-    //   (this.constructor as typeof Component).defaultProps,
-    //   this.props,
-    // )
+    this.executeHooks('initial')
     this.elementId = id++
     this.isInstalled = false
     this.rootElement = null
   }
-
+  formAssociatedCallback(form) {
+    this._form = form
+    if(this._form){
+      // 当组件被添加到表单元素内部时，监听 formdata 事件
+      this._form.addEventListener('formdata', this.handleFormData)
+    }	
+  } 
   get ref(){
     if(!this._ref){
       if(this.props.ref && isObject(this.props.ref)){
@@ -108,6 +100,35 @@ export class Component<State = any> extends HTMLElement {
     }
     return this._ref
   }
+
+  /**
+   * 获取已经声明的钩子函数
+   */
+  get hooks(){
+    if(!this._hooks){
+      this._hooks = getClassStaticValue(this, 'hooks') || {}      
+    }
+    return this._hooks
+  }
+
+  /**
+   * 执行指定名称的钩子函数
+   */
+  private executeHooks(hookName:ComponentHookType){
+    if(hookName in this.hooks){
+      const hooks = this.hooks[hookName]
+      if(Array.isArray(hooks)){
+        hooks.forEach((hook)=>{
+          try{
+            hook.call(this,this)
+          }catch(e:any){
+            console.warn(`执行钩子函数 ${this.constructor.name }/${hookName} 时出错:`,e)
+          }        
+        })
+      }
+    }
+  }
+
   /**
    * 处理props
    *
@@ -218,6 +239,7 @@ export class Component<State = any> extends HTMLElement {
       } else {
         return this.attachShadow({
           mode: 'open',
+          delegatesFocus: true,
         })
       }
     }
@@ -318,13 +340,17 @@ export class Component<State = any> extends HTMLElement {
     Promise.resolve().then(() => {
       this.ready()
       this.fire('ready', this)
-    })
+    })    
+
+    this.executeHooks('connected')
+
   }
 
   disconnectedCallback(): void {
     this.uninstall()
     this.fire('uninstall', this)
-    this.isInstalled = false
+    this.isInstalled = false    
+    this.executeHooks('disconnected')
   }
 
   update(updateSelf?: boolean): void {
@@ -490,4 +516,18 @@ export class Component<State = any> extends HTMLElement {
   rendered(vnode: VNode | VNode[]) {}
 
   receiveProps() {}
+}
+
+
+export class FormAssociatedComponent extends Component{
+	static formAssociated:boolean = false
+	_form:HTMLFormElement | null = null							// 引用表单元素
+	_input:HTMLInputElement | undefined | null = null			// 引用表单元素内部的 input 元素
+	_internals:ElementInternals | null = null					// 表单元素内部对象
+	formAssociatedCallback(form:HTMLFormElement){}				// 当组件被添加到表单元素内部时调用
+	handleFormData(event:FormDataEvent){}						// 处理表单数据事件
+	handleInput(event:Event){}									// 处理 input 事件
+	formDisabledCallback(){}									// 当表单元素被禁用时调用
+	formResetCallback(){}										// 当表单元素被重置时调用
+	formStateRestoreCallback(state:any, mode:any){}				// 当表单元素状态被恢复时调用
 }
