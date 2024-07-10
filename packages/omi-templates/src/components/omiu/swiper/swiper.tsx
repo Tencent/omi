@@ -22,7 +22,7 @@ interface Props {
   index: number
   navigation?: boolean
   slidesPerView?: "auto" | number
-  spaceBetween?: 35,
+  spaceBetween?: number,
   autoplay?:  boolean
 }
 

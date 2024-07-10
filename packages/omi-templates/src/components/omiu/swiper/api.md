@@ -7,6 +7,9 @@
 | index      | number  | 0            | Initial index of the swiper                      |
 | navigation | boolean | true         | Whether to show navigation buttons               |
 | pagination | boolean | true         | Whether to show pagination                       |
+| slidesPerView | string or number | "auto" | Number of slides to show per view. "auto" will automatically adjust the number of slides based on the viewport size. |
+| spaceBetween | number | 30 | Space between each slide in pixels. |
+| autoPlay | boolean | true | Whether to enable auto play. |
 
 ## Swiper Events
 
