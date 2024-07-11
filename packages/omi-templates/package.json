@@ -23,6 +23,7 @@
     "omi-router": "latest",
     "omi-suspense": "latest",
     "prismjs": "^1.29.0",
+    "swiper": "^11.1.4",
     "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
