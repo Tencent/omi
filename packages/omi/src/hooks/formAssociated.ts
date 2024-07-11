@@ -21,15 +21,15 @@ export default {
 				this._form.addEventListener('formdata', this.handleFormData.bind(this))
 			}	
 		}		
-		cls.prototype.formDisabledCallback = function() { 
-			//  禁用 input 元素			
-		} 
-		cls.prototype.formResetCallback = function() {
-			this._internals?.setFormValue('')
-		} 
-		cls.prototype.formStateRestoreCallback = function(state:any, mode:any) {
-			//  根据 state 和 mode 恢复表单元素状态
-		}
+		// cls.prototype.formDisabledCallback = function() { 
+		// 	//  禁用 input 元素			
+		// } 
+		// cls.prototype.formResetCallback = function() {
+		// 	this._internals?.setFormValue('')
+		// } 
+		// cls.prototype.formStateRestoreCallback = function(state:any, mode:any) {
+		// 	//  根据 state 和 mode 恢复表单元素状态
+		// }
 	},
 	initial:(self:FormAssociatedComponent)=>{	
 		// 返回表单元素的值，格式为 [name, value]		 	

@@ -1,7 +1,7 @@
-import { Component,component,h } from "../../../packages/omi/src"
+import { Component,tag,h } from "../../../packages/omi/src"
 
 
-@component({tagName:"my-input",formAssociated:true})
+@tag("my-input",{formAssociated:true})
 export default class MyInput extends Component {
     static props = {
         name:String,
