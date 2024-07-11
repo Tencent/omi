@@ -18,14 +18,8 @@ export function define(tagName: string, ctor: CustomElementConstructor): void {
   customElements.define(tagName, ctor)
 }
 
-export function tag(tagName: string) {
-  return function (target: CustomElementConstructor) {
-    define(tagName, target)
-  }
-}
-
-export function component(options: {tagName: string,formAssociated:boolean}) {
-  const {tagName,formAssociated} = Object.assign({
+export function tag(tagName: string,options?: {formAssociated:boolean}) {
+  const {formAssociated} = Object.assign({
     formAssociated:false
   },options)
   return function (target: CustomElementConstructor) {
@@ -38,3 +32,5 @@ export function component(options: {tagName: string,formAssociated:boolean}) {
     define(tagName, target)
   }
 }
+
+export const webcomponent = tag

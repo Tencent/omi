@@ -33,23 +33,28 @@ export default {
 	},
 	initial:(self:FormAssociatedComponent)=>{	
 		// 返回表单元素的值，格式为 [name, value]		 	
-		self.getInputValue = function() {
-			const values:Record<string,any> = {}
-			self._inputs = self.shadowRoot?.querySelectorAll('input') as unknown as HTMLInputElement[]
-			self._inputs.forEach(input => {
-				values[input.name] =input.value
-			}); 
-			return values
-		}
-		self.handleFormData = function({formData}) {
-			if(formData){	
-				const values = self.getInputValue() 
-				Object.entries(values).forEach(([name,value])=>{				
-					formData.append(name,value)
+		if(!self.getInputValue){
+			self.getInputValue = function() {
+				const values:Record<string,any> = {}
+				self._inputs = self.shadowRoot?.querySelectorAll('input') as unknown as HTMLInputElement[]
+				self._inputs.forEach(input => {
+					values[input.name] =input.value
 				})
-				
+				return values
 			}
 		} 
+		if(!self.handleFormData){
+			self.handleFormData = function({formData}) {
+				if(formData){	
+					const values = self.getInputValue() 
+					Object.entries(values).forEach(([name,value])=>{				
+						formData.append(name,value)
+					})
+					
+				}
+			} 
+		}
+		
 		self._internals = self.attachInternals()		
 
 	} ,
