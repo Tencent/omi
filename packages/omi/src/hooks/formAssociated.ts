@@ -43,6 +43,14 @@ export default {
 				return values
 			}
 		} 
+		if(!self.resetInputValue){
+			self.resetInputValue = function() { 
+				self._inputs = self.shadowRoot?.querySelectorAll('input') as unknown as HTMLInputElement[]
+				self._inputs.forEach(input => {
+					input.value = ''
+				}) 
+			}
+		}
 		if(!self.handleFormData){
 			self.handleFormData = function({formData}) {
 				if(formData){	
@@ -53,8 +61,7 @@ export default {
 					
 				}
 			} 
-		}
-		
+		}		
 		self._internals = self.attachInternals()		
 
 	} ,

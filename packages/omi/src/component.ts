@@ -522,6 +522,7 @@ export class FormAssociatedComponent extends Component{
 	formAssociatedCallback(form:HTMLFormElement){}				    // 当组件被添加到表单元素内部时调用
 	handleFormData(event:FormDataEvent){}						          // 处理表单数据事件
   getInputValue():Record<string,any>{}								      // 返回获取 input 元素的值
+  resetInputValue():void                                    // 当重新表单时调用
 	handleInput(event:Event){}									              // 处理 input 事件
 	formDisabledCallback(){}									                // 当表单元素被禁用时调用
 	formResetCallback(){}										                  // 当表单元素被重置时调用
