@@ -16,7 +16,7 @@ export default class MyInput extends Component {
     f3=createRef()
     f4=createRef()
 
-    getInputValue(){
+    getFieldValue(){
         return {
             // @ts-ignore
             [this.props.name]:`${this.f1.current.value}.${this.f2.current.value}.${this.f3.current.value}.${this.f4.current.value}`

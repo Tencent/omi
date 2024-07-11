@@ -33,8 +33,8 @@ export default {
 	},
 	initial:(self:FormAssociatedComponent)=>{	
 		// 返回表单元素的值，格式为 [name, value]		 	
-		if(!self.getInputValue){
-			self.getInputValue = function() {
+		if(!self.getFieldValue){
+			self.getFieldValue = function() {
 				const values:Record<string,any> = {}
 				self._inputs = self.shadowRoot?.querySelectorAll('input') as unknown as HTMLInputElement[]
 				self._inputs.forEach(input => {
@@ -43,8 +43,8 @@ export default {
 				return values
 			}
 		} 
-		if(!self.resetInputValue){
-			self.resetInputValue = function() { 
+		if(!self.resetFieldValue){
+			self.resetFieldValue = function() { 
 				self._inputs = self.shadowRoot?.querySelectorAll('input') as unknown as HTMLInputElement[]
 				self._inputs.forEach(input => {
 					input.value = ''
@@ -54,7 +54,7 @@ export default {
 		if(!self.handleFormData){
 			self.handleFormData = function({formData}) {
 				if(formData){	
-					const values = self.getInputValue() 
+					const values = self.getFieldValue() 
 					Object.entries(values).forEach(([name,value])=>{				
 						formData.append(name,value)
 					})
