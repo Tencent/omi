@@ -166,7 +166,7 @@ class EducationTemplate extends Component {
   render() {
     return (
       <div>
-        <section id="courses" class="py-12">
+        <section id="courses" class="py-12  p-6">
           <div class="container mx-auto">
             {/* 分类section */}
             <div class="flex justify-around mb-8">
