@@ -102,6 +102,11 @@ export const navbarItems = signal<NavbarItem[]>([
         value: 'portfolio',
       },
       {
+        text: '个人博客',
+        path: '/blog',
+        value: 'blog,'
+      },
+      {
         text: '关于',
         path: '/about',
         value: 'about',
