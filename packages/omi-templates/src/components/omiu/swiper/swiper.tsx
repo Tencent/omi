@@ -5,10 +5,15 @@ import { tailwind } from '@/tailwind'
 
 /**
  * copy from omiu/src/components/swiper
- * add Props . slidesPreView 、spaceBetween 、autoPlay
+ * Changes:
+ * 1. Added Props: slidesPreView, spaceBetween, autoPlay.
+ * 2. Added a timerId to store the ID of the autoplay interval.
+ * 3. Added startAutoplay method to start the autoplay with a default interval of 3 seconds.
+ * 4. Added pauseAutoplay method to pause the autoplay when the mouse hovers over the component.
+ * 5. Added resumeAutoplay method to resume the autoplay when the mouse leaves the component.
+ * 6. Added event listeners for mouseover and mouseleave to rootElement in the installed method.
+ * 7. Cleaned up the interval and event listeners in the uninstall method.
  */
-
-
 
 // https://swiperjs.com/get-started
 // import Swiper JS
@@ -23,7 +28,7 @@ interface Props {
   navigation?: boolean
   slidesPerView?: "auto" | number
   spaceBetween?: number,
-  autoplay?:  boolean | number
+  autoplay?: boolean 
 }
 
 const theme = {
@@ -42,6 +47,7 @@ export class SwiperComponent extends Component<Props> {
   `,
   ]
   paginationDiv: any
+  timerId: NodeJS.Timeout | null = null // 定时器ID
 
   @bind
   onPreviusClick(evt: Event) {
@@ -92,7 +98,6 @@ export class SwiperComponent extends Component<Props> {
       initialSlide: this.props.index,
       slidesPerView: this.props.slidesPerView,
       spaceBetween:this.props.spaceBetween,
-      autoplay:this.props.autoplay,
       observer: true,
       observeParents: true
   
@@ -114,10 +119,8 @@ export class SwiperComponent extends Component<Props> {
       this.setActiveButton(this.swiper!.realIndex)
     })
 
-    if (this.swiper.autoplay){
-      // 判断是boolean类型还是number类型，设定定时器调用slideChange事件
-      console.log('swiper autoplay',this.swiper.autoplay)
-      this.swiper.update()
+    if (this.props.autoplay) {
+      this.startAutoplay()
     }
 
     // 自定义实现：随窗口大小动态设置同时展示的slide，
@@ -139,6 +142,26 @@ export class SwiperComponent extends Component<Props> {
       updateSlidesPerView()
       window.addEventListener('resize', updateSlidesPerView)
     }
+
+    this.rootElement!.addEventListener('mouseover', this.pauseAutoplay)
+    this.rootElement!.addEventListener('mouseleave', this.resumeAutoplay)
+  }
+
+  startAutoplay() {
+    this.timerId = setInterval(() => {
+      this.swiper?.slideNext()
+    }, 3000) // 每3秒自动轮播
+  }
+
+  pauseAutoplay = () => {
+    if (this.timerId) {
+      clearInterval(this.timerId)
+      this.timerId = null
+    }
+  }
+
+  resumeAutoplay = () => {
+    this.startAutoplay()
   }
 
   setActiveButton(index: number) {
@@ -151,6 +174,15 @@ export class SwiperComponent extends Component<Props> {
         buttons[i].classList.add('opacity-50')
       }
     }
+  }
+
+  // 在组件销毁时清除定时器和事件监听器
+  uninstall() {
+    if (this.timerId) {
+      clearInterval(this.timerId)
+    }
+    this.rootElement!.removeEventListener('mouseover', this.pauseAutoplay)
+    this.rootElement!.removeEventListener('mouseleave', this.resumeAutoplay)
   }
 
   // 不需要更新，不然状态不一致
@@ -220,19 +252,18 @@ export class SwiperComponent extends Component<Props> {
             ref={(e) => {
               this.paginationDiv = e
             }}
-            class="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0"
+            class="absolute bottom-0 left-0 right-0 z-[1] m-0 flex list-none justify-center p-0"
           >
-            {props.children ? props.children.map((child, index) => {
+            {(props.children as VNode[])?.map((_child, index) => {
               return (
                 <button
-                  onClick={(evt) => this.onPaginationClick(index, evt)}
-                  type="button"
-                  class={classNames(theme.paginationButton, {
-                    'opacity-50': props.index !== index,
-                  })}
+                  onClick={(evt) => {
+                    this.onPaginationClick(index, evt)
+                  }}
+                  class={theme.paginationButton}
                 ></button>
               )
-            }) : null }
+            })}
           </div>
         )}
       </div>
