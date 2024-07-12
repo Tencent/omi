@@ -1,5 +1,4 @@
 import { tag, Component, classNames, OmiProps, bind, VNode } from 'omi'
-import { tailwind } from '@/tailwind'
 // import '../collapse/collapse'
 
 
@@ -39,7 +38,6 @@ const theme = {
 @tag('o-swiper')
 export class SwiperComponent extends Component<Props> {
   static css = [
-    tailwind,
     swiperStyle,
     `:host {
     display: block;
