@@ -205,10 +205,10 @@ class EducationTemplate extends Component {
 
                     <div class="p-4">
                       <div class="flex justify-between items-center">
-                        <span class="dark:text-foreground text-sm">
+                        <span class="text-zinc-600 dark:text-foreground text-sm">
                           <i class="far fa-calendar"></i> {course.date}
                         </span>
-                        <span class="dark:text-foreground text-sm">
+                        <span class="text-zinc-600 dark:text-foreground text-sm">
                           <i class="far fa-clock"></i> {course.duration}
                         </span>
                       </div>
@@ -240,7 +240,7 @@ class EducationTemplate extends Component {
         {/** 名师风采 */}
         <section class="container mx-auto p-6">
           <h1 class="text-3xl font-bold mb-1 text-center">名师风采</h1>
-          <p class="text-lg dark:text-foreground mb-4 text-center">
+          <p class="text-lg text-zinc-600 dark:text-foreground mb-4 text-center">
             我们骄傲地介绍我们的优秀教师团队，他们在各自的领域拥有丰富的经验和卓越的成就。
           </p>
           <o-swiper
@@ -256,7 +256,7 @@ class EducationTemplate extends Component {
                 <img src={teacher.image} alt={teacher.name} class="w-48 rounded object-cover object-center mb-4" />
                 <h2 class="text-xl font-semibold">{teacher.name}</h2>
                 <h3 class="text-lg dark:text-foreground">{teacher.title}</h3>
-                <p class="dark:text-foreground mt-2">{teacher.description}</p>
+                <p class="text-zinc-600 dark:text-foreground mt-2">{teacher.description}</p>
               </div>
             ))}
           </o-swiper>
@@ -275,7 +275,7 @@ class EducationTemplate extends Component {
                 />
                 <h2 class="text-xl font-semibold">{student.name}</h2>
                 <h3 class="text-lg dark:text-foreground">{student.title}</h3>
-                <p class="text-center">{student.description}</p>
+                <p class="text-zinc-600 ">{student.description}</p>
               </div>
             ))}
           </o-swiper>
