@@ -1,7 +1,7 @@
 import { render, signal, tag, Component } from 'omi'
 import '../components/omiu/button'
 import '../components/omiu/swiper/swiper'
-
+import 'omi-ripple'
 // 分类数据
 const categories = signal([
   { name: '前端开发' },
@@ -104,11 +104,10 @@ let teachers = [
     description: '前端开发的专家，特别擅长Vue.js框架的应用与开发。',
     image: 'https://omi.cdn-go.cn/admin/latest/home/omi.svg',
   },
-];
-
+]
 
 // 学生评价 数据
-const studentReviews = [
+var studentReviews = [
   {
     name: '学生A',
     title: '前端开发工程师',
@@ -133,11 +132,27 @@ const studentReviews = [
     description: '《数据分析与可视化》课程让我学习到了如何将数据转化为有价值的见解，对我的工作非常有帮助。',
     image: 'http://yywebsite.cn/assets/img/edu/student1.jpg',
   },
-];
+]
 
 @tag('education-template')
 class EducationTemplate extends Component {
   activeCategory: string = '全部'
+
+  static css = [
+    `
+    o-button {
+      position: relative;
+      overflow: hidden;
+      transition: background 400ms;
+      font-size: 1.5rem;
+      outline: 0;
+      border: 0;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+  
+    `,
+  ]
 
   // 筛选课程
   filterCourses(category: string) {
@@ -156,9 +171,10 @@ class EducationTemplate extends Component {
             {/* 分类section */}
             <div class="flex justify-around mb-8">
               {['全部', ...categories.value.map((category) => category.name)].map((category, index) => (
-                <o-button   
+                <o-button
                   key={index}
                   variant="text"
+                  o-ripple
                   theme={category === this.activeCategory ? 'primary' : 'default'}
                   onClick={() => {
                     this.activeCategory = category
@@ -176,8 +192,17 @@ class EducationTemplate extends Component {
                 <div class="col-span-full text-center text-foreground">暂无相关课程</div>
               ) : (
                 courses.value.map((course, index) => (
-                  <div key={index} class="max-w-sm mx-auto bg-background rounded-lg overflow-hidden shadow-lg">
-                    <img class="w-full" src={course.image} alt="Course Image" />
+                  <div
+                    key={index}
+                    class="max-w-sm mx-auto bg-background rounded-lg  overflow-hidden shadow-lg"
+                    o-ripple
+                  >
+                    <img
+                      class="w-full object-cover object-center transition-transform duration-300 transform group-hover:scale-105 group-hover:shadow-lg"
+                      src={course.image}
+                      alt="Course Image"
+                    />
+
                     <div class="p-4">
                       <div class="flex justify-between items-center">
                         <span class="dark:text-foreground text-sm">
@@ -218,10 +243,17 @@ class EducationTemplate extends Component {
           <p class="text-lg dark:text-foreground mb-4 text-center">
             我们骄傲地介绍我们的优秀教师团队，他们在各自的领域拥有丰富的经验和卓越的成就。
           </p>
-          <o-swiper class="w-full" direction="horizontal" loop={true} index={0} navigation={false} pagination={true} slidesPerView={"auto"}>
+          <o-swiper
+            class="w-full"
+            direction="horizontal"
+            loop={true}
+            navigation={false}
+            pagination={true}
+            slidesPerView={'auto'}
+          >
             {teachers.map((teacher) => (
-              <div class="m-4 p-8  md:min-w-1/2 sm:w-full flex flex-col items-center bg-background rounded-lg">
-                <img src={teacher.image} alt={teacher.name} class="w-48 rounded object-cover mb-4" />
+              <div class="m-4 p-8 md:min-w-1/2 sm:w-full flex flex-col items-center bg-background rounded-lg transition-transform duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-lg">
+                <img src={teacher.image} alt={teacher.name} class="w-48 rounded object-cover object-center mb-4" />
                 <h2 class="text-xl font-semibold">{teacher.name}</h2>
                 <h3 class="text-lg dark:text-foreground">{teacher.title}</h3>
                 <p class="dark:text-foreground mt-2">{teacher.description}</p>
@@ -232,11 +264,15 @@ class EducationTemplate extends Component {
 
         {/** 学生课程评价 */}
         <section class="container mx-auto p-6">
-          <h1 class="text-3xl font-bold mb-4 text-center" >学生课程评价</h1>
-          <o-swiper direction="horizontal" loop={true} index={0} navigation={false} pagination={true} slidesPerView={3}>
+          <h1 class="text-3xl font-bold mb-4 text-center">学生课程评价</h1>
+          <o-swiper direction="horizontal" loop={true} navigation={false} pagination={true} slidesPerView={'auto'}>
             {studentReviews.map((student) => (
-              <div class="m-4 p-8 flex flex-col items-center bg-background rounded-lg">
-                <img src={student.image} alt={student.name} class="w-32 h-32 rounded-full mb-4" />
+              <div class="m-4 p-8 flex flex-col items-center bg-background rounded-lg transition-transform duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-lg">
+                <img
+                  src={student.image}
+                  alt={student.name}
+                  class="w-32 h-32 rounded-full object-cover object-center mb-4"
+                />
                 <h2 class="text-xl font-semibold">{student.name}</h2>
                 <h3 class="text-lg dark:text-foreground">{student.title}</h3>
                 <p class="text-center">{student.description}</p>

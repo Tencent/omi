@@ -23,7 +23,7 @@ interface Props {
   navigation?: boolean
   slidesPerView?: "auto" | number
   spaceBetween?: number,
-  autoplay?:  boolean
+  autoplay?:  boolean | number
 }
 
 const theme = {
@@ -79,7 +79,7 @@ export class SwiperComponent extends Component<Props> {
     pagination: true,
     slidesPerView: 1,
     spaceBetween: 30,
-    autoplay: 1000
+    autoplay: true
   }
 
   swiper: Swiper | null = null
@@ -92,7 +92,10 @@ export class SwiperComponent extends Component<Props> {
       initialSlide: this.props.index,
       slidesPerView: this.props.slidesPerView,
       spaceBetween:this.props.spaceBetween,
-      autoplay:this.props.autoplay
+      autoplay:this.props.autoplay,
+      observer: true,
+      observeParents: true
+  
       // And if we need scrollbar
       // scrollbar: {
       //   el: '.swiper-scrollbar',
@@ -110,6 +113,32 @@ export class SwiperComponent extends Component<Props> {
     this.swiper.on('slideChange', () => {
       this.setActiveButton(this.swiper!.realIndex)
     })
+
+    if (this.swiper.autoplay){
+      // 判断是boolean类型还是number类型，设定定时器调用slideChange事件
+      console.log('swiper autoplay',this.swiper.autoplay)
+      this.swiper.update()
+    }
+
+    // 自定义实现：随窗口大小动态设置同时展示的slide，
+    // 原swiper组件会因为封装多的一层swiper-wrapper影响判断swiper-slide的宽度
+    const updateSlidesPerView = () => {
+      let slidesPerView = 1
+      if (window.innerWidth >= 1440) {
+        slidesPerView = 3
+      } else if (window.innerWidth >= 768) {
+        slidesPerView = 2
+      }
+      if (this.swiper){
+        this.swiper.params.slidesPerView = slidesPerView
+        this.swiper.update()  
+      }
+    }
+
+    if (this.props.slidesPerView === 'auto') {
+      updateSlidesPerView()
+      window.addEventListener('resize', updateSlidesPerView)
+    }
   }
 
   setActiveButton(index: number) {

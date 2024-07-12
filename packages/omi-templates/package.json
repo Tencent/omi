@@ -20,6 +20,7 @@
     "echarts": "^5.5.0",
     "markdown-it": "^14.0.0",
     "omi": "7.6.7",
+    "omi-ripple": "^0.1.2",
     "omi-router": "latest",
     "omi-suspense": "latest",
     "prismjs": "^1.29.0",
