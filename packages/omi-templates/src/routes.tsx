@@ -15,6 +15,7 @@ export const routes = [
   createRoute('/portfolio', () => import('./pages/portfolio')),
   createRoute('/product/:id', () => import('./pages/product')),
   createRoute('/education', () => import('./pages/education')),
+  createRoute('/news', () => import('./pages/news/home')),
 
   createRoute('/chat', () => import('./pages/chat')),
   createRoute('/components', () => import('./pages/components')),
