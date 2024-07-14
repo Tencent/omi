@@ -11,13 +11,13 @@ interface NewsCardListConfig_t {
   cards: NewsCardConfig_t[]
 }
 
-interface BriefNews_t {
+export interface BriefNews_t {
   isImportant?: boolean
   title: string
   url: string
 }
 
-interface BriefNewsList_t {
+export interface BriefNewsList_t {
   news: BriefNews_t[]
 }
 
