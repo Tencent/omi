@@ -1,11 +1,4 @@
-interface NewsCategory_t {
-  name: string
-  topics: string[]
-}
-
-interface NewsHeaderConfig_t {
-  categories: NewsCategory_t[]
-}
+import { NewsHeaderComponent } from './news-header'
 
 interface NewsCardConfig_t {
   title: string
@@ -26,29 +19,6 @@ interface BriefNews_t {
 
 interface BriefNewsList_t {
   news: BriefNews_t[]
-}
-
-/**
- * 渲染一个标题里的新闻分类块
- */
-function renderNewsCategory(category: NewsCategory_t) {
-  return (
-    <div class="flex flex-row items-center h-32 px-4">
-      <div class="text-2xl font-bold p-8 dark:text-foreground">{category.name}</div>
-      <div class="grid grid-rows-2 grid-cols-3">
-        {category.topics.map((topic) => {
-          return (
-            <a
-              class="font-normal text-zinc-600 dark:text-zinc-400 px-2 py-1 hover:text-primary"
-              href="https://example.org"
-            >
-              {topic}
-            </a>
-          )
-        })}
-      </div>
-    </div>
-  )
 }
 
 /**
@@ -85,18 +55,6 @@ function renderBriefNews(news: BriefNews_t) {
   )
 }
 
-function NewsHeader(config: NewsHeaderConfig_t) {
-  return (
-    <div class="flex flex-row w-full items-center justify-center border-b-2 border-solid border-zinc-200 dark:border-zinc-800 mb-8">
-      <div class="grid grid-cols-2 xl:grid-cols-4">
-        {config.categories.map((category) => {
-          return renderNewsCategory(category)
-        })}
-      </div>
-    </div>
-  )
-}
-
 function NewsCardList(config: NewsCardListConfig_t) {
   return (
     <div class="flex-row justify-center flex">
@@ -118,27 +76,6 @@ function BriefNewsList(config: BriefNewsList_t) {
       })}
     </div>
   )
-}
-
-const headerConfig: NewsHeaderConfig_t = {
-  categories: [
-    {
-      name: '国内',
-      topics: ['国内1', '国内2'],
-    },
-    {
-      name: '国际',
-      topics: ['国际1', '国际2', '国际3'],
-    },
-    {
-      name: '财经',
-      topics: ['财经1', '财经2', '财经3', '财经4', '财经5'],
-    },
-    {
-      name: '汽车',
-      topics: ['汽车1', '汽车2', '汽车3'],
-    },
-  ],
 }
 
 const cardListConfig: NewsCardListConfig_t = {
@@ -169,7 +106,7 @@ const cardListConfig: NewsCardListConfig_t = {
 const briefNews: BriefNewsList_t = {
   news: [
     {
-      title: '奥米区多地出现猫猫，引起社区轰动',
+      title: '点击任意标题进入内容示例页',
       isImportant: true,
       url: '/#/news/example',
     },
@@ -209,7 +146,7 @@ const briefNews: BriefNewsList_t = {
 export function Home() {
   return (
     <div class="flex flex-col gap-2 pb-16">
-      {NewsHeader(headerConfig)}
+      <NewsHeaderComponent />
       <div class="w-full flex flex-row justify-center px-8">
         <div class="container flex flex-col items-center gap-8 xl:flex-row xl:items-start xl:justify-between">
           <div class="flex flex-col gap-2">
