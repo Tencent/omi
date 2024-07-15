@@ -1,7 +1,7 @@
 export { cloneElement, createElement, createElement as h } from './vdom'
-export { Component, Component as WeElement } from './component'
+export { Component, Component as WeElement,FormAssociatedComponent } from './component'
 export { render } from './render'
-export { define, define as defineElement, tag } from './define'
+export { define, define as defineElement, tag,webcomponent } from './define'
 export { classNames, extractClass } from './class'
 export { createRef, bind } from './utils'
 export {

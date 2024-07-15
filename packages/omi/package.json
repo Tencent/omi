@@ -55,7 +55,6 @@
     "reactive-signal": "^1.0.3",
     "weakmap-polyfill": "2.0.4"
   },
-  "type": "module",
   "source": "src/index.ts",
   "types": "omi.d.ts",
   "exports": {

@@ -137,6 +137,15 @@ declare namespace Omi {
     new(): WeElement;
   }
 
+  type ComponentHookType = 'define' | 'initial' | 'connected' | 'disconnected'  
+  type ComponentHooks ={
+    [key in Omit<ComponentHookType,'define'> as string]?: ((self:Component)=>void)
+  } & {
+    define:(cls:typeof Component)=>void
+  }
+  type ComponentHookRegistry = Record<ComponentHookType, ((self:Component)=>void)[]>
+  
+  
   abstract class Component<P = {}> {
     constructor();
 
@@ -153,7 +162,12 @@ declare namespace Omi {
         reflect?: boolean | ((value: any) => any);
         changed?: (newValue: any, oldValue: any) => void;
       }
+    } & {
+      ref?: {
+        type: Object,
+      }
     }
+    static hooks:ComponentHookRegistry
 
     props: OmiProps<P> | P
     prevProps: OmiProps<P> | P
