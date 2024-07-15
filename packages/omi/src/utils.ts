@@ -1,7 +1,7 @@
 import { ExtendedElement } from './dom'
 import { ObjectVNode, VNode } from './vdom'
-import './construct-style-sheets-polyfill' 
-import {  ComponentHookType, ComponentHooks } from './component'
+import './construct-style-sheets-polyfill'
+import { ComponentHookType, ComponentHooks } from './component'
 
 /**
  * Check if the environment has native custom elements support
@@ -163,7 +163,7 @@ export function isClass(cls: any): boolean {
     } catch (e) {
       result = true
     }
-  } 
+  }
   // 尝试通过正则表达式检查函数字符串形式的开头是否符合类定义的特征
   const classRegex = /^class\s/
   if (classRegex.test(cls.toString())) {
@@ -273,37 +273,43 @@ export function getClassStaticValue(
   return mergedResult || defaultValue
 }
 
-
-
-
-export function installHook(target: any,hooks:ComponentHooks){  
-  if(!target.hooks){
+export function installHook(target: any, hooks: ComponentHooks) {
+  if (!target.hooks) {
     target.hooks = {}
-  }  
-  Object.entries(hooks).forEach(([key,hook])=>{
-    if(!target.hooks[key]) target.hooks[key] = []
-    target.hooks[key].push(hook)    
+  }
+  Object.entries(hooks).forEach(([key, hook]) => {
+    if (!target.hooks[key]) target.hooks[key] = []
+    target.hooks[key].push(hook)
   })
 }
-
 
 /**
  * 执行指定名称的钩子函数
  * @param target  可以是组件实例或者组件类
  */
-export function executeComponentHooks(target:any,hookName:ComponentHookType){
-  const hookRegistry = target._hooks ?  target._hooks : getClassStaticValue(target,'hooks') || {}    
-  if(!isClass(target)) target._hooks = hookRegistry
-  if(hookName in hookRegistry){
+export function executeComponentHooks(
+  target: any,
+  hookName: ComponentHookType,
+) {
+  const hookRegistry = target._hooks
+    ? target._hooks
+    : getClassStaticValue(target, 'hooks') || {}
+  if (!isClass(target)) target._hooks = hookRegistry
+  if (hookName in hookRegistry) {
     const hooks = hookRegistry[hookName]
-    if(Array.isArray(hooks)){
-      hooks.forEach((hook)=>{
-        try{
-          hook.call(target,target)
-        }catch(e:any){
-          console.warn(`执行钩子函数 ${isClass(target) ? target.constructor.name :target.name }/${hookName} 时出错:`,e)
-        }        
+    if (Array.isArray(hooks)) {
+      hooks.forEach((hook) => {
+        try {
+          hook.call(target, target)
+        } catch (e: any) {
+          console.warn(
+            `执行钩子函数 ${
+              isClass(target) ? target.constructor.name : target.name
+            }/${hookName} 时出错:`,
+            e,
+          )
+        }
       })
     }
   }
-  }
+}

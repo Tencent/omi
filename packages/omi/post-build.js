@@ -1,4 +1,4 @@
-import * as  fs from 'fs'
+const fs = require('fs')
 
 const outputFile = 'dist/omi.umd.js'
 const customCode = `if(typeof window!=='undefined'){window.omi=window.Omi};`

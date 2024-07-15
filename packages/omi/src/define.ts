@@ -18,18 +18,21 @@ export function define(tagName: string, ctor: CustomElementConstructor): void {
   customElements.define(tagName, ctor)
 }
 
-export function tag(tagName: string,options?: {formAssociated?:boolean}) {
-  const {formAssociated} = Object.assign({
-    formAssociated:false
-  },options)
+export function tag(tagName: string, options?: { formAssociated?: boolean }) {
+  const { formAssociated } = Object.assign(
+    {
+      formAssociated: false,
+    },
+    options,
+  )
   return function (target: CustomElementConstructor) {
-    if(formAssociated ){
-      if(formAssociated){
-        installHook(target,formAssociatedHook as any)
+    if (formAssociated) {
+      if (formAssociated) {
+        installHook(target, formAssociatedHook as any)
         // @ts-ignore
-        target.formAssociated=true 
-      }      
-      executeComponentHooks(target,'define')       
+        target.formAssociated = true
+      }
+      executeComponentHooks(target, 'define')
     }
     define(tagName, target)
   }
