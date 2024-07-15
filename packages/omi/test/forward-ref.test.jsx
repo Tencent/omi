@@ -1,6 +1,5 @@
-import { define, render, Component,createRef, h, tag, mixin, registerDirective } from '@/index'
+import { define, render, h,Component,createRef } from '@/index'
 
-import { genNode } from './gen-node'
 
 describe('forwatrd-ref', () => {
   let parentElement
@@ -21,30 +20,30 @@ describe('forwatrd-ref', () => {
 
   it('auto forwatrd-ref', () => { 
     class Parent extends Component{
-      render(props){
-          return <my-child ref={props.ref}/>
+      render(){
+          return <my-child/>
       } 
     }
     class Child extends Component{ 
-      render(props){
-        return <div ref={props.ref}></div>
+      render(){
+        return <div ref={this.ref}></div>
       }
     }     
      
     class MyApp extends Component{
-      ref=createRef()
+      ref1=createRef()  // 特殊注意： ref属性是内置属性，不能使用ref名称
       installed(){
-        this.ref.current.innerHTML='hello'
+        this.ref1.current.innerHTML='hello'
       }
       render(){
-          return <my-parent ref={this.ref}/> 
+          return <my-parent ref={this.ref1}/> 
       }
     }    
 
     define('my-parent', Parent)
     define('my-child', Child)
     define('my-app', MyApp)    
-    render(<my-app />, parentElement)
+    render(<my-app />, parentElement) 
     expect(parentElement.firstChild.shadowRoot.firstChild.shadowRoot.firstChild.shadowRoot.innerHTML).toBe('<div>hello</div>')
   })
  

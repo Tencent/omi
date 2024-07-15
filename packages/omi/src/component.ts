@@ -87,7 +87,9 @@ export class Component<State = any> extends HTMLElement {
     this.rootElement = null
   } 
   
-  get ref():Ref{ }
+  get ref():Ref{ 
+    // 具体实现由 forwardRef hook提供，这里只是为了提供类型提示
+  }
    
 
   /**
