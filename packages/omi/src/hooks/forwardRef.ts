@@ -26,6 +26,7 @@ export default {
      */
 	initial:(self:Component)=>{	
         // 声明ref属性，该属性是一个proxy对象，当set时会在当前组件触发refAttach事件
+        
         Object.defineProperty(self, 'ref', {
             get() {
                 if(!self._ref){
@@ -49,7 +50,7 @@ export default {
         // @ts-ignore
         self._onRefAttached = function(e:any){
             const {ref,target} = e.detail
-            if(target!==self) { 
+            if(target!==self){ 
                 // @ts-ignore
                 if(self.props.ref) self.props.ref.current = ref
             }

@@ -31,9 +31,9 @@ describe('forwatrd-ref', () => {
     }     
      
     class MyApp extends Component{
-      ref1=createRef()
+      ref1=createRef()  // 特殊注意： ref属性是内置属性，不能使用ref名称
       installed(){
-        this.ref.current.innerHTML='hello'
+        this.ref1.current.innerHTML='hello'
       }
       render(){
           return <my-parent ref={this.ref1}/> 
