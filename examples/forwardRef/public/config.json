@@ -1,0 +1,69 @@
+{
+    "title":"VoerkaServer",
+    "subTitle":"VoerkaServer",
+    "logo":"/logo.png",
+    "copyRight":"© 2018 VoerkaServer. All Rights Reserved.",
+    "theme":{
+        "primaryColor":"#1890ff",
+        "secondaryColor":"#f5222d",
+        "successColor":"#52c41a",
+        "warningColor":"#faad14",
+        "infoColor":"#1890ff",
+        "errorColor":"#f5222d",
+        "textColor":"#000000",
+        "workspace":{
+            "background":"#f0f2f5",
+            "textColor":"#000000"
+        },
+        "form":{
+
+        }
+    },
+    "app":{
+    },
+    "login":{
+        "url":"/api/login",
+        "basic":{
+            "title"   : "帐号登录",
+            "url":"/api/login",
+            "method":"POST",            
+            "header":{
+            }, 
+            "fields":[
+                {
+                    "name":"username",
+                    "label":"用户名",
+                    "type":"text",
+                    "placeholder":"请输入用户名",
+                    "required":true                    
+                },
+                {
+                    "name":"password",
+                    "label":"密码",
+                    "type":"password",
+                    "placeholder":"请输入密码",
+                    "required":true                    
+                },
+                {
+                    "name":"captcha",
+                    "label":"验证码",
+                    "type":"text",
+                    "placeholder":"验证码",
+                    "required":true,
+                    "timeout":60                    
+                }
+            ]
+        },
+        "verifyCode":{
+            "title"   : "验证码登录"
+        },
+        "scanQrCode":{
+            "title"   : "扫码登录"
+        },
+        "wxCode":{
+            "title"   : "扫码登录"
+        }
+    }
+
+
+}
