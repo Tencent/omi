@@ -6,7 +6,8 @@ import {
   createStyleSheet,
   getClassStaticValue,
   isObject,
-  createRef
+  createRef,
+  installHook
 } from './utils'
 import { diff } from './diff'
 import { ExtendedElement } from './dom'
@@ -15,6 +16,7 @@ import { ObjectVNode, VNode } from './vdom'
 import { setActiveComponent, clearActiveComponent } from 'reactive-signal'
 import { options } from './options'
 import { define } from './define'
+import forwardRef from './hooks/forwardRef'
 
 let id = 0
 
@@ -40,6 +42,7 @@ export type ComponentHooks ={
   define:(cls:typeof Component)=>void
 }
 export type ComponentHookRegistry = Record<ComponentHookType, ((self:Component)=>void)[]>
+export type Ref<T=any> = { current?: T }
 
 
 
@@ -51,12 +54,9 @@ export class Component<State = any> extends HTMLElement {
   static css: CSSItem | CSSItem[]
   static isLightDOM: boolean
   static noSlot: boolean
-  static hooks: ComponentHookRegistry  
+  static hooks: ComponentHookRegistry 
   // 被所有组件继承
-  static props = {
-    ref:{
-      type: Object,
-    }
+  static props = { 
   }
 
   // 可以延迟定义，防止 import { }  被 tree-shaking 掉
@@ -79,22 +79,16 @@ export class Component<State = any> extends HTMLElement {
   constructor() {
     super()
     this.handleProps()
+     // 安装一些内置钩子
+    installHook(this,forwardRef) 
     this.executeHooks('initial')
     this.elementId = id++
     this.isInstalled = false
     this.rootElement = null
   } 
   
-  get ref(){
-    if(!this._ref){
-      if(this.props.ref && isObject(this.props.ref)){
-        this._ref = this.props.ref 
-      }else{
-        this._ref = createRef()
-      }
-    }
-    return this._ref
-  }
+  get ref():Ref{ }
+   
 
   /**
    * 获取已经声明的钩子函数

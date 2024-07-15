@@ -165,9 +165,9 @@ export function isClass(cls: any): boolean {
     }
   } 
   // 尝试通过正则表达式检查函数字符串形式的开头是否符合类定义的特征
-  const classRegex = /^class\s/;
+  const classRegex = /^class\s/
   if (classRegex.test(cls.toString())) {
-    return true;
+    return true
   }
   return result
 }

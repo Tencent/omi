@@ -283,8 +283,8 @@ declare namespace Omi {
   function signalObject<T>(initialValues: T): SignalObject<T>;
 
   class Signal<T> {
-    private _value;
-    private _signal;
+    private _value
+    private _signal
     constructor(initialValue: T);
     get value(): T;
     set value(newValue: T);
@@ -1141,4 +1141,7 @@ declare global {
       [tagName: string]: any;
     }
   }
+  
+  type Ref<T=HTMLElement> = { current?: T }
 }
+
