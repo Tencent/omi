@@ -14,6 +14,7 @@ export const routes = [
   createRoute('/about', () => import('./pages/about')),
   createRoute('/portfolio', () => import('./pages/portfolio')),
   createRoute('/blog', () => import('./pages/blog')),
+  createRoute('/charity', () => import('./pages/charity')),
   createRoute('/product/:id', () => import('./pages/product')),
   createRoute('/education', () => import('./pages/education')),
   createRoute('/news', () => import('./pages/news/home')),
