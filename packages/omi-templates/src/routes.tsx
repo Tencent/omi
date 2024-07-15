@@ -13,6 +13,7 @@ export const routes = [
   createRoute('/', () => import('./pages/home')),
   createRoute('/about', () => import('./pages/about')),
   createRoute('/portfolio', () => import('./pages/portfolio')),
+  createRoute('/blog', () => import('./pages/blog')),
   createRoute('/product/:id', () => import('./pages/product')),
   createRoute('/education', () => import('./pages/education')),
 
