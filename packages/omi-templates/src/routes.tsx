@@ -13,7 +13,13 @@ export const routes = [
   createRoute('/', () => import('./pages/home')),
   createRoute('/about', () => import('./pages/about')),
   createRoute('/portfolio', () => import('./pages/portfolio')),
+  createRoute('/blog', () => import('./pages/blog')),
+  createRoute('/charity', () => import('./pages/charity')),
   createRoute('/product/:id', () => import('./pages/product')),
+  createRoute('/education', () => import('./pages/education')),
+  createRoute('/news', () => import('./pages/news/home')),
+  createRoute('/news/example', () => import('./pages/news/example')),
+
   createRoute('/chat', () => import('./pages/chat')),
   createRoute('/components', () => import('./pages/components')),
   createRoute('/questionnaire', () => import('./pages/questionnaire')),

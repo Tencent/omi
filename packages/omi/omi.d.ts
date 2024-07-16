@@ -137,6 +137,15 @@ declare namespace Omi {
     new(): WeElement;
   }
 
+  type ComponentHookType = 'define' | 'initial' | 'connected' | 'disconnected'  
+  type ComponentHooks ={
+    [key in Omit<ComponentHookType,'define'> as string]?: ((self:Component)=>void)
+  } & {
+    define:(cls:typeof Component)=>void
+  }
+  type ComponentHookRegistry = Record<ComponentHookType, ((self:Component)=>void)[]>
+  
+  
   abstract class Component<P = {}> {
     constructor();
 
@@ -153,7 +162,12 @@ declare namespace Omi {
         reflect?: boolean | ((value: any) => any);
         changed?: (newValue: any, oldValue: any) => void;
       }
+    } & {
+      ref?: {
+        type: Object,
+      }
     }
+    static hooks:ComponentHookRegistry
 
     props: OmiProps<P> | P
     prevProps: OmiProps<P> | P
@@ -269,8 +283,8 @@ declare namespace Omi {
   function signalObject<T>(initialValues: T): SignalObject<T>;
 
   class Signal<T> {
-    private _value;
-    private _signal;
+    private _value
+    private _signal
     constructor(initialValue: T);
     get value(): T;
     set value(newValue: T);
@@ -1127,4 +1141,7 @@ declare global {
       [tagName: string]: any;
     }
   }
+  
+  type Ref<T=HTMLElement> = { current?: T }
 }
+

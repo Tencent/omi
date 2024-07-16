@@ -2559,8 +2559,8 @@ packages:
   omi-transition@0.0.2:
     resolution: {integrity: sha512-d5oVBaGK1hOqbt/5CyFhv37B7uZib+P9UMEfILGxPqchvlXeJyrwzOFOtqLVgHid6s1L9bMS7bKAIatRLtC3UA==}
 
-  omi@7.6.12:
-    resolution: {integrity: sha512-G1qiY/4iJ+Q8oBncKcuBj5drw/8sGMFXiD8mNczXbAjB0/7pqYpV1bYKHaYPQLD+3BsUu7dGb3KkSfXIINRCMg==}
+  omi@7.6.11:
+    resolution: {integrity: sha512-pTdAgvmvO0mdp9NidBPMjpzJem7DUBd2amou8bU72DZGVgsnAitAtZR58azkLXtIPYIRIeVYXtZ+jaExbP9v+A==}
 
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
@@ -6691,9 +6691,9 @@ snapshots:
   omi-transition@0.0.2:
     dependencies:
       '@omiu/common': 0.0.17
-      omi: 7.6.12
+      omi: 7.6.11
 
-  omi@7.6.12:
+  omi@7.6.11:
     dependencies:
       construct-style-sheets-polyfill: 3.0.1
       reactive-signal: 1.0.3
@@ -7358,7 +7358,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.24.7
       '@babel/plugin-transform-react-jsx': 7.24.7(@babel/core@7.24.7)
-      omi: 7.6.12
+      omi: 7.6.11
     transitivePeerDependencies:
       - supports-color
 

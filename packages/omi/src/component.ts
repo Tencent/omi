@@ -6,7 +6,8 @@ import {
   createStyleSheet,
   getClassStaticValue,
   isObject,
-  createRef
+  createRef,
+  installHook,
 } from './utils'
 import { diff } from './diff'
 import { ExtendedElement } from './dom'
@@ -15,6 +16,7 @@ import { ObjectVNode, VNode } from './vdom'
 import { setActiveComponent, clearActiveComponent } from 'reactive-signal'
 import { options } from './options'
 import { define } from './define'
+import forwardRef from './hooks/forwardRef'
 
 let id = 0
 
@@ -32,6 +34,22 @@ type ReflectProps = {
   [key: string]: boolean | ((propValue: any) => any)
 }
 
+export type ComponentHookType =
+  | 'define'
+  | 'initial'
+  | 'connected'
+  | 'disconnected'
+export type ComponentHooks = {
+  [key in Omit<ComponentHookType, 'define'>]?: (self: Component) => void
+} & {
+  define: (cls: typeof Component) => void
+}
+export type ComponentHookRegistry = Record<
+  ComponentHookType,
+  ((self: Component) => void)[]
+>
+export type Ref<T = any> = { current?: T }
+
 export class Component<State = any> extends HTMLElement {
   static is = 'Component'
   static defaultProps: Record<string, unknown>
@@ -40,13 +58,9 @@ export class Component<State = any> extends HTMLElement {
   static css: CSSItem | CSSItem[]
   static isLightDOM: boolean
   static noSlot: boolean
-  
+  static hooks: ComponentHookRegistry
   // 被所有组件继承
-  static props = {
-    ref:{
-      type: Object,
-    }
-  }
+  static props = {}
 
   // 可以延迟定义，防止 import { }  被 tree-shaking 掉
   static define(name: string): void {
@@ -62,52 +76,55 @@ export class Component<State = any> extends HTMLElement {
   injection?: { [key: string]: unknown }
   renderRoot?: ExtendedElement | ShadowRoot | Component
   rootElement: ExtendedElement | ExtendedElement[] | null
-
-  _ref :Partial<Record<'current', any>>= null
-
+  _hooks: Record<ComponentHookType, Function[]>
+  _ref: Partial<Record<'current', any>> = null
+  static formAssociated = true
   constructor() {
     super()
-
     this.handleProps()
-    // if (!this.constructor.defaultProps) {
-    //   this.constructor.defaultProps = {}
-    // }
-    // if (!this.constructor.propTypes) {
-    //   this.constructor.propTypes = {}
-    // }
-    // if (!this.constructor.reflectProps) {
-    //   this.constructor.reflectProps = {}
-    // }
-    // if (this.constructor.props) {
-    //   for (const propName in this.constructor.props) {
-    //     const prop = this.constructor.props[propName]
-    //     this.constructor.defaultProps[propName] = prop.default
-    //     this.constructor.propTypes[propName] = prop.type
-    //     this.constructor.reflectProps[propName] = prop.reflect
-    //   }
-    // }
-
-    // // @ts-ignore fix lazy load props missing
-    // this.props = Object.assign(
-    //   {},
-    //   (this.constructor as typeof Component).defaultProps,
-    //   this.props,
-    // )
+    // 安装一些内置钩子
+    installHook(this, forwardRef)
+    this.executeHooks('initial')
     this.elementId = id++
     this.isInstalled = false
     this.rootElement = null
   }
 
-  get ref(){
-    if(!this._ref){
-      if(this.props.ref && isObject(this.props.ref)){
-        this._ref = this.props.ref 
-      }else{
-        this._ref = createRef()
+  get ref(): Ref {
+    // 具体实现由 forwardRef hook提供，这里只是为了提供类型提示
+  }
+
+  /**
+   * 获取已经声明的钩子函数
+   */
+  get hooks() {
+    if (!this._hooks) {
+      this._hooks = getClassStaticValue(this, 'hooks') || {}
+    }
+    return this._hooks
+  }
+
+  /**
+   * 执行指定名称的钩子函数
+   */
+  private executeHooks(hookName: ComponentHookType) {
+    if (hookName in this.hooks) {
+      const hooks = this.hooks[hookName]
+      if (Array.isArray(hooks)) {
+        hooks.forEach((hook) => {
+          try {
+            hook.call(this, this)
+          } catch (e: any) {
+            console.warn(
+              `执行钩子函数 ${this.constructor.name}/${hookName} 时出错:`,
+              e,
+            )
+          }
+        })
       }
     }
-    return this._ref
   }
+
   /**
    * 处理props
    *
@@ -159,7 +176,9 @@ export class Component<State = any> extends HTMLElement {
       throw new Error('takes an object of state variables to update')
     }
 
-    Object.keys(partialState).forEach(key => this.state[key] = partialState[key])
+    Object.keys(partialState).forEach(
+      (key) => (this.state[key] = partialState[key]),
+    )
     if (!beforeUpdate) {
       this.queuedUpdate()
     }
@@ -218,6 +237,7 @@ export class Component<State = any> extends HTMLElement {
       } else {
         return this.attachShadow({
           mode: 'open',
+          delegatesFocus: true,
         })
       }
     }
@@ -319,12 +339,15 @@ export class Component<State = any> extends HTMLElement {
       this.ready()
       this.fire('ready', this)
     })
+
+    this.executeHooks('connected')
   }
 
   disconnectedCallback(): void {
     this.uninstall()
     this.fire('uninstall', this)
     this.isInstalled = false
+    this.executeHooks('disconnected')
   }
 
   update(updateSelf?: boolean): void {
@@ -490,4 +513,19 @@ export class Component<State = any> extends HTMLElement {
   rendered(vnode: VNode | VNode[]) {}
 
   receiveProps() {}
+}
+
+export class FormAssociatedComponent extends Component {
+  static formAssociated: boolean = false
+  _form: HTMLFormElement | null = null // 引用表单元素
+  _inputs: HTMLInputElement[] = [] // 引用表单元素内部的 input 元素
+  _internals: ElementInternals | null = null // 表单元素内部对象
+  formAssociatedCallback(form: HTMLFormElement) {} // 当组件被添加到表单元素内部时调用
+  handleFormData(event: FormDataEvent) {} // 处理表单数据事件
+  getFieldValue(): Record<string, any> {} // 返回获取 input 元素的值
+  resetFieldValue(): void // 当重新表单时调用
+  handleField(event: Event) {} // 处理 input 事件
+  formDisabledCallback() {} // 当表单元素被禁用时调用
+  formResetCallback() {} // 当表单元素被重置时调用
+  formStateRestoreCallback(state: any, mode: any) {} // 当表单元素状态被恢复时调用
 }

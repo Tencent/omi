@@ -59,6 +59,16 @@ export const navbarItems = signal<NavbarItem[]>([
         value: 'product-docs',
       },
       {
+        text: '教育课程',
+        path: '/education',
+        value: 'education',
+      },
+      {
+        text: '新闻杂志',
+        path: '/news',
+        value: 'news',
+      },
+      {
         text: '组件',
         path: '/components/button',
         value: 'components',
@@ -95,6 +105,16 @@ export const navbarItems = signal<NavbarItem[]>([
         text: '组合/作品集',
         path: '/portfolio',
         value: 'portfolio',
+      },
+      {
+        text: '个人博客',
+        path: '/blog',
+        value: 'blog,'
+      },
+      {
+        text: '慈善组织模板',
+        path: '/charity',
+        value: 'charity',
       },
       {
         text: '关于',
