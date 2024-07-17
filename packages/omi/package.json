@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "7.6.13",
+  "version": "7.6.15",
   "scripts": {
     "start": "vite",
     "dev-vite": "vite",
@@ -42,7 +42,8 @@
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "typedoc": "^0.25.1",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.4",
+    "vite": "^5.3.4"
   },
   "lint-staged": {
     "**/**.{js,ts}": [
@@ -61,15 +62,15 @@
     ".": {
       "import": {
         "types": "./omi.d.ts",
-        "default": "./dist/omi.modern.js"
+        "default": "./dist/omi.module.js"
       },
       "require": {
         "types": "./omi.d.ts",
-        "default": "./dist/omi.cjs"
+        "default": "./dist/omi.js"
       }
     }
   },
-  "main": "./dist/omi.cjs",
+  "main": "./dist/omi.js",
   "module": "./dist/omi.module.js",
   "unpkg": "./dist/omi.umd.js",
   "authors": [
