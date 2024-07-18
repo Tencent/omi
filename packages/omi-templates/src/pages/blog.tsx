@@ -65,8 +65,8 @@ class BlogTemplate extends Component {
                   <img
                     src={"https://tdesign.gtimg.com/site/images/banner-thumb.jpg"}
                     alt="About Me"
-                    class="rounded-md mb-4"
-                    style="width: 300px; height: 300px; object-fit: cover;"
+                    class="rounded-md mb-4 mt-6"
+                    style="width: 350px; height: 350px; object-fit: cover;"
                   />
                   <h3 class="text-xl font-semibold">Rachel</h3>
                   <p class="text-gray-500 mt-2 text-center">
