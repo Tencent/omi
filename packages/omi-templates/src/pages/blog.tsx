@@ -1,7 +1,7 @@
-import { signal, tag, Component, Signal } from 'omi'
+import { signal, tag, Component } from 'omi'
 import '../components/omiu/button'
 
-// 标签类型
+// 标签
 const tags = signal([
   { name: 'All'},
   { name: 'JavaScript'},
@@ -42,14 +42,29 @@ const selectedBlogs = signal(blogPosts)
 @tag('blog-template')
 class BlogTemplate extends Component {
   activeCategory = signal('All')
+  searchKeyword = signal('')
 
   blogFilter(tag: string) {
     this.activeCategory.value = tag
-    if (tag === 'All') {
-      selectedBlogs.value = blogPosts
-    } else {
-      selectedBlogs.value = blogPosts.filter(post => post.tag === tag)
+    this.filterBlogs()
+  }
+
+  filterBlogs() {
+    let filteredBlogs = blogPosts
+    if (this.activeCategory.value !== 'All') {
+      filteredBlogs = filteredBlogs.filter(post => post.tag === this.activeCategory.value)
     }
+    if (this.searchKeyword.value) {
+      const keyword = this.searchKeyword.value.toLowerCase()
+      filteredBlogs = filteredBlogs.filter(post => post.title.toLowerCase().includes(keyword))
+    }
+    selectedBlogs.value = filteredBlogs
+  }
+
+  handleSearchInput(event: Event) {
+    const inputElement = event.target as HTMLInputElement
+    this.searchKeyword.value = inputElement.value
+    this.filterBlogs()
   }
 
   render() {
@@ -92,7 +107,7 @@ class BlogTemplate extends Component {
 
             {/* 搜索栏 */}
             <section class="mt-8">
-              <form class="flex">
+              <form class="flex" onInput={(event) => this.handleSearchInput(event)}>
                 <input type="text" class="w-full px-3 py-2 rounded-l-lg focus:outline-none text-gray-800" placeholder="Search..." />
                 <button class="px-2 rounded-r-lg focus:outline-none text-center text-xl text-gray-400 hover:text-gray-900 bg-white"><i class="fas fa-search"></i></button>
               </form>
