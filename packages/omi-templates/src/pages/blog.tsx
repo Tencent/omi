@@ -1,14 +1,22 @@
-import { signal, tag, Component } from 'omi'
+import { signal, tag, Component, Signal } from 'omi'
 import '../components/omiu/button'
 
+// 标签类型
+const tags = signal([
+  { name: 'All'},
+  { name: 'JavaScript'},
+  { name: 'Python'},
+  { name: 'Web Development'}
+])
+
 // 博客数据
-const blogPosts = signal([
+const blogPosts = [
     {
         title: 'Exploring JavaScript ES2024 Features',
         date: 'June 15, 2024',
         author: 'Rachel',
         summary: 'An in-depth look at the new features introduced in JavaScript ES2024, including pattern matching and top-level await.',
-        category: 'JavaScript',
+        tag: 'JavaScript',
         image: 'https://tdesign.gtimg.com/site/images/banner-thumb.jpg'
     },
     {
@@ -16,7 +24,7 @@ const blogPosts = signal([
         date: 'July 5, 2024',
         author: 'Rachel',
         summary: 'This guide covers the fundamentals of deep learning with Python, including neural networks, TensorFlow, and practical applications.',
-        category: 'Python',
+        tag: 'Python',
         image: 'https://tdesign.gtimg.com/site/images/banner-thumb.jpg'
     },
     {
@@ -24,13 +32,26 @@ const blogPosts = signal([
         date: 'July 20, 2024',
         author: 'Rachel',
         summary: 'Learn how to build scalable and high-performance web applications using Node.js, including best practices and performance optimization techniques.',
-        category: 'Web Development',
+        tag: 'Web Development',
         image: 'https://tdesign.gtimg.com/site/images/banner-thumb.jpg'
     },
-]);  
+]
+
+const selectedBlogs = signal(blogPosts)
 
 @tag('blog-template')
 class BlogTemplate extends Component {
+  activeCategory = signal('All')
+
+  blogFilter(tag: string) {
+    this.activeCategory.value = tag
+    if (tag === 'All') {
+      selectedBlogs.value = blogPosts
+    } else {
+      selectedBlogs.value = blogPosts.filter(post => post.tag === tag)
+    }
+  }
+
   render() {
     return (
       <div class="container mx-auto">
@@ -81,9 +102,9 @@ class BlogTemplate extends Component {
             <section class="mt-8">
               <h3 class="mb-4 pb-2 text-2xl font-semibold border-b-2 border-blue-500 text-blue-600">Popular Posts</h3>
               <ul>
-                {blogPosts.value.map((post, index) => (
+                {selectedBlogs.value.map((post, index) => (
                   <li key={index} class="mb-1">
-                    <a class="text-blue-900 hover:text-blue-500" href="#">{post.title} ({post.category})</a>
+                    <a class="text-blue-900 hover:text-blue-500" href="#">{post.title} ({post.tag})</a>
                   </li>
                 ))}
               </ul>
@@ -91,21 +112,19 @@ class BlogTemplate extends Component {
 
             {/* 分类栏 */}
             <section class="mt-8">
-              <h3 class="mb-4 pb-2 text-2xl font-semibold border-b-2 border-blue-500 text-blue-600">Tags</h3>
-              <ul>
-                <li class="mb-1">
-                  <i class="t-icon t-icon-hashtag text-blue-900 hover:text-blue-500" href="#"> Coding</i>
-                </li>
-                <li class="mb-1">
-                  <i class="t-icon t-icon-hashtag text-blue-900 hover:text-blue-500" href="#"> Network</i>
-                </li>
-                <li class="mb-1">
-                  <i class="t-icon t-icon-hashtag text-blue-900 hover:text-blue-500" href="#"> Web</i>
-                </li>
-                <li class="mb-1">
-                  <i class="t-icon t-icon-hashtag text-blue-900 hover:text-blue-500" href="#"> Artificial Intelligence</i>
-                </li>
-              </ul>
+              <h3 class="mb-4 pb-2 text-2xl font-bold border-b-2 border-blue-500 text-blue-600">Tags</h3>
+              <div class="flex justify-around mb-8 text-blue-600">
+                {tags.value.map((tag, index) => (
+                  <o-button
+                    key={index}
+                    variant="outline"
+                    theme={tag.name === this.activeCategory.value ? 'primary' : 'default'}
+                    onClick={() => this.blogFilter(tag.name)}
+                  >
+                    {tag.name}
+                  </o-button>
+                ))}
+              </div>
             </section>
 
             {/* 订阅表单 */}
@@ -123,25 +142,28 @@ class BlogTemplate extends Component {
                 </form>
               </div>
             </section>
-
           </aside>
 
           {/* 右栏 */}
           <main class="flex flex-col w-2/3 pl-6 pr-4 pt-12">
-            {blogPosts.value.map((post, index) => (
+            {selectedBlogs.value.length == 0 ? (
+              <div class="col-span-full text-center text-foreground">None</div>
+            ) : (
+            selectedBlogs.value.map((post, index) => (
               <article key={index} class="my-4 shadow bg-card dark:bg-gray-800">
                 <a href="#">
                   <img class="hover:opacity-75" src={post.image} alt="Post Image" />
                 </a>
                 <div class="flex flex-col p-6 pt-2">
-                  <a href="#" class="my-2 text-sm font-bold uppercase border-b-2 border-blue-500 text-blue-600">{post.category}</a>
+                  <a href="#" class="my-2 text-sm font-bold uppercase border-b-2 border-blue-500 text-blue-600">{post.tag}</a>
                   <a href="#" class="pb-4 text-3xl font-serif font-bold hover:text-gray-700 dark:hover:text-gray-400">{post.title}</a>
                   <p class="pb-3 text-sm">By <a href="#" class="font-semibold hover:text-gray-800 dark:hover:text-gray-400">{post.author}</a>, {post.date}</p>
                   <p class="pb-6">{post.summary}</p>
                   <a href="#" class="uppercase text-xs text-blue-600 hover:text-yellow-500">Continue Reading <i class="fas fa-arrow-right"></i></a>
                 </div>
               </article>
-            ))}
+            ))
+          )}
           </main>
         </div>
       </div>
