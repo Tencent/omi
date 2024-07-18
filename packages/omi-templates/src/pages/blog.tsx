@@ -15,10 +15,10 @@ interface BlogPost {
 
 // 标签
 const tags = signal([
-  { name: 'All'},
-  { name: 'JavaScript'},
-  { name: 'Python'},
-  { name: 'Web Development'}
+  { name: 'All' },
+  { name: 'JavaScript' },
+  { name: 'Python' },
+  { name: 'Web Development' }
 ])
 
 // 博客数据
@@ -96,8 +96,8 @@ class BlogTemplate extends Component {
   handlePostClick(post: BlogPost) {
     activePost.value = post
     this.breadcrumbs.value = [
-      { label: 'Home', icon: 'home'},
-      { label: post.title, icon:'root-list' }
+      { label: 'Home', icon: 'home' },
+      { label: post.title, icon: 'root-list' }
     ]
   }
 
@@ -109,17 +109,17 @@ class BlogTemplate extends Component {
   renderPostContent(post: BlogPost) {
     return (
       <div class="flex flex-col pl-6 pr-4 pt-3">
-       <article className="my-4 shadow bg-card dark:bg-gray-800 rounded-lg">
-  <div className="flex flex-col p-6">
-    <h1 className="text-3xl font-serif font-bold">{post.title}</h1>
-    <p className="pb-3 text-sm">
-      By <a href="#" className="font-semibold hover:text-gray-800 dark:hover:text-gray-400">{post.author}</a>, {post.date}
-    </p>
-    <div className="markdown-body">
-      {post.content}
-    </div>
-  </div>
-</article>
+        <article className="my-4 shadow bg-card dark:bg-gray-800 rounded-lg">
+          <div className="flex flex-col p-6">
+            <h1 className="text-3xl font-serif font-bold">{post.title}</h1>
+            <p className="pb-3 text-sm">
+              By <a href="#" className="font-semibold hover:text-gray-800 dark:hover:text-gray-400">{post.author}</a>, {post.date}
+            </p>
+            <div className="markdown-body">
+              {post.content}
+            </div>
+          </div>
+        </article>
         <div class="mt-4">
           <o-button
             theme="primary"
@@ -168,7 +168,7 @@ class BlogTemplate extends Component {
               <div class="rounded-md border bg-card text-card-foreground shadow-sm" data-v0-t="card">
                 <div class="flex flex-col items-center p-6">
                   <img
-                    src={"https://tdesign.gtimg.com/site/images/banner-thumb.jpg"} 
+                    src={"https://tdesign.gtimg.com/site/images/banner-thumb.jpg"}
                     alt="About Me"
                     class="rounded-md mb-4 mt-6"
                     style="width: 350px; height: 350px; object-fit: cover;"
@@ -249,21 +249,21 @@ class BlogTemplate extends Component {
             </section>
           </aside>
 
-      {/* 右栏 */}
-      <main class="flex flex-col w-2/3 pl-6 pr-4 pt-12">
-        <div class="flex pl-4">
-            <o-breadcrumb
-              items={this.breadcrumbs.value}
-            ></o-breadcrumb>
+          {/* 右栏 */}
+          <main class="flex flex-col w-2/3 pl-6 pr-4 pt-12">
+            <div class="flex pl-4">
+              <o-breadcrumb
+                items={this.breadcrumbs.value}
+              ></o-breadcrumb>
+            </div>
+            {activePost.value ? this.renderPostContent(activePost.value) : this.renderBlogList()}
+          </main>
         </div>
-        {activePost.value ? this.renderPostContent(activePost.value) : this.renderBlogList()}
-      </main>
-    </div>
-  </div>
-)
-}
+      </div>
+    )
+  }
 }
 
 export function BlogPage() {
-return <blog-template />
+  return <blog-template />
 }
