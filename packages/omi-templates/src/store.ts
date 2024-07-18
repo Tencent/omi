@@ -107,6 +107,11 @@ export const navbarItems = signal<NavbarItem[]>([
         value: 'portfolio',
       },
       {
+        text: '活动/会议',
+        path: '/meeting',
+        value: 'meeting',
+      },
+      {
         text: '个人博客',
         path: '/blog',
         value: 'blog,'
