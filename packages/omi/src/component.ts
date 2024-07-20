@@ -116,7 +116,7 @@ export class Component<State = any> extends HTMLElement {
             hook.call(this, this)
           } catch (e: any) {
             console.warn(
-              `执行钩子函数 ${this.constructor.name}/${hookName} 时出错:`,
+              `Error occurred while executing hook function ${this.constructor.name}/${hookName}:`,
               e,
             )
           }

@@ -303,9 +303,9 @@ export function executeComponentHooks(
           hook.call(target, target)
         } catch (e: any) {
           console.warn(
-            `执行钩子函数 ${
+            `Error occurred while executing hook function ${
               isClass(target) ? target.constructor.name : target.name
-            }/${hookName} 时出错:`,
+            }/${hookName}:`,
             e,
           )
         }

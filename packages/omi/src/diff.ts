@@ -30,8 +30,8 @@ export function diff(
   if (!dom && !vnode) return null
 
   // 兼容 isLightDOM 情况
-  if(component && (component.constructor as typeof Component).isLightDOM){
-    component.innerHTML = '';
+  if (component && (component.constructor as typeof Component).isLightDOM) {
+    component.innerHTML = ''
   }
 
   // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
