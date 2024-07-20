@@ -116,6 +116,11 @@ export const navbarItems = signal<NavbarItem[]>([
         path: '/blog',
         value: 'blog,'
       },
+       {
+        text: '企业官网',
+        path: '/company',
+        value: 'company,'
+      },
       {
         text: '慈善组织模板',
         path: '/charity',
