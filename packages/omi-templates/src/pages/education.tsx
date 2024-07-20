@@ -1,4 +1,4 @@
-import { render, signal, tag, Component } from 'omi'
+import { signal, tag, Component } from 'omi'
 import '../components/omiu/button'
 import '../components/omiu/swiper/swiper'
 import 'omi-ripple'
@@ -135,7 +135,7 @@ var studentReviews = [
 ]
 
 @tag('education-template')
-class EducationTemplate extends Component {
+export class EducationTemplate extends Component {
   activeCategory: string = '全部'
 
   static css = [

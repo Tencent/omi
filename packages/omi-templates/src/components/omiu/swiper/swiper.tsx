@@ -1,4 +1,4 @@
-import { tag, Component, classNames, OmiProps, bind, VNode } from 'omi'
+import { tag, Component, OmiProps, bind, VNode } from 'omi'
 // import '../collapse/collapse'
 
 

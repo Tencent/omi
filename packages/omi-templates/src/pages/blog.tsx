@@ -62,7 +62,7 @@ const selectedBlogs = signal(blogPosts)
 const activePost = signal<BlogPost | null>(null)
 
 @tag('blog-template')
-class BlogTemplate extends Component {
+export class BlogTemplate extends Component {
   activeTag = signal('All')
   searchKeyword = signal('')
 

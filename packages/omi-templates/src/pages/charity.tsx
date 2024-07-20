@@ -1,4 +1,4 @@
-import { render, signal, Component, tag, extend, computed } from "omi";
+import { signal, Component, tag } from "omi";
 import "../components/omiu/button";
 
 const donateLink = "#";
@@ -73,7 +73,7 @@ const features = [
 ]
 
 @tag('charity-template')
-class CharityTemplate extends Component {
+export class CharityTemplate extends Component {
   render() {
     return (
       <>
