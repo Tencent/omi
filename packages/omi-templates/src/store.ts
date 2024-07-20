@@ -81,60 +81,8 @@ export const navbarItems = signal<NavbarItem[]>([
     ],
   },
   {
-    text: '其他页',
+    text: '结果页',
     children: [
-      {
-        type: 'title',
-        text: '收集用户反馈',
-      },
-      {
-        text: '调查问卷',
-        path: '/questionnaire',
-        value: 'questionnaire',
-      },
-      {
-        text: '联系我们',
-        path: '/chat',
-        value: 'chat',
-      },
-      {
-        // 分割
-        type: 'spliter',
-      },
-      {
-        text: '组合/作品集',
-        path: '/portfolio',
-        value: 'portfolio',
-      },
-      {
-        text: '活动/会议',
-        path: '/meeting',
-        value: 'meeting',
-      },
-      {
-        text: '个人博客',
-        path: '/blog',
-        value: 'blog,'
-      },
-       {
-        text: '企业官网',
-        path: '/company',
-        value: 'company,'
-      },
-      {
-        text: '慈善组织模板',
-        path: '/charity',
-        value: 'charity',
-      },
-      {
-        text: '关于',
-        path: '/about',
-        value: 'about',
-      },
-      {
-        // 分割
-        type: 'spliter',
-      },
       {
         type: 'title',
         text: '结果页',
@@ -178,6 +126,59 @@ export const navbarItems = signal<NavbarItem[]>([
         text: '系统维护页',
         path: '/results/system-maintenance',
         value: 'result-system-maintenance',
+      },
+    ],
+  },
+  {
+    text: '其他页',
+    children: [
+      {
+        type: 'title',
+        text: '收集用户反馈',
+      },
+      {
+        text: '调查问卷',
+        path: '/questionnaire',
+        value: 'questionnaire',
+      },
+      {
+        text: '联系我们',
+        path: '/chat',
+        value: 'chat',
+      },
+      {
+        // 分割
+        type: 'spliter',
+      },
+      {
+        text: '组合/作品集',
+        path: '/portfolio',
+        value: 'portfolio',
+      },
+      {
+        text: '活动/会议',
+        path: '/meeting',
+        value: 'meeting',
+      },
+      {
+        text: '个人博客',
+        path: '/blog',
+        value: 'blog,',
+      },
+      {
+        text: '企业官网',
+        path: '/company',
+        value: 'company,',
+      },
+      {
+        text: '慈善组织模板',
+        path: '/charity',
+        value: 'charity',
+      },
+      {
+        text: '关于',
+        path: '/about',
+        value: 'about',
       },
     ],
   },
