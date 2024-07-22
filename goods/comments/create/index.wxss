@@ -1,0 +1,171 @@
+page {
+  background-color: #f5f5f5;
+}
+
+.page-container .comment-card {
+  padding: 24rpx 32rpx 28rpx;
+  background-color: #ffffff;
+}
+
+.comment-card .goods-info-container .goods-image {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 8rpx;
+}
+
+.comment-card .goods-info-container {
+  display: flex;
+}
+
+.comment-card .goods-info-container .goods-title-container {
+  padding-left: 24rpx;
+}
+
+.comment-card .goods-info-container .goods-title {
+  font-size: 28rpx;
+  font-weight: normal;
+  margin-top: 12rpx;
+}
+
+.comment-card .goods-info-container .goods-detail {
+  font-size: 24rpx;
+  font-weight: normal;
+  color: #999999;
+  margin-top: 16rpx;
+}
+
+.comment-card .rate-container {
+  display: flex;
+  align-items: center;
+  margin-top: 22rpx;
+}
+
+.comment-card .rate-container .rate-title {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.comment-card .rate-container .rate {
+  margin-left: 22rpx;
+}
+
+.comment-card .textarea-container {
+  margin-top: 22rpx;
+}
+
+.comment-card .textarea-container .textarea {
+  background-color: #f5f5f5;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  font-weight: normal;
+}
+
+.page-container .t-checkbox__bordered {
+  display: none;
+}
+
+.page-container .anonymous-box {
+  display: flex;
+  align-items: center;
+  padding-top: 52rpx;
+}
+
+.page-container .anonymous-box .name {
+  font-size: 28rpx;
+  font-weight: normal;
+  color: #999999;
+  padding-left: 28rpx;
+}
+
+.page-container .t-checkbox {
+  padding: 0rpx !important;
+}
+
+.page-container .t-checkbox__content {
+  display: none;
+}
+
+.comment-card .convey-comment-title {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.convey-card {
+  background-color: #ffffff;
+  margin-top: 24rpx;
+  padding: 32rpx;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 140rpx);
+}
+
+.convey-card .rate-container .rate-title {
+  font-weight: normal;
+}
+
+.page-container .t-checkbox__icon-left {
+  margin-right: 0rpx !important;
+}
+
+.submit-button-container {
+  padding: 12rpx 0rpx;
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 20rpx);
+  background-color: #ffffff;
+  z-index: 99;
+}
+
+.submit-button-container .submit-button {
+  background-color: #fa4126;
+  border: 0;
+  border-radius: 48rpx;
+  width: 686rpx;
+  height: 88rpx;
+}
+
+.submit-button-container .submit-button-disabled {
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 0;
+  border-radius: 48rpx;
+  width: 686rpx;
+  height: 88rpx;
+}
+
+.page-container .upload-container {
+  margin-top: 24rpx;
+}
+
+.page-container .t-upload__wrapper {
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.page-container .submmit-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 12;
+  padding: 12rpx 32rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: #fff;
+  height: 112rpx;
+}
+
+.page-container .submmit-bar-button {
+  border-radius: 48rpx !important;
+  padding: 0 !important;
+}
+
+.page-container .t-upload__close-btn {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-bottom-left-radius: 8rpx;
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.upload-container .upload-addcontent-slot {
+  font-size: 26rpx;
+}

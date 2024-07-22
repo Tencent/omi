@@ -1,0 +1,53 @@
+.c-tabbar {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  --tabbar-height: 100rpx;
+  --tabbar-fontsize: 28rpx;
+  --tabbar-background-color: white;
+}
+.c-tabbar__inner {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.c-tabbar__scroll {
+  position: relative;
+}
+.c-tabbar__scroll::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  background-color: #eee;
+  z-index: 1;
+}
+.c-tabbar__inner.c-tabbar__inner_more::after {
+  content: '';
+  display: block;
+  width: 100rpx;
+  height: 100rpx;
+  flex: none;
+}
+.c-tabbar-item {
+  flex: none;
+  height: 100rpx;
+  color: #282828;
+  font-size: 28rpx;
+  padding: 0 20rpx;
+}
+.c-tabbar-item.active:not(.disabled) {
+  color: #0071ce;
+  position: relative;
+}
+.c-tabbar-item.disabled {
+  color: #ccc;
+}
+.c-tabbar-item__text {
+  width: 100%;
+  text-align: center;
+  height: 100rpx;
+  line-height: 100rpx;
+}

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "c-tabbar-more": "./c-tabbar-more/index"
+  }
+}

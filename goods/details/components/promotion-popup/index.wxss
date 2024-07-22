@@ -1,0 +1,131 @@
+.promotion-popup-container {
+  background-color: #ffffff;
+  position: relative;
+  z-index: 100;
+  border-radius: 16rpx 16rpx 0 0;
+}
+
+.promotion-popup-container .promotion-popup-close {
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+  z-index: 9;
+  color: rgba(153, 153, 153, 1);
+}
+
+.promotion-popup-container .promotion-popup-close .market {
+  font-size: 25rpx;
+  color: #999;
+}
+
+.promotion-popup-container .promotion-popup-title {
+  height: 100rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.promotion-popup-container .promotion-popup-title {
+  font-size: 32rpx;
+  color: #222427;
+  font-weight: 600;
+}
+
+.promotion-popup-container .promotion-popup-content {
+  min-height: 400rpx;
+  max-height: 600rpx;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 20rpx);
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.promotion-popup-container .promotion-popup-content .promotion-detail-list {
+  margin: 0 30rpx;
+}
+
+.promotion-popup-container
+  .promotion-popup-content
+  .promotion-detail-list
+  .list-item:last-child {
+  margin-bottom: env(safe-area-inset-bottom);
+  border-bottom: 0;
+  padding-bottom: calc(28rpx + env(safe-area-inset-bottom));
+}
+
+.promotion-popup-container
+  .promotion-popup-content
+  .promotion-detail-list
+  .list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10rpx 0 28rpx;
+  position: relative;
+  font-size: 24rpx;
+  color: #222427;
+}
+
+.promotion-popup-container
+  .promotion-popup-content
+  .promotion-detail-list
+  .list-item
+  .tag {
+  box-sizing: border-box;
+  font-size: 20rpx;
+  line-height: 32rpx;
+  padding: 2rpx 12rpx;
+  background-color: #ffece9;
+  margin-right: 16rpx;
+  display: inline-flex;
+  color: #fa4126;
+  border-radius: 54rpx;
+  flex-shrink: 0;
+  position: relative;
+  top: 2rpx;
+}
+
+.promotion-popup-container
+  .promotion-popup-content
+  .promotion-detail-list
+  .list-item
+  .content {
+  font-size: 28rpx;
+  color: #222427;
+  flex: 1;
+  line-height: 40rpx;
+  display: flex;
+}
+
+.promotion-popup-container
+  .promotion-popup-content
+  .promotion-detail-list
+  .list-item
+  .content
+  .list-content {
+  width: 440rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.promotion-popup-container
+  .promotion-popup-content
+  .promotion-detail-list
+  .list-item
+  .collect-btn {
+  font-size: 24rpx;
+  flex-shrink: 0;
+  margin-left: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.promotion-popup-container
+  .promotion-popup-content
+  .promotion-detail-list
+  .list-item
+  .collect-btn
+  .linkText {
+  margin-right: 8rpx;
+}

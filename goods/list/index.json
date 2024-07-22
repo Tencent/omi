@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "商品列表",
+  "usingComponents": {
+    "t-input": "tdesign-miniprogram/input/input",
+    "t-empty": "tdesign-miniprogram/empty/empty",
+    "t-toast": "tdesign-miniprogram/toast/toast",
+    "goods-list": "/components/goods-list/index",
+    "filter": "/components/filter/index",
+    "filter-popup": "/components/filter-popup/index",
+    "load-more": "/components/load-more/index"
+  }
+}

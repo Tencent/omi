@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "my-video": "../my-video/index",
+    "t-image": "/components/webp-image/index"
+  }
+}

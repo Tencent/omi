@@ -1,0 +1,108 @@
+page {
+  background-color: #fff;
+}
+
+.goods-list-container {
+  display: block;
+}
+
+.goods-list-container .t-search {
+  padding: 0 30rpx;
+  background-color: #fff;
+}
+
+.goods-list-container .t-class__input-container {
+  height: 64rpx !important;
+  border-radius: 32rpx !important;
+}
+
+.goods-list-container .t-search__left-icon {
+  display: flex;
+  align-items: center;
+}
+
+.goods-list-container .t-search__input {
+  font-size: 28rpx !important;
+  color: rgb(116, 116, 116) !important;
+}
+
+.goods-list-container .category-goods-list {
+  background-color: #f2f2f2;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  padding: 20rpx 24rpx;
+  -webkit-overflow-scrolling: touch;
+}
+
+.goods-list-container .wr-goods-list {
+  background: #f2f2f2 !important;
+}
+
+.goods-list-container .t-image__mask {
+  display: flex !important;
+}
+
+.goods-list-container .empty-wrap {
+  margin-top: 184rpx;
+  margin-bottom: 120rpx;
+  height: 300rpx;
+}
+
+.goods-list-container .empty-wrap .empty-tips .empty-content .content-text {
+  margin-top: 40rpx;
+}
+
+.goods-list-container .price-container {
+  padding: 32rpx;
+  height: 100vh;
+  max-width: 632rpx;
+  background-color: #fff;
+  border-radius: 30rpx 0 0 30rpx;
+  box-sizing: border-box;
+}
+
+.goods-list-container .price-between {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.goods-list-container .price-ipts-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 24rpx;
+}
+
+.goods-list-container .price-ipts-wrap .price-divided {
+  position: relative;
+  width: 22rpx;
+  margin: 0 20rpx;
+  color: #222427;
+}
+
+.goods-list-container .price-ipts-wrap .price-ipt {
+  box-sizing: border-box;
+  width: 246rpx;
+  font-size: 24rpx;
+  height: 56rpx;
+  padding: 0 24rpx;
+  text-align: center;
+  border-radius: 8rpx;
+  color: #333;
+  background: rgba(245, 245, 245, 1);
+}
+
+.t-class-input {
+  font-size: 24rpx !important;
+}
+
+.goods-list-container .price-ipts-wrap .price-ipt::after {
+  border: none !important;
+}
+
+.goods-list-container .t-input__control {
+  font-size: 24rpx !important;
+  text-align: center;
+}

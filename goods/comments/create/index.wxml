@@ -1,0 +1,85 @@
+<view class="page-container">
+	<view class="comment-card">
+		<view class="goods-info-container">
+			<view class="goods-image-container">
+				<t-image t-class="goods-image" src="{{imgUrl}}" />
+			</view>
+			<view class="goods-title-container">
+				<view class="goods-title">{{title}}</view>
+				<view class="goods-detail">{{goodsDetail}}</view>
+			</view>
+		</view>
+		<view class="rate-container">
+			<text class="rate-title">商品评价</text>
+			<t-rate
+			  value="{{goodRateValue}}"
+			  bind:change="onRateChange"
+			  variant="filled"
+			  size="26"
+				gap="6"
+			  data-item="goodRateValue"
+			/>
+		</view>
+		<view class="textarea-container">
+			<t-textarea t-class="textarea" maxlength="{{500}}" bind:change="onTextAreaChange" />
+		</view>
+		<view class="upload-container">
+			<t-upload
+			  media-type="{{['image','video']}}"
+			  files="{{uploadFiles}}"
+			  bind:remove="handleRemove"
+			  bind:success="handleSuccess"
+			  gridConfig="{{gridConfig}}"
+			  addContent="slot"
+			  imageProps="{{imageProps}}"
+			>
+				<view slot="addContent" class="upload-addcontent-slot">
+					<t-icon name="photo" size="60rpx" />
+					<text>添加图片/视频</text>
+				</view>
+			</t-upload>
+		</view>
+
+		<view class="anonymous-box">
+			<t-checkbox bind:change="onAnonymousChange" checked="{{isAnonymous}}" color="#FA4126" />
+			<view class="name">匿名评价</view>
+		</view>
+	</view>
+</view>
+<view class="comment-card convey-card">
+	<view class="convey-comment-title">物流服务评价</view>
+	<view class="rate-container">
+		<text class="rate-title">物流评价</text>
+		<t-rate
+		  value="{{conveyRateValue}}"
+		  bind:change="onRateChange"
+		  variant="filled"
+		  size="26"
+			gap="6"
+		  class="rate"
+		  data-item="conveyRateValue"
+		/>
+	</view>
+	<view class="rate-container">
+		<text class="rate-title">服务评价</text>
+		<t-rate
+		  value="{{serviceRateValue}}"
+		  bind:change="onRateChange"
+		  variant="filled"
+		  size="26"
+			gap="6"
+		  class="rate"
+		  data-item="serviceRateValue"
+		/>
+	</view>
+</view>
+<view class="submit-button-container">
+	<t-button
+	  theme="danger"
+	  content="提交"
+	  t-class="submit-button{{isAllowedSubmit ? '' : '-disabled'}}"
+	  bind:tap="onSubmitBtnClick"
+	/>
+</view>
+<t-toast id="t-toast" />
+

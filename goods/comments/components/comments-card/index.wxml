@@ -1,0 +1,34 @@
+<view class="comments-card-item wr-class">
+	<view class="comments-card-item-container">
+		<view class="comments-title">
+			<view class="comments-card-item-userImg">
+				<t-image t-class="userImg" src="{{userHeadUrl}}" />
+			</view>
+			<view class="userName">{{userName}}</view>
+			<text class="commentTime">{{commentTime}}</text>
+		</view>
+		<view class="comments-info">
+			<t-rate
+			  class="rate"
+			  value="{{commentScore}}"
+				size="14"
+				gap="2"
+			  variant="filled"
+			/>
+			<view class="goods-info-text" wx:if="{{goodsDetailInfo}}">{{goodsDetailInfo}}</view>
+		</view>
+		<view class="comments-card-item-container-content">
+			<view class="content-text" hidden="{{showContent}}">
+				{{commentContent}}
+			</view>
+		</view>
+		<view class="comments-card-item-container-image" wx:if="{{commentResources.length > 0}}">
+			<images-videos resources="{{commentResources}}" />
+		</view>
+		<view class="comments-card-reply" wx:if="{{sellerReply}}">
+			<text class="prefix">店家回复：</text>
+			<text class="content">{{sellerReply}}</text>
+		</view>
+	</view>
+</view>
+

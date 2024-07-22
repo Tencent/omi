@@ -1,0 +1,29 @@
+<view class="c-tabbar custom-class">
+  <scroll-view
+    wx:if="{{ tabList.length > 0 }}"
+    class="c-tabbar__scroll"
+    scroll-x="true"
+    scroll-into-view="{{ 'id-' + currentActive }}"
+  >
+    <view
+      class="c-tabbar__inner {{showMore && tabList.length > 4 ? 'c-tabbar__inner_more' : ''}}"
+    >
+      <view
+        wx:for="{{ tabList }}"
+        wx:key="index"
+        id="{{ 'id-' + index }}"
+        class="c-tabbar-item {{ currentActive === index ? 'active' : '' }} {{ item.disabled ? 'disabled' : '' }}"
+        bind:tap="onClick"
+        data-index="{{index}}"
+      >
+        <view class="c-tabbar-item__text"> {{ item.name }} </view>
+      </view>
+    </view>
+  </scroll-view>
+  <c-tabbar-more
+    wx:if="{{ showMore && tabList.length > 4 }}"
+    tabList="{{tabList}}"
+    bindselect="onClick"
+  />
+  <slot />
+</view>

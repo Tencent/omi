@@ -1,0 +1,25 @@
+<view class="c-tabbar-more">
+  <view class="c-tabbar-more__btn" bind:tap="changeFold">
+    <view class="wr {{unfolded ? 'wr-arrow-up':'wr-arrow-down'}}"></view>
+  </view>
+  <view class="t-tabbar-more__boardwrapper" wx:if="{{ unfolded }}">
+    <view class="t-tabbar-more__mask"></view>
+    <scroll-view
+      class="c-tabbar-more__board"
+      style="{{ boardMaxHeight ? 'height:' + boardMaxHeight + 'px;' : '' }}"
+      scroll-y
+    >
+      <view class="c-tabbar-more__boardinner">
+        <view
+          class="c-tabbar-more__item text-overflow"
+          wx:for="{{ tabList }}"
+          wx:key="index"
+          data-index="{{ index }}"
+          bind:tap="onSelect"
+        >
+          {{ item.name }}
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

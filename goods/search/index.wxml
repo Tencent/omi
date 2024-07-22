@@ -1,0 +1,75 @@
+<view class="search-page">
+	<t-search
+	  t-class-input-container="t-class__input-container"
+	  t-class-input="t-search__input"
+	  value="{{searchValue}}"
+	  leftIcon=""
+	  rightIcon=""
+	  placeholder="iPhone12pro"
+	  bind:submit="handleSubmit"
+		focus
+	>
+		<t-icon
+		  slot="left-icon"
+		  prefix="wr"
+		  name="search"
+		  size="40rpx"
+		  color="#bbb"
+		/>
+		<t-icon
+		  slot="right-icon"
+		  prefix="wr"
+		  name="clear_filled"
+		  size="40rpx"
+		  color="#bbb"
+		/>
+	</t-search>
+	<view class="search-wrap">
+		<view class="history-wrap">
+			<view class="search-header">
+				<text class="search-title">历史搜索</text>
+				<text class="search-clear" bind:tap="handleClearHistory">清除</text>
+			</view>
+			<view class="search-content">
+				<view
+				  class="search-item"
+				  hover-class="hover-history-item"
+				  wx:for="{{historyWords}}"
+				  bind:tap="handleHistoryTap"
+				  bindlongpress="deleteCurr"
+				  data-index="{{index}}"
+				  wx:key="*this"
+				>
+					{{item}}
+				</view>
+			</view>
+		</view>
+		<view class="popular-wrap">
+			<view class="search-header">
+				<text class="search-title">热门搜索</text>
+			</view>
+			<view class="search-content">
+				<view
+				  class="search-item"
+				  hover-class="hover-history-item"
+				  wx:for="{{popularWords}}"
+				  bind:tap="handleHistoryTap"
+				  data-index="{{index}}"
+				  wx:key="*this"
+				>
+					{{item}}
+				</view>
+			</view>
+		</view>
+	</view>
+	<t-dialog
+	  visible="{{dialogShow}}"
+	  content="{{dialog.message}}"
+	  bindconfirm="confirm"
+	  bind:close="close"
+	  confirm-btn="确定"
+	  cancel-btn="{{dialog.showCancelButton ? '取消' : null}}"
+	  t-class-confirm="add-notes__confirm"
+	/>
+</view>
+

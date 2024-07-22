@@ -1,0 +1,38 @@
+<view class="flex soldout flex-center wr-sold-out" wx:if="{{soldout ||  !isStock}}">
+	{{soldout ? '商品已下架' : '商品已售馨'}}
+</view>
+<view class="footer-cont flex flex-between wr-class">
+	<view class="flex flex-between bottom-operate-left" wx:if="{{jumpArray.length > 0}}">
+		<view
+		  wx:for="{{jumpArray}}"
+		  wx:key="index"
+		  class="icon-warp operate-wrap"
+		  bindtap="toNav"
+		  data-ele="foot_navigation"
+		  data-index="{{index}}"
+		  data-url="{{item.url}}"
+		>
+			<view>
+				<text wx:if="{{shopCartNum > 0 && item.showCartNum}}" class="tag-cart-num">
+					{{shopCartNum > 99 ? '99+' : shopCartNum}}
+				</text>
+				<t-icon prefix="wr" name="{{item.iconName}}" size="40rpx" />
+				<view class="operate-text">{{item.title}}</view>
+			</view>
+		</view>
+	</view>
+	<block wx:if="{{buttonType === 1}}">
+		<view class="flex buy-buttons">
+			<view class="bar-separately {{soldout || !isStock ? 'bar-addCart-disabled' : ''}}" bindtap="toAddCart">
+				加入购物车
+			</view>
+			<view class="bar-buy {{soldout || !isStock ? 'bar-buyNow-disabled' : ''}}" bindtap="toBuyNow">
+				立即购买
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{isSlotButton}}">
+		<slot name="buyButton" />
+	</block>
+</view>
+

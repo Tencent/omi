@@ -1,0 +1,9 @@
+.c-sidebar {
+  width: 176rpx;
+  height: 100vh;
+}
+.c-sidebar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}

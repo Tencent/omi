@@ -1,0 +1,49 @@
+/* 层级定义
+@z-index-0: 1;
+@z-index-1: 100;
+@z-index-2: 200;
+@z-index-5: 500;
+@z-index-component: 1000; // 通用组件级别
+@z-index-dropdown: @z-index-component;
+@z-index-sticky: @z-index-component + 20;
+@z-index-fixed: @z-index-component + 30;
+@z-index-modal-backdrop:@z-index-component + 40;
+@z-index-modal:@z-index-component + 50;
+@z-index-popover:@z-index-component + 60;
+@z-index-tooltip:@z-index-component + 70;
+*/
+/* var() css变量适配*/
+page {
+  background-color: #FFFFFF;
+}
+
+.comments-header {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 32rpx 32rpx 0rpx;
+  background-color: #fff;
+  margin-top: -24rpx;
+  margin-left: -24rpx;
+}
+
+.comments-header-tag {
+  margin-top: 24rpx;
+  margin-left: 24rpx;
+  height: 56rpx !important;
+  font-size: 24rpx !important;
+  justify-content: center;
+  background-color: #F5F5F5 !important;
+  border-radius: 8rpx !important;
+  border: 1px solid #F5F5F5 !important;
+}
+
+.comments-header-active {
+  background-color: #FFECE9 !important;
+  color: #FA4126 !important;
+  border: 1px solid #FA4126 !important;
+}
+
+.no-more {
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}

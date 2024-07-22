@@ -1,0 +1,3 @@
+<scroll-view class="c-sidebar custom-class" scroll-y>
+  <slot />
+</scroll-view>

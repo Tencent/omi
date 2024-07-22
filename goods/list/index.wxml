@@ -1,0 +1,55 @@
+<view class="goods-list-container">
+	<filter
+	  wr-class="filter-container"
+	  bind:change="handleFilterChange"
+	  layout="{{layout}}"
+	  sorts="{{sorts}}"
+	  overall="{{overall}}"
+	  bind:showFilterPopup="showFilterPopup"
+	>
+		<filter-popup
+		  slot="filterPopup"
+		  show="{{show}}"
+		  bind:showFilterPopupClose="showFilterPopupClose"
+		  bind:reset="reset"
+		  bind:confirm="confirm"
+		>
+			<view class="price-container" slot="filterSlot">
+				<view class="price-between">价格区间</view>
+				<view class="price-ipts-wrap">
+					<t-input
+					  type="number"
+					  t-class="price-ipt"
+					  t-class-input="t-class-input"
+					  placeholder="最低价"
+					  value="{{minVal}}"
+					  bindchange="onMinValAction"
+					/>
+					<view class="price-divided">-</view>
+					<t-input
+					  type="number"
+					  t-class="price-ipt"
+					  t-class-input="t-class-input"
+					  placeholder="最高价"
+					  value="{{maxVal}}"
+					  bindchange="onMaxValAction"
+					/>
+				</view>
+			</view>
+		</filter-popup>
+	</filter>
+	<view class="empty-wrap" wx:if="{{goodsList.length === 0 && hasLoaded}}">
+		<t-empty t-class="empty-tips" size="240rpx" description="暂无相关商品" />
+	</view>
+	<view class="category-goods-list" wx:if="{{goodsList.length}}">
+		<goods-list
+		  wr-class="wr-goods-list"
+		  goodsList="{{goodsList}}"
+		  bind:click="gotoGoodsDetail"
+		  bind:addcart="handleAddCart"
+		/>
+	</view>
+	<load-more wx:if="{{goodsList.length > 0}}" status="{{loadMoreStatus}}" no-more-text="没有更多了" />
+</view>
+<t-toast id="t-toast" />
+

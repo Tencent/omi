@@ -1,0 +1,26 @@
+<video
+  id="myVideo"
+  src="{{videoSrc}}"
+  enable-danmu
+  controls
+  show-fullscreen-btn
+  show-center-play-btn="{{false}}"
+  auto-pause-if-navigate
+  auto-pause-if-open-native
+  show-play-btn
+  object-fit="contain"
+  bindpause="bindpause"
+  bindended="bindended"
+  bindplay="bindplayByVideo"
+  class="video my-video"
+  bindfullscreenchange="bindfullscreenchange"
+>
+  <view class="video_cover" wx:if="{{isShow}}">
+    <view class="my-cover-img">
+      <slot name="cover-img" />
+    </view>
+    <view class="video_play_icon my-play-icon" bindtap="bindplay">
+      <slot name="play-icon" />
+    </view>
+  </view>
+</video>

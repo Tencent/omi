@@ -1,0 +1,10 @@
+<view class="c-sidebar-item-container">
+  <view
+    class="c-sidebar-item {{ selected ? 'active' : '' }} {{ disabled ? 'disabled' : '' }} {{topRightRadius ? 'top-right-radius' : ''}} {{bottomRightRadius ? 'bottom-right-radius' : ''}} custom-class"
+    hover-class="c-sidebar-item--hover"
+    hover-stay-time="70"
+    bind:tap="onClick"
+  >
+    <view class="c-sidebar-item__text text-overflow"> {{ title }} </view>
+  </view>
+</view>

@@ -1,0 +1,50 @@
+<view class="comments-header">
+	<t-tag t-class="comments-header-tag {{commentType === '' ? 'comments-header-active' : ''}}" data-commentType="" bindtap="changeTag">
+		全部({{countObj.commentCount}})
+	</t-tag>
+	<t-tag
+	  t-class="comments-header-tag {{commentType === '5' ? 'comments-header-active' : ''}}"
+	  wx:if="{{countObj.uidCount !== '0'}}"
+	  data-commentType="5"
+	  bindtap="changeTag"
+	>
+		自己({{countObj.uidCount}})
+	</t-tag>
+	<t-tag t-class="comments-header-tag {{commentType === '4' ? 'comments-header-active' : ''}}" data-commentType="4" bindtap="changeTag">
+		带图({{countObj.hasImageCount}})
+	</t-tag>
+	<t-tag t-class="comments-header-tag {{commentType === '3' ? 'comments-header-active' : ''}}" data-commentType="3" bindtap="changeTag">
+		好评({{countObj.goodCount}})
+	</t-tag>
+	<t-tag t-class="comments-header-tag {{commentType === '2' ? 'comments-header-active' : ''}}" data-commentType="2" bindtap="changeTag">
+		中评({{countObj.middleCount}})
+	</t-tag>
+	<t-tag t-class="comments-header-tag {{commentType === '1' ? 'comments-header-active' : ''}}" data-commentType="1" bindtap="changeTag">
+		差评({{countObj.badCount}})
+	</t-tag>
+</view>
+<view class="comments-card-list">
+	<block wx:for="{{commentList}}" wx:key="index">
+		<comments-card
+		  commentScore="{{item.commentScore}}"
+		  userName="{{item.userName}}"
+		  commentResources="{{item.commentResources || []}}"
+		  commentContent="{{item.commentContent}}"
+		  isAnonymity="{{item.isAnonymity}}"
+		  commentTime="{{item.commentTime}}"
+		  isAutoComment="{{item.isAutoComment}}"
+		  userHeadUrl="{{item.userHeadUrl}}"
+		  specInfo="{{item.specInfo}}"
+		  sellerReply="{{item.sellerReply || ''}}"
+		  goodsDetailInfo="{{item.goodsDetailInfo || ''}}"
+		/>
+	</block>
+	<t-load-more
+	  t-class="no-more"
+	  status="{{loadMoreStatus}}"
+	  no-more-text="没有更多了"
+	  color="#BBBBBB"
+	  failedColor="#FA550F"
+	/>
+</view>
+

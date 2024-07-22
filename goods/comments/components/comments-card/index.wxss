@@ -1,0 +1,170 @@
+@import '../../../../../style/theme.wxss';
+
+.comments-card-item {
+  padding: 32rpx;
+  display: flex;
+  background-color: #fff;
+  position: relative;
+}
+
+.comments-card-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0rpx;
+  width: 686rpx;
+  height: 2rpx;
+  background-color: #f5f5f5;
+}
+
+.comments-card-item-userImg {
+  display: flex;
+}
+
+.comments-card-item-userImg .userImg {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+}
+
+.comments-card-item-container {
+  width: 100%;
+}
+
+.comments-card-item-container-name {
+  display: flex;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 600;
+  align-items: center;
+}
+
+.comments-card-item-container-name .userName {
+  margin-right: 12rpx;
+}
+
+.comments-card-item-container-date {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 4rpx;
+  display: flex;
+}
+
+.comments-card-item-container-content {
+  margin-top: 16rpx;
+  position: relative;
+}
+
+.comments-card-item-container-content .content-text {
+  font-size: 28rpx;
+  white-space: normal;
+  word-break: break-all;
+  font-weight: normal;
+}
+
+.comments-card-item-container-content .hide-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 5;
+  text-align: justify;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.comments-card-item-container-content .showMore {
+  position: absolute;
+  width: 112rpx;
+  height: 36rpx;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.2) 0,
+    rgba(255, 255, 255, 0.45) 20%,
+    rgba(255, 255, 255, 0.7) 25%,
+    rgba(255, 255, 255, 0.9) 30%,
+    rgba(255, 255, 255, 0.95) 35%,
+    #ffffff 50%,
+    #fff 100%
+  );
+  font-size: 26rpx;
+  color: #fa550f;
+  line-height: 36rpx;
+  text-align: right;
+}
+
+.comments-card-item-container-image {
+  margin-top: 24rpx;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.comments-card-item-container-image .commentImg {
+  border-radius: 8rpx;
+  margin-top: 12rpx;
+}
+
+.comments-card-item-container-image .commentImg3 {
+  width: 196rpx;
+  height: 196rpx;
+}
+
+.comments-card-item-container-image .commentImg2 {
+  width: 300rpx;
+  height: 300rpx;
+}
+
+.comments-card-item-container-image .commentImg1 {
+  width: 404rpx;
+  height: 404rpx;
+}
+
+.comments-card-item-container .comments-title {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.comments-title .userName {
+  font-size: 26rpx;
+  color: #333333;
+  margin-left: 24rpx;
+}
+
+.comments-title .commentTime {
+  font-size: 24rpx;
+  color: #999999;
+  position: absolute;
+  right: 0;
+}
+
+.comments-info {
+  display: flex;
+  margin-top: 18rpx;
+}
+
+.comments-info .rate {
+  margin-right: 24rpx;
+}
+
+.comments-info .goods-info-text {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.comments-card-item-container .comments-card-reply {
+  background-color: #f5f5f5;
+  padding: 24rpx 16rpx;
+  margin-top: 24rpx;
+}
+
+.comments-card-item-container .comments-card-reply .prefix {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #666666;
+}
+
+.comments-card-item-container .comments-card-reply .content {
+  font-size: 26rpx;
+  color: #666666;
+}

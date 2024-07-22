@@ -1,0 +1,34 @@
+<t-popup visible="{{show}}" placement="bottom" bind:visible-change="closePromotionPopup">
+	<view class="promotion-popup-container">
+		<view class="promotion-popup-close" bindtap="closePromotionPopup">
+			<t-icon name="close" size="36rpx" />
+		</view>
+		<view class="promotion-popup-title">
+			<view class="title">{{title}}</view>
+		</view>
+		<view class="promotion-popup-content">
+			<view class="promotion-detail-list">
+				<view
+				  class="list-item"
+				  wx:for="{{list}}"
+				  wx:key="index"
+				  bindtap="change"
+				  data-index="{{index}}"
+				>
+					<view class="tag">{{item.tag}}</view>
+					<view class="content">
+						<text class="list-content">{{item.label ? item.label : ''}}</text>
+					</view>
+					<t-icon
+					  class="collect-btn"
+					  name="chevron-right"
+					  size="40rpx"
+					  color="#bbb"
+					/>
+				</view>
+			</view>
+		</view>
+		<slot name="promotion-bottom" />
+	</view>
+</t-popup>
+
