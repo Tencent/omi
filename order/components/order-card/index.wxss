@@ -1,0 +1,45 @@
+.order-card {
+  margin: 24rpx 0;
+  padding: 24rpx 32rpx 24rpx;
+  background-color: white;
+  border-radius: 8rpx;
+}
+.order-card .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+.order-card .header .store-name {
+  font-size: 28rpx;
+  font-weight: normal;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  line-height: 40rpx;
+}
+.order-card .header .store-name__logo {
+  margin-right: 16rpx;
+  font-size: 40rpx;
+  width: 48rpx;
+  height: 48rpx;
+}
+.order-card .header .store-name__label {
+  max-width: 500rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  white-space: nowrap;
+}
+.order-card .header .order-status {
+  font-size: 26rpx;
+  line-height: 40rpx;
+  color: #fa4126;
+}
+.order-card .more-mask {
+  padding: 20rpx 0;
+  text-align: center;
+  background-color: white;
+  color: #fa4126;
+  font-size: 24rpx;
+}

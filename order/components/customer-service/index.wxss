@@ -1,0 +1,48 @@
+.text-btn {
+  display: inline;
+  color: #333;
+  font-size: 24rpx;
+}
+.text-btn--active {
+  opacity: 0.5;
+}
+.dialog--customer-service {
+  background-color: #f3f4f5;
+  overflow: hidden;
+}
+.dialog--customer-service .content {
+  font-size: 26rpx;
+  margin: 32rpx 30rpx;
+  text-align: center;
+}
+.dialog--customer-service .content .title {
+  display: inline;
+  color: #999999;
+  font-weight: bold;
+}
+.dialog--customer-service .content .subtitle {
+  display: inline;
+  color: #999999;
+}
+.dialog--customer-service .options .option {
+  color: #333333;
+  font-size: 30rpx;
+  text-align: center;
+  height: 100rpx;
+  line-height: 100rpx;
+  background-color: white;
+}
+.dialog--customer-service .options .option:not(:last-child) {
+  margin-bottom: 20rpx;
+}
+.dialog--customer-service .options .option--active {
+  opacity: 0.5;
+}
+.dialog--customer-service .options .option.main {
+  color: #333;
+}
+.dialog--customer-service .options .option.online {
+  position: relative;
+  top: -17rpx;
+  margin-bottom: 2rpx;
+}

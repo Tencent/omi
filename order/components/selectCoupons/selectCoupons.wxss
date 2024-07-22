@@ -1,0 +1,104 @@
+.select-coupons {
+  background: #fff;
+  width: 100%;
+  position: relative;
+  border-radius: 20rpx 20rpx 0 0;
+  padding-top: 28rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.select-coupons .title {
+  width: 100%;
+  text-align: center;
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 600;
+  line-height: 44rpx;
+}
+.select-coupons .info {
+  width: 100%;
+  height: 34rpx;
+  font-size: 24rpx;
+  color: #999;
+  line-height: 34rpx;
+  margin: 20rpx 0;
+  padding: 0 20rpx;
+}
+.select-coupons .info .price {
+  color: #fa4126;
+}
+.select-coupons .coupons-list {
+  max-height: 500rpx;
+}
+.select-coupons .coupons-list .coupons-wrap {
+  padding: 0rpx 20rpx;
+}
+.select-coupons .coupons-list .disable {
+  font-size: 24rpx;
+  color: #ff2525;
+  padding-top: 20rpx;
+}
+.select-coupons .coupons-list .slot-radio {
+  position: absolute;
+  right: 22rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+}
+.select-coupons .coupons-list .slot-radio .wr-check-filled {
+  font-size: 36rpx;
+}
+.select-coupons .coupons-list .slot-radio .check {
+  width: 36rpx;
+}
+.select-coupons .coupons-list .slot-radio .text-primary {
+  color: #fa4126;
+}
+.select-coupons .coupons-list .slot-radio .wr-check {
+  font-size: 36rpx;
+}
+.select-coupons .coupons-list .slot-radio .wr-uncheck {
+  font-size: 36rpx;
+  color: #999;
+}
+.select-coupons .couponp-empty-wrap {
+  padding: 40rpx;
+}
+.select-coupons .couponp-empty-wrap .couponp-empty-img {
+  display: block;
+  width: 240rpx;
+  height: 240rpx;
+  margin: 0 auto;
+}
+.select-coupons .couponp-empty-wrap .couponp-empty-title {
+  font-size: 28rpx;
+  color: #999;
+  text-align: center;
+  line-height: 40rpx;
+  margin-top: 40rpx;
+}
+.select-coupons .coupons-cover {
+  height: 112rpx;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 30rpx;
+  padding: 12rpx 32rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.select-coupons .coupons-cover .btn {
+  width: 332rpx;
+  height: 88rpx;
+  text-align: center;
+  line-height: 88rpx;
+  font-size: 32rpx;
+  border-radius: 44rpx;
+  box-sizing: border-box;
+  border: 2rpx solid #dddddd;
+  color: #333333;
+}
+.select-coupons .coupons-cover .red {
+  border-color: #fa4126;
+  background-color: #fa4126;
+  color: #ffffff;
+}

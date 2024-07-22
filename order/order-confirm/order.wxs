@@ -1,0 +1,8 @@
+var toHide = function (array) {
+  if (!array) return;
+  var mphone = array.substring(0, 3) + '****' + array.substring(7);
+  return mphone;
+};
+module.exports = {
+  toHide: toHide,
+};

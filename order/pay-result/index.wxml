@@ -1,0 +1,22 @@
+<t-navbar background="#ffffff" left-icon="slot" />
+<view class="pay-result">
+	<view class="pay-status">
+		<t-icon name="check-circle-filled" size="60rpx" color="#47D368" />
+		<text>支付成功</text>
+	</view>
+	<view class="pay-money">
+		微信支付：
+		<price
+		 wx:if="{{totalPaid}}"
+		 price="{{totalPaid}}"
+		 wr-class="pay-money__price"
+		 decimalSmaller
+		 fill
+		/>
+	</view>
+	<view class="btn-wrapper">
+		<view class="status-btn" data-type="orderList" bindtap="onTapReturn">查看订单</view>
+		<view class="status-btn" data-type="home" bindtap="onTapReturn">返回首页</view>
+	</view>
+</view>
+

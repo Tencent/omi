@@ -1,0 +1,50 @@
+<t-popup
+ visible="{{show}}"
+ placement="bottom"
+ bind:visible-change="onCancel"
+ close-btn="{{showCloseButton}}"
+>
+	<view class="popup-content">
+		<view class="header">
+			{{title}}
+		</view>
+		<view class="options">
+			<t-cell
+			 wx:for="{{_options}}"
+			 wx:key="title"
+			 t-class="cell"
+			 title="{{item.title}}"
+			 bindclick="onOptionTap"
+			 data-index="{{index}}"
+			 border="{{false}}"
+			>
+				<view slot="right-icon">
+					<t-icon
+					 name="check-circle-filled"
+					 size="36rpx"
+					 color="#fa4126"
+					 wx:if="{{item.checked}}"
+					/>
+					<t-icon
+					 name="circle"
+					 size="36rpx"
+					 color="#C7C7C7"
+					 wx:else
+					/>
+				</view>
+			</t-cell>
+		</view>
+		<view class="button-bar" wx:if="{{showConfirmButton}}">
+			<t-button
+			 class="btnWrapper"
+			 wx:if="{{showConfirmButton}}"
+			 t-class="btn"
+			 bindtap="onConfirm"
+			>
+				{{confirmButtonText}}
+			</t-button>
+		</view>
+	</view>
+</t-popup>
+<t-toast id="t-toast" />
+

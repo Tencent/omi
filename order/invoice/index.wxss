@@ -1,0 +1,31 @@
+:host {
+  background-color: #f5f5f5;
+}
+
+.invoice-detail .invoice-detail-box {
+  background-color: #fff;
+  padding: 24rpx 32rpx;
+  margin-top: 24rpx;
+}
+
+.invoice-detail-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.invoice-detail-box-row {
+  display: flex;
+  margin-top: 44rpx;
+}
+
+.invoice-detail-box-title {
+  font-size: 13px;
+  color: #666666;
+  width: 156rpx;
+  margin-right: 32rpx;
+}
+
+.invoice-detail-box-value {
+  font-size: 13px;
+  color: #333333;
+}

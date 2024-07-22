@@ -1,0 +1,443 @@
+:host {
+  background-color: #f5f5f5;
+}
+
+.service-detail {
+  position: relative;
+}
+
+.service-detail wr-service-goods-card .wr-goods-card__body {
+  margin-left: 50rpx;
+}
+
+.order-goods-card-footer {
+  display: flex;
+  width: calc(100% - 190rpx);
+  justify-content: space-between;
+  position: absolute;
+  bottom: 20rpx;
+  left: 190rpx;
+}
+
+.order-goods-card-footer-num {
+  color: #999;
+  line-height: 40rpx;
+}
+
+.service-detail .order-goods-card-footer .order-goods-card-footer-price-class {
+  font-size: 36rpx;
+  color: #333;
+  font-family: DIN Alternate;
+}
+
+.service-detail
+  .order-goods-card-footer
+  .order-goods-card-footer-price-decimal {
+  font-size: 28rpx;
+  color: #333;
+  font-family: DIN Alternate;
+}
+
+.service-detail .order-goods-card-footer .order-goods-card-footer-price-symbol {
+  color: #333;
+  font-size: 24rpx;
+  font-family: DIN Alternate;
+}
+
+.service-detail .service-detail__header {
+  padding: 60rpx 0 48rpx 40rpx;
+  box-sizing: border-box;
+  height: 220rpx;
+  background-color: #fff;
+}
+.service-detail .service-detail__header .title,
+.service-detail .service-detail__header .desc {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.service-detail .service-detail__header .title {
+  -webkit-line-clamp: 1;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+}
+
+.service-detail .service-detail__header .desc {
+  -webkit-line-clamp: 2;
+  margin-top: 10rpx;
+  font-size: 28rpx;
+  color: #999;
+}
+
+.service-detail .service-detail__header .desc .count-down {
+  color: #fff185;
+  display: inline;
+}
+
+.service-detail .service-section {
+  margin: 20rpx 0 20rpx 0;
+  padding: 30rpx 32rpx;
+  width: auto;
+  border-radius: 8rpx;
+  background-color: white;
+  overflow: hidden;
+}
+.service-section__pay {
+  margin: 0 0 20rpx 0;
+  width: auto;
+  border-radius: 8rpx;
+  background-color: white;
+  overflow: hidden;
+}
+.service-detail .service-section__title {
+  color: #333333;
+  margin-bottom: 10rpx;
+  height: 200rpx;
+  position: relative;
+}
+.service-detail .service-section__title .icon {
+  margin-right: 16rpx;
+  font-size: 40rpx !important;
+}
+.service-detail .service-section__title .right {
+  flex: none;
+  font-weight: normal;
+  font-size: 26rpx;
+}
+.service-detail .section-content {
+  margin: 16rpx 0 0 52rpx;
+}
+
+.service-detail .main {
+  font-size: 28rpx;
+  color: #222427;
+  font-weight: bold;
+}
+
+.service-detail .main .phone-num {
+  margin-left: 16rpx;
+  display: inline;
+}
+.service-detail .label {
+  color: #999999;
+  font-size: 26rpx;
+}
+
+.service-detail .custom-remark {
+  font-size: 26rpx;
+  line-height: 36rpx;
+  color: #333333;
+  word-wrap: break-word;
+}
+.service-detail .proofs {
+  margin-top: 20rpx;
+}
+
+.service-detail .proofs .proof {
+  width: 100%;
+  height: 100%;
+  background-color: #f9f9f9;
+}
+
+.service-detail .pay-result .t-cell-title,
+.service-detail .pay-result .t-cell-value {
+  color: #666666;
+  font-size: 28rpx;
+}
+
+.t-class-wrapper {
+  padding: 10rpx 24rpx !important;
+}
+
+.t-class-wrapper-first-child {
+  padding: 24rpx !important;
+}
+
+.service-detail .pay-result .wr-cell__value {
+  font-weight: bold;
+}
+.service-detail .right {
+  font-size: 36rpx;
+  color: #fa550f;
+  font-weight: bold;
+}
+
+.service-detail .title {
+  font-weight: bold;
+}
+
+.service-detail .pay-result .service-section__title .right.integer {
+  font-size: 48rpx;
+}
+.service-detail .pay-result .split-line {
+  position: relative;
+}
+
+.service-detail .pay-result .split-line::after {
+  position: absolute;
+  display: block;
+  content: ' ';
+  height: 1px;
+  left: -50%;
+  right: -50%;
+  transform: scale(0.5);
+  background-color: #e6e6e6;
+}
+
+.service-detail .pay-result .section-content {
+  margin-left: 0;
+}
+
+.service-detail .pay-result .section-content .label {
+  color: #999999;
+  font-size: 24rpx;
+}
+
+.service-detail .pay-result .wr-cell::after {
+  left: 0;
+}
+
+.service-detail .footer-bar-wrapper {
+  height: 100rpx;
+}
+
+.service-detail .footer-bar-wrapper .footer-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 100rpx;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 0 20rpx;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.service-detail .text-btn {
+  display: inline;
+  color: #333;
+  border: 2rpx solid #efefef;
+  border-radius: 25rpx;
+  margin-left: 10rpx;
+  padding: 0 30rpx;
+  font-weight: normal;
+  font-size: 24rpx;
+}
+.service-detail .text-btn--active {
+  opacity: 0.5;
+}
+
+.service-detail .specs-popup .bottom-btn {
+  color: #fa550f;
+}
+.service-detail .specs-popup .bottom-btn::after {
+  color: #fa550f;
+}
+
+.dialog .dialog__button-confirm {
+  color: #fa550f;
+}
+
+.page-container
+  .order-goods-card
+  > wr-goods-card
+  .wr-goods-card__bottom
+  .price {
+  top: 100rpx;
+  left: 10rpx;
+  position: absolute;
+  color: #333;
+}
+
+.page-container .order-goods-card > wr-goods-card .wr-goods-card__num {
+  top: 100rpx;
+  right: 0;
+  position: absolute;
+}
+
+.page-container
+  .order-goods-card
+  > wr-goods-card
+  .wr-goods-card__bottom
+  .price::before {
+  display: inline;
+  content: '退款金额:';
+  margin-right: 1em;
+  font-size: 24rpx;
+  color: #333333;
+  font-weight: normal;
+}
+
+.page-container .wr-goods-card__specs {
+  margin: 14rpx 20rpx 0 0;
+}
+
+.page-container .order-goods-card > wr-goods-card .wr-goods-card__title {
+  margin-right: 0;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  width: 80%;
+}
+
+.page-container .order-card .header .store-name {
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  width: 80%;
+}
+
+.page-container .status-desc {
+  box-sizing: border-box;
+  padding: 22rpx 20rpx;
+  font-size: 26rpx;
+  line-height: 1.3;
+  text-align: left;
+  color: #333333;
+  background-color: #f5f5f5;
+  border-radius: 8rpx;
+  word-wrap: break-word;
+  margin-top: 40rpx;
+  margin-bottom: 20rpx;
+}
+
+.page-container .header__right {
+  font-size: 24rpx;
+  color: #333333;
+  display: flex;
+  align-items: center;
+}
+
+.page-container .header__right__icon {
+  color: #d05b27;
+  font-size: 16px !important;
+  margin-right: 10rpx;
+}
+
+.page-container .wr-goods-card__thumb {
+  width: 140rpx;
+}
+.page-container .page-background {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  color: #fff;
+  overflow: hidden;
+}
+.page-container .page-background-img {
+  width: 100%;
+  height: 320rpx !important;
+}
+.page-container .navbar-bg .nav-back,
+.page-container .navbar-bg .page-background {
+  background: linear-gradient(
+    to right,
+    rgba(250, 85, 15, 1) 0%,
+    rgba(250, 85, 15, 0.6) 100%
+  ) !important;
+}
+
+.page-container .navigation-bar__btn {
+  font-size: 40rpx !important;
+  font-weight: bold !important;
+  color: #333;
+}
+
+.t-class-title {
+  color: #000;
+}
+
+.refresh-bar {
+  background: linear-gradient(90deg, #ff6b44 0%, #ed3427 100%) !important;
+}
+
+.page-container .navigation-bar__inner .navigation-bar__left {
+  padding-left: 16rpx;
+}
+
+.t-refund-info {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.t-refund-grid-image {
+  width: 212rpx !important;
+  height: 212rpx !important;
+}
+
+.t-refund-info-img {
+  width: 100%;
+  height: 100%;
+}
+
+.t-refund-wrapper {
+  padding: 10rpx 24rpx 10rpx 20rpx !important;
+}
+
+.t-refund-title {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.t-refund-note {
+  font-size: 26rpx;
+  color: #333 !important;
+}
+
+.service-detail .logistics {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 0;
+}
+
+.service-section__title__header {
+  display: flex;
+  align-items: center;
+  color: #333;
+  font-weight: normal;
+  font-size: 32rpx;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.service-section-logistics {
+  display: flex;
+  justify-content: center;
+  color: #fa4126;
+  align-items: center;
+  margin-top: 24rpx;
+}
+.add-notes__confirm {
+  color: #fa4126 !important;
+}
+.t-class-indicator {
+  color: #b9b9b9 !important;
+}
+
+.service-detail .goods-refund-address {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.service-detail .goods-refund-address .goods-refund-address-copy-btn {
+  position: absolute;
+  top: 22rpx;
+  right: 0;
+}
+
+.service-detail .service-goods-card-wrap {
+  padding-top: 0;
+  padding-bottom: 0;
+}

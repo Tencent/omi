@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "wr-order-card": "/pages/order/components/order-card/index",
+    "wr-goods-card": "/components/goods-card/index",
+    "wr-order-goods-card": "/pages/order/components/order-goods-card/index"
+  }
+}

@@ -1,0 +1,57 @@
+:host {
+  width: 100%;
+}
+.btn-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1;
+}
+.btn-bar .order-btn {
+  background-color: inherit;
+  line-height: 1;
+  border-radius: unset;
+  min-width: 160rpx;
+  font-size: 28rpx;
+}
+.btn-bar .order-btn::after {
+  border-radius: 16rpx;
+}
+.btn-bar .order-btn--active {
+  opacity: 0.5;
+}
+
+.btn-bar .right {
+  display: flex;
+  align-items: center;
+}
+.btn-bar .t-button {
+  width: 160rpx;
+  height: 56rpx;
+  border-radius: 28rpx;
+  margin-left: 24rpx;
+}
+.btn-bar .t-button--max {
+  width: 176rpx;
+  height: 72rpx;
+  border-radius: 36rpx;
+  margin-left: 24rpx;
+}
+
+.btn-bar .left .delete-btn {
+  font-size: 22rpx;
+}
+.btn-bar .left .delete-btn::after {
+  display: none;
+}
+.btn-bar .right .normal {
+  color: #333333;
+}
+.btn-bar .right .normal:after {
+  border-color: #dddddd;
+}
+.btn-bar .right .primary {
+  color: #ffffff;
+  background-color: #fa4126;
+  border-color: #fa4126;
+}

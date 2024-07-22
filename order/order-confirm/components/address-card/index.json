@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "t-cell": "tdesign-miniprogram/cell/cell",
+    "t-icon": "tdesign-miniprogram/icon/icon"
+  }
+}

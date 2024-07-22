@@ -1,0 +1,46 @@
+:host {
+  width: 100%;
+}
+.btn-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1;
+}
+.btn-bar .order-btn {
+  background-color: inherit;
+  font-size: 26rpx;
+  padding: 16rpx 28rpx;
+  line-height: 1;
+  border-radius: unset;
+  min-width: 160rpx;
+  border-radius: 32rpx;
+  height: 60rpx;
+  margin-right: 10rpx;
+}
+
+.btn-bar .left .order-btn:not(:first-child),
+.btn-bar .right .order-btn:not(:first-child) {
+  margin-left: 20rpx;
+}
+.btn-bar .left .delete-btn {
+  font-size: 22rpx;
+}
+.btn-bar .left .delete-btn::after {
+  display: none;
+}
+.btn-bar .right .normal {
+  color: #333;
+  font-size: 28rpx;
+}
+.btn-bar .right .normal:after {
+  border-color: #bbbbbb;
+}
+.btn-bar .right .primary {
+  color: #fa550f;
+  color: var(--color-primary, #fa550f);
+}
+.btn-bar .right .primary:after {
+  border-color: #fa550f;
+  border-color: var(--color-primary, #fa550f);
+}

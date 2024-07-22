@@ -1,0 +1,103 @@
+:host {
+  background-color: #f5f5f5;
+}
+
+.list-loading {
+  height: 100rpx;
+}
+
+.empty-wrapper {
+  height: calc(100vh - 88rpx);
+}
+
+.page-container .order-goods-card-footer {
+  display: flex;
+  width: calc(100% - 190rpx);
+  justify-content: space-between;
+  position: absolute;
+  bottom: 20rpx;
+  left: 190rpx;
+}
+
+.page-container .order-goods-card-footer .order-goods-card-footer-num {
+  color: #999;
+  line-height: 40rpx;
+}
+
+.page-container .order-goods-card-footer .order-goods-card-footer-price-class {
+  font-size: 36rpx;
+  color: #333;
+  font-family: DIN Alternate;
+}
+
+.page-container .order-goods-card-footer .order-goods-card-footer-price-decimal {
+  font-size: 28rpx;
+  color: #333;
+  font-family: DIN Alternate;
+}
+
+.page-container .order-goods-card-footer .order-goods-card-footer-price-symbol {
+  color: #333;
+  font-size: 24rpx;
+  font-family: DIN Alternate;
+}
+
+.page-container .wr-goods-card__specs {
+  margin: 14rpx 20rpx 0 0;
+}
+
+.page-container .order-goods-card > wr-goods-card .wr-goods-card__title {
+  margin-right: 0;
+  -webkit-line-clamp: 1;
+}
+
+.page-container .order-card .header .store-name {
+  width: 80%;
+  -webkit-line-clamp: 1;
+}
+
+.page-container .order-card .header .store-name > view {
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.page-container .status-desc {
+  box-sizing: border-box;
+  padding: 22rpx 20rpx;
+  font-size: 26rpx;
+  line-height: 1.3;
+  text-align: left;
+  color: #333333;
+  background-color: #f5f5f5;
+  border-radius: 8rpx;
+  word-wrap: break-word;
+  margin-top: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.page-container .header__right {
+  font-size: 24rpx;
+  color: #fa4126;
+  display: flex;
+  align-items: center;
+}
+
+.page-container .header__right__icon {
+  color: #d05b27;
+  font-size: 16px !important;
+  margin-right: 10rpx;
+}
+
+.t-class-indicator {
+  color: #b9b9b9 !important;
+}
+
+.add-notes__confirm {
+  color: #fa4126 !important;
+}
+
+.page-container .header-class {
+  margin-bottom: 5rpx!important;
+}

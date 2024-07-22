@@ -1,0 +1,95 @@
+@import '../../../style/theme.wxss';
+
+:host {
+  background-color: #f5f5f5;
+}
+
+.notice-bar {
+  padding: 24rpx 30rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: #e17349;
+  background: #fefcef;
+}
+
+.fill-tracking-no__form {
+  margin-top: 20rpx;
+}
+
+.fill-tracking-no__form .t-cell__note {
+  justify-content: flex-start;
+}
+
+.fill-tracking-no__form .t-cell__value {
+  color: #333 !important;
+  font-size: 30rpx;
+  text-align: left;
+  padding: 0;
+}
+
+
+.fill-tracking-no__form .t-cell__value::after {
+  border: none !important;
+}
+
+.fill-tracking-no__form .t-cell__value .t-textarea__wrapper {
+  padding: 0;
+}
+
+.fill-tracking-no__form .t-input__control,
+.fill-tracking-no__form .t-textarea__placeholder,
+.fill-tracking-no__form .t-cell__placeholder {
+  font-size: 30rpx !important;
+}
+
+.fill-tracking-no__form .t-textarea__placeholder,
+.fill-tracking-no__form .t-cell__placeholder {
+  color: #bbbbbb !important;
+}
+
+.t-textarea__note {
+  width: 100%;
+}
+
+.fill-tracking-no__button-bar {
+  margin: 38rpx 30rpx 0;
+}
+
+.fill-tracking-no__button-bar .btn {
+  background-color: transparent;
+  font-size: 32rpx;
+  width: 100%;
+  border-radius: 48rpx;
+}
+
+.fill-tracking-no__button-bar .btn:first-child {
+  margin-bottom: 20rpx;
+}
+
+.fill-tracking-no__button-bar .btn.confirmBtn {
+  background: #fa4126;
+  color: #fff;
+}
+
+.fill-tracking-no__button-bar .btn.disabled {
+  background-color: #c6c6c6;
+  color: #fff;
+}
+
+.fill-tracking-no__button-bar .t-class-confirm {
+  color: #fa4126;
+}
+
+.t-cell-title-width {
+  width: 160rpx;
+  flex: none !important;
+}
+.textarea-wrapper {
+  background: #fff;
+  display: flex;
+  align-items: flex-start;
+  padding: 24rpx 32rpx 0 32rpx;
+}
+.t-textarea-wrapper {
+  box-sizing: border-box;
+}

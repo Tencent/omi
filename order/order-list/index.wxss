@@ -1,0 +1,107 @@
+:host {
+  background-color: #f5f5f5;
+}
+.page-container .tab-bar__placeholder,
+.page-container .tab-bar__inner {
+  height: 88rpx;
+  line-height: 88rpx;
+  background: #fff;
+}
+.page-container .tab-bar__inner {
+  font-size: 26rpx;
+  color: #333333;
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  left: 0;
+}
+.page-container .tab-bar__inner.order-nav .order-nav-item .bottom-line {
+  bottom: 12rpx;
+}
+.tab-bar__inner .t-tabs-is-active {
+  color: #fa4126 !important;
+}
+
+.tab-bar__inner .t-tabs-track {
+  background: #fa4126 !important;
+}
+
+.page-container .tab-bar__active {
+  font-size: 28rpx;
+}
+.page-container .specs-popup .bottom-btn {
+  color: #fa4126;
+  color: var(--color-primary, #fa4126);
+}
+.page-container .specs-popup .bottom-btn::after {
+  border-color: #fa4126;
+  border-color: var(--color-primary, #fa4126);
+}
+.dialog .dialog__button-confirm {
+  color: #fa4126;
+  color: var(--color-primary, #fa4126);
+}
+.list-loading {
+  height: 100rpx;
+}
+.empty-wrapper {
+  height: calc(100vh - 88rpx);
+}
+.btn-bar {
+  margin-top: 20rpx;
+}
+.load-more {
+  margin: 0 24rpx;
+}
+wr-order-goods-card:not(:first-child) .wr-goods-card {
+  margin-top: 40rpx;
+}
+
+.price-total {
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #999999;
+  padding-top: 10rpx;
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+}
+.price-total .bold-price {
+  color: #333333;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #333333;
+}
+.price-total .real-pay {
+  font-size: 36rpx;
+  line-height: 48rpx;
+  color: #fa4126;
+  font-weight: bold;
+}
+
+.t-tabs.t-tabs--top .t-tabs-scroll {
+  border: none !important;
+}
+.t-empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.page-container .order-number {
+  color: #666666;
+  font-size: 28rpx;
+}
+.t-class-indicator {
+  color: #b9b9b9 !important;
+}
+.tab-bar .tab-bar__active {
+  color: #333333 !important;
+}
+
+.tab-bar .t-tabs-track {
+  background: #333333 !important;
+}
+.add-notes__confirm {
+  color: #fa4126 !important;
+}

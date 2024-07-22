@@ -1,0 +1,91 @@
+<wxs module="isUrl">
+	var isUrl = function(item) {
+	return item.indexOf('http') > -1;
+	}
+	module.exports = {
+	isUrl: isUrl,
+	}
+</wxs>
+
+<view class="page-section cells" wx:if="{{logisticsData.logisticsNo || logisticsData.company}}">
+	<t-cell-group>
+		<t-cell
+		  title="快递单号"
+		  t-class-title="wr-cell__title"
+		  t-class-note="wr-cell__value"
+		  t-class-left="order-group__left"
+		  wx:if="{{logisticsData.logisticsNo}}"
+		  bordered="{{false}}"
+		>
+			<text slot="note" class="logistics-no">{{logisticsData.logisticsNo}}</text>
+			<view
+			  slot="right-icon"
+			  class="text-btn"
+			  hover-class="text-btn--active"
+			  bindtap="onLogisticsNoCopy"
+			>复制
+			</view>
+		</t-cell>
+		<t-cell
+		  title="物流公司"
+		  t-class-title="wr-cell__title"
+		  t-class-note="wr-cell__value"
+		  t-class-left="order-group__left"
+		  bordered="{{false}}"
+		  wx:if="{{logisticsData.company}}"
+		  note="{{logisticsData.company + (logisticsData.phoneNumber ? '-' + logisticsData.phoneNumber : '')}}"
+		>
+			<view
+			  slot="right-icon"
+			  class="text-btn"
+			  hover-class="text-btn--active"
+			  bindtap="onCall"
+			  wx:if="{{logisticsData.phoneNumber}}"
+			>
+				拨打
+			</view>
+		</t-cell>
+	</t-cell-group>
+</view>
+<view class="page-section cell-steps">
+	<t-steps
+	  class="page-section__steps"
+	  t-class="steps"
+	  layout="vertical"
+	  current="{{active}}"
+	>
+		<t-step
+		  class="steps"
+		  t-class-title="step-title"
+		  wx:for="{{logisticsData.nodes}}"
+		  wx:for-item="item"
+		  wx:for-index="index"
+		  wx:key="index"
+		  title="{{item.title}}"
+		  icon="slot"
+		>
+			<block wx:if="{{isUrl.isUrl(item.icon)}}">
+				<t-image
+				  class="cell-steps__imgWrapper"
+				  slot="icon"
+				  t-class="cell-steps__img"
+				  src="{{item.icon}}"
+				/>
+			</block>
+			<block wx:else>
+				<t-icon
+				  slot="icon"
+				  size="32rpx"
+				  prefix="wr"
+				  color="{{index === 0 ? '#ef5433' : '#bbb'}}"
+				  name="{{item.icon}}"
+				/>
+			</block>
+			<view slot="content">
+				<view class="step-desc">{{item.desc}}</view>
+				<view class="step-date">{{item.date}}</view>
+			</view>
+		</t-step>
+	</t-steps>
+</view>
+

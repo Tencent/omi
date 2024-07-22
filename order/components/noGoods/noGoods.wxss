@@ -1,0 +1,68 @@
+/* 层级定义
+@z-index-0: 1;
+@z-index-1: 100;
+@z-index-2: 200;
+@z-index-5: 500;
+@z-index-component: 1000; // 通用组件级别
+@z-index-dropdown: @z-index-component;
+@z-index-sticky: @z-index-component + 20;
+@z-index-fixed: @z-index-component + 30;
+@z-index-modal-backdrop:@z-index-component + 40;
+@z-index-modal:@z-index-component + 50;
+@z-index-popover:@z-index-component + 60;
+@z-index-tooltip:@z-index-component + 70;
+*/
+/* var() css变量适配*/
+.goods-fail {
+  display: block;
+  background: #fff;
+  font-size: 30rpx;
+  border-radius: 20rpx 20rpx 0 0;
+}
+.goods-fail .title {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-top: 30rpx;
+  line-height: 42rpx;
+  font-weight: bold;
+  font-size: 32rpx;
+}
+.goods-fail .info {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 400;
+  line-height: 36rpx;
+  margin: 20rpx auto 10rpx;
+  text-align: center;
+  width: 560rpx;
+  color: #999;
+}
+.goods-fail .goods-fail-btn {
+  display: flex;
+  padding: 30rpx;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30rpx;
+}
+.goods-fail .goods-fail-btn .btn {
+  width: 330rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 8rpx;
+  text-align: center;
+  border: 1rpx solid #999;
+  background: #fff;
+  font-size: 32rpx;
+  color: #666;
+}
+.goods-fail .goods-fail-btn .btn.origin,
+.goods-fail .goods-fail-btn .btn.limit {
+  color: #fa550f;
+  color: var(--color-primary, #fa550f);
+  border: 1rpx solid #fa550f;
+  border: 1rpx solid var(--color-primary, #fa550f);
+}
+.goods-fail .goods-fail-btn .btn.limit {
+  flex-grow: 1;
+}

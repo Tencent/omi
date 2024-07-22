@@ -1,0 +1,66 @@
+.address-card {
+  background: #fff;
+  margin: 0rpx 0rpx 24rpx;
+}
+.address-card .wr-cell__title {
+  color: #999;
+  margin-left: 6rpx;
+}
+.address-card .order-address {
+  display: flex;
+  width: 100%;
+}
+.address-card .order-address .address-content {
+  flex: 1;
+}
+.order-address .address__right {
+  align-self: center;
+}
+.address-card .order-address .title {
+  display: flex;
+  align-items: center;
+  height: 40rpx;
+  font-size: 28rpx;
+  font-weight: normal;
+  color: #999999;
+  line-height: 40rpx;
+}
+.address-card .order-address .title .address-tag {
+  width: 52rpx;
+  height: 29rpx;
+  border: 1rpx solid #0091ff;
+  background-color: rgba(122, 167, 251, 0.1);
+  text-align: center;
+  line-height: 29rpx;
+  border-radius: 8rpx;
+  color: #0091ff;
+  font-size: 20rpx;
+  margin-right: 12rpx;
+}
+.address-card .order-address .detail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+  line-height: 48rpx;
+  margin: 8rpx 0;
+}
+.address-card .order-address .info {
+  height: 40rpx;
+  font-size: 28rpx;
+  font-weight: normal;
+  color: #333333;
+  line-height: 40rpx;
+}
+.address-card .top-line {
+  width: 100%;
+  height: 6rpx;
+  background-color: #fff;
+  background-image: url(https://cdn-we-retail.ym.tencent.com/miniapp/order/stripe.png);
+  background-repeat: repeat-x;
+  display: block;
+}

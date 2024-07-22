@@ -1,0 +1,43 @@
+<wxs src="./selectCoupon.wxs" module="m1" />
+
+
+<t-popup visible="{{couponsShow}}" placement="bottom" bind:visible-change="hide">
+	<view class="select-coupons">
+		<view class="title">选择优惠券</view>
+		<block wx:if="{{couponsList && couponsList.length > 0}}">
+			<view class="info">
+				<block wx:if="{{!selectedNum}}">你有{{couponsList.length}}张可用优惠券</block>
+				<block wx:else>
+					已选中{{selectedNum}}张推荐优惠券, 共抵扣
+					<wr-price fill="{{false}}" price="{{reduce || 0}}" />
+				</block>
+			</view>
+			<scroll-view class="coupons-list" scroll-y="true">
+				<view class="coupons-wrap">
+					<block wx:for="{{couponsList}}" wx:key="index" wx:for-item="coupon">
+						<coupon-card
+						 title="{{coupon.title}}"
+						 type="{{coupon.type}}"
+						 status="{{coupon.status}}"
+						 desc="{{coupon.desc}}"
+						 value="{{coupon.value}}"
+						 tag="{{coupon.tag}}"
+						 timeLimit="{{coupon.timeLimit}}"
+						>
+							<view class="slot-radio" slot="operator">
+                <t-icon bindtap="selectCoupon" data-key="{{coupon.key}}" name="{{coupon.isSelected ? 'check-circle-filled' : 'circle'}}" color="#fa4126" size="40rpx"/>
+							</view>
+						</coupon-card>
+						<view class="disable" wx:if="{{coupon.status == 'useless'}}">此优惠券不能和已勾选的优惠券叠加使用</view>
+					</block>
+				</view>
+			</scroll-view>
+		</block>
+		<view wx:else class="couponp-empty-wrap">
+			<t-image t-class="couponp-empty-img" src="{{emptyCouponImg}}" />
+			<view class="couponp-empty-title">暂无优惠券</view>
+		</view>
+		<view class="coupons-cover" />
+	</view>
+</t-popup>
+

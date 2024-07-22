@@ -1,0 +1,23 @@
+<!-- 联系客服按钮 -->
+<view class="wr-class customer-service text-btn" hover-class="text-btn--active" bindtap="onBtnTap">联系客服</view>
+<!-- 联系客服弹框 -->
+<t-popup visible="{{show}}" placement="bottom" bind:visible-change="onDialogClose">
+	<view class="dialog--customer-service">
+		<view class="content" wx:if="{{desc}}">
+			<view class="title">服务时间:</view>
+			<text class="subtitle">{{desc}}</text>
+		</view>
+		<view class="options">
+			<view
+			  class="option main"
+			  hover-class="text-btn--active"
+			  wx:if="{{phoneNumber}}"
+			  bindtap="onCall"
+			>呼叫 {{phoneNumber}}
+			</view>
+			<view class="option main online" hover-class="text-btn--active" bindtap="onCallOnlineService">在线客服</view>
+			<view class="option" hover-class="text-btn--active" bindtap="onDialogClose">取消</view>
+		</view>
+	</view>
+</t-popup>
+

@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "物流信息",
+  "usingComponents": {
+    "t-cell": "tdesign-miniprogram/cell/cell",
+    "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
+    "t-steps": "tdesign-miniprogram/steps/steps",
+    "t-image": "/components/webp-image/index",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-step": "tdesign-miniprogram/steps/step-item"
+  }
+}

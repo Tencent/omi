@@ -1,0 +1,11 @@
+var getNotes = function (storeInfoList, storeIndex) {
+  if (!storeInfoList) {
+    return '';
+  }
+  var storeInfo = storeInfoList[storeIndex];
+  if (!storeInfo) {
+    return '';
+  }
+  return storeInfoList[storeIndex].remark;
+};
+module.exports = getNotes;

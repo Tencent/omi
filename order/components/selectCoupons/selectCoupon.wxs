@@ -1,0 +1,16 @@
+function formatDays(value) {
+  if (value < 10) {
+    return '0' + value;
+  }
+  return value;
+}
+var dateFormat = function (d) {
+  var date = getDate(+d);
+  return (
+    date.getFullYear() +
+    '-' +
+    formatDays(date.getMonth() + 1) +
+    formatDays(date.getDate())
+  );
+};
+module.exports.dateFormat = dateFormat;

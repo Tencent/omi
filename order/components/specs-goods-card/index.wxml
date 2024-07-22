@@ -1,0 +1,40 @@
+<goods-card
+ class="wr-specs-goods-card"
+ id="{{id}}"
+ layout="{{layout}}"
+ data="{{data}}"
+ currency="{{currency}}"
+ price-fill="{{priceFill}}"
+ lazy-load="{{lazyLoad}}"
+ centered="{{centered}}"
+ thumb-mode="{{thumbMode}}"
+ thumb-width="{{thumbWidth}}"
+ thumb-height="{{thumbHeight}}"
+ show-cart="{{showCart}}"
+ cart-size="{{cartSize}}"
+ cart-color="{{cartColor}}"
+ card-class="{{index === goodsList.length - 1 ? 'wr-goods-card__no-border' : 'wr-goods-card'}}"
+ title-class="title-class"
+ desc-class="desc-class"
+ num-class="num-class"
+ thumb-class="thumb-class"
+ specs-class="specs-class"
+ price-class="price-class"
+ origin-price-class="origin-price-class"
+ price-prefix-class="price-prefix-class"
+ bind:thumb="onClickThumb"
+ bind:tag="onClickTag"
+ bind:add-cart="onClickCart"
+ bind:click="onClick"
+ hidden="{{hiddenInData}}"
+>
+	<!-- 透传good-card组件的slot -->
+	<slot name="thumb-cover" slot="thumb-cover" />
+	<slot name="after-title" slot="after-title" />
+	<slot name="after-desc" slot="after-desc" />
+	<slot name="price-prefix" slot="price-prefix" />
+	<slot name="append-body" slot="append-body" />
+	<slot name="footer" slot="footer" />
+	<slot name="append-card" slot="append-card" />
+</goods-card>
+

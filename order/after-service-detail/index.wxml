@@ -1,0 +1,223 @@
+<wr-loading-content position="fixed" type="spinner" wx:if="{{pageLoading}}" />
+<view class="page-container">
+	<t-pull-down-refresh id="t-pull-down-refresh" bind:refresh="onPullDownRefresh_" t-class-indicator="t-class-indicator">
+		<!-- 页面内容 -->
+		<view class="service-detail safe-bottom">
+			<!-- 状态及描述 -->
+			<view class="service-detail__header">
+				<view class="title">
+					<t-icon prefix="wr" name="{{service.statusIcon}}" size="30px" />
+					{{service.statusName}}
+				</view>
+				<view class="desc">
+					{{service.statusDesc}}
+				</view>
+			</view>
+			<!-- 退款金额 -->
+			<view class="service-section__pay pay-result" wx:if="{{service.isRefunded}}">
+				<t-cell
+				  t-class-title="title"
+				  t-class-note="right"
+				  t-class="t-class-wrapper-first-child"
+				  title="{{service.isRefunded ? '退款金额' : '预计退款金额'}}"
+				  bordered="{{false}}"
+				>
+					<wr-price slot="note" price="{{service.refundRequestAmount}}" fill />
+				</t-cell>
+				<t-cell
+				  wx:for="{{service.refundMethodList}}"
+				  wx:key="name"
+				  wx:for-index="index"
+				  wx:for-item="item"
+				  t-class-title="t-cell-title"
+				  t-class-note="t-cell-title"
+				  t-class="t-class-wrapper"
+				  title="{{item.name}}"
+				  bordered="{{service.refundMethodList.length - 1 === index ? true : false}}"
+				>
+					<wr-price slot="note" price="{{item.amount}}" fill />
+				</t-cell>
+				<block wx:if="{{service.isRefunded}}">
+					<t-cell
+					  title=""
+					  t-class="t-class-wrapper-first-child"
+					  t-class-description="label"
+					  description="说明：微信退款后，可以在微信支付账单查询，实际退款到时间可能受到银行处理时间的影响有一定延时，可以稍后查看"
+					/>
+				</block>
+			</view>
+			<!-- 物流 -->
+			<view class="service-section logistics" wx:if="{{service.logisticsNo}}">
+				<view class="service-section__title">
+					<t-cell
+					  title="{{service.logisticsCompanyName + ' ' + service.logisticsNo}}"
+					  bordered="{{false}}"
+					  description="买家已寄出"
+					  arrow
+					>
+						<t-icon
+						  prefix="wr"
+						  color="#333333"
+						  name="deliver"
+						  size="40rpx"
+						  slot="left-icon"
+						  style="position: absolute; top: 25rpx; left:0"
+						/>
+						<view slot="note" style="position: absolute; bottom: -45rpx;right: 20rpx">
+							<wr-after-service-button-bar service="{{service}}" />
+						</view>
+					</t-cell>
+				</view>
+			</view>
+			<!-- 收货地址 -->
+			<view class="service-section goods-refund-address" wx:if="{{service.receiverName}}">
+				<t-cell-group>
+					<t-cell title="退货地址" bordered="{{false}}">
+						<view
+						  slot="note"
+						  class="right text-btn goods-refund-address-copy-btn"
+						  hover-class="text-btn--active"
+						  bindtap="onAddressCopy"
+						>复制
+						</view>
+						<view slot="description">
+							<view>
+								{{service.receiverAddress}}
+							</view>
+							<view>收货人：{{service.receiverName}}</view>
+							<view>收货人手机：{{service.receiverName}}</view>
+						</view>
+						<t-icon
+						  prefix="wr"
+						  color="#333333"
+						  name="location"
+						  size="40rpx"
+						  slot="left-icon"
+						  style="position: absolute; top: 25rpx; left:0"
+						/>
+					</t-cell>
+				</t-cell-group>
+			</view>
+			<!-- 商品卡片 -->
+			<view class="service-section service-goods-card-wrap" wx:if="{{service.goodsList && service.goodsList.length > 0}}">
+				<wr-service-goods-card
+				  wx:for="{{service.goodsList}}"
+				  wx:key="id"
+				  wx:for-item="goods"
+				  goods="{{goods}}"
+				  no-top-line
+				  bindtap="onGoodsCardTap"
+				  data-index="{{index}}"
+				>
+					<view slot="footer" class="order-goods-card-footer">
+						<wr-price
+						  price="{{goods.itemRefundAmount}}"
+						  fill
+						  wr-class="order-goods-card-footer-price-class"
+						  symbol-class="order-goods-card-footer-price-symbol"
+						  decimal-class="order-goods-card-footer-price-decimal"
+						/>
+						<view class="order-goods-card-footer-num">x {{goods.rightsQuantity}}</view>
+					</view>
+				</wr-service-goods-card>
+			</view>
+			<!-- 退款信息 -->
+			<view class="service-section__pay">
+				<t-cell
+				  bordered="{{false}}"
+				  title="退款信息"
+				  t-class="t-refund-wrapper"
+				  t-class-title="t-refund-title"
+				/>
+				<t-cell
+				  bordered="{{false}}"
+				  t-class="t-refund-wrapper"
+				  t-class-title="t-refund-info"
+				  t-class-note="t-refund-note"
+				  title="订单编号"
+				  note="{{service.orderNo}}"
+				/>
+				<t-cell
+				  bordered="{{false}}"
+				  t-class="t-refund-wrapper"
+				  t-class-title="t-refund-info"
+				  t-class-note="t-refund-note"
+				  title="服务单号"
+				  note="{{service.rightsNo}}"
+				>
+					<view
+					  slot="right-icon"
+					  class="text-btn"
+					  hover-class="text-btn--active"
+					  bindtap="onServiceNoCopy"
+					>复制
+					</view>
+				</t-cell>
+				<t-cell
+				  bordered="{{false}}"
+				  t-class="t-refund-wrapper"
+				  t-class-title="t-refund-info"
+				  t-class-note="t-refund-note"
+				  title="退款原因"
+				  note="{{service.rightsReasonDesc}}"
+				/>
+				<t-cell
+				  bordered="{{false}}"
+				  t-class="t-refund-wrapper"
+				  t-class-title="t-refund-info"
+				  t-class-note="t-refund-note"
+				  title="退款金额"
+				>
+					<wr-price slot="note" price="{{service.refundRequestAmount}}" fill />
+				</t-cell>
+				<t-cell
+				  bordered="{{false}}"
+				  t-class="t-refund-wrapper"
+				  t-class-title="t-refund-info"
+				  t-class-note="t-refund-note"
+				  title="申请时间"
+				  note="{{service.createTime}}"
+				/>
+			</view>
+			<!-- 凭证/说明 -->
+			<view class="service-section__pay" wx:if="{{showProofs}}">
+				<t-cell
+				  bordered="{{false}}"
+				  title="凭证/说明"
+				  t-class="t-refund-wrapper"
+				  t-class-title="t-refund-info"
+				  description="{{service.applyRemark}}"
+				/>
+				<t-grid border="{{false}}" column="{{3}}">
+					<t-grid-item
+						t-class-image="t-refund-grid-image"
+						wx:for="{{gallery.proofs}}"
+					  wx:key="index"
+						image="{{item}}"
+						bindclick="onProofTap"
+					  data-index="{{index}}"
+					 />
+				</t-grid>
+			</view>
+			<t-swiper
+			  wx:if="{{gallery.show}}"
+			  current="{{gallery.current}}"
+			  img-srcs="{{gallery.proofs}}"
+			  full-screen
+			  circular="{{false}}"
+			  bindtap="onProofTap"
+			/>
+		</view>
+	</t-pull-down-refresh>
+</view>
+<t-toast id="t-toast" />
+<!-- 退款说明填写 -->
+<t-dialog id="input-dialog" t-class-confirm="add-notes__confirm" visible="{{inputDialogVisible}}">
+	<view class="input-dialog__content" slot="content">
+		<view style="color: #333333;padding-left: 32rpx">物流单号</view>
+		<t-input class="input" placeholder="请输入物流单号" />
+		<view class="tips">{{amountTip}}</view>
+	</view>
+</t-dialog>
+<t-dialog id="t-dialog" t-class-confirm="add-notes__confirm" />
+

@@ -1,0 +1,31 @@
+<view class="btn-bar">
+	<view class="left">
+		<t-button
+		 wx:for="{{buttons.left}}"
+		 wx:key="type"
+		 wx:for-item="leftBtn"
+		 size="small"
+		 t-class="order-btn delete-btn"
+		 catchtap="onServiceBtnTap"
+		 data-type="{{leftBtn.type}}"
+		>
+			{{leftBtn.name}}
+		</t-button>
+	</view>
+	<view class="right">
+		<t-button
+		 wx:for="{{buttons.right}}"
+		 wx:key="type"
+		 wx:for-item="rightBtn"
+		 size="small"
+		 t-class="order-btn {{rightBtn.primary ? 'primary' : 'normal'}}"
+		 catchtap="onServiceBtnTap"
+		 data-type="{{rightBtn.type}}"
+		 open-type="{{ rightBtn.openType }}"
+		 data-share="{{ rightBtn.dataShare }}"
+		>
+			{{rightBtn.name}}
+		</t-button>
+	</view>
+</view>
+

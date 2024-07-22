@@ -1,0 +1,55 @@
+<wxs module="order">
+    var isOnlyBack = function(data) {
+      return data.limitGoodsList || (data.inValidGoodsList && !data.storeGoodsList);
+    }
+
+    var isShowChangeAdress = function(data) {
+      return data.abnormalDeliveryGoodsList
+    }
+
+    var isShowKeepPay = function(data) {
+      return data.outOfStockGoodsList || (data.storeGoodsList && data.inValidGoodsList);
+    }
+
+    module.exports = {
+      isOnlyBack:isOnlyBack,
+      isShowChangeAdress: isShowChangeAdress,
+      isShowKeepPay: isShowKeepPay,
+    }
+</wxs>
+<view class="goods-fail">
+  <block wx:if="{{settleDetailData.limitGoodsList && settleDetailData.limitGoodsList.length >0}}">
+    <view class="title">限购商品信息</view>
+    <view class="info">以下商品限购数量，建议您修改商品数量</view>
+  </block>
+  <block wx:elif="{{settleDetailData.abnormalDeliveryGoodsList && settleDetailData.abnormalDeliveryGoodsList.length >0}}">
+    <view class="title">不支持配送</view>
+    <view class="info">以下店铺的商品不支持配送，请更改地址或去掉对应店铺商品再进行结算</view>
+  </block>
+  <block wx:elif="{{order.isShowKeepPay(settleDetailData)}}">
+    <view class="title">部分商品库存不足或失效</view>
+    <view class="info">请返回购物车重新选择商品，如果继续结算将自动忽略库存不足或失效的商品。</view>
+  </block>
+  <block wx:elif="{{settleDetailData.inValidGoodsList && settleDetailData.inValidGoodsList.length > 0}}">
+    <view class="title">全部商品库存不足或失效</view>
+    <view class="info">请返回购物车重新选择商品</view>
+  </block>
+  <scroll-view scroll-y="true" style="max-height: 500rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+    <view class="goods-list" wx:for="{{goodsList}}" wx:for-item="goods" wx:key="index">
+      <wr-order-card wx:if="{{goods}}" order="{{goods}}">
+        <wr-order-goods-card wx:for="{{goods.unSettlementGoods}}" wx:key="id" wx:for-item="goods" wx:for-index="gIndex" goods="{{goods}}" no-top-line="{{gIndex === 0}}" />
+      </wr-order-card>
+    </view>
+  </scroll-view>
+  <view class="goods-fail-btn">
+    <view bindtap="onCard" data-item="cart" class="btn {{order.isOnlyBack(settleDetailData) ? 'limit' : ''}}">
+      返回购物车
+    </view>
+    <view wx:if="{{order.isShowChangeAdress(settleDetailData)}}" bindtap="onDelive" class="btn origin">
+      修改配送地址
+    </view>
+    <view wx:elif="{{order.isShowKeepPay(settleDetailData)}}" bindtap="onCard" data-item="orderSure" class="btn origin">
+      继续结算
+    </view>
+  </view>
+</view>

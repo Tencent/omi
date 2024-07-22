@@ -1,0 +1,19 @@
+{
+  "navigationBarTitleText": "选择售后类型",
+  "usingComponents": {
+    "wr-price": "/components/price/index",
+    "wr-order-goods-card": "../components/order-goods-card/index",
+    "wr-reason-sheet": "../components/reason-sheet/index",
+    "t-cell": "tdesign-miniprogram/cell/cell",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-toast": "tdesign-miniprogram/toast/toast",
+    "t-dialog": "tdesign-miniprogram/dialog/dialog",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
+    "t-stepper": "tdesign-miniprogram/stepper/stepper",
+    "t-popup": "tdesign-miniprogram/popup/popup",
+    "t-textarea": "tdesign-miniprogram/textarea/textarea",
+    "t-input": "tdesign-miniprogram/input/input",
+    "t-uploader": "tdesign-miniprogram/upload/upload"
+  }
+}

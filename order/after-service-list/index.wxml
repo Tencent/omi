@@ -1,0 +1,73 @@
+<view class="page-container">
+	<t-pull-down-refresh id="t-pull-down-refresh" bindrefresh="onPullDownRefresh_" t-class-indicator="t-class-indicator">
+		<wr-order-card
+		  wx:for="{{dataList}}"
+		  wx:key="id"
+		  wx:for-item="order"
+		  wx:for-index="oIndex"
+		  order="{{order}}"
+		  data-order="{{order}}"
+		  bindcardtap="onAfterServiceCardTap"
+		  useTopRightSlot
+			header-class="header-class"
+		>
+			<view class="text-btn" slot="top-right">
+				<view class="header__right">
+					<t-icon
+					  prefix="wr"
+					  color="#FA4126"
+					  name="goods_refund"
+					  size="20px"
+					  slot="left-icon"
+					/>
+					{{order.typeDesc}}
+				</view>
+			</view>
+			<wr-goods-card
+			  wx:for="{{order.goodsList}}"
+			  wx:key="id"
+			  wx:for-item="goods"
+			  wx:for-index="gIndex"
+			  data="{{goods}}"
+			  no-top-line="{{gIndex === 0}}"
+			>
+				<view slot="footer" class="order-goods-card-footer">
+					<wr-price
+					  price="{{goods.itemRefundAmount}}"
+					  fill
+					  wr-class="order-goods-card-footer-price-class"
+					  symbol-class="order-goods-card-footer-price-symbol"
+					  decimal-class="order-goods-card-footer-price-decimal"
+					/>
+					<view class="order-goods-card-footer-num">x {{goods.rightsQuantity}}</view>
+				</view>
+			</wr-goods-card>
+			<view slot="more">
+				<view class="status-desc">{{order.statusDesc}}</view>
+				<wr-after-service-button-bar service="{{order}}" bindrefresh="onRefresh" />
+			</view>
+		</wr-order-card>
+		<!-- 列表加载中/已全部加载 -->
+		<wr-load-more
+		  wx:if="{{!pullDownRefreshing}}"
+		  list-is-empty="{{!dataList.length}}"
+		  status="{{listLoading}}"
+		  bindretry="onReTryLoad"
+		>
+			<!-- 空态 -->
+			<view slot="empty" class="empty-wrapper">
+				<t-empty
+				  size="240rpx"
+				  textColor="#999999"
+				  textSize="28rpx"
+				  src="{{emptyImg}}"
+				>
+					暂无退款或售后申请记录
+				</t-empty>
+			</view>
+		</wr-load-more>
+	</t-pull-down-refresh>
+</view>
+<t-toast id="t-toast" />
+<t-dialog id="t-dialog" t-class-confirm="add-notes__confirm" />
+

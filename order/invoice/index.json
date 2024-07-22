@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "发票详情",
+  "usingComponents": {
+    "t-cell": "tdesign-miniprogram/cell/cell",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-cell-group": "tdesign-miniprogram/cell-group/cell-group"
+  }
+}

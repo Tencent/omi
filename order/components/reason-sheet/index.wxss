@@ -1,0 +1,47 @@
+page view {
+  box-sizing: border-box;
+}
+.popup-content {
+  background-color: white;
+  color: #222427;
+  border-radius: 20rpx 20rpx 0 0;
+  overflow: hidden;
+}
+.popup-content .header {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 32rpx;
+  font-weight: bold;
+  position: relative;
+}
+.popup-content .options {
+  max-height: 60vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.popup-content .options .cell {
+  height: 100rpx;
+  align-items: center;
+  font-size: 30rpx;
+  color: #333333;
+}
+.popup-content .button-bar {
+  width: 100%;
+  padding: 20rpx 30rpx;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+}
+.popup-content .button-bar .btn {
+  width: 100%;
+  background: #fa4126;
+  color: #fff;
+  border-radius: 48rpx;
+}
+.button-bar .btnWrapper {
+  width: 100%;
+}

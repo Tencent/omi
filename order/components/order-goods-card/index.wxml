@@ -1,0 +1,31 @@
+<goods-card
+ class="order-goods-card {{ step ? 'order-goods-card--step' : '' }}"
+ wx:if="{{!hidden}}"
+ data="{{goods}}"
+ thumb-width="{{thumbWidth}}"
+ thumb-height="{{thumbHeight}}"
+ thumb-width-in-popup="{{thumbWidthInPopup}}"
+ thumb-height-in-popup="{{thumbHeightInPopup}}"
+>
+	<t-stepper
+	 wx:if="{{ step }}"
+	 slot="append-body"
+	 class="order-stepper"
+	 disabled="{{ step ? stepDisabled : ''}}"
+	 value="{{goods.quantity}}"
+	 min="{{ 1 }}"
+	 icon-size="{{ 24 }}"
+	 bindminus="onNumChange"
+	 bindplus="onNumChange"
+	 bindblur="onNumChange"
+	/>
+	<!-- 透传good-card组件的slot -->
+	<slot name="thumb-cover" slot="thumb-cover" />
+	<slot name="after-title" slot="after-title" />
+	<slot name="after-desc" slot="after-desc" />
+	<slot name="price-prefix" slot="price-prefix" />
+	<slot name="append-body" slot="append-body" />
+	<slot name="footer" slot="footer" />
+	<slot name="append-card" slot="append-card" />
+</goods-card>
+

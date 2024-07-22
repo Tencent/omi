@@ -1,0 +1,40 @@
+<view class="invoice-detail">
+  <view class="invoice-detail-box">
+    <view class="invoice-detail-title">发票详情</view>
+    <view class="invoice-detail-box-row">
+      <view class="invoice-detail-box-title">发票类型</view>
+      <view class="invoice-detail-box-value">{{invoice.invoiceType}}</view>
+    </view>
+    <view class="invoice-detail-box-row">
+      <view class="invoice-detail-box-title">发票抬头</view>
+      <view class="invoice-detail-box-value">{{invoice.buyerName}}</view>
+    </view>
+    <view class="invoice-detail-box-row">
+      <view class="invoice-detail-box-title">纳税人识别号</view>
+      <view class="invoice-detail-box-value">{{invoice.buyerTaxNo}}</view>
+    </view>
+    <view class="invoice-detail-box-row">
+      <view class="invoice-detail-box-title">发票内容</view>
+      <view class="invoice-detail-box-value">{{invoice.ontentType}}</view>
+    </view>
+     <view class="invoice-detail-box-row">
+      <view class="invoice-detail-box-title">发票金额</view>
+      <view class="invoice-detail-box-value">{{invoice.money}}</view>
+    </view>
+  </view>
+  <view class="invoice-detail-box">
+    <view class="invoice-detail-title">收票人信息</view>
+    <view class="invoice-detail-box-row">
+      <view class="invoice-detail-box-title">邮箱</view>
+      <view class="invoice-detail-box-value">{{invoice.email}}</view>
+    </view>
+    <view class="invoice-detail-box-row">
+      <view class="invoice-detail-box-title">手机号</view>
+      <view class="invoice-detail-box-value">{{invoice.buyerPhone}}</view>
+    </view>
+    <view class="invoice-detail-box-row">
+      <view class="invoice-detail-box-title">开票状态</view>
+      <view class="invoice-detail-box-value">{{invoice.isInvoice}}</view>
+    </view>
+  </view>
+</view>
