@@ -1,7 +1,7 @@
 
 import { render, h, mixin } from 'omi'
-import './ui/game/index'
-import { store } from './store/index'
+import './views/game/index'
+import { store } from './stores/index'
 import './assets/index.css'
 
 mixin({

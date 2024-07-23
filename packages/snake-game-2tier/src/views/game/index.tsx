@@ -2,7 +2,7 @@ import * as css from './index.css'
 import '../screen'
 import { Component, h, tag } from 'omi'
 import { rpx } from '../rpx'
-import Game from 'src/model/game'
+import Game from 'src/models/game'
 
 @tag('snake-game')
 export default class extends Component {

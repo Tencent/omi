@@ -1,18 +1,20 @@
 import * as css from './index.css'
 import { Component, h, tag } from 'omi'
 import { rpx } from '../rpx'
-import Game from 'src/model/game'
+import { Store } from 'src/stores'
 
 @tag('game-screen')
 export default class extends Component {
 
   static css = rpx(css.default)
-  game: Game
 
+  store: Store
+  
   render() {
+    const { store } = this
     return (
       <div class="screen">
-        {this.game.value.map.map(row => {
+        {store.state.value.map.map(row => {
           return <p>
             {row.map(col => {
               if (col) {

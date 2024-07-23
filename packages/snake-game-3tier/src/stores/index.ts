@@ -1,5 +1,5 @@
-import Game from '../model/game'
-import Snake from '../model/snake'
+import Game from '../models/game'
+import Snake from '../models/snake'
 import { SignalValue, signal, bind } from 'omi'
 
 export class Store {
