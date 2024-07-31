@@ -176,6 +176,11 @@ export const navbarItems = signal<NavbarItem[]>([
         value: 'charity',
       },
       {
+        text: '美食模版',
+        path: '/food',
+        value: 'food',
+      },
+      {
         text: '关于',
         path: '/about',
         value: 'about',
