@@ -11,9 +11,7 @@ import './components/appear'
 
 export const routes = [
   createRoute('/', () => import('./pages/home')),
-  createRoute('/about', () => import('./pages/about')),
 
-  createRoute('/components', () => import('./pages/components')),
   createRoute('/results/success', () => import('./pages/results/success')),
   createRoute('/results/fail', () => import('./pages/results/fail')),
   createRoute('/results/browser-not-support', () => import('./pages/results/browser-not-support')),
@@ -24,11 +22,9 @@ export const routes = [
   createRoute('/results/not-found', () => import('./pages/results/not-found')),
   createDocsRoute('/product-docs/:lang/:section', () => import('./pages/product-docs')),
   createRoute('/icons', () => import('./pages/icons')),
-  createAdminRoute('/admin/home', () => import('./pages/admin/home')),
-  createAdminRoute('/admin/chart', () => import('./pages/admin/chart')),
-  createComponentRoute('/components/button', () => import('./pages/components/button')),
-  createComponentRoute('/components/switch', () => import('./pages/components/switch')),
-  createComponentRoute('/components/breadcrumb', () => import('./pages/components/breadcrumb')),
+  // createComponentRoute('/components/button', () => import('./pages/components/button')),
+  // createComponentRoute('/components/switch', () => import('./pages/components/switch')),
+  // createComponentRoute('/components/breadcrumb', () => import('./pages/components/breadcrumb')),
   createRoute('*', () => import('./pages/results/not-found')),
   {
     path: '/before-enter/test',
@@ -44,7 +40,7 @@ function createRoute(path: string, componentImport: () => Promise<unknown>) {
     path,
     render(router: Router) {
       return (
-        <SiteLayout current={router.currentRoute?.path}>
+        <SiteLayout current={router.currentRoute?.path} hideFooter>
           <o-suspense
             minLoadingTime={400}
             imports={[componentImport()]}
@@ -82,7 +78,7 @@ function createComponentRoute(path: string, componentImport: () => Promise<unkno
     path,
     render(router: Router) {
       return (
-        <ComponentLayout current={router.currentRoute?.path}>
+        <ComponentLayout current={router.currentRoute?.path} hideFooter>
           <o-suspense
             minLoadingTime={400}
             imports={[componentImport()]}
@@ -192,7 +188,7 @@ function createDocsRoute(path: string, componentImport: () => Promise<unknown>) 
     path,
     render(router: Router) {
       return (
-        <SiteLayout current={router.currentRoute?.path}>
+        <SiteLayout current={router.currentRoute?.path} hideFooter>
           <o-suspense
             minLoadingTime={400}
             imports={[componentImport(), import(`./docs/${router.params.lang}/${router.params.section}.md?raw`)]}
