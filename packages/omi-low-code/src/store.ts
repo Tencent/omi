@@ -41,13 +41,13 @@ export const navbarItems = signal<NavbarItem[]>([
     children: [
       {
         type: 'title',
-        text: '可以先链个路由自己调',
+        text: '先链个路由自己调',
       },
-      // {
-      //   text: 'button',
-      //   path: '/button',
-      //   value: 'button',
-      // },
+      {
+        text: '测试页面',
+        path: '/test',
+        value: 'test',
+      },
     ],
   },
   {
