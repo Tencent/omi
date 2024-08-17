@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="https://omi.cdn-go.cn/play/latest/assets/favicon.974a6ddb.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>100+ OMI Tailwind Templates</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        try {
+          if (
+            localStorage.theme === "dark" ||
+            (!("theme" in localStorage) &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches)
+          ) {
+            walkDOMAndToggleDark(document.body, false)
+            document.documentElement.classList.add("dark");
+          } else {
+            walkDOMAndToggleDark(document.body, true)
+            document.documentElement.classList.remove("dark");
+          }
+        } catch (_) { }
+      })
+  
+  
+      function toggleNodeDark(node, isDark) {
+        if (
+          node instanceof HTMLElement &&
+          node.tagName.toLowerCase().indexOf("-") !== -1
+        ) {
+          if (isDark) {
+            node.classList.remove("dark");
+          } else {
+            node.classList.add("dark");
+          }
+  
+        }
+      }
+  
+      function walkDOMAndToggleDark(rootNode, isDark) {
+        if (isDark) {
+          document.documentElement.classList.remove("dark");
+        } else {
+          document.documentElement.classList.add("dark");
+        }
+        const treeWalker = document.createTreeWalker(
+          rootNode,
+          NodeFilter.SHOW_ELEMENT,
+          null,
+          false
+        );
+  
+        while (treeWalker.nextNode()) {
+          const node = treeWalker.currentNode;
+          toggleNodeDark(node, isDark);
+  
+          // Check if the node has a shadow root
+          if (node.shadowRoot) {
+            walkDOMAndToggleDark(node.shadowRoot, isDark);
+          }
+  
+          // Check if the node has assigned nodes (for slots)
+          if (node.assignedNodes) {
+            node.assignedNodes().forEach((assignedNode) => {
+              if (assignedNode.nodeType === Node.ELEMENT_NODE) {
+                walkDOMAndToggleDark(assignedNode, isDark);
+              }
+            });
+          }
+        }
+      }
+  
+      function toogleDark() {
+        if (document.documentElement.classList.contains("dark")) {
+          localStorage.theme = "light";
+          walkDOMAndToggleDark(document.body, true)
+          document.documentElement.classList.remove("dark");
+        } else {
+          localStorage.theme = "dark";
+          walkDOMAndToggleDark(document.body, false)
+          document.documentElement.classList.add("dark");
+        }
+      }
+
+      function setDarkMode() {
+        localStorage.theme = "dark";
+        walkDOMAndToggleDark(document.body, false)
+        document.documentElement.classList.add("dark");
+      }
+
+      function setLightMode() {
+        localStorage.theme = "light";
+        walkDOMAndToggleDark(document.body, true)
+        document.documentElement.classList.remove("dark");
+      }
+  
+      function refreshDark() {
+        if (document.documentElement.classList.contains("dark")) {
+          walkDOMAndToggleDark(document.body, false)
+        } else {
+          walkDOMAndToggleDark(document.body, true)
+        }
+      }
+  
+      window.addEventListener('load', function() {
+        refreshDark()
+      })
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
