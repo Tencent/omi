@@ -9,6 +9,13 @@ Install dependencies:
 ```bash
 npm i
 ```
+or
+
+```bash
+npm install -g yarn
+yarn
+```
+
 
 ## Development
 
@@ -17,12 +24,7 @@ npm i
 npm start
 ```
 
-or
 
-```bash
-npm install -g yarn
-yarn
-```
 
 
 ## Build
