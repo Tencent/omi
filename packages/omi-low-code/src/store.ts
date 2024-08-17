@@ -136,23 +136,11 @@ export function getValueByPath(path: string, navbarItems: NavbarItem[]): string 
 
 export const sidebarItems = signal<NavbarItem[]>([
   {
-    text: '列表页',
+    text: '渲染页面',
     icon: 'root-list',
-    children: [
-      {
-        text: '基础列表',
-      },
-      {
-        text: '卡片列表',
-      },
-      {
-        text: '筛选列表',
-      },
-      {
-        text: '树状筛选列表',
-      },
-    ],
-  },
+    // path: '/results/forbidden',
+    // value: 'result-forbidden',
+},
   {
     text: '表单页',
     icon: 'edit',

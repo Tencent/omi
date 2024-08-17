@@ -200,7 +200,7 @@ export class Sidebar extends Component<Props> {
                             opacity: this.state.isOpen ? '0' : '1',
                           }}
                         >
-                          {item.children.map((child: SidebarItem) => {
+                          {hasChildren && item.children.map((child: SidebarItem) => {
                             return this.renderToolTipChild(child)
                           })}
                         </ul>

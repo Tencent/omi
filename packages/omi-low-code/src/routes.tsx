@@ -11,7 +11,7 @@ import './components/appear'
 
 export const routes = [
   createRoute('/', () => import('./pages/home')),
-  createRoute('/test', () => import('./pages/test')),
+  createAdminRoute('/test', () => import('./pages/test')),
 
   createRoute('/results/success', () => import('./pages/results/success')),
   createRoute('/results/fail', () => import('./pages/results/fail')),
