@@ -3,7 +3,7 @@
     "target": "ES5",
     "experimentalDecorators": true,
     "useDefineForClassFields": true,
-    "lib": ["ES6", "DOM", "DOM.Iterable"],
+    "lib": ["ES6", "DOM", "DOM.Iterable","es2017"],
     "skipLibCheck": true,
 
     /* Bundler mode */
