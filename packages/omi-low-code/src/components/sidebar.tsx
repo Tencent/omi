@@ -6,9 +6,9 @@ interface ComponentWithRouter extends Sidebar {
   router?: Router
 }
 
-type SidebarItem = {
+export type SidebarItem = {
   text: string
-  href: string
+  href?: string
   target: string
   name: string
   path: string
@@ -35,11 +35,18 @@ export class Sidebar extends Component<Props> {
   :host {
     display: block;
   }
+  .selected-item {
+    background-color: #e2e8f0; /* Light gray background */
+  }
+  .dark .selected-item {
+    background-color: #4a5568; /* Darker gray for dark mode */
+  }
   `
 
   state = {
     isOpen: false,
     active: '',
+    selectedItem: null as SidebarItem | null
   }
 
   onMouseEnter(item: SidebarItem) {
@@ -106,12 +113,18 @@ export class Sidebar extends Component<Props> {
 
   @bind
   select(item: SidebarItem) {
-    ;(this as ComponentWithRouter).router?.push(item.href.replace('#', ''))
-
-    this.state.active = this.props.active
+    if (this.state.selectedItem === item) {
+      // If the clicked item is already selected, deselect it
+      this.state.selectedItem = null;
+      this.state.active = '';
+    } else {
+      // Otherwise, select the new item
+      this.state.selectedItem = item;
+      this.state.active = item.value;
+    }
     this.update()
     this.fire('change', {
-      item,
+      item: this.state.selectedItem,
     })
   }
 
@@ -122,23 +135,27 @@ export class Sidebar extends Component<Props> {
         class={classNames(
           'py-1 h-9 indent-10 rounded hover:bg-accent flex items-center text-sm text-zinc-500 dark:text-zinc-200 cursor-pointer',
           {
-            'bg-accent': this.state.active === child.value,
+            'selected-item': this.state.selectedItem === child,
           },
         )}
       >
-        <a href="javascript:void()" class="flex items-center space-x-2 whitespace-nowrap">
-          <span>{child.text}</span>
-        </a>
+        <span>{child.text}</span>
       </li>
     )
   }
 
   renderToolTipChild(child: SidebarItem) {
     return (
-      <li class="py-1 h-9 px-3 rounded hover:bg-accent flex items-center text-sm text-zinc-500 dark:text-zinc-200">
-        <a href={child.href} class="flex items-center space-x-2 whitespace-nowrap">
-          <span>{child.text}</span>
-        </a>
+      <li
+        onClick={() => this.select(child)}
+        class={classNames(
+          'py-1 h-9 px-3 rounded hover:bg-accent flex items-center text-sm text-zinc-500 dark:text-zinc-200 cursor-pointer',
+          {
+            'selected-item': this.state.selectedItem === child,
+          },
+        )}
+      >
+        <span>{child.text}</span>
       </li>
     )
   }
@@ -148,46 +165,29 @@ export class Sidebar extends Component<Props> {
       <div class="h-screen flex">
         <div
           class={classNames('bg-background text-foreground transition-all p-2 flex flex-col justify-between', {
-            'w-60': this.state.isOpen,
-            'w-16': !this.state.isOpen,
+            'w-30': this.state.isOpen
           })}
         >
           <div>
-            <div class={classNames('flex items-center h-[50px] space-x-2 justify-center')}>
+            {/* <div class={classNames('flex items-center h-[50px] space-x-2 justify-center')}>
               <i class="h-8 w-8">
                 <img src="https://omi.cdn-go.cn/admin/latest/home/omi.svg"></img>
               </i>
-              <h1
-                class={classNames('text-2xl font-semibold whitespace-nowrap', {
-                  block: this.state.isOpen,
-                  hidden: !this.state.isOpen,
-                })}
-              >
-                OMI Admin
-              </h1>
-            </div>
-            <div
-              class={classNames('mb-2', {
-                block: this.state.isOpen,
-                hidden: !this.state.isOpen,
-              })}
-            >
-              <input type="text" placeholder="Search" class="px-3 w-full p-1 border rounded" />
-            </div>
+            </div> */}
             <nav class="h-[calc(100vh-300px)] overflow-auto">
               <ul>
                 {this.props.items.map((item: SidebarItem) => {
                   const hasChildren = !!(item.children && item.children.length)
                   return (
                     <li>
-                      <a
-                        href={hasChildren ? 'javascript:' : item.href}
-                        onClick={() => this.onItemClick(item)}
+                      <div
+                        onClick={() => hasChildren ? this.onItemClick(item) : this.select(item)}
                         onMouseEnter={() => this.onMouseEnter(item)}
                         onMouseLeave={() => this.onMouseLeave(item)}
-                        class={classNames('trigger flex items-center  hover:bg-accent h-9 rounded px-2', {
+                        class={classNames('trigger flex items-center hover:bg-accent h-9 rounded px-2 cursor-pointer', {
                           'justify-between': this.state.isOpen,
                           'justify-center': !this.state.isOpen,
+                          'selected-item': this.state.selectedItem === item,
                         })}
                       >
                         <div class="flex items-center space-x-2 text-zinc-600 dark:text-zinc-200">
@@ -216,7 +216,7 @@ export class Sidebar extends Component<Props> {
                             )}
                           ></i>
                         )}
-                      </a>
+                      </div>
                       {hasChildren && this.state.isOpen && (
                         <ul
                           class="transition-all overflow-hidden"
@@ -235,7 +235,7 @@ export class Sidebar extends Component<Props> {
               </ul>
             </nav>
           </div>
-          {this.state.isOpen && (
+          {/* {this.state.isOpen && (
             <div class="bg-primary text-white rounded p-4 w-56">
               <h2 class="font-semibold mb-2">重点公告位</h2>
               <p class="text-sm mb-4">
@@ -245,7 +245,7 @@ export class Sidebar extends Component<Props> {
                 知道了
               </button>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     )
