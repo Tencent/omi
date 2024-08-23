@@ -1,6 +1,6 @@
 import { signal, bind } from 'omi'
 
-class CounterModel {
+export class CounterModel {
   countSignal = signal(0)
 
   @bind
