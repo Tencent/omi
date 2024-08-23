@@ -1,12 +1,16 @@
-import { countSignal } from '../stores/counter'
-export * from '../stores/counter'
+import { signal, bind } from 'omi'
 
 class CounterModel {
+  countSignal = signal(0)
+
+  @bind
   increment() {
-    countSignal.value++
+    this.countSignal.value++
   }
+
+  @bind
   decrement() {
-    countSignal.value--
+    this.countSignal.value--
   }
 }
 

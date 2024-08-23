@@ -1,4 +1,4 @@
-import { counterModel, countSignal } from '../models/counter'
+import { counterModel } from '../models/counter'
 import { tag, h, Component } from 'omi'
 
 @tag('counter-app')
@@ -7,7 +7,7 @@ export default class extends Component {
     return (
       <>
         <button onClick={counterModel.decrement}>-</button>
-        <span>{countSignal.value}</span>
+        <span>{counterModel.countSignal.value}</span>
         <button onClick={counterModel.increment}>+</button>        
       </>
     )
