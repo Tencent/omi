@@ -44,6 +44,44 @@ describe('computed', () => {
     expect(computedSignal.peek()).toBe(60)
   })
 
+  it('should exec correct times', () => {
+
+    const count = signal(0)
+    // Create a computed signal
+    const doubleCount = computed(() => count.value * 2)
+    let times = 0
+    // Create an effect
+    effect(() => {
+      times++
+      console.log(` ${count.value} Double Count: ${doubleCount.value}`)
+    })
+
+    // Update the count signal
+    count.value = 1
+    expect(times).toBe(2)
+
+  })
+
+
+  it('should exec correct times', () => {
+
+    const count = signal(0)
+    // Create a computed signal
+    const doubleCount = computed(() => count.value * 2)
+    const doubleDoubleCount = computed(() => doubleCount.value * 2)
+    let times = 0
+    // Create an effect
+    effect(() => {
+      times++
+      console.log(` ${count.value} Double Count: ${doubleCount.value}`)
+    })
+
+    // Update the count signal
+    count.value = 1
+    expect(times).toBe(2)
+
+  })
+
   it('should not dead loop', () => {
     const todos = signal([
       { text: 'Learn OMI', completed: true },

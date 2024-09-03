@@ -54,7 +54,18 @@ export function signal<T>(initialValue?: T): SignalValue<T> {
     get(_, prop: keyof SignalValue<T>) {
       if (prop === 'value') {
         if (activeEffect) {
-          deps.add(activeEffect)
+          // activeEffect.originalFn 如果存在就不添加到 deps
+          let added = false
+          for (const dep of deps) {
+            // @ts-ignore
+            if (dep.originalFn  === activeEffect.originalFn) {
+              added = true
+              break
+            }
+          }
+          if (!added) {
+            deps.add(activeEffect)
+          }
           activeEffect.deps?.add({ value, deps }) // Add the dependency to the active effect
         }
         const component = getActiveComponent()
@@ -104,7 +115,10 @@ export function signal<T>(initialValue?: T): SignalValue<T> {
 export function computed<T>(fn: ComputedFn<T>): SignalValue<T> {
   const computedSignal = signal<T>()
   effect(() => {
-    computedSignal.value = fn()
+    const newValue = fn()
+    if (computedSignal.peek() !== newValue) {
+      computedSignal.value = newValue
+    }
   })
   return computedSignal
 }
@@ -123,11 +137,14 @@ export function effect(fn: EffectFn): () => void {
       if (isRunning) return // If the effect function is already running, return directly
       isRunning = true // Start running the effect function
       activeEffect = effectFn
-      fn()
+      // 防止 effect 重复执行
+      batch(() => {
+        fn()
+      })
       activeEffect = null
       isRunning = false // Finish running the effect function
     },
-    { deps },
+    { deps, originalFn: fn },
   )
 
   // Run the effect function for the first time, which will collect dependencies
