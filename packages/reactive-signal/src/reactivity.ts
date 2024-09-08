@@ -1,20 +1,8 @@
-import { isPrimitive } from './utils'
+type Subscriber = () => void;
 
-type EffectFn = () => void
-type ComputedFn<T> = () => T
-
-let activeEffect:
-  | (EffectFn & { deps?: Set<{ value: any; deps: Set<EffectFn> }> })
-  | null = null
-let batchQueue: Set<EffectFn> = new Set()
-let effectsToRun: Set<EffectFn> = new Set()
-let inBatch = false // Add a flag to check if we are in batch
-
-export interface SignalValue<T> {
-  value: T
-  peek: () => T
-  update: () => void
-}
+let activeEffect: Effect | null = null;
+let isBatching = false;
+let pendingSubscribers: Set<Subscriber> = new Set();
 
 export interface Component {
   queuedUpdate: () => void
@@ -40,155 +28,256 @@ export function getActiveComponent(): Component | null {
   return activeComponent
 }
 
-/**
- * Creates a signal with an initial value.
- * @param initialValue - The initial value of the signal.
- * @returns A signal object with `value` and `peek` properties.
- */
-export function signal<T>(initialValue?: T): SignalValue<T> {
-  let value = initialValue
-  const deps = new Set<EffectFn>()
-  const depsComponents = new Set<Component>()
 
-  return new Proxy({} as SignalValue<T>, {
-    get(_, prop: keyof SignalValue<T>) {
-      if (prop === 'value') {
-        if (activeEffect) {
-          // activeEffect.originalFn 如果存在就不添加到 deps
-          let added = false
-          for (const dep of deps) {
-            // @ts-ignore
-            if (dep.originalFn  === activeEffect.originalFn) {
-              added = true
-              break
-            }
-          }
-          if (!added) {
-            deps.add(activeEffect)
-          }
-          activeEffect.deps?.add({ value, deps }) // Add the dependency to the active effect
-        }
-        const component = getActiveComponent()
-        if (component) depsComponents.add(component)
-        return value
-      }
-      if (prop === 'peek') return () => value
-      if (prop === 'update')
-        return () => {
-          // prevent duplicate effect execution caused by computed
-          batch(() => {
-            deps.forEach((fn) => (inBatch ? effectsToRun.add(fn) : fn()))
-            depsComponents.forEach(
-              (component) => component[component._tempActiveUpdateFnName!]?.(),
-            )
-          })
-        }
-    },
-    set(_, prop: keyof SignalValue<T>, newValue: T) {
-      if (prop === 'value') {
-        if (
-          !isPrimitive(value) ||
-          !isPrimitive(newValue) ||
-          value !== newValue
-        ) {
-          // prevent duplicate effect execution caused by computed
-          batch(() => {
-            value = newValue
-            deps.forEach((fn) => (inBatch ? effectsToRun.add(fn) : fn()))
-            depsComponents.forEach(
-              (component) => component[component._tempActiveUpdateFnName!]?.(),
-            )
-          })
-        }
-        return true
-      }
-      return false
-    },
-  })
-}
+export class Signal<T> {
+  private _value: T;
+  private subscribers: Set<Subscriber> = new Set();
+  depsComponents = new Set<Component>()
+  constructor(value: T) {
+    this._value = value;
+  }
 
-/**
- * Creates a computed signal based on a function.
- * @param fn - The function to compute the signal value.
- * @returns A computed signal object.
- */
-export function computed<T>(fn: ComputedFn<T>): SignalValue<T> {
-  const computedSignal = signal<T>()
-  effect(() => {
-    const newValue = fn()
-    if (computedSignal.peek() !== newValue) {
-      computedSignal.value = newValue
+  get value(): T {
+    // 没有在通知，才能添加依赖，否则会导致循环依赖
+    if (!this.notifying) {
+      if (activeEffect) {
+        // computed 内部触发的原始信号的 get value 不用加入原始信号的订阅
+        if (activeEffect.run) {
+          this.subscribe(activeEffect.run);
+        }
+        activeEffect.addDependency(this);
+      }
     }
-  })
-  return computedSignal
-}
 
-/**
- * Creates an effect based on a function.
- * @param fn - The function to create the effect.
- */
-export function effect(fn: EffectFn): () => void {
-  const deps = new Set<{ value: any; deps: Set<EffectFn> }>()
-  let isRunning = false // Add a flag to check if the effect function is currently running
-
-  // Create a new effect function to collect dependencies and run the original function
-  const effectFn = Object.assign(
-    () => {
-      if (isRunning) return // If the effect function is already running, return directly
-      isRunning = true // Start running the effect function
-      activeEffect = effectFn
-      // 防止 effect 重复执行
-      batch(() => {
-        fn()
-      })
-      activeEffect = null
-      isRunning = false // Finish running the effect function
-    },
-    { deps, originalFn: fn },
-  )
-
-  // Run the effect function for the first time, which will collect dependencies
-  effectFn()
-
-  // Return a dispose function to cancel the effect
-  return () => {
-    deps.forEach((dep) => dep.deps.delete(effectFn)) // Remove the effect function from the dependencies
+    const component = getActiveComponent()
+    if (component) this.depsComponents.add(component)
+    return this._value;
   }
-}
 
-/**
- * Batches multiple updates into a single update.
- * @param fn - The function to batch.
- */
-export function batch(fn: EffectFn): void {
-  inBatch = true // Start batch
-  batchQueue.add(fn)
-  if (batchQueue.size === 1) {
-    runBatch()
-  }
-}
+  set value(newValue: T) {
+    // 修改前也有 hook？
+    if (newValue !== this._value) {
+      this._value = newValue;
+      this.notify();
 
-/**
- * Runs all functions in the batch queue.
- */
-export function runBatch(): void {
-  while (batchQueue.size) {
-    const fn = batchQueue.values().next().value
-    if (fn) {
-      // fn 函数内部的 set 还是触发 batch，导致 batchQueue.size 增加 ，所以上面需要判断 batchQueue.size === 1
-      fn()
-      // 移除直到 batchQueue 清空
-      batchQueue.delete(fn)
+      this.depsComponents.forEach(
+        (component) => component[component._tempActiveUpdateFnName!]?.(),
+      )
+      // 信号值修改后 hook，重置已经执行的 effect
+      this.subscribers.forEach(callback => {
+        // 重置计算属性的 subscribers，防止不依赖 signal 但依赖 computed的 effect不执行
+        // @ts-ignore
+        if (callback.computedInstance) {
+          // @ts-ignore
+          callback.computedInstance.subscribers.forEach(callback => {
+            callback.done = false;
+          });
+        }
+        // @ts-ignore
+        callback.done = false;
+      });
     }
   }
 
-  effectsToRun.forEach((effectFn) => effectFn())
-  effectsToRun.clear()
-  inBatch = false // End batch
+  peek() {
+    return this._value;
+  }
+
+  update() {
+    // 需要对齐 set value？
+    this.notify();
+  }
+
+  subscribe(callback: Subscriber) {
+    this.subscribers.add(callback);
+  }
+
+  unsubscribe(callback: Subscriber) {
+    this.subscribers.delete(callback);
+  }
+
+  private notifying = false;
+  private notify() {
+    if (isBatching) {
+      this.subscribers.forEach(callback => pendingSubscribers.add(callback));
+    } else {
+      this.notifying = true;
+      this.subscribers.forEach(callback => {
+        // @ts-ignore
+        if (typeof callback === 'function' && !callback.done) {
+          // @ts-ignore
+          callback.done = true;
+          callback();
+        }
+      });
+      this.notifying = false;
+    }
+  }
+}
+
+export class Computed<T> {
+  private computeFn: () => T;
+  private _value: T;
+  private dependencies: Set<Signal<any> | Computed<any>> = new Set();
+  private subscribers: Set<Subscriber> = new Set();
+
+  depsComponents = new Set<Component>()
+
+  constructor(computeFn: () => T) {
+    this.computeFn = computeFn;
+    this._value = this.compute();
+  }
+
+  get value(): T {
+    if (!this.notifying) {
+      if (activeEffect) {
+        this.subscribe(activeEffect.run);
+        activeEffect.addDependency(this);
+      }
+    }
+    const component = getActiveComponent()
+    if (component) this.depsComponents.add(component)
+    return this._value;
+  }
+
+  peek() {
+    return this._value;
+  }
+
+  private notifying = false;
+  private compute(): T {
+
+    const previousEffect = activeEffect;
+    // @ts-ignore
+    activeEffect = this;
+    const newValue = this.computeFn();
+    activeEffect = previousEffect;
+
+    return newValue;
+  }
+
+  private recompute = () => {
+    const newValue = this.compute();
+    if (newValue !== this._value) {
+      this._value = newValue;
+      this.notify();
+      this.depsComponents.forEach(
+        (component) => component[component._tempActiveUpdateFnName!]?.(),
+      )
+    }
+  }
+
+  subscribe(callback: Subscriber) {
+    if (callback) {
+      this.subscribers.add(callback);
+    }
+  }
+
+  unsubscribe(callback: Subscriber) {
+    this.subscribers.delete(callback);
+  }
+
+  private notify() {
+    if (isBatching) {
+      this.subscribers.forEach(callback => pendingSubscribers.add(callback));
+    } else {
+      this.notifying = true;
+      this.subscribers.forEach(callback => {
+        // @ts-ignore
+        if (!callback.done) {
+          // @ts-ignore
+          callback.done = true;
+          callback();
+        }
+      });
+      this.notifying = false;
+    }
+  }
+
+  addDependency(dep: Signal<any> | Computed<any>) {
+    this.dependencies.add(dep);
+    // 订阅重新计算
+    dep.subscribe(this.recompute);
+    // @ts-ignore
+    this.recompute.computedInstance = this;
+  }
+}
+
+export class Effect {
+  private effectFn: () => void;
+  private dependencies: Set<Signal<any> | Computed<any>> = new Set();
+  private disposed = false;
+
+  constructor(effectFn: () => void) {
+    this.effectFn = effectFn;
+    this.run();
+  }
+
+  run = () => {
+    if (this.disposed) return;
+    const previousEffect = activeEffect;
+    activeEffect = this;
+    this.effectFn();
+    activeEffect = previousEffect;
+  }
+
+  addDependency(dep: Signal<any> | Computed<any>) {
+    if (this.disposed) return;
+    this.dependencies.add(dep);
+    // @ts-ignore
+    this.run.effectInstance = this;
+    dep.subscribe(this.run);
+  }
+
+  private cleanup() {
+    this.dependencies.forEach(dep => dep.unsubscribe(this.run));
+    this.dependencies.clear();
+  }
+
+  dispose() {
+    this.cleanup();
+    this.disposed = true;
+  }
+}
+
+// Factory functions
+export function signal<T>(value: T): Signal<T> {
+  return new Signal(value);
+}
+
+export function computed<T>(computeFn: () => T): Computed<T> {
+  return new Computed(computeFn);
+}
+
+export function effect(effectFn: () => void): () => void {
+  const eff = new Effect(effectFn);
+  return () => eff.dispose();
+}
+
+export function batch(fn: () => void) {
+  isBatching = true;
+  try {
+    fn();
+  } finally {
+    isBatching = false;
+    pendingSubscribers.forEach(callback => {
+      // @ts-ignore
+      if (!callback.done) {
+        // @ts-ignore
+        callback.done = true;
+        callback();
+      }
+    });
+    pendingSubscribers.forEach(callback => {
+      // @ts-ignore
+      callback.done = false;
+    });
+    pendingSubscribers.clear();
+  }
 }
 
 export type SignalObject<T> = {
-  [K in keyof T]: SignalValue<T[K]>
+  [K in keyof T]: Signal<T[K]>
 }
 
 export function signalObject<T>(initialValues: T): SignalObject<T> {
@@ -197,7 +286,7 @@ export function signalObject<T>(initialValues: T): SignalObject<T> {
       acc[key] = signal<T[keyof T]>(value as T[keyof T])
       return acc
     },
-    {} as { [key: string]: SignalValue<T[keyof T]> },
+    {} as { [key: string]: Signal<T[keyof T]> },
   )
 
   return signals as SignalObject<T>

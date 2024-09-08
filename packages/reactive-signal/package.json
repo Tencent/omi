@@ -1,6 +1,6 @@
 {
   "name": "reactive-signal",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "scripts": {
     "start": "vite",
     "dev-vite": "vite",

@@ -151,7 +151,7 @@ describe('computed', () => {
 
     mockComponent.installed()
     addTodo()
-    expect(effectTimes).toBe(2)
+    expect(effectTimes).toBe(1)
   })
 
   it('should get correct value', () => {
