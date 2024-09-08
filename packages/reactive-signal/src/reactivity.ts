@@ -58,24 +58,7 @@ export class Signal<T> {
     // 修改前也有 hook？
     if (newValue !== this._value) {
       this._value = newValue;
-      this.notify();
-
-      this.depsComponents.forEach(
-        (component) => component[component._tempActiveUpdateFnName!]?.(),
-      )
-      // 信号值修改后 hook，重置已经执行的 effect
-      this.subscribers.forEach(callback => {
-        // 重置计算属性的 subscribers，防止不依赖 signal 但依赖 computed的 effect不执行
-        // @ts-ignore
-        if (callback.computedInstance) {
-          // @ts-ignore
-          callback.computedInstance.subscribers.forEach(callback => {
-            callback.done = false;
-          });
-        }
-        // @ts-ignore
-        callback.done = false;
-      });
+      this.update();
     }
   }
 
@@ -84,8 +67,23 @@ export class Signal<T> {
   }
 
   update() {
-    // 需要对齐 set value？
     this.notify();
+    this.depsComponents.forEach(
+      (component) => component[component._tempActiveUpdateFnName!]?.(),
+    )
+    // 信号值修改后 hook，重置已经执行的 effect
+    this.subscribers.forEach(callback => {
+      // 重置计算属性的 subscribers，防止不依赖 signal 但依赖 computed的 effect不执行
+      // @ts-ignore
+      if (callback.computedInstance) {
+        // @ts-ignore
+        callback.computedInstance.subscribers.forEach(callback => {
+          callback.done = false;
+        });
+      }
+      // @ts-ignore
+      callback.done = false;
+    });
   }
 
   subscribe(callback: Subscriber) {

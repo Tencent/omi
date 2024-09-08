@@ -18,9 +18,8 @@ export {
   getActiveComponent,
   signalObject,
 } from 'reactive-signal'
-export type { SignalValue, SignalObject } from 'reactive-signal'
-export { Signal } from 'reactive-signal'
+export type { Signal, SignalObject, Signal as SignalValue } from 'reactive-signal'
 export { css } from './css-tag'
 export { mixin, globalCSS } from './options'
 export { registerDirective } from './directive'
-export const version = '7.6.18'
+export const version = '7.7.0'
