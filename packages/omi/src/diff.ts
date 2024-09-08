@@ -474,6 +474,8 @@ function diffAttributes(
     // __hasChildren is not accuracy when it was empty at first, so add dom.children.length > 0 condition
     // if (update || dom.__hasChildren || dom.children.length > 0 || (dom.store && !dom.store.data)) {
     if (dom.receiveProps(dom.props, oldClone) !== false) {
+      // 如果这里使用 update，会导致子、孙等等的重复更新，所有用queuedUpdate，
+      // 详细见 repeat-rendering-test 的测试demo
       dom.queuedUpdate()
     }
     // }
