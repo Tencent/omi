@@ -476,6 +476,9 @@ function diffAttributes(
     if (dom.receiveProps(dom.props, oldClone) !== false) {
       // 如果这里使用 update，会导致子、孙等等的重复更新，所有用queuedUpdate，
       // 详细见 repeat-rendering-test 的测试demo
+      // 如果需要完全去掉 queuedUpdate 变成同步更新，需要：
+      // 1. signal的依赖和computed的依赖组件产生的更新需要合并
+      // 2. 收集到的组件需要按照嵌套关系进行去重，只保留最外层的组件
       dom.queuedUpdate()
     }
     // }
