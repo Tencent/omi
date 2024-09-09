@@ -1,4 +1,4 @@
-type Subscriber = () => void
+type Subscriber = (() => void) & { done?: boolean; computedInstance: any }
 
 let activeEffect: Effect | null = null
 let isBatching = false
@@ -44,7 +44,7 @@ export class Signal<T> {
       if (activeEffect) {
         // computed 内部触发的原始信号的 get value 不用加入原始信号的订阅
         if (activeEffect.run) {
-          this.subscribe(activeEffect.run)
+          this.subscribe(activeEffect.run as unknown as Subscriber)
         }
         activeEffect.addDependency(this)
       }
@@ -75,14 +75,12 @@ export class Signal<T> {
     // 信号值修改后 hook，重置已经执行的 effect
     this.subscribers.forEach((callback) => {
       // 重置计算属性的 subscribers，防止不依赖 signal 但依赖 computed的 effect不执行
-      if ((callback as any).computedInstance) {
-        ;(callback as any).computedInstance.subscribers.forEach(
-          (cb: Subscriber) => {
-            ;(cb as any).done = false
-          },
-        )
+      if (callback.computedInstance) {
+        callback.computedInstance.subscribers.forEach((cb: Subscriber) => {
+          cb.done = false
+        })
       }
-      ;(callback as any).done = false
+      callback.done = false
     })
   }
 
@@ -100,8 +98,8 @@ export class Signal<T> {
     } else {
       this.notifying = true
       this.subscribers.forEach((callback) => {
-        if (typeof callback === 'function' && !(callback as any).done) {
-          ;(callback as any).done = true
+        if (typeof callback === 'function' && !callback.done) {
+          callback.done = true
           callback()
         }
       })
@@ -113,7 +111,7 @@ export class Signal<T> {
 export class Computed<T> {
   private computeFn: () => T
   private _value: T
-  private dependencies: Set<Signal<any> | Computed<any>> = new Set()
+  private dependencies: Set<Signal<unknown> | Computed<unknown>> = new Set()
   private subscribers: Set<Subscriber> = new Set()
   depsComponents = new Set<Component>()
   private notifying = false
@@ -126,7 +124,7 @@ export class Computed<T> {
   get value(): T {
     if (!this.notifying) {
       if (activeEffect) {
-        this.subscribe(activeEffect.run)
+        this.subscribe(activeEffect.run as unknown as Subscriber)
         activeEffect.addDependency(this)
       }
     }
@@ -174,8 +172,8 @@ export class Computed<T> {
     } else {
       this.notifying = true
       this.subscribers.forEach((callback) => {
-        if (!(callback as any).done) {
-          ;(callback as any).done = true
+        if (!callback.done) {
+          callback.done = true
           callback()
         }
       })
@@ -183,17 +181,17 @@ export class Computed<T> {
     }
   }
 
-  addDependency(dep: Signal<any> | Computed<any>): void {
+  addDependency(dep: Signal<unknown> | Computed<unknown>): void {
     this.dependencies.add(dep)
     // 订阅重新计算
-    dep.subscribe(this.recompute)
-    ;(this.recompute as any).computedInstance = this
+    dep.subscribe(this.recompute as unknown as Subscriber)
+    ;(this.recompute as unknown as Subscriber).computedInstance = this
   }
 }
 
 export class Effect {
   private effectFn: () => void
-  private dependencies: Set<Signal<any> | Computed<any>> = new Set()
+  private dependencies: Set<Signal<unknown> | Computed<unknown>> = new Set()
   private disposed = false
 
   constructor(effectFn: () => void) {
@@ -209,15 +207,17 @@ export class Effect {
     activeEffect = previousEffect
   }
 
-  addDependency(dep: Signal<any> | Computed<any>): void {
+  addDependency(dep: Signal<unknown> | Computed<unknown>): void {
     if (this.disposed) return
     this.dependencies.add(dep)
     ;(this.run as any).effectInstance = this
-    dep.subscribe(this.run)
+    dep.subscribe(this.run as unknown as Subscriber)
   }
 
   private cleanup(): void {
-    this.dependencies.forEach((dep) => dep.unsubscribe(this.run))
+    this.dependencies.forEach((dep) =>
+      dep.unsubscribe(this.run as unknown as Subscriber),
+    )
     this.dependencies.clear()
   }
 
@@ -248,13 +248,13 @@ export function batch(fn: () => void): void {
   } finally {
     isBatching = false
     pendingSubscribers.forEach((callback) => {
-      if (!(callback as any).done) {
-        ;(callback as any).done = true
+      if (!callback.done) {
+        callback.done = true
         callback()
       }
     })
     pendingSubscribers.forEach((callback) => {
-      ;(callback as any).done = false
+      callback.done = false
     })
     pendingSubscribers.clear()
   }
