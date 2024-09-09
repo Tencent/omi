@@ -9,5 +9,10 @@ export {
   signalObject,
 } from './reactivity'
 
-export type { Signal, SignalObject, Component, Computed, Effect } from './reactivity'
-
+export type {
+  Signal,
+  SignalObject,
+  Component,
+  Computed,
+  Effect,
+} from './reactivity'

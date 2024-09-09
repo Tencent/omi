@@ -1,8 +1,8 @@
-type Subscriber = () => void;
+type Subscriber = () => void
 
-let activeEffect: Effect | null = null;
-let isBatching = false;
-let pendingSubscribers: Set<Subscriber> = new Set();
+let activeEffect: Effect | null = null
+let isBatching = false
+let pendingSubscribers: Set<Subscriber> = new Set()
 
 export interface Component {
   queuedUpdate: () => void
@@ -28,13 +28,14 @@ export function getActiveComponent(): Component | null {
   return activeComponent
 }
 
-
 export class Signal<T> {
-  private _value: T;
-  private subscribers: Set<Subscriber> = new Set();
+  private _value: T
+  private subscribers: Set<Subscriber> = new Set()
   depsComponents = new Set<Component>()
+  private notifying = false
+
   constructor(value: T) {
-    this._value = value;
+    this._value = value
   }
 
   get value(): T {
@@ -43,234 +44,219 @@ export class Signal<T> {
       if (activeEffect) {
         // computed 内部触发的原始信号的 get value 不用加入原始信号的订阅
         if (activeEffect.run) {
-          this.subscribe(activeEffect.run);
+          this.subscribe(activeEffect.run)
         }
-        activeEffect.addDependency(this);
+        activeEffect.addDependency(this)
       }
     }
 
     const component = getActiveComponent()
     if (component) this.depsComponents.add(component)
-    return this._value;
+    return this._value
   }
 
   set value(newValue: T) {
     // 修改前也有 hook？
     if (newValue !== this._value) {
-      this._value = newValue;
-      this.update();
+      this._value = newValue
+      this.update()
     }
   }
 
-  peek() {
-    return this._value;
+  peek(): T {
+    return this._value
   }
 
-  update() {
-    this.notify();
+  update(): void {
+    this.notify()
     this.depsComponents.forEach(
       (component) => component[component._tempActiveUpdateFnName!]?.(),
     )
     // 信号值修改后 hook，重置已经执行的 effect
-    this.subscribers.forEach(callback => {
+    this.subscribers.forEach((callback) => {
       // 重置计算属性的 subscribers，防止不依赖 signal 但依赖 computed的 effect不执行
-      // @ts-ignore
-      if (callback.computedInstance) {
-        // @ts-ignore
-        callback.computedInstance.subscribers.forEach(callback => {
-          callback.done = false;
-        });
+      if ((callback as any).computedInstance) {
+        ;(callback as any).computedInstance.subscribers.forEach(
+          (cb: Subscriber) => {
+            ;(cb as any).done = false
+          },
+        )
       }
-      // @ts-ignore
-      callback.done = false;
-    });
+      ;(callback as any).done = false
+    })
   }
 
-  subscribe(callback: Subscriber) {
-    this.subscribers.add(callback);
+  subscribe(callback: Subscriber): void {
+    this.subscribers.add(callback)
   }
 
-  unsubscribe(callback: Subscriber) {
-    this.subscribers.delete(callback);
+  unsubscribe(callback: Subscriber): void {
+    this.subscribers.delete(callback)
   }
 
-  private notifying = false;
-  private notify() {
+  private notify(): void {
     if (isBatching) {
-      this.subscribers.forEach(callback => pendingSubscribers.add(callback));
+      this.subscribers.forEach((callback) => pendingSubscribers.add(callback))
     } else {
-      this.notifying = true;
-      this.subscribers.forEach(callback => {
-        // @ts-ignore
-        if (typeof callback === 'function' && !callback.done) {
-          // @ts-ignore
-          callback.done = true;
-          callback();
+      this.notifying = true
+      this.subscribers.forEach((callback) => {
+        if (typeof callback === 'function' && !(callback as any).done) {
+          ;(callback as any).done = true
+          callback()
         }
-      });
-      this.notifying = false;
+      })
+      this.notifying = false
     }
   }
 }
 
 export class Computed<T> {
-  private computeFn: () => T;
-  private _value: T;
-  private dependencies: Set<Signal<any> | Computed<any>> = new Set();
-  private subscribers: Set<Subscriber> = new Set();
-
+  private computeFn: () => T
+  private _value: T
+  private dependencies: Set<Signal<any> | Computed<any>> = new Set()
+  private subscribers: Set<Subscriber> = new Set()
   depsComponents = new Set<Component>()
+  private notifying = false
 
   constructor(computeFn: () => T) {
-    this.computeFn = computeFn;
-    this._value = this.compute();
+    this.computeFn = computeFn
+    this._value = this.compute()
   }
 
   get value(): T {
     if (!this.notifying) {
       if (activeEffect) {
-        this.subscribe(activeEffect.run);
-        activeEffect.addDependency(this);
+        this.subscribe(activeEffect.run)
+        activeEffect.addDependency(this)
       }
     }
     const component = getActiveComponent()
     if (component) this.depsComponents.add(component)
-    return this._value;
+    return this._value
   }
 
-  peek() {
-    return this._value;
+  peek(): T {
+    return this._value
   }
 
-  private notifying = false;
   private compute(): T {
-
-    const previousEffect = activeEffect;
-    // @ts-ignore
-    activeEffect = this;
-    const newValue = this.computeFn();
-    activeEffect = previousEffect;
-
-    return newValue;
+    const previousEffect = activeEffect
+    activeEffect = this as any
+    const newValue = this.computeFn()
+    activeEffect = previousEffect
+    return newValue
   }
 
-  private recompute = () => {
-    const newValue = this.compute();
+  private recompute = (): void => {
+    const newValue = this.compute()
     if (newValue !== this._value) {
-      this._value = newValue;
-      this.notify();
+      this._value = newValue
+      this.notify()
       this.depsComponents.forEach(
         (component) => component[component._tempActiveUpdateFnName!]?.(),
       )
     }
   }
 
-  subscribe(callback: Subscriber) {
+  subscribe(callback: Subscriber): void {
     if (callback) {
-      this.subscribers.add(callback);
+      this.subscribers.add(callback)
     }
   }
 
-  unsubscribe(callback: Subscriber) {
-    this.subscribers.delete(callback);
+  unsubscribe(callback: Subscriber): void {
+    this.subscribers.delete(callback)
   }
 
-  private notify() {
+  private notify(): void {
     if (isBatching) {
-      this.subscribers.forEach(callback => pendingSubscribers.add(callback));
+      this.subscribers.forEach((callback) => pendingSubscribers.add(callback))
     } else {
-      this.notifying = true;
-      this.subscribers.forEach(callback => {
-        // @ts-ignore
-        if (!callback.done) {
-          // @ts-ignore
-          callback.done = true;
-          callback();
+      this.notifying = true
+      this.subscribers.forEach((callback) => {
+        if (!(callback as any).done) {
+          ;(callback as any).done = true
+          callback()
         }
-      });
-      this.notifying = false;
+      })
+      this.notifying = false
     }
   }
 
-  addDependency(dep: Signal<any> | Computed<any>) {
-    this.dependencies.add(dep);
+  addDependency(dep: Signal<any> | Computed<any>): void {
+    this.dependencies.add(dep)
     // 订阅重新计算
-    dep.subscribe(this.recompute);
-    // @ts-ignore
-    this.recompute.computedInstance = this;
+    dep.subscribe(this.recompute)
+    ;(this.recompute as any).computedInstance = this
   }
 }
 
 export class Effect {
-  private effectFn: () => void;
-  private dependencies: Set<Signal<any> | Computed<any>> = new Set();
-  private disposed = false;
+  private effectFn: () => void
+  private dependencies: Set<Signal<any> | Computed<any>> = new Set()
+  private disposed = false
 
   constructor(effectFn: () => void) {
-    this.effectFn = effectFn;
-    this.run();
+    this.effectFn = effectFn
+    this.run()
   }
 
-  run = () => {
-    if (this.disposed) return;
-    const previousEffect = activeEffect;
-    activeEffect = this;
-    this.effectFn();
-    activeEffect = previousEffect;
+  run = (): void => {
+    if (this.disposed) return
+    const previousEffect = activeEffect
+    activeEffect = this
+    this.effectFn()
+    activeEffect = previousEffect
   }
 
-  addDependency(dep: Signal<any> | Computed<any>) {
-    if (this.disposed) return;
-    this.dependencies.add(dep);
-    // @ts-ignore
-    this.run.effectInstance = this;
-    dep.subscribe(this.run);
+  addDependency(dep: Signal<any> | Computed<any>): void {
+    if (this.disposed) return
+    this.dependencies.add(dep)
+    ;(this.run as any).effectInstance = this
+    dep.subscribe(this.run)
   }
 
-  private cleanup() {
-    this.dependencies.forEach(dep => dep.unsubscribe(this.run));
-    this.dependencies.clear();
+  private cleanup(): void {
+    this.dependencies.forEach((dep) => dep.unsubscribe(this.run))
+    this.dependencies.clear()
   }
 
-  dispose() {
-    this.cleanup();
-    this.disposed = true;
+  dispose(): void {
+    this.cleanup()
+    this.disposed = true
   }
 }
 
 // Factory functions
 export function signal<T>(value: T): Signal<T> {
-  return new Signal(value);
+  return new Signal(value)
 }
 
 export function computed<T>(computeFn: () => T): Computed<T> {
-  return new Computed(computeFn);
+  return new Computed(computeFn)
 }
 
 export function effect(effectFn: () => void): () => void {
-  const eff = new Effect(effectFn);
-  return () => eff.dispose();
+  const eff = new Effect(effectFn)
+  return () => eff.dispose()
 }
 
-export function batch(fn: () => void) {
-  isBatching = true;
+export function batch(fn: () => void): void {
+  isBatching = true
   try {
-    fn();
+    fn()
   } finally {
-    isBatching = false;
-    pendingSubscribers.forEach(callback => {
-      // @ts-ignore
-      if (!callback.done) {
-        // @ts-ignore
-        callback.done = true;
-        callback();
+    isBatching = false
+    pendingSubscribers.forEach((callback) => {
+      if (!(callback as any).done) {
+        ;(callback as any).done = true
+        callback()
       }
-    });
-    pendingSubscribers.forEach(callback => {
-      // @ts-ignore
-      callback.done = false;
-    });
-    pendingSubscribers.clear();
+    })
+    pendingSubscribers.forEach((callback) => {
+      ;(callback as any).done = false
+    })
+    pendingSubscribers.clear()
   }
 }
 
