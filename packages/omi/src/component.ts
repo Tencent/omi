@@ -237,7 +237,7 @@ export class Component<State = any> extends HTMLElement {
       } else {
         return this.attachShadow({
           mode: 'open',
-          delegatesFocus: true,
+          // delegatesFocus: true,
         })
       }
     }
