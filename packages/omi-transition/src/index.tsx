@@ -20,7 +20,7 @@ registerDirective('transition', (dom: DomType, options: TransitionOptions) => {
     mutations.forEach((mutation) => {
       if (mutation.type === 'attributes' && mutation.attributeName === 'show') {
         const show = getShowAttribute(dom)
-        updateClasses(dom, name, show, delay, options)
+        dom["__updateClasses"](dom, name, show, delay, options)
       }
     })
   })
@@ -50,11 +50,18 @@ registerDirective('transition', (dom: DomType, options: TransitionOptions) => {
   dom.addEventListener('animationend', onTransitionEnd)
 
   // 将 onTransitionEnd 函数存储在元素上
-
   dom['__onTransitionEnd'] = onTransitionEnd
 
+  // 清除旧的方法
+  if(dom["__updateClasses"]){
+    dom["__updateClasses"] = null;
+  }
+
+  // 给每个dom添加方法，增加debounce防止enter和leave同时多次触发
+  dom["__updateClasses"] = updateClasses;
+
   const show = getShowAttribute(dom)
-  updateClasses(dom, name, show, delay, options)
+  dom["__updateClasses"](dom, name, show, delay, options)
 })
 
 function getShowAttribute(dom: HTMLElement | Component<{ show: boolean }>): boolean {
