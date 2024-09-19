@@ -58,7 +58,7 @@ registerDirective('transition', (dom: DomType, options: TransitionOptions) => {
   }
 
   // 给每个dom添加方法，增加debounce防止enter和leave同时多次触发
-  dom["__updateClasses"] = updateClasses;
+  dom["__updateClasses"] = debounce(updateClasses, 0);
 
   const show = getShowAttribute(dom)
   dom["__updateClasses"](dom, name, show, delay, options)
