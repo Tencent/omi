@@ -14,13 +14,17 @@ interface TransitionOptions {
 }
 
 
-registerDirective('transition', (dom: DomType, options: TransitionOptions) => {
+registerDirective('transition', debounce((dom: DomType, options: TransitionOptions) => {
+  // 限制只注册一次transition事件
+  if(dom["__registed"]) return;
+  dom["__registed"] = true;
+
   const { name, delay = 0 } = options
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type === 'attributes' && mutation.attributeName === 'show') {
         const show = getShowAttribute(dom)
-        dom["__updateClasses"](dom, name, show, delay, options)
+        updateClasses(dom, name, show, delay, options)
       }
     })
   })
@@ -52,17 +56,9 @@ registerDirective('transition', (dom: DomType, options: TransitionOptions) => {
   // 将 onTransitionEnd 函数存储在元素上
   dom['__onTransitionEnd'] = onTransitionEnd
 
-  // 清除旧的方法
-  if(dom["__updateClasses"]){
-    dom["__updateClasses"] = null;
-  }
-
-  // 给每个dom添加方法，增加debounce防止enter和leave同时多次触发
-  dom["__updateClasses"] = debounce(updateClasses, 0);
-
   const show = getShowAttribute(dom)
-  dom["__updateClasses"](dom, name, show, delay, options)
-})
+  updateClasses(dom, name, show, delay, options)
+}, 0));
 
 function getShowAttribute(dom: HTMLElement | Component<{ show: boolean }>): boolean {
   return dom.getAttribute('show') === 'true' ||
