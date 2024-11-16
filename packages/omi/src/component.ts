@@ -3,6 +3,7 @@ import {
   isArray,
   hyphenate,
   capitalize,
+  camelCase,
   createStyleSheet,
   getClassStaticValue,
   isObject,
@@ -159,11 +160,12 @@ export class Component<State = any> extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (this.constructor.props && this.constructor.props[name]) {
-      const prop = this.constructor.props[name]
+    const propsName = camelCase(name)
+    if (this.constructor.props && this.constructor.props[propsName]) {
+      const prop = this.constructor.props[propsName]
       if (prop.changed) {
-        const newTypeValue = this.getTypeValueOfProp(name, newValue)
-        const oldTypeValue = this.getTypeValueOfProp(name, oldValue)
+        const newTypeValue = this.getTypeValueofProp(propsName, newValue)
+        const oldTypeValue = this.getTypeValueofProp(propsName, oldValue)
         prop.changed.call(this, newTypeValue, oldTypeValue)
       }
     }
@@ -185,7 +187,7 @@ export class Component<State = any> extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return this.props ? Object.keys(this.props) : []
+    return this.props ? Object.keys(this.props).map(hyphenate) : []
   }
 
   injectObject() {
