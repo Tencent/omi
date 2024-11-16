@@ -226,7 +226,6 @@ export default defineConfig({
 
 你可以在构建时候注入代码，这样就不用手动导出 `h`。
 
-
 ## 定义跨框架组件
 
 在 Vue 中使用 Omi component 例子如下:
