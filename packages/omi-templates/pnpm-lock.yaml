@@ -11,6 +11,9 @@ importers:
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
+      '@types/node':
+        specifier: ^22.9.1
+        version: 22.9.1
       '@types/prismjs':
         specifier: ^1.26.3
         version: 1.26.5

@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "@types/node": "^22.9.1",
     "@types/prismjs": "^1.26.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
