@@ -160,12 +160,12 @@ export class Component<State = any> extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    const propsName = camelCase(name)
-    if (this.constructor.props && this.constructor.props[propsName]) {
-      const prop = this.constructor.props[propsName]
+    const propName = camelCase(name)
+    if (this.constructor.props && this.constructor.props[propName]) {
+      const prop = this.constructor.props[propName]
       if (prop.changed) {
-        const newTypeValue = this.getTypeValueOfProp(propsName, newValue)
-        const oldTypeValue = this.getTypeValueOfProp(propsName, oldValue)
+        const newTypeValue = this.getTypeValueOfProp(propName, newValue)
+        const oldTypeValue = this.getTypeValueOfProp(propName, oldValue)
         prop.changed.call(this, newTypeValue, oldTypeValue)
       }
     }
