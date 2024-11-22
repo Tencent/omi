@@ -164,8 +164,8 @@ export class Component<State = any> extends HTMLElement {
     if (this.constructor.props && this.constructor.props[propsName]) {
       const prop = this.constructor.props[propsName]
       if (prop.changed) {
-        const newTypeValue = this.getTypeValueofProp(propsName, newValue)
-        const oldTypeValue = this.getTypeValueofProp(propsName, oldValue)
+        const newTypeValue = this.getTypeValueOfProp(propsName, newValue)
+        const oldTypeValue = this.getTypeValueOfProp(propsName, oldValue)
         prop.changed.call(this, newTypeValue, oldTypeValue)
       }
     }
