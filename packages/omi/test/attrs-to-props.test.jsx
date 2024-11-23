@@ -375,4 +375,33 @@ describe('attrs to props', () => {
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>18</div>')
   })
 
+  it('updateProps2', async () => {
+    var valA, valB
+    class Ele extends Component {
+      static props = {
+        myAge: {
+          type: Number,
+          changed(newVal, oldVal) {
+            valA = newVal
+            valB = oldVal
+          }
+        },
+      }
+
+      render(props) {
+        return <div>{props.myAge}</div>
+      }
+    }
+
+    const node = genNode()
+    define(node.name, Ele)
+    const el = document.createElement(node.name)
+    parentElement.appendChild(el)
+    el.setProp('my-age', 18)
+    el.setProp('my-age', 19)
+
+    expect(valA).toBe(19)
+    expect(valB).toBe(18)
+  })
+
 })
