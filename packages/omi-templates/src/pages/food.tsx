@@ -57,23 +57,6 @@ const navItems = [
 export function Food() {
   return (
     <div>
-      <header class="shadow-sm dark:shadow-gray-700 mt-4 bg-blue-600">
-        <div class="flex max-w-7xl mx-auto pt-2 pb-3 lg:justify-normal justify-between px-1 lg:px-0 sm:px-3">
-          <div class="flex items-center cursor-pointer">
-            <img class="w-8 h-8" src="https://omi.cdn-go.cn/admin/latest/home/omi.svg" alt="OMI Logo" />
-            <div class="ml-1 text-2xl font-bold text-white">OMI 美食</div>
-          </div>
-          <div class="flex-1 flex justify-center">
-            <div class="flex items-center">
-              {navItems.map((item, key) => (
-                <div class="cursor-pointer mx-8 text-xl text-white hover:text-blue-200 flex items-center" key={key}>
-                  <a href={`#`}>{item.label}</a>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </header>
 
       <main class="text-sm sm:text-base">
         <div class="hero-section w-full h-screen relative flex items-center justify-center">
