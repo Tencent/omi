@@ -346,9 +346,9 @@ describe('attrs to props', () => {
     const el = document.createElement(node.name)
     parentElement.appendChild(el)
     el.setProp('info', { 'age': 18 })
-    // will not update
+    // will update
     el.removeAttribute('info')
-    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>18</div>')
+    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div></div>')
   })
 
 
