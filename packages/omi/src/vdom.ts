@@ -46,7 +46,9 @@ export function createElement(
 
   // jsx 嵌套的元素自动忽略  attrs
   if (attributes) {
-    attributes.ignoreAttrs = true
+    if(typeof attributes.ignoreAttrs !== 'boolean'){
+      attributes.ignoreAttrs = true
+    }
   } else {
     attributes = { ignoreAttrs: true }
   }

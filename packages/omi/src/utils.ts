@@ -1,5 +1,5 @@
 import { ExtendedElement } from './dom'
-import { ObjectVNode, VNode } from './vdom'
+import { ObjectVNode, VNode, Attributes } from './vdom'
 import './construct-style-sheets-polyfill'
 import { ComponentHookType, ComponentHooks } from './component'
 
@@ -312,4 +312,46 @@ export function executeComponentHooks(
       })
     }
   }
+}
+
+/**
+ * 将DOM NodeList转换为Omi VNode
+ * @param childNodes DOM NodeList
+ * @returns Omi VNode[]
+ */
+export function convertNodeListToVNodes(
+  childNodes: NodeList,
+): Array<VNode | string> {
+  return Array.from(childNodes)
+    .map((node): VNode | string => {
+      // 处理文本节点
+      if (node.nodeType === Node.TEXT_NODE) {
+        return node.textContent || ''
+      }
+      
+      const element = node as Element
+      // 处理元素节点
+      if (element.nodeType === Node.ELEMENT_NODE) {
+        const attributes: Attributes = {
+          ignoreAttrs: false,
+        }
+
+        // 转换元素属性
+        Array.from(element.attributes).forEach((attr) => {
+          attributes[camelCase(attr.name)] = attr.value
+        })
+
+        // 递归处理子节点
+        const children = convertNodeListToVNodes(element.childNodes)
+        return {
+          nodeName: element.tagName.toLowerCase(),
+          attributes,
+          children,
+          key: attributes.key,
+        }
+      }
+      // 其他类型节点（注释等）返回 null
+      return null as any
+    })
+    .filter(Boolean) // 过滤掉 null 值
 }
