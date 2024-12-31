@@ -8,6 +8,7 @@ import {
   isObject,
   createRef,
   installHook,
+  convertNodeListToVNodes,
 } from './utils'
 import { diff } from './diff'
 import { ExtendedElement } from './dom'
@@ -167,6 +168,9 @@ export class Component<State = any> extends HTMLElement {
         prop.changed.call(this, newTypeValue, oldTypeValue)
       }
     }
+    if(!this.props.ignoreAttrs){
+      this.update()
+    }
   }
 
   state: State
@@ -185,7 +189,15 @@ export class Component<State = any> extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return this.props ? Object.keys(this.props) : []
+    if (Object.keys(this.props || {}).length > 0) {
+      return Object.keys(this.props)
+    }
+    if(Object.keys(this.propTypes || {}).length > 0){
+      return Object.keys(this.propTypes)
+      .filter((p) => !/^on|children/.test(p))
+      .map((p) => hyphenate(p))
+    }
+    return []
   }
 
   injectObject() {
@@ -508,7 +520,12 @@ export class Component<State = any> extends HTMLElement {
 
   updated() {}
 
-  beforeRender() {}
+  beforeRender() {
+    // 针对非omi环境使用children的情况
+    if (!this.props.children) {
+      this.props.children = convertNodeListToVNodes.call(this, this.childNodes)
+    }
+  }
 
   rendered(vnode: VNode | VNode[]) {}
 
