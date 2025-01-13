@@ -14,7 +14,7 @@ import {
 import { diff } from './diff'
 import { ExtendedElement } from './dom'
 import 'weakmap-polyfill'
-import { ObjectVNode, VNode } from './vdom'
+import { ObjectVNode, VNode, createElement } from './vdom'
 import { setActiveComponent, clearActiveComponent } from 'reactive-signal'
 import { options } from './options'
 import { define } from './define'
@@ -53,6 +53,9 @@ export type ComponentHookRegistry = Record<
 export type Ref<T = any> = { current?: T }
 
 export class Component<State = any> extends HTMLElement {
+  static h = createElement
+  static f = createElement.f
+
   static is = 'Component'
   static defaultProps: Record<string, unknown>
   static reflectProps: ReflectProps
