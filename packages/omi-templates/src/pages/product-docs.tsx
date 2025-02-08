@@ -9,8 +9,10 @@ const MdIt = MarkdownIt.default ? MarkdownIt.default : MarkdownIt
 
 type NavTreeNode = {
   title: string
+  level: number
   children: NavTreeNode[]
 }
+//这里新加入的level是为了对应markdown标题
 
 type Props = {
   lang: string
@@ -27,10 +29,10 @@ export class ProductDocs extends Component<Props> {
     navTree: NavTreeNode
     active: [string, string]
   } = {
-    markdownContent: '',
-    navTree: { title: '', children: [] },
-    active: ['', ''],
-  }
+      markdownContent: '',
+      navTree: { title: '', level: 1, children: [] },
+      active: ['', ''],
+    }
 
   @bind
   async onChange(evt: CustomEvent) {
@@ -46,8 +48,85 @@ export class ProductDocs extends Component<Props> {
 
   install() {
     this.state.markdownContent = this.props.markdownContent
-
     this.setNavTree()
+    // 添加滚动监听
+    window.addEventListener('scroll', this.handleScroll)
+  }
+
+  // 在组件销毁时移除监听器
+  uninstall() {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  @bind
+  handleScroll() {
+    const mdDocs = this.rootElement?.querySelector('md-docs') as HTMLElement & {
+      rootElement: HTMLElement
+    }
+    if (!mdDocs) return
+
+    const h2Elements = mdDocs.rootElement.getElementsByTagName('h2')
+    const h3Elements = mdDocs.rootElement.getElementsByTagName('h3')
+
+    const threshold = window.innerHeight / 4
+
+    let activeH2: string | null = null
+    let activeH3: string | null = null
+
+    // 找到当前活动的 h2
+    for (let i = h2Elements.length - 1; i >= 0; i--) {
+      const h2 = h2Elements[i]
+      const rect = h2.getBoundingClientRect()
+
+      if (rect.top <= threshold) {
+        activeH2 = h2.textContent
+        break
+      }
+    }
+
+    // 如果找到活动的 h2，则在其范围内查找 h3
+    if (activeH2) {
+      const activeH2Node = this.state.navTree.children.find(node => node.title === activeH2)
+      if (activeH2Node) {
+        const validH3Titles = new Set(activeH2Node.children.map(child => child.title))
+
+        // 获取当前 h2 元素的位置
+        const currentH2 = Array.from(h2Elements).find(h2 => h2.textContent === activeH2)
+        const currentH2Rect = currentH2?.getBoundingClientRect()
+
+        // 获取下一个 h2 元素的位置
+        const nextH2Index = Array.from(h2Elements).findIndex(h2 => h2.textContent === activeH2) + 1
+        const nextH2Rect = h2Elements[nextH2Index]?.getBoundingClientRect()
+
+        // 从下往上查找第一个在当前 h2 范围内的可见 h3
+        for (let i = h3Elements.length - 1; i >= 0; i--) {
+          const h3 = h3Elements[i]
+          const rect = h3.getBoundingClientRect()
+
+          // 确保 h3 在当前 h2 和下一个 h2 之间
+          const isInCurrentSection =
+            rect.top >= (currentH2Rect?.top || 0) &&
+            (!nextH2Rect || rect.top <= nextH2Rect.top)
+
+          if (rect.top <= threshold &&
+            isInCurrentSection &&
+            validH3Titles.has(h3.textContent || '')) {
+            activeH3 = h3.textContent
+            break
+          }
+        }
+      }
+    }
+
+    // 如果切换到新的 h2，但没有找到对应的 h3，就清空 h3 的激活状态
+    if (this.state.active[0] !== activeH2) {
+      activeH3 = null
+    }
+
+    if (this.state.active[0] !== activeH2 || this.state.active[1] !== activeH3) {
+      this.state.active = [activeH2 || '', activeH3 || '']
+      this.update()
+    }
   }
 
   // 提取 markdown 中的标题
@@ -60,7 +139,20 @@ export class ProductDocs extends Component<Props> {
       const token = tokens[i]
       if (token.type === 'heading_open') {
         const title = tokens[i + 1].content
-        const newNode: NavTreeNode = { title, children: [] }
+        let level = 1
+
+        // 根据标题标签设置层级
+        if (token.tag === 'h2') {
+          level = 2
+        } else if (token.tag === 'h3') {
+          level = 3
+        }
+
+        const newNode: NavTreeNode = {
+          title,
+          children: [],
+          level
+        }
 
         if (token.tag === 'h2') {
           this.state.navTree.children.push(newNode)
