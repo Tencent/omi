@@ -10,6 +10,7 @@ import {
   createRef,
   installHook,
   convertNodeListToVNodes,
+  createProxy,
 } from './utils'
 import { diff } from './diff'
 import { ExtendedElement } from './dom'
@@ -66,6 +67,8 @@ export class Component<State = any> extends HTMLElement {
   static hooks: ComponentHookRegistry
   // 被所有组件继承
   static props = {}
+  // 是否针对复杂类型使用DOMProperty的方式传值
+  static useDOMProperty = false
 
   // 可以延迟定义，防止 import { }  被 tree-shaking 掉
   static define(name: string): void {
@@ -161,9 +164,73 @@ export class Component<State = any> extends HTMLElement {
 
     // @ts-ignore fix lazy load props missing
     this.props = Object.assign({}, this.constructor.defaultProps, this.props)
+
+    if (this.constructor.useDOMProperty && !this.props.ignoreAttrs) {
+      this.handleComplexProps()
+    }
+  }
+
+  private proxyCache = new WeakMap<object, object>()
+
+  /**
+   * 处理复杂类型的属性，如对象、数组，使用 DOM Property 的方式获取值
+   * 其它基本类型使用 attribute 的方式获取值
+   */
+  private handleComplexProps() {
+    const propTypes = this.constructor.propTypes as PropTypes
+    Object.keys(propTypes).forEach(propName => {
+      // 检查是否是复杂类型
+      const isComplexType = this.constructor.isComplexType(propName)
+
+      if (isComplexType) {
+        Object.defineProperty(this, propName, {
+          get: () => this.props[propName],
+          set: (value) => {
+            console.log('===到这里set', value)
+            if (Object.is(value, this.props[propName])) return
+
+            this.props[propName] = value
+            this.queuedUpdate()
+          },
+          enumerable: true,
+          configurable: true
+        })
+      }
+    })
+  }
+
+  static isComplexType(propName: string) {
+    const propTypes = this.propTypes as PropTypes
+    if (!propTypes[propName] || /^on|children/.test(propName)) {
+      return false
+    }
+    const types = isArray(propTypes[propName])
+      ? propTypes[propName] as PropType[]
+      : [propTypes[propName]] as PropType[]
+
+    // 检查是否是复杂类型
+    return types.some(t =>
+      t === Object || t === Array || (isArray(t) && t.includes(Object))
+    )
+  }
+
+  static get observedAttributes() {
+    // 兼容之前老的逻辑
+    if (Object.keys(this.props || {}).length > 0) {
+      return Object.keys(this.props).map(hyphenate)
+    }
+    // 根据 propTypes 获取需要监听的属性
+    if (Object.keys(this.propTypes || {}).length > 0) {
+      console.log('===走到这里')
+      return Object.keys(this.propTypes)
+        .filter((p) => !/^on|children/.test(p) && !(this.isComplexType(p) && this.useDOMProperty))
+        .map(hyphenate)
+    }
+    return []
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
+    console.log('====changed', name, oldValue, newValue)
     const propName = camelCase(name)
     if (this.constructor.props && this.constructor.props[propName]) {
       const prop = this.constructor.props[propName]
@@ -173,7 +240,7 @@ export class Component<State = any> extends HTMLElement {
         prop.changed.call(this, newTypeValue, oldTypeValue)
       }
     }
-    if(!this.props.ignoreAttrs){
+    if (!this.props.ignoreAttrs) {
       this.update()
     }
   }
@@ -191,18 +258,6 @@ export class Component<State = any> extends HTMLElement {
     if (!beforeUpdate) {
       this.queuedUpdate()
     }
-  }
-
-  static get observedAttributes() {
-    if (Object.keys(this.props || {}).length > 0) {
-      return Object.keys(this.props).map(hyphenate)
-    }
-    if(Object.keys(this.propTypes || {}).length > 0){
-      return Object.keys(this.propTypes)
-      .filter((p) => !/^on|children/.test(p))
-      .map(hyphenate)
-    }
-    return []
   }
 
   injectObject() {
@@ -294,16 +349,16 @@ export class Component<State = any> extends HTMLElement {
 
         // add globalCSS
         styleSheets = [...options.globalCSS, ...styleSheets]
-        ;(this.renderRoot as ShadowRoot).adoptedStyleSheets = styleSheets
+          ; (this.renderRoot as ShadowRoot).adoptedStyleSheets = styleSheets
         adoptedStyleSheetsMap.set(this.constructor, styleSheets)
       } else {
         if (options.globalCSS.length) {
-          ;(this.renderRoot as ShadowRoot).adoptedStyleSheets =
+          ; (this.renderRoot as ShadowRoot).adoptedStyleSheets =
             options.globalCSS
         }
       }
     } else {
-      ;(this.renderRoot as ShadowRoot).adoptedStyleSheets =
+      ; (this.renderRoot as ShadowRoot).adoptedStyleSheets =
         adoptedStyleSheetsMap.get(this.constructor)
     }
   }
@@ -316,9 +371,9 @@ export class Component<State = any> extends HTMLElement {
         children: [this.props.css],
       }
       if ((rendered as VNode[]).push) {
-        ;(rendered as VNode[]).push(styleVNode as ObjectVNode)
+        ; (rendered as VNode[]).push(styleVNode as ObjectVNode)
       } else {
-        ;(rendered as ObjectVNode).children.push(styleVNode as ObjectVNode)
+        ; (rendered as ObjectVNode).children.push(styleVNode as ObjectVNode)
       }
     }
   }
@@ -341,7 +396,7 @@ export class Component<State = any> extends HTMLElement {
     this.rootElement = diff(null, rendered as VNode, null, this, false)
 
     if (isArray(this.rootElement)) {
-      ;(this.rootElement as Element[]).forEach((item) => {
+      ; (this.rootElement as Element[]).forEach((item) => {
         this.renderRoot?.appendChild(item)
       })
     } else {
@@ -436,19 +491,22 @@ export class Component<State = any> extends HTMLElement {
   attrsToProps(): void {
     if (this.props.ignoreAttrs) return
     const ele = this
+    const constructor = this.constructor as typeof Component
     ele.props['css'] = ele.getAttribute('css')
-    const attrs = (this.constructor as typeof Component).propTypes
+    const attrs = constructor.propTypes
     if (!attrs) return
     Object.keys(attrs).forEach((key) => {
+      if (constructor.isComplexType(key) && constructor.useDOMProperty) return
+
       const val = ele.getAttribute(hyphenate(key))
       if (val !== null) {
         ele.props[key] = this.getTypeValueOfProp(key, val)
       } else {
         if (
-          (ele.constructor as typeof Component).defaultProps &&
-          (ele.constructor as typeof Component).defaultProps.hasOwnProperty(key)
+          constructor.defaultProps &&
+          constructor.defaultProps.hasOwnProperty(key)
         ) {
-          ele.props[key] = (ele.constructor as typeof Component).defaultProps[
+          ele.props[key] = constructor.defaultProps[
             key
           ]
         } else {
@@ -513,17 +571,17 @@ export class Component<State = any> extends HTMLElement {
     }
   }
 
-  install() {}
+  install() { }
 
-  installed() {}
+  installed() { }
 
-  ready() {}
+  ready() { }
 
-  uninstall() {}
+  uninstall() { }
 
-  beforeUpdate() {}
+  beforeUpdate() { }
 
-  updated() {}
+  updated() { }
 
   beforeRender() {
     // 针对非omi环境使用children的情况
@@ -532,9 +590,9 @@ export class Component<State = any> extends HTMLElement {
     }
   }
 
-  rendered(vnode: VNode | VNode[]) {}
+  rendered(vnode: VNode | VNode[]) { }
 
-  receiveProps() {}
+  receiveProps() { }
 }
 
 export class FormAssociatedComponent extends Component {
@@ -542,12 +600,12 @@ export class FormAssociatedComponent extends Component {
   _form: HTMLFormElement | null = null // 引用表单元素
   _inputs: HTMLInputElement[] = [] // 引用表单元素内部的 input 元素
   _internals: ElementInternals | null = null // 表单元素内部对象
-  formAssociatedCallback(form: HTMLFormElement) {} // 当组件被添加到表单元素内部时调用
-  handleFormData(event: FormDataEvent) {} // 处理表单数据事件
-  getFieldValue(): Record<string, any> {} // 返回获取 input 元素的值
+  formAssociatedCallback(form: HTMLFormElement) { } // 当组件被添加到表单元素内部时调用
+  handleFormData(event: FormDataEvent) { } // 处理表单数据事件
+  getFieldValue(): Record<string, any> { } // 返回获取 input 元素的值
   resetFieldValue(): void // 当重新表单时调用
-  handleField(event: Event) {} // 处理 input 事件
-  formDisabledCallback() {} // 当表单元素被禁用时调用
-  formResetCallback() {} // 当表单元素被重置时调用
-  formStateRestoreCallback(state: any, mode: any) {} // 当表单元素状态被恢复时调用
+  handleField(event: Event) { } // 处理 input 事件
+  formDisabledCallback() { } // 当表单元素被禁用时调用
+  formResetCallback() { } // 当表单元素被重置时调用
+  formStateRestoreCallback(state: any, mode: any) { } // 当表单元素状态被恢复时调用
 }
