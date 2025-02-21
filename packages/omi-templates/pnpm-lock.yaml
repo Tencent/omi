@@ -33,8 +33,8 @@ importers:
         specifier: ^14.0.0
         version: 14.1.0
       omi:
-        specifier: 7.7.0
-        version: 7.7.0
+        specifier: 7.7.3
+        version: 7.7.3
       omi-ripple:
         specifier: ^0.1.2
         version: 0.1.2
@@ -327,42 +327,36 @@ packages:
     engines: {node: '>= 10.0.0'}
     cpu: [arm]
     os: [linux]
-    libc: [glibc]
 
   '@parcel/watcher-linux-arm-musl@2.5.0':
     resolution: {integrity: sha512-6uHywSIzz8+vi2lAzFeltnYbdHsDm3iIB57d4g5oaB9vKwjb6N6dRIgZMujw4nm5r6v9/BQH0noq6DzHrqr2pA==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm]
     os: [linux]
-    libc: [musl]
 
   '@parcel/watcher-linux-arm64-glibc@2.5.0':
     resolution: {integrity: sha512-BfNjXwZKxBy4WibDb/LDCriWSKLz+jJRL3cM/DllnHH5QUyoiUNEp3GmL80ZqxeumoADfCCP19+qiYiC8gUBjA==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@parcel/watcher-linux-arm64-musl@2.5.0':
     resolution: {integrity: sha512-S1qARKOphxfiBEkwLUbHjCY9BWPdWnW9j7f7Hb2jPplu8UZ3nes7zpPOW9bkLbHRvWM0WDTsjdOTUgW0xLBN1Q==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@parcel/watcher-linux-x64-glibc@2.5.0':
     resolution: {integrity: sha512-d9AOkusyXARkFD66S6zlGXyzx5RvY+chTP9Jp0ypSTC9d4lzyRs9ovGf/80VCxjKddcUvnsGwCHWuF2EoPgWjw==}
     engines: {node: '>= 10.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@parcel/watcher-linux-x64-musl@2.5.0':
     resolution: {integrity: sha512-iqOC+GoTDoFyk/VYSFHwjHhYrk8bljW6zOhPuhi5t9ulqiYq1togGJB5e3PwYVFFfeVgc6pbz3JdQyDoBszVaA==}
     engines: {node: '>= 10.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@parcel/watcher-win32-arm64@2.5.0':
     resolution: {integrity: sha512-twtft1d+JRNkM5YbmexfcH/N4znDtjgysFaV9zvZmmJezQsKpkfLYJ+JFV3uygugK6AtIM2oADPkB2AdhBrNig==}
@@ -938,11 +932,11 @@ packages:
   omi-suspense@0.1.4:
     resolution: {integrity: sha512-zijzn+H3e6+Tkbs2Eda/vEod/kH+9lOLBntiDBauMQyRh3HZnMjq1dClI9QySUD9c4LQneo8rQolG6kkuqh/Yw==}
 
-  omi@7.7.0:
-    resolution: {integrity: sha512-OrU7qKVoAc9dFmCjkdcYFmKvWLdpvaHNSmcHSNuG5yx8fupAg0MksVK/fZ1QDTMGYxCnZvJT1T25esI4NdGJrA==}
+  omi@7.7.3:
+    resolution: {integrity: sha512-lohYvoHnDvyRHUfDh5sRzXE0o/eDJh40HXohAG64/iamaeIt8/NQNSo3lHHtg3akgksHQejkQR/dvK3k28W5CQ==}
 
-  omi@7.7.2:
-    resolution: {integrity: sha512-AZNVUKur2lIotRM5H8XeYOm/FF1TcOX/sT4+WalA7vDeyGGslxqv4b4zXHx/ytdwxBkMxuYO2KcjxdJdhKG5TQ==}
+  omi@7.7.5:
+    resolution: {integrity: sha512-e5SaFstMi65Cw2QecWGa9BLae3hpIu5BFlUw5pX7XQhQIqJ4RurWinfC/MzsBKBlbSzdjrST9eFYJUEoEUElng==}
 
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
@@ -2070,24 +2064,24 @@ snapshots:
 
   omi-ripple@0.1.2:
     dependencies:
-      omi: 7.7.2
+      omi: 7.7.5
 
   omi-router@4.1.8:
     dependencies:
-      omi: 7.7.2
+      omi: 7.7.5
       path-to-regexp: 6.3.0
 
   omi-suspense@0.1.4:
     dependencies:
-      omi: 7.7.2
+      omi: 7.7.5
 
-  omi@7.7.0:
+  omi@7.7.3:
     dependencies:
       construct-style-sheets-polyfill: 3.0.1
       reactive-signal: 2.0.1
       weakmap-polyfill: 2.0.4
 
-  omi@7.7.2:
+  omi@7.7.5:
     dependencies:
       construct-style-sheets-polyfill: 3.0.1
       reactive-signal: 2.0.1

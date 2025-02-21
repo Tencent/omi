@@ -46,13 +46,6 @@ const techniques = signal([
   },
 ])
 
-const navItems = [
-  { label: '首页' },
-  { label: '菜谱' },
-  { label: '烹饪技艺' },
-  { label: '关于我们' },
-  { label: '联系我们' },
-]
 
 export function Food() {
   return (
