@@ -164,7 +164,7 @@ export class Component<State = any> extends HTMLElement {
     // @ts-ignore fix lazy load props missing
     this.props = Object.assign({}, this.constructor.defaultProps, this.props)
 
-    if (this.constructor.useDOMProperty && !this.props.ignoreAttrs) {
+    if (!this.props.ignoreAttrs) {
       this.handleComplexProps()
     }
   }
@@ -345,16 +345,16 @@ export class Component<State = any> extends HTMLElement {
 
         // add globalCSS
         styleSheets = [...options.globalCSS, ...styleSheets]
-          ; (this.renderRoot as ShadowRoot).adoptedStyleSheets = styleSheets
+          ;(this.renderRoot as ShadowRoot).adoptedStyleSheets = styleSheets
         adoptedStyleSheetsMap.set(this.constructor, styleSheets)
       } else {
         if (options.globalCSS.length) {
-          ; (this.renderRoot as ShadowRoot).adoptedStyleSheets =
+          ;(this.renderRoot as ShadowRoot).adoptedStyleSheets =
             options.globalCSS
         }
       }
     } else {
-      ; (this.renderRoot as ShadowRoot).adoptedStyleSheets =
+      ;(this.renderRoot as ShadowRoot).adoptedStyleSheets =
         adoptedStyleSheetsMap.get(this.constructor)
     }
   }
@@ -367,9 +367,9 @@ export class Component<State = any> extends HTMLElement {
         children: [this.props.css],
       }
       if ((rendered as VNode[]).push) {
-        ; (rendered as VNode[]).push(styleVNode as ObjectVNode)
+        ;(rendered as VNode[]).push(styleVNode as ObjectVNode)
       } else {
-        ; (rendered as ObjectVNode).children.push(styleVNode as ObjectVNode)
+        ;(rendered as ObjectVNode).children.push(styleVNode as ObjectVNode)
       }
     }
   }
@@ -392,7 +392,7 @@ export class Component<State = any> extends HTMLElement {
     this.rootElement = diff(null, rendered as VNode, null, this, false)
 
     if (isArray(this.rootElement)) {
-      ; (this.rootElement as Element[]).forEach((item) => {
+      ;(this.rootElement as Element[]).forEach((item) => {
         this.renderRoot?.appendChild(item)
       })
     } else {
