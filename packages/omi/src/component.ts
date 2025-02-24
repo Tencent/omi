@@ -10,7 +10,6 @@ import {
   createRef,
   installHook,
   convertNodeListToVNodes,
-  createProxy,
 } from './utils'
 import { diff } from './diff'
 import { ExtendedElement } from './dom'
@@ -170,8 +169,6 @@ export class Component<State = any> extends HTMLElement {
     }
   }
 
-  private proxyCache = new WeakMap<object, object>()
-
   /**
    * 处理复杂类型的属性，如对象、数组，使用 DOM Property 的方式获取值
    * 其它基本类型使用 attribute 的方式获取值
@@ -186,7 +183,6 @@ export class Component<State = any> extends HTMLElement {
         Object.defineProperty(this, propName, {
           get: () => this.props[propName],
           set: (value) => {
-            console.log('===到这里set', value)
             if (Object.is(value, this.props[propName])) return
 
             this.props[propName] = value
@@ -200,6 +196,8 @@ export class Component<State = any> extends HTMLElement {
   }
 
   static isComplexType(propName: string) {
+    if (!this.useDOMProperty) return false
+
     const propTypes = this.propTypes as PropTypes
     if (!propTypes[propName] || /^on|children/.test(propName)) {
       return false
@@ -221,16 +219,14 @@ export class Component<State = any> extends HTMLElement {
     }
     // 根据 propTypes 获取需要监听的属性
     if (Object.keys(this.propTypes || {}).length > 0) {
-      console.log('===走到这里')
       return Object.keys(this.propTypes)
-        .filter((p) => !/^on|children/.test(p) && !(this.isComplexType(p) && this.useDOMProperty))
+        .filter((p) => !/^on|children/.test(p) && !this.isComplexType(p))
         .map(hyphenate)
     }
     return []
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    console.log('====changed', name, oldValue, newValue)
     const propName = camelCase(name)
     if (this.constructor.props && this.constructor.props[propName]) {
       const prop = this.constructor.props[propName]
@@ -496,7 +492,7 @@ export class Component<State = any> extends HTMLElement {
     const attrs = constructor.propTypes
     if (!attrs) return
     Object.keys(attrs).forEach((key) => {
-      if (constructor.isComplexType(key) && constructor.useDOMProperty) return
+      if (constructor.isComplexType(key)) return
 
       const val = ele.getAttribute(hyphenate(key))
       if (val !== null) {
