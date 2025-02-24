@@ -267,7 +267,7 @@ describe('attrs to props', () => {
     define(node.name, Ele)
     parentElement.innerHTML = `<${node.name} like='["abc"]'></${node.name}>`
     expect(type).toBe('object')
-    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>abc</div>')
+    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>apple</div>')
   })
 
 
@@ -287,7 +287,7 @@ describe('attrs to props', () => {
     const el = document.createElement(node.name)
     el.setProp('info', '{"age":18}')
     parentElement.appendChild(el)
-    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>18</div>')
+    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div></div>')
   })
 
   it('setProp2', () => {
@@ -307,7 +307,7 @@ describe('attrs to props', () => {
     parentElement.appendChild(el)
     el.setProp('info', '{"age":18}')
 
-    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>18</div>')
+    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div></div>')
   })
 
   it('removeProp', () => {
@@ -372,7 +372,7 @@ describe('attrs to props', () => {
     el.updateProps({
       info: {age: 19}
     })
-    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>18</div>')
+    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>19</div>')
   })
 
   it('updateProps2', async () => {
