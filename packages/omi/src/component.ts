@@ -67,7 +67,7 @@ export class Component<State = any> extends HTMLElement {
   // 被所有组件继承
   static props = {}
   // 是否针对复杂类型使用DOMProperty的方式传值
-  static useDOMProperty = false
+  static useDOMProperty = true
 
   // 可以延迟定义，防止 import { }  被 tree-shaking 掉
   static define(name: string): void {
