@@ -178,7 +178,6 @@ export class Component<State = any> extends HTMLElement {
     Object.keys(propTypes).forEach(propName => {
       // 检查是否是复杂类型
       const isComplexType = this.constructor.isComplexType(propName)
-
       if (isComplexType) {
         Object.defineProperty(this, propName, {
           get: () => this.props[propName],
@@ -366,12 +365,9 @@ export class Component<State = any> extends HTMLElement {
         attributes: {},
         children: [this.props.css],
       }
-      if ((rendered as VNode[]).push) {
-        ;(rendered as VNode[]).push(styleVNode as ObjectVNode)
-      } else {
-        ;(rendered as ObjectVNode).children.push(styleVNode as ObjectVNode)
-      }
+      return isArray(rendered) ? [...rendered, styleVNode] : [rendered, styleVNode]
     }
+    return rendered
   }
 
   connectedCallback(): void {
@@ -385,8 +381,7 @@ export class Component<State = any> extends HTMLElement {
     this.beforeRender()
     this.fire('beforeRender', this)
     // @ts-ignore
-    const rendered = this.render(this.props, this.store)
-    this.appendStyleVNode(rendered)
+    const rendered = this.appendStyleVNode(this.render(this.props, this.store))
     this.rendered(rendered)
     clearActiveComponent()
     this.rootElement = diff(null, rendered as VNode, null, this, false)
@@ -426,8 +421,7 @@ export class Component<State = any> extends HTMLElement {
     this.beforeRender()
     this.fire('beforeRender', this)
     // @ts-ignore
-    const rendered = this.render(this.props, this.store)
-    this.appendStyleVNode(rendered)
+    const rendered = this.appendStyleVNode(this.render(this.props, this.store))
     this.rendered(rendered)
     clearActiveComponent(null)
 
