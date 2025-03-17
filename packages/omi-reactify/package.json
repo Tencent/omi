@@ -1,0 +1,43 @@
+{
+  "name": "omi-reactify",
+  "version": "0.0.1",
+  "description": "Bridge between omi and react",
+  "main": "dist/index.es.js",
+  "exports": {
+    ".": "./dist/index.es.js"
+  },
+  "types": "types/index.d.ts",
+  "scripts": {
+    "dev": "npm run build:demo && vite --force",
+    "build": "vite build --mode build && npx tsc",
+    "build:demo": "vite build --mode demo"
+  },
+  "files": [
+    "dist",
+    "types"
+  ],
+  "peerDependencies": {
+    "omi": ">=7.7.8",
+    "react": ">=16.13.1",
+    "react-dom": ">=16.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.24",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "typescript": "^5.8.2",
+    "vite": "^5.4.14"
+  },
+  "license": "MIT",
+  "keywords": [
+    "omi",
+    "web-components",
+    "reactify"
+  ],
+  "authors": [
+    "The Omi Authors (https://github.com/Tencent/omi/contributors)"
+  ],
+  "repository": "Tencent/omi",
+  "bugs": "https://github.com/Tencent/omi/issues/",
+  "homepage": "http://omijs.org"
+}
