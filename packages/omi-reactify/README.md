@@ -1,73 +1,39 @@
 ## omi-reactify
 
-Define transition animation for entering and leaving.
-
-<img src="./o-transition.png" width="700">
-
-- fade-enter-from: defines the start state of entering the transition
-- fade-enter-active: defines the state when the transition takes effect and is removed after the transition animation is completed
-- fade-enter-to: define the end state of entering the transition, and remove it after the transition animation is completed
-- fade-leave-from: define the start state of leaving the transition
-- fade-leave-active: defines the state when leaving the transition takes effect
-- fade-leave-to: define the end state of leaving the transition, and remove it after the transition animation is completed
+Bridge between omi and react.
 
 ## Install
 
 ```js
-import 'omi-transition'
+import 'omi-reactify'
 ```
-
 
 ## Usage
 
 ```tsx
-import { render, signal, tag, Component, h } from 'omi'
-import 'omi-transition'
+import React, { useEffect } from 'react';
+import reactify from '../index';
 
-const show = signal(false)
+const OmiReactComponent = reactify('omi-web-component');
 
-@tag('transition-demo')
-class TransitionDemo extends Component {
-  static css = `
-    .fade-leave-to,
-    .fade-enter-from {
-      opacity: 0;
-      transform: translateX(15px);
-    }
+const App = () => {
+  const [complex, setComplex] = React.useState({ name: 'React' });
+  const ref = React.useRef();
 
-    .fade-leave-active,
-    .fade-enter-active {
-      transition: all 500ms ease-in;
-    }`
+  useEffect(()=>{
+    console.log('ref', ref.current)
+  }, [])
 
-  render() {
-    return (
-      <>
-        <button onClick={() => show.value = !show.value}>toggle</button>
-        <h4 show={show.value} o-transition={{ name: "fade" }} >OMI</h4>
-      </>
-    )
-  }
-}
-
-render(<transition-demo />, document.body)
-```
-
-## API
-
-### Options
-
-```tsx
-type DomType = HTMLElement | Component;
-
-interface TransitionOptions {
-  name: string;
-  delay?: number;
-  beforeEnter?: (dom: DomType) => void;
-  enter?: (dom: DomType)  => void;
-  afterEnter?: (dom: DomType) => void;
-  beforeLeave?: (dom: DomType) => void;
-  leave?: (dom: DomType) => void;
-  afterLeave?: (dom: DomType) => void;
+  return <OmiReactComponent
+    show={true}
+    label='React Component' // string
+    complex={complex} // object
+    ref={ref}
+    camelCase="camelCase" // camelCase key
+    style={{ color: 'red' }} // style object, you can also pass a style string
+    onMockClick={(_e: React.MouseEvent) => { setComplex({ name: 'Omi'}) }} // onMockClick -> mockClick
+  >
+    <span className='content'>content</span>
+  </OmiReactComponent>
 }
 ```

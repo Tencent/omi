@@ -10,7 +10,7 @@ const buildConfig = {
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: ['omi']
+      external: ['omi', 'react', 'react-dom']
     }
   },
   demo: {
@@ -21,7 +21,7 @@ const buildConfig = {
       fileName: (format) => `omi-component.${format}.js`
     },
     rollupOptions: {
-      external: ['omi']
+      external: ['omi', 'react', 'react-dom']
     }
   }
 }
@@ -31,7 +31,7 @@ export default defineConfig(({mode}) => {
   return {
     build: buildConfig[mode] || {
       rollupOptions: {
-        external: ['omi'],
+        external: ['omi', 'react', 'react-dom'],
       }
     },
     esbuild: mode === 'demo' ? {

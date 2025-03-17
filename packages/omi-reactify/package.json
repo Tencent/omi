@@ -8,8 +8,8 @@
   },
   "types": "types/index.d.ts",
   "scripts": {
-    "dev": "vite --force",
-    "build": "vite build --mode build",
+    "dev": "npm run build:demo && vite --force",
+    "build": "vite build --mode build && npx tsc",
     "build:demo": "vite build --mode demo"
   },
   "files": [
@@ -23,6 +23,8 @@
   },
   "devDependencies": {
     "@types/node": "^20.17.24",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "typescript": "^5.8.2",
     "vite": "^5.4.14"
   },

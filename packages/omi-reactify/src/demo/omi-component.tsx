@@ -1,4 +1,4 @@
-import { tag, h, Component } from 'omi'
+import { tag, Component } from 'omi'
 import React from 'react'
 
 @tag('omi-component-demo')
@@ -8,7 +8,8 @@ class OmiComponentDemo extends Component {
     label: String,
     complex: Object,
     content: [String, Number, Object, Function],
-    onClick: Function,
+    onMockClick: Function,
+    camelCase: String
   }
 
   static defaultProps = {
@@ -17,18 +18,19 @@ class OmiComponentDemo extends Component {
     complex: { name: 'complex' },
   }
 
-  onClick = (e:Event) =>{
+  onClick = (e: any) => {
     e.stopImmediatePropagation();
-    this.fire('click', { e, context: this });
+    this.fire('mockClick', { e, context: this });
   }
 
   render(props: any) {
-    const { show, label, content, complex } = props
-    return show ?  (
+    const { show, label, content, complex, camelCase = '' } = props
+    return show ? (
       <div onClick={this.onClick}>
-        <div class='label'>{label}</div>
-        <div class='complex'>{complex.name}</div>
+        <div className='label'>{label}</div>
+        <div className='complex'>{complex.name}</div>
         <slot>{content}</slot>
+        <div>{camelCase}</div>
       </div>
     ) : null
   }

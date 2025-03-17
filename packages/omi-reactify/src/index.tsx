@@ -1,7 +1,4 @@
-/**
- * Copy From https://github.com/BBKolton/reactify-wc/
- * */
-import { Component, createRef, createElement, forwardRef, ReactElement } from "react";
+import React, { Component, createRef, createElement, forwardRef } from "react";
 
 type Props = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLElement>,
@@ -16,7 +13,32 @@ export function hyphenate(str: string): string {
   return str.replace(hyphenateRE, '-$1').toLowerCase()
 }
 
-const reactify = <T extends Props = {}>(WC: any): React.ForwardRefExoticComponent<Props & T&React.RefAttributes<HTMLElement>> => {
+const styleObjectToString = (style: CSSRule) => {
+  const unitlessKeys = new Set([
+    'animationIterationCount', 'boxFlex', 'boxFlexGroup', 'boxOrdinalGroup',
+    'columnCount', 'fillOpacity', 'flex', 'flexGrow', 'flexShrink', 'fontWeight',
+    'lineClamp', 'lineHeight', 'opacity', 'order', 'orphans', 'tabSize',
+    'widows', 'zIndex', 'zoom'
+  ]);
+
+  return Object.entries(style)
+    .filter(([_, value]) => value != null && value !== '') // 过滤无效值
+    .map(([key, value]) => {
+      // 转换驼峰式为连字符格式
+      const cssKey = key.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`);
+
+      // 处理数值类型值
+      let cssValue = value;
+      if (typeof value === 'number' && value !== 0 && !unitlessKeys.has(key)) {
+        cssValue = `${value}px`;
+      }
+
+      return `${cssKey}:${cssValue};`;
+    })
+    .join(' ');
+}
+
+const reactify = (WC: any): React.ForwardRefExoticComponent<Omit<Props, "ref"> & React.RefAttributes<HTMLElement | undefined>> => {
   class Reactify extends Component<Props> {
     eventHandlers: [string, EventListener][];
 
@@ -38,20 +60,32 @@ const reactify = <T extends Props = {}>(WC: any): React.ForwardRefExoticComponen
       this.clearEventHandlers();
       if (!this.ref.current) return;
       Object.entries(this.props).forEach(([prop, val]) => {
+        console.log('prop', prop, val)
+        if (['innerRef', 'children'].includes(prop)) return;
         // event handler
         if (typeof val === "function") {
           if (prop.match(/^on[A-Za-z]/)) {
-            const eventName = prop.slice(2).toLowerCase();
-            return this.setEvent(eventName, val);
+            const eventName = prop.slice(2);
+            const omiEventName = eventName[0].toLowerCase() + eventName.slice(1);
+            console.log('===omiEventName',omiEventName);
+            return this.setEvent(omiEventName, val);
           }
         }
         // Complex object
-        if(typeof val === "object" && prop !== 'children'){
-          (this.ref.current as any)[prop] = val;
+        if (typeof val === "object") {
+          if (prop === 'style') {
+            this.ref.current?.setAttribute('style', styleObjectToString(val))
+          } else {
+            console.log('val111', prop, val);
+            (this.ref.current as any)[prop] = val;
+          }
+          return
         }
         // camel case
-        if(prop.match(hyphenateRE)){
-          this.ref.current.setAttribute(hyphenate(prop), val);
+        if (prop.match(hyphenateRE)) {
+          this.ref.current?.setAttribute(hyphenate(prop), val);
+          this.ref.current?.removeAttribute(prop);
+          return
         }
 
         return true;
@@ -72,15 +106,14 @@ const reactify = <T extends Props = {}>(WC: any): React.ForwardRefExoticComponen
 
     clearEventHandlers() {
       this.eventHandlers.forEach(([event, handler]) => {
-        this.ref.current.removeEventListener(event, handler);
+        this.ref.current?.removeEventListener(event, handler);
       });
       this.eventHandlers = [];
     }
 
     render() {
-      const { children, className, ...rest } = this.props;
-      console.log('===children',children);
-     
+      const { children, className, innerRef, ...rest } = this.props;
+
       return createElement(
         WC,
         { class: className, ...rest, ref: this.ref },
@@ -89,7 +122,7 @@ const reactify = <T extends Props = {}>(WC: any): React.ForwardRefExoticComponen
     }
   }
 
-  return forwardRef<HTMLElement, Props>((props, ref) => {
+  return forwardRef((props, ref) => {
     return createElement(Reactify, { ...props, innerRef: ref });
   });
 };
