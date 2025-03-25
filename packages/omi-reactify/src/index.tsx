@@ -67,7 +67,6 @@ const reactify = (WC: any): React.ForwardRefExoticComponent<Omit<Props, "ref"> &
           if (prop.match(/^on[A-Za-z]/)) {
             const eventName = prop.slice(2);
             const omiEventName = eventName[0].toLowerCase() + eventName.slice(1);
-            console.log('===omiEventName',omiEventName);
             return this.setEvent(omiEventName, val);
           }
         }
@@ -76,7 +75,6 @@ const reactify = (WC: any): React.ForwardRefExoticComponent<Omit<Props, "ref"> &
           if (prop === 'style') {
             this.ref.current?.setAttribute('style', styleObjectToString(val))
           } else {
-            console.log('val111', prop, val);
             (this.ref.current as any)[prop] = val;
           }
           return
