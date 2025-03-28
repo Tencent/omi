@@ -410,9 +410,30 @@ function diffAttributes(
   // let update = false
   let isComponent = dom.update
   let oldClone
+  
+  // merge defaultProps and props with their default values into oldClone
   if (dom.receiveProps) {
     oldClone = Object.assign({}, old)
+    
+    // merge defaultProps
+    if (dom) {
+      if ((dom.constructor as typeof Component).defaultProps) {
+        Object.assign(oldClone, (dom.constructor as typeof Component).defaultProps)
+      }
+
+      // merge props with default values
+      if ((dom.constructor as typeof Component).props) {
+        for (const propName in (dom.constructor as typeof Component).props) {
+          // @ts-ignore
+          if (dom.constructor.props?.[propName]?.default !== undefined) {
+            // @ts-ignore
+            oldClone[propName] = dom.constructor.props[propName].default
+          }
+        }
+      }
+    }
   }
+
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
     if (!(attrs && attrs[name] != null) && old[name] != null) {

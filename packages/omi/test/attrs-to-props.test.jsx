@@ -404,4 +404,41 @@ describe('attrs to props', () => {
     expect(valB).toBe(18)
   })
 
+  it('prevProps', async () => {
+    var valA, valB
+    class Ele extends Component {
+
+      render(props) {
+        return <div><child-ele111 />{props.myAge}</div>
+      }
+    }
+
+    class ChildEle extends Component {
+      static defaultProps = {
+        name: 'abc'
+      }
+
+      receiveProps(props, prevProps) {
+        valA = prevProps.name
+        valB = props.name
+      }
+
+      render(props) {
+        return <div>{props.myAge}</div>
+      }
+    }
+
+    const node = genNode()
+    define(node.name, Ele)
+    define('child-ele111', ChildEle)
+    const el = document.createElement(node.name)
+    parentElement.appendChild(el)
+    el.update()
+ 
+    await Promise.resolve()
+    expect(valA).toBe('abc')
+    expect(valB).toBe('abc')
+    
+  })
+
 })
