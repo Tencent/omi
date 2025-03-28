@@ -414,20 +414,26 @@ function diffAttributes(
   // merge defaultProps and props with their default values into oldClone
   if (dom.receiveProps) {
     oldClone = Object.assign({}, old)
-    
+  
     // merge defaultProps
     if (dom) {
       if ((dom.constructor as typeof Component).defaultProps) {
-        Object.assign(oldClone, (dom.constructor as typeof Component).defaultProps)
+        const defaultProps = (dom.constructor as typeof Component).defaultProps
+        for (const propName in defaultProps) {
+          if (oldClone[propName] === undefined) {
+            oldClone[propName] = defaultProps[propName]
+          }
+        }
       }
 
       // merge props with default values
       if ((dom.constructor as typeof Component).props) {
-        for (const propName in (dom.constructor as typeof Component).props) {
+        const props = (dom.constructor as typeof Component).props
+        for (const propName in props) {
           // @ts-ignore
-          if (dom.constructor.props?.[propName]?.default !== undefined) {
+          if (props[propName]?.default !== undefined && oldClone[propName] === undefined) {
             // @ts-ignore
-            oldClone[propName] = dom.constructor.props[propName].default
+            oldClone[propName] = props[propName].default
           }
         }
       }
