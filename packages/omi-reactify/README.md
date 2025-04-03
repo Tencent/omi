@@ -12,7 +12,7 @@ import 'omi-reactify'
 
 ```tsx
 import React, { useEffect } from 'react';
-import reactify from '../index';
+import reactify from 'omi-reactify';
 
 const OmiReactComponent = reactify('omi-web-component');
 
