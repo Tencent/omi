@@ -1,11 +1,8 @@
 import React, { Component, createRef, createElement, forwardRef } from "react";
 
-type Props = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLElement>,
-  HTMLElement
-> & {
+type AnyProps = {
   [key: string]: any;
-};
+}
 
 const hyphenateRE = /\B([A-Z])/g
 
@@ -38,8 +35,8 @@ const styleObjectToString = (style: CSSRule) => {
     .join(' ');
 }
 
-const reactify = (WC: any): React.ForwardRefExoticComponent<Omit<Props, "ref"> & React.RefAttributes<HTMLElement | undefined>> => {
-  class Reactify extends Component<Props> {
+const reactify = <T extends AnyProps = AnyProps>(WC: string): React.ForwardRefExoticComponent<Omit<T, "ref"> & React.RefAttributes<HTMLElement | undefined>> => {
+  class Reactify extends Component<AnyProps> {
     eventHandlers: [string, EventListener][];
 
     ref: React.RefObject<HTMLElement>;
@@ -60,7 +57,6 @@ const reactify = (WC: any): React.ForwardRefExoticComponent<Omit<Props, "ref"> &
       this.clearEventHandlers();
       if (!this.ref.current) return;
       Object.entries(this.props).forEach(([prop, val]) => {
-        console.log('prop', prop, val)
         if (['innerRef', 'children'].includes(prop)) return;
         // event handler
         if (typeof val === "function") {
@@ -122,7 +118,7 @@ const reactify = (WC: any): React.ForwardRefExoticComponent<Omit<Props, "ref"> &
 
   return forwardRef((props, ref) => {
     return createElement(Reactify, { ...props, innerRef: ref });
-  });
+  }) as React.ForwardRefExoticComponent<Omit<T, "ref"> & React.RefAttributes<HTMLElement | undefined>>;
 };
 
 export default reactify;

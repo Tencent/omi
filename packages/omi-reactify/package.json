@@ -1,6 +1,6 @@
 {
   "name": "omi-reactify",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Bridge between omi and react",
   "main": "dist/index.es.js",
   "exports": {
