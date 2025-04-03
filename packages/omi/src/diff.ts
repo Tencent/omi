@@ -29,7 +29,7 @@ export function diff(
   // first render return undefined
   if (!dom && !vnode) return null
 
-  // 兼容 isLightDOM 情况
+  // fix repeated rendering
   if (component && (component.constructor as typeof Component).isLightDOM) {
     component.innerHTML = ''
   }
@@ -410,9 +410,36 @@ function diffAttributes(
   // let update = false
   let isComponent = dom.update
   let oldClone
+  
+  // merge defaultProps and props with their default values into oldClone
   if (dom.receiveProps) {
     oldClone = Object.assign({}, old)
+  
+    // merge defaultProps
+    if (dom) {
+      if ((dom.constructor as typeof Component).defaultProps) {
+        const defaultProps = (dom.constructor as typeof Component).defaultProps
+        for (const propName in defaultProps) {
+          if (oldClone[propName] === undefined) {
+            oldClone[propName] = defaultProps[propName]
+          }
+        }
+      }
+
+      // merge props with default values
+      if ((dom.constructor as typeof Component).props) {
+        const props = (dom.constructor as typeof Component).props
+        for (const propName in props) {
+          // @ts-ignore
+          if (props[propName]?.default !== undefined && oldClone[propName] === undefined) {
+            // @ts-ignore
+            oldClone[propName] = props[propName].default
+          }
+        }
+      }
+    }
   }
+
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
     if (!(attrs && attrs[name] != null) && old[name] != null) {
