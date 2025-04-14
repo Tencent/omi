@@ -1,5 +1,5 @@
 import '../../dist/omi-component.es.js';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import reactify from '../index';
 
@@ -13,6 +13,21 @@ const App = () => {
     console.log('ref', ref.current)
   }, [])
 
+  const MockComponent = ({name}) => {
+    const n = name || 'Omi'
+    const ref = useRef();
+
+    useEffect(() => {
+      console.log('ref', ref.current)
+    }, [])
+
+    return <h1 ref={ref} onClick={()=>{console.log('click')}}>{n}</h1>
+  }
+
+  const mockFunction = (name) => <MockComponent name={name} />
+
+  console.log('==mockFunction', mockFunction);
+
   return <OmiReactComponent
     show={true}
     label='React Component'
@@ -21,6 +36,7 @@ const App = () => {
     camelCase="camelCase"
     style={{ color: 'red' }}
     onMockClick={(_e: React.MouseEvent) => { setComplex({ name: 'Omi'}) }}
+    mockFunction={mockFunction}
   >
     <span className='content'>content</span>
   </OmiReactComponent>

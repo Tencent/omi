@@ -1,4 +1,36 @@
 import React, { Component, createRef, createElement, forwardRef } from "react";
+import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
+// import {convertReactToOmi} from "./react";
+
+// 检测 React 版本
+const isReact18Plus = () => {
+  return typeof createRoot !== 'undefined';
+};
+
+// 创建渲染函数
+const createRenderer = (container: HTMLElement) => {
+  if (isReact18Plus()) {
+    const root = createRoot(container);
+    return {
+      render: (element: React.ReactElement) => {
+        root.render(element);
+      },
+      unmount: () => {
+        root.unmount();
+      }
+    };
+  } else {
+    return {
+      render: (element: React.ReactElement) => {
+        ReactDOM.render(element, container);
+      },
+      unmount: () => {
+        ReactDOM.unmountComponentAtNode(container);
+      }
+    };
+  }
+};
 
 type AnyProps = {
   [key: string]: any;
@@ -63,8 +95,24 @@ const reactify = <T extends AnyProps = AnyProps>(WC: string): React.ForwardRefEx
           if (prop.match(/^on[A-Za-z]/)) {
             const eventName = prop.slice(2);
             const omiEventName = eventName[0].toLowerCase() + eventName.slice(1);
-            return this.setEvent(omiEventName, val);
+            this.setEvent(omiEventName, val);
+          } else {
+            // Handle React function component
+            const renderComponent = (params?: any) => {
+              const component = val(params);
+              if (React.isValidElement(component) && this.ref.current) {
+                const container = document.createElement('div');
+                const renderer = createRenderer(container);
+                renderer.render(component);
+                return container;
+              } else {
+                return component;
+              }
+            };
+
+            (this.ref.current as any)[prop] = renderComponent;
           }
+          return;
         }
         // Complex object
         if (typeof val === "object") {
@@ -82,7 +130,7 @@ const reactify = <T extends AnyProps = AnyProps>(WC: string): React.ForwardRefEx
           return
         }
 
-        return true;
+        return;
       });
     }
 

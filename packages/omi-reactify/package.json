@@ -1,6 +1,6 @@
 {
   "name": "omi-reactify",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Bridge between omi and react",
   "main": "dist/index.es.js",
   "exports": {
@@ -8,9 +8,10 @@
   },
   "types": "types/index.d.ts",
   "scripts": {
-    "dev": "npm run build:demo && vite --force",
+    "dev": "rm -rf node_modules/.vite/* && npm run build:demo && vite --force",
     "build": "vite build --mode build && npx tsc",
-    "build:demo": "vite build --mode demo"
+    "build:demo": "vite build --mode demo",
+    "watch": "nodemon --watch src --ext ts,tsx --exec \"npm run dev\""
   },
   "files": [
     "dist",
@@ -25,6 +26,8 @@
     "@types/node": "^20.17.24",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "lodash": "^4.17.21",
+    "nodemon": "^3.1.9",
     "typescript": "^5.8.2",
     "vite": "^5.4.14"
   },
