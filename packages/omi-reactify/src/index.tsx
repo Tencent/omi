@@ -32,6 +32,30 @@ const createRenderer = (container: HTMLElement) => {
   }
 };
 
+const isFunctionComponentWithHooks = (component: any): boolean => {
+  // 1. 先检查是否是函数
+  if (typeof component !== 'function') return false;
+
+  // 2. 检查函数体是否包含 Hook 关键字
+  const componentCode = component.toString();
+  const hookKeywords = [
+    'useState',
+    'useEffect',
+    'useRef',
+    'useContext',
+    'useMemo',
+    'useCallback',
+    'useReducer'
+  ];
+
+  return hookKeywords.some(hook => componentCode.includes(hook));
+}
+
+const isClassComponent = (component: any): boolean => {
+  const isFC = typeof component === 'function';
+  return !!(isFC && component.prototype?.render)
+}
+
 type AnyProps = {
   [key: string]: any;
 }
@@ -70,12 +94,14 @@ const styleObjectToString = (style: CSSRule) => {
 const reactify = <T extends AnyProps = AnyProps>(WC: string): React.ForwardRefExoticComponent<Omit<T, "ref"> & React.RefAttributes<HTMLElement | undefined>> => {
   class Reactify extends Component<AnyProps> {
     eventHandlers: [string, EventListener][];
+    renderUnmountHandlers: Map<string, (params?: any) => void>;
 
     ref: React.RefObject<HTMLElement>;
 
     constructor(props: any) {
       super(props);
       this.eventHandlers = [];
+      this.renderUnmountHandlers = new Map();
       const { innerRef } = props;
       this.ref = innerRef || createRef();
     }
@@ -96,18 +122,28 @@ const reactify = <T extends AnyProps = AnyProps>(WC: string): React.ForwardRefEx
             const eventName = prop.slice(2);
             const omiEventName = eventName[0].toLowerCase() + eventName.slice(1);
             this.setEvent(omiEventName, val);
-          } else {
+          } else if(prop.match(/^render[A-Za-z]/)) {
             // Handle React function component
+            const ReactComponent = val;
             const renderComponent = (params?: any) => {
-              const component = val(params);
-              if (React.isValidElement(component) && this.ref.current) {
-                const container = document.createElement('div');
-                const renderer = createRenderer(container);
-                renderer.render(component);
-                return container;
-              } else {
-                return component;
+              // 重新render先unmount old
+              if(this.renderUnmountHandlers.get(prop)){
+                this.renderUnmountHandlers.get(prop)?.();
               }
+
+              console.log('isFunctionComponentWithHooks(val)', isFunctionComponentWithHooks(val) );
+              console.log('isClassComponent(val)', isClassComponent(val) );
+              
+              let component = (isFunctionComponentWithHooks(val) || isClassComponent(val)) 
+                ? <ReactComponent {...params}></ReactComponent> : ReactComponent(params);
+
+              const container = document.createElement('div');
+              const renderer = createRenderer(container);
+              renderer.render(component);
+
+              this.renderUnmountHandlers.set(prop, renderer.unmount);
+
+              return container;
             };
 
             (this.ref.current as any)[prop] = renderComponent;
@@ -116,11 +152,20 @@ const reactify = <T extends AnyProps = AnyProps>(WC: string): React.ForwardRefEx
         }
         // Complex object
         if (typeof val === "object") {
+            if (val?.$$typeof?.toString().match(/react/)) {
+            const container = document.createElement('div');
+            const renderer = createRenderer(container);
+            renderer.render(val);
+            (this.ref.current as any)[prop] = container;
+            console.log('到这里', (this.ref.current as any).update);
+            (this.ref.current as any).update();
+            return;
+          }
           if (prop === 'style') {
             this.ref.current?.setAttribute('style', styleObjectToString(val))
-          } else {
-            (this.ref.current as any)[prop] = val;
+            return;
           }
+          (this.ref.current as any)[prop] = val;
           return
         }
         // camel case

@@ -1,6 +1,5 @@
-import { tag, Component } from 'omi'
+import { tag, Component, createRef, signal } from 'omi'
 import React from 'react'
-import * as l from 'lodash';
 
 @tag('omi-component-demo')
 class OmiComponentDemo extends Component {
@@ -11,40 +10,64 @@ class OmiComponentDemo extends Component {
     content: [String, Number, Object, Function],
     onMockClick: Function,
     camelCase: String,
-    mockFunction: [Object, Function]
+    renderFunction: [Object, Function]
   }
 
   static defaultProps = {
     show: true,
     label: 'Omi Component',
     complex: { name: 'complex' },
-    mockFunction: (name: string) => {}
+    renderFunction: (name: string) => {}
   }
 
-  c = l.debounce((dd) => {
-    console.log('dd', dd.firstChild)
-  }, 1000)
+  reactRef = createRef<HTMLElement>();
+  renderReacted = false;
+
+
+  renderReact = (txt?) =>{
+    const r = typeof (this.props as any).renderFunction === 'function' 
+      ? (this.props as any).renderFunction?.(txt) 
+      : (this.props as any).renderFunction;
+
+    if(this.reactRef.current){
+      //  移除所有现有子元素
+      while (this.reactRef.current.firstChild) {
+        this.reactRef.current.removeChild(this.reactRef.current.firstChild);
+      }
+    }
+
+    (this.reactRef.current as any).appendChild(r);
+  }
 
   onClick = (e: any) => {
     e.stopImmediatePropagation();
     this.fire('mockClick', { e, context: this });
+    this.renderReact({name: '我好'});
+  }
+
+  ready(): void {
+    this.renderReact({name: '你好'})
+  }
+
+  updated(): void {
+    if(this.renderReacted) return;
+    this.renderReacted = true;
+    Promise.resolve().then(() => {
+      this.renderReact()
+      this.renderReacted = false;
+    })
+    
   }
 
   render(props: any) {
-    const { show, label, content, complex, camelCase = '', mockFunction } = props
-    const dd = mockFunction?.('你好')
-
-    console.log(dd.firstChild);
-
-    // 使用debounce是因为在react中会多次调用
-    this.c(dd);
+    const { show, label, content, complex, camelCase = '' } = props
     return show ? (
       <div>
         <div className='label'>{label}</div>
         <div className='complex' onClick={this.onClick}>{complex.name}</div>
         <slot>{content}</slot>
         <div>{camelCase}</div>
-        {dd ? dd : null}
+        <div ref={this.reactRef}></div>
       </div>
     ) : null
   }
