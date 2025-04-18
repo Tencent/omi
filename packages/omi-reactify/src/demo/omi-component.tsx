@@ -1,4 +1,4 @@
-import { tag, Component, createRef, signal } from 'omi'
+import { tag, Component, createRef, signal, render } from 'omi'
 import React from 'react'
 
 @tag('omi-component-demo')
@@ -10,7 +10,7 @@ class OmiComponentDemo extends Component {
     content: [String, Number, Object, Function],
     onMockClick: Function,
     camelCase: String,
-    renderFunction: [Object, Function]
+    renderFunction: [Function, Object],
   }
 
   static defaultProps = {
@@ -20,46 +20,50 @@ class OmiComponentDemo extends Component {
     renderFunction: (name: string) => {}
   }
 
-  reactRef = createRef<HTMLElement>();
+  reactRef = createRef() as any;
   renderReacted = false;
+  txt = '';
 
 
-  renderReact = (txt?) =>{
-    const r = typeof (this.props as any).renderFunction === 'function' 
-      ? (this.props as any).renderFunction?.(txt) 
-      : (this.props as any).renderFunction;
+  renderReact = (txt?) => {
+    if(this.txt === txt){
+      return;
+    }
+
+    this.txt = txt;
+
+    const r = (this.props as any).renderFunction?.({name: txt});
 
     if(this.reactRef.current){
       //  移除所有现有子元素
       while (this.reactRef.current.firstChild) {
         this.reactRef.current.removeChild(this.reactRef.current.firstChild);
       }
-    }
 
-    (this.reactRef.current as any).appendChild(r);
+      (this.reactRef.current as any).appendChild(r);
+    }
   }
 
   onClick = (e: any) => {
     e.stopImmediatePropagation();
     this.fire('mockClick', { e, context: this });
-    this.renderReact({name: '我好'});
+    this.renderReact('你好');
   }
+
+  // updated(): void {
+  //   Promise.resolve().then(() => {
+  //     this.renderReact({name: '你好'})
+  //   })
+  // }
 
   ready(): void {
-    this.renderReact({name: '你好'})
-  }
-
-  updated(): void {
-    if(this.renderReacted) return;
-    this.renderReacted = true;
-    Promise.resolve().then(() => {
-      this.renderReact()
-      this.renderReacted = false;
-    })
-    
+    this.renderReact('你好');
+    // const r = (this.props as any).renderFooter?.({name: '你好'});
+    // r => DOM
   }
 
   render(props: any) {
+    console.log('===endet');
     const { show, label, content, complex, camelCase = '' } = props
     return show ? (
       <div>

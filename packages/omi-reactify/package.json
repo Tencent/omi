@@ -1,12 +1,12 @@
 {
   "name": "omi-reactify",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Bridge between omi and react",
   "main": "dist/index.es.js",
   "exports": {
     ".": "./dist/index.es.js"
   },
-  "types": "types/index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
     "dev": "rm -rf node_modules/.vite/* && npm run build:demo && vite --force",
     "build": "vite build --mode build && npx tsc",
@@ -15,7 +15,8 @@
   },
   "files": [
     "dist",
-    "types"
+    "types",
+    "index.d.ts"
   ],
   "peerDependencies": {
     "omi": ">=7.7.8",

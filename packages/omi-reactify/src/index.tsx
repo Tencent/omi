@@ -1,7 +1,6 @@
 import React, { Component, createRef, createElement, forwardRef } from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
-// import {convertReactToOmi} from "./react";
 
 // 检测 React 版本
 const isReact18Plus = () => {
@@ -126,13 +125,11 @@ const reactify = <T extends AnyProps = AnyProps>(WC: string): React.ForwardRefEx
             // Handle React function component
             const ReactComponent = val;
             const renderComponent = (params?: any) => {
+              // params
               // 重新render先unmount old
-              if(this.renderUnmountHandlers.get(prop)){
-                this.renderUnmountHandlers.get(prop)?.();
-              }
-
-              console.log('isFunctionComponentWithHooks(val)', isFunctionComponentWithHooks(val) );
-              console.log('isClassComponent(val)', isClassComponent(val) );
+              // if(this.renderUnmountHandlers.get(prop)){
+              //   this.renderUnmountHandlers.get(prop)?.();
+              // }
               
               let component = (isFunctionComponentWithHooks(val) || isClassComponent(val)) 
                 ? <ReactComponent {...params}></ReactComponent> : ReactComponent(params);
@@ -141,7 +138,7 @@ const reactify = <T extends AnyProps = AnyProps>(WC: string): React.ForwardRefEx
               const renderer = createRenderer(container);
               renderer.render(component);
 
-              this.renderUnmountHandlers.set(prop, renderer.unmount);
+              // this.renderUnmountHandlers.set(prop, renderer.unmount);
 
               return container;
             };
@@ -153,12 +150,22 @@ const reactify = <T extends AnyProps = AnyProps>(WC: string): React.ForwardRefEx
         // Complex object
         if (typeof val === "object") {
             if (val?.$$typeof?.toString().match(/react/)) {
-            const container = document.createElement('div');
-            const renderer = createRenderer(container);
-            renderer.render(val);
-            (this.ref.current as any)[prop] = container;
-            console.log('到这里', (this.ref.current as any).update);
-            (this.ref.current as any).update();
+            const renderComponent = () => {
+              // 重新render先unmount old
+              // if(this.renderUnmountHandlers.get(prop)){
+              //   this.renderUnmountHandlers.get(prop)?.();
+              // }
+
+              const container = document.createElement('div');
+              const renderer = createRenderer(container);
+              renderer.render(val);
+              
+              // this.renderUnmountHandlers.set(prop, renderer.unmount);
+
+              return container;
+            }
+            
+            (this.ref.current as any)[prop] = renderComponent;
             return;
           }
           if (prop === 'style') {

@@ -70,10 +70,15 @@ const App = (): any => {
 
   const [name, setName] = useState('Omi');
 
+  const btnClick = () =>{
+    console.log('btnClick')
+    setName(name === 'Omi' ? 'React' : 'Omi')
+  }
+
   useEffect(() => {
     console.log('ref', ref.current)
   }, [])
-
+  console.log('=====App render=====');
   return <div>
     <OmiReactComponent
       show={true}
@@ -83,11 +88,11 @@ const App = (): any => {
       camelCase="camelCase"
       style={{ color: 'red' }}
       onMockClick={(_e: React.MouseEvent) => { setComplex({ name: 'Omi' }) }}
-      renderFunction={<MockComponent name={name}></MockComponent>}
+      renderFunction={MockComponent}
     >
       <span className='content'>content</span>
     </OmiReactComponent>
-    <button className='content' onClick={() => setName(name === 'Omi' ? 'React' : 'Omi')}>change name</button>
+    <button className='content' onClick={btnClick}>change name</button>
   </div>
 }
 
