@@ -5,13 +5,13 @@ Bridge between omi and vue.
 ## Install
 
 ```js
-npm i omi-reactify
+npm i omi-vueify
 ```
 
 ## Usage
 
 ```ts
-import { omiVueify } from 'omi-reactify';
+import { omiVueify } from 'omi-vueify';
 
 const MyComponent = omiVueify('my-component');
 ```
