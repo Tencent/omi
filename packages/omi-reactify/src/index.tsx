@@ -1,4 +1,59 @@
 import React, { Component, createRef, createElement, forwardRef } from "react";
+import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
+
+// 检测 React 版本
+const isReact18Plus = () => {
+  return typeof createRoot !== 'undefined';
+};
+
+// 创建渲染函数
+const createRenderer = (container: HTMLElement) => {
+  if (isReact18Plus()) {
+    const root = createRoot(container);
+    return {
+      render: (element: React.ReactElement) => {
+        root.render(element);
+      },
+      unmount: () => {
+        root.unmount();
+      }
+    };
+  } else {
+    return {
+      render: (element: React.ReactElement) => {
+        ReactDOM.render(element, container);
+      },
+      unmount: () => {
+        ReactDOM.unmountComponentAtNode(container);
+      }
+    };
+  }
+};
+
+const isFunctionComponentWithHooks = (component: any): boolean => {
+  // 1. 先检查是否是函数
+  if (typeof component !== 'function') return false;
+
+  // 2. 检查函数体是否包含 Hook 关键字
+  const componentCode = component.toString();
+  const hookKeywords = [
+    'useState',
+    'useEffect',
+    'useRef',
+    'useContext',
+    'useMemo',
+    'useCallback',
+    'useReducer'
+  ];
+
+  return hookKeywords.some(hook => componentCode.includes(hook));
+}
+
+const isClassComponent = (component: any): boolean => {
+  const isFC = typeof component === 'function';
+  return !!(isFC && component.prototype?.render)
+}
 
 type AnyProps = {
   [key: string]: any;
@@ -38,12 +93,14 @@ const styleObjectToString = (style: CSSRule) => {
 const reactify = <T extends AnyProps = AnyProps>(WC: string): React.ForwardRefExoticComponent<Omit<T, "ref"> & React.RefAttributes<HTMLElement | undefined>> => {
   class Reactify extends Component<AnyProps> {
     eventHandlers: [string, EventListener][];
+    renderUnmountHandlers: Map<string, (params?: any) => void>;
 
     ref: React.RefObject<HTMLElement>;
 
     constructor(props: any) {
       super(props);
       this.eventHandlers = [];
+      this.renderUnmountHandlers = new Map();
       const { innerRef } = props;
       this.ref = innerRef || createRef();
     }
@@ -63,16 +120,59 @@ const reactify = <T extends AnyProps = AnyProps>(WC: string): React.ForwardRefEx
           if (prop.match(/^on[A-Za-z]/)) {
             const eventName = prop.slice(2);
             const omiEventName = eventName[0].toLowerCase() + eventName.slice(1);
-            return this.setEvent(omiEventName, val);
+            this.setEvent(omiEventName, val);
+          } else if(prop.match(/^render[A-Za-z]/)) {
+            // Handle React function component
+            const ReactComponent = val;
+            const renderComponent = (params?: any) => {
+              // params
+              // 重新render先unmount old
+              // if(this.renderUnmountHandlers.get(prop)){
+              //   this.renderUnmountHandlers.get(prop)?.();
+              // }
+              
+              let component = (isFunctionComponentWithHooks(val) || isClassComponent(val)) 
+                ? <ReactComponent {...params}></ReactComponent> : ReactComponent(params);
+
+              const container = document.createElement('div');
+              const renderer = createRenderer(container);
+              renderer.render(component);
+
+              // this.renderUnmountHandlers.set(prop, renderer.unmount);
+
+              return container;
+            };
+
+            (this.ref.current as any)[prop] = renderComponent;
           }
+          return;
         }
         // Complex object
         if (typeof val === "object") {
+            if (val?.$$typeof?.toString().match(/react/)) {
+            const renderComponent = () => {
+              // 重新render先unmount old
+              // if(this.renderUnmountHandlers.get(prop)){
+              //   this.renderUnmountHandlers.get(prop)?.();
+              // }
+
+              const container = document.createElement('div');
+              const renderer = createRenderer(container);
+              renderer.render(val);
+              
+              // this.renderUnmountHandlers.set(prop, renderer.unmount);
+
+              return container;
+            }
+            
+            (this.ref.current as any)[prop] = renderComponent;
+            return;
+          }
           if (prop === 'style') {
             this.ref.current?.setAttribute('style', styleObjectToString(val))
-          } else {
-            (this.ref.current as any)[prop] = val;
+            return;
           }
+          (this.ref.current as any)[prop] = val;
           return
         }
         // camel case
@@ -82,7 +182,7 @@ const reactify = <T extends AnyProps = AnyProps>(WC: string): React.ForwardRefEx
           return
         }
 
-        return true;
+        return;
       });
     }
 
