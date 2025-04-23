@@ -1,11 +1,43 @@
 {
   "name": "omi-vueify",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "0.0.1",
+  "description": "Bridge between omi and vue",
+  "main": "dist/index.es.js",
+  "exports": {
+    ".": "./dist/index.es.js"
   },
-  "author": "",
-  "license": "MIT"
+  "types": "index.d.ts",
+  "scripts": {
+    "dev": "rm -rf node_modules/.vite/* && npm run build:demo && vite --force",
+    "build": "vite build --mode build && npx tsc",
+    "build:demo": "vite build --mode demo",
+    "watch": "nodemon --watch src --ext ts,tsx --exec \"npm run dev\""
+  },
+  "files": [
+    "dist",
+    "types",
+    "index.d.ts"
+  ],
+  "peerDependencies": {
+    "omi": ">=7.7.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.24",
+    "lodash": "^4.17.21",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.8.2",
+    "vite": "^5.4.14"
+  },
+  "license": "MIT",
+  "keywords": [
+    "omi",
+    "web-components",
+    "vueify"
+  ],
+  "authors": [
+    "The Omi Authors (https://github.com/Tencent/omi/contributors)"
+  ],
+  "repository": "Tencent/omi",
+  "bugs": "https://github.com/Tencent/omi/issues/",
+  "homepage": "http://omijs.org"
 }

@@ -4,8 +4,8 @@ Bridge between omi and react.
 
 ## Install
 
-```js
-import 'omi-reactify'
+```bash
+npm i omi-reactify
 ```
 
 ## Usage
