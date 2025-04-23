@@ -40,6 +40,7 @@ export class CounterDemo extends Component {
       h('br', null),
       h('span', null, this.props.obj.age),
       h('slot', null),
+      h('slot', { name: 'bar' }, null),
     ])
   }
 }

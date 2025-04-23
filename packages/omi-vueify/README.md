@@ -25,5 +25,11 @@ Vue Template:
     @hello="handleHelloEvent"
   >
     <p>{{name}}</p>
+    <template #foo>
+      <div>foo slot内容</div>
+    </template>
+    <template #bar>
+      <div>bar slot内容</div>
+    </template>
   </MyComponent>
 ```
