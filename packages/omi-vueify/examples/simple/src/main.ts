@@ -19,7 +19,8 @@ export class CounterDemo extends Component {
   static css = 'span { color: red; }'
 
   static propTypes = {
-    name: String
+    name: String,
+    obj: Object,
   }
   static defaultProps = {
     name: 'omi'
@@ -35,7 +36,10 @@ export class CounterDemo extends Component {
       h('button', { onClick: sub }, '-'),
       h('br', null),
       h('span', null, this.props.name),
-      h('button', { onClick: this.xxx }, 'random')
+      h('button', { onClick: this.xxx }, 'random'),
+      h('br', null),
+      h('span', null, this.props.obj.age),
+      h('slot', null),
     ])
   }
 }
