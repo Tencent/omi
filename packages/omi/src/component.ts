@@ -575,9 +575,8 @@ export class Component<State = any> extends HTMLElement {
 
   beforeRender() {
     // 针对非omi环境使用children的情况
-    if (!this.props.children) {
-      this.props.children = convertNodeListToVNodes.call(this, this.childNodes)
-    }
+    if (this.props.ignoreAttrs) return
+    this.props.children = convertNodeListToVNodes.call(this, this.childNodes)
   }
 
   rendered(vnode: VNode | VNode[]) { }

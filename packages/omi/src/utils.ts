@@ -314,8 +314,11 @@ export function executeComponentHooks(
   }
 }
 
+// WeakMap to cache VNodes for DOM nodes
+const nodeToVNodeCache = new WeakMap<Node, VNode | string>()
+
 /**
- * 将DOM NodeList转换为Omi VNode
+ * 将DOM NodeList转换为Omi VNode，带缓存优化
  * @param childNodes DOM NodeList
  * @returns Omi VNode[]
  */
@@ -324,9 +327,15 @@ export function convertNodeListToVNodes(
 ): Array<VNode | string> {
   return Array.from(childNodes)
     .map((node): VNode | string => {
+      
+      const cached = nodeToVNodeCache.get(node)
+      if (cached) return cached
+
       // 处理文本节点
       if (node.nodeType === Node.TEXT_NODE) {
-        return node.textContent || ''
+        const textContent = node.textContent || ''
+        nodeToVNodeCache.set(node, textContent)
+        return textContent
       }
       
       const element = node as Element
@@ -343,12 +352,15 @@ export function convertNodeListToVNodes(
 
         // 递归处理子节点
         const children = convertNodeListToVNodes(element.childNodes)
-        return {
+        const vnode = {
           nodeName: element.tagName.toLowerCase(),
           attributes,
           children,
           key: attributes.key,
         }
+        
+        nodeToVNodeCache.set(element, vnode)
+        return vnode
       }
       // 其他类型节点（注释等）返回 null
       return null as any
