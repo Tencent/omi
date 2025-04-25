@@ -2,11 +2,14 @@
   "name": "omi-vueify",
   "version": "0.0.3",
   "description": "Bridge between omi and vue",
-  "main": "dist/index.es.js",
+  "types": "./index.d.ts",
+  "main": "dist/omi-vueify.umd.js",
+  "module": "dist/omi-vueify.es.js",
   "exports": {
-    ".": "./dist/index.es.js"
+    "types": "./index.d.ts",
+    "main": "./dist/omi-vueify.umd.js",
+    "module": "./dist/omi-vueify.es.js"
   },
-  "types": "index.d.ts",
   "scripts": {
     "dev": "rm -rf node_modules/.vite/* && npm run build:demo && vite --force",
     "build": "vite build --mode build && npx tsc",
@@ -19,7 +22,8 @@
     "index.d.ts"
   ],
   "peerDependencies": {
-    "omi": ">=7.7.8"
+    "omi": ">=7.7.8",
+    "vue": ">=3"
   },
   "devDependencies": {
     "@types/node": "^20.17.24",
