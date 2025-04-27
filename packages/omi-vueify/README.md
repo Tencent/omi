@@ -13,7 +13,10 @@ npm i omi-vueify
 ```ts
 import { omiVueify } from 'omi-vueify';
 
-const MyComponent = omiVueify('my-component');
+const MyComponent = omiVueify('my-component', {
+  // 需要转发到 web components 的方法
+  methodsNames: []
+});
 ```
 
 Vue Template:
