@@ -2,12 +2,30 @@ import { h, defineComponent, ref } from 'vue';
 
 export function omiVueify(
   tagName: string,
+  options: {
+    methodNames: string[]
+  },
 ) {
   return defineComponent({
     name: `Omi${tagName.replace(/-/g, '')}`,
 
-    setup(props, { slots }) {
+    setup(props, { slots, expose }) {
       const elRef = ref<HTMLElement | null>(null);
+
+      // methodNames 改成调用 elRef.value[methodName]
+      const { methodNames } = options;
+      const methods = {};
+      methodNames.forEach((methodName) => {
+        // @ts-ignore
+        methods[methodName] = () => {
+          if (elRef.value) {
+            // @ts-ignore
+            elRef.value[methodName]?.();
+          }
+        };
+      });
+
+      expose(methods);
 
       return () => {
         // 收集所有 slot vnode

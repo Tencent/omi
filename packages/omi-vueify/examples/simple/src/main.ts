@@ -25,8 +25,16 @@ export class CounterDemo extends Component {
   static defaultProps = {
     name: 'omi'
   }
-  xxx = ()=> {
+  fireTest = ()=> {
     this.fire('hello', { name: 'omi' })
+  }
+
+  fireHelloTest = ()=> {
+    this.fire('hello-test', { name: 'omi' })
+  }
+
+  log() {
+    console.log(111)
   }
 
   render() {
@@ -36,9 +44,10 @@ export class CounterDemo extends Component {
       h('button', { onClick: sub }, '-'),
       h('br', null),
       h('span', null, this.props.name),
-      h('button', { onClick: this.xxx }, 'random'),
+      h('button', { onClick: this.fireTest }, 'random'),
       h('br', null),
-      h('span', null, this.props.obj.age),
+      h('span', null, this.props.obj?.age),
+      h('button', { onClick: this.fireHelloTest }, 'fireHelloTest'),
       h('slot', null),
       h('slot', { name: 'bar' }, null),
     ])

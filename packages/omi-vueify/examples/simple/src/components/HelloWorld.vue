@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, useTemplateRef } from 'vue';
 import { omiVueify } from '../../../../src/index';
 
-const MyComponent = omiVueify('my-component');
+const MyComponent = omiVueify('my-component', {
+  methodNames: ['log'],
+});
+
+const myComponent = useTemplateRef('myComponent');
 
 defineProps<{ msg: string }>();
 
@@ -12,21 +16,30 @@ const obj = ref({
   age: 1,
 });
 const handleHelloEvent = () => {
-  console.log('hello');
+  if (myComponent.value.log) {
+    console.log('hello', myComponent.value.log());
+  }
+   
   name.value = 'Omi' + Math.random();
 
   obj.value = {
     age: Math.random(),
   };
 };
+
+const handleHelloTestEvent = () => {
+  console.log('helloTest');
+};
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
   <MyComponent
+    ref="myComponent"
     :name="name"
     :obj="obj"
     @hello="handleHelloEvent"
+    @helloTest="handleHelloTestEvent"
   >
     <p>{{name}}</p>
     <template #foo>
