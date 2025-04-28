@@ -1,4 +1,4 @@
-import { h, defineComponent, ref } from 'vue';
+import { h, defineComponent, ref, onMounted, onBeforeUnmount } from 'vue';
 
 export function omiVueify(
   tagName: string,
@@ -9,7 +9,7 @@ export function omiVueify(
   return defineComponent({
     name: `Omi${tagName.replace(/-/g, '')}`,
 
-    setup(props, { slots, expose }) {
+    setup(props, { emit, attrs, slots, expose }) {
       const elRef = ref<HTMLElement | null>(null);
 
       // methodNames 改成调用 elRef.value[methodName]
@@ -26,6 +26,31 @@ export function omiVueify(
       });
 
       expose(methods);
+
+      // 处理事件监听
+      const omiEvents = Object.keys(attrs)
+        .filter(attrKey => attrKey.match(/^on[A-Za-z]/))
+        .map(oriEvent => oriEventToOmi(oriEvent));
+
+      onMounted(() => {
+        // 添加事件监听
+        omiEvents.forEach((omiEvent) => {
+          const vueEvent = omiEventToVue(omiEvent);
+          // 仅处理kebab-case风格
+          if (!isKebabString(vueEvent)) return;
+
+          elRef.value?.addEventListener(omiEvent, (e: Event) => {
+            emit(vueEvent, e);
+          })
+        })
+      })
+
+      // 清理事件监听
+      onBeforeUnmount(() => {
+        omiEvents.forEach((omiEvent) => {
+          elRef.value?.removeEventListener(omiEvent, () => {})
+        })
+      })
 
       return () => {
         // 收集所有 slot vnode
@@ -56,7 +81,6 @@ export function omiVueify(
               children.push(vnode);
             });
           }
-          
         });
 
         return h(
@@ -70,4 +94,28 @@ export function omiVueify(
       };
     },
   });
+}
+
+/*
+ * oriEvent -> omiEvent:
+ * 示例：onFileSelect -> fileSelect
+ */
+const oriEventToOmi = (oriEvent: string): string => {
+  const eventName = oriEvent.slice(2);
+  return eventName[0].toLowerCase() + eventName.slice(1);
+}
+
+/*
+ * omiEvent -> vueEvent
+ * 示例：fileSelectAaa -> file-select-aaa
+ */
+const omiEventToVue = (omiEvent: string): string => {
+  return omiEvent.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+}
+
+/**
+ * 判断字符串是否是连字符风格
+ */
+const isKebabString = (v: string): boolean => {
+  return v.includes('-');
 }
