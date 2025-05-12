@@ -1,6 +1,6 @@
 {
   "name": "omi-vueify",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Bridge between omi and vue",
   "types": "./index.d.ts",
   "main": "dist/omi-vueify.umd.js",

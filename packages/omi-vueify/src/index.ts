@@ -7,7 +7,7 @@ export function omiVueify(
   },
 ) {
   return defineComponent({
-    name: `Omi${tagName.replace(/-/g, '')}`,
+    name: tagName,
 
     setup(props, { emit, attrs, slots, expose }) {
       const elRef = ref<HTMLElement | null>(null);
