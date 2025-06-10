@@ -17,10 +17,10 @@ export function omiVueify(
       const methods = {};
       methodNames.forEach((methodName) => {
         // @ts-ignore
-        methods[methodName] = () => {
+        methods[methodName] = (...args: any[]) => {
           if (elRef.value) {
             // @ts-ignore
-            elRef.value[methodName]?.();
+            return elRef.value[methodName]?.(...args);
           }
         };
       });
