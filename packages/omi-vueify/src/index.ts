@@ -8,6 +8,7 @@ export function omiVueify(
 ) {
   return defineComponent({
     name: tagName,
+    inheritAttrs: false,
 
     setup(props, { emit, attrs, slots, expose }) {
       const elRef = ref<HTMLElement | null>(null);
@@ -27,6 +28,21 @@ export function omiVueify(
 
       expose(methods);
 
+      // 处理属性命名规则
+      const formatAttrs = Object.fromEntries(
+        Object.entries(attrs)
+          // 仅处理非事件
+          .filter(([key]) => !key.match(/^on[A-Za-z]/))
+          .map(([key, value]) => {
+            // 复杂类型 转驼峰
+            if (value && typeof value === 'object') {
+              return [kebabToCamel(key), value];
+            }
+            // 基本数据类型 转kebab-case
+            return [camelToKebab(key), value];
+          }),
+      );
+
       // 处理事件监听
       const omiEvents = Object.keys(attrs)
         .filter(attrKey => attrKey.match(/^on[A-Za-z]/))
@@ -35,7 +51,7 @@ export function omiVueify(
       onMounted(() => {
         // 添加事件监听
         omiEvents.forEach((omiEvent) => {
-          const vueEvent = omiEventToVue(omiEvent);
+          const vueEvent = camelToKebab(omiEvent);
           // 仅处理kebab-case风格
           if (!isKebabString(vueEvent)) return;
 
@@ -88,6 +104,7 @@ export function omiVueify(
           {
             ref: elRef,
             ...props,
+            ...formatAttrs
           },
           children
         );
@@ -105,17 +122,25 @@ const oriEventToOmi = (oriEvent: string): string => {
   return eventName[0].toLowerCase() + eventName.slice(1);
 }
 
-/*
- * omiEvent -> vueEvent
- * 示例：fileSelectAaa -> file-select-aaa
- */
-const omiEventToVue = (omiEvent: string): string => {
-  return omiEvent.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
-}
-
 /**
  * 判断字符串是否是连字符风格
  */
 const isKebabString = (v: string): boolean => {
   return v.includes('-');
+}
+
+/*
+ * 驼峰转kebab-case
+ * 示例：fileSelectAaa -> file-select-aaa
+ */
+const camelToKebab = (omiEvent: string): string => {
+  return omiEvent.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+}
+
+/**
+ * kebab-case转驼峰
+ * 示例：file-select-aaa -> fileSelectAaa
+ */
+const kebabToCamel = (str: string): string => {
+  return str.replace(/-([a-z])/g, (_match, p1) => p1.toUpperCase());
 }
