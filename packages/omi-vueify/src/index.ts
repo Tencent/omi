@@ -1,4 +1,4 @@
-import { h, defineComponent, ref, onMounted, onBeforeUnmount } from 'vue';
+import { h, defineComponent, ref, onMounted, onBeforeUnmount, computed } from 'vue';
 
 export function omiVueify(
   tagName: string,
@@ -29,18 +29,20 @@ export function omiVueify(
       expose(methods);
 
       // 处理属性命名规则
-      const formatAttrs = Object.fromEntries(
-        Object.entries(attrs)
-          // 仅处理非事件
-          .filter(([key]) => !key.match(/^on[A-Za-z]/))
-          .map(([key, value]) => {
-            // 复杂类型 转驼峰
-            if (value && typeof value === 'object') {
-              return [kebabToCamel(key), value];
-            }
-            // 基本数据类型 转kebab-case
-            return [camelToKebab(key), value];
-          }),
+      const formatAttrs = computed(() =>
+        Object.fromEntries(
+          Object.entries(attrs)
+            // 仅处理非事件
+            .filter(([key]) => !key.match(/^on[A-Za-z]/))
+            .map(([key, value]) => {
+              // 复杂类型 转驼峰
+              if (value && typeof value === 'object') {
+                return [kebabToCamel(key), value];
+              }
+              // 基本数据类型 转kebab-case
+              return [camelToKebab(key), value];
+            }),
+        ),
       );
 
       // 处理事件监听
@@ -104,7 +106,7 @@ export function omiVueify(
           {
             ref: elRef,
             ...props,
-            ...formatAttrs
+            ...formatAttrs.value,
           },
           children
         );
