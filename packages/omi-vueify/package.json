@@ -26,9 +26,15 @@
     "vue": ">=3"
   },
   "devDependencies": {
+    "@testing-library/vue": "^8.1.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20.17.24",
+    "babel-jest": "^30.0.4",
+    "jest": "^30.0.4",
+    "jest-environment-jsdom": "^30.0.4",
     "lodash": "^4.17.21",
     "nodemon": "^3.1.9",
+    "ts-jest": "^29.4.0",
     "typescript": "^5.8.2",
     "vite": "^5.4.14"
   },
