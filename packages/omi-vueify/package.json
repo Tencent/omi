@@ -14,7 +14,11 @@
     "dev": "rm -rf node_modules/.vite/* && npm run build:demo && vite --force",
     "build": "vite build --mode build && npx tsc",
     "build:demo": "vite build --mode demo",
-    "watch": "nodemon --watch src --ext ts,tsx --exec \"npm run dev\""
+    "watch": "nodemon --watch src --ext ts,tsx --exec \"npm run dev\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "prettier --write 'src/**/*.{js,ts,tsx,jsx}' && eslint 'src/**/*.{js,ts,tsx,jsx}' 'test/**/*.{js,ts,tsx,jsx}' --fix"
   },
   "files": [
     "dist",
@@ -26,15 +30,28 @@
     "vue": ">=3"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.19.1",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.23.0",
+    "@babel/plugin-transform-react-jsx": "^7.22.15",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-typescript": "^7.27.1",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/vue": "^8.1.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^20.17.24",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
     "babel-jest": "^30.0.4",
+    "eslint": "^8.34.0",
     "jest": "^30.0.4",
+    "jest-canvas-mock": "^2.5.2",
     "jest-environment-jsdom": "^30.0.4",
     "lodash": "^4.17.21",
     "nodemon": "^3.1.9",
+    "prettier": "^3.1.0",
     "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.2",
     "vite": "^5.4.14"
   },
