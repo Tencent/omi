@@ -52,9 +52,12 @@ define(
       }
       if (tasks.length === 0) {
         this.state = 'resolve'
+        this.update()
       } else {
         this.state = 'pending'
         this.fire('pending')
+        // 立即更新，不然loading显示不出来
+        this.update()
 
         try {
           const results = await Promise.all(tasks)
@@ -78,8 +81,6 @@ define(
           this.update()
         }
       }
-
-      this.update()
     }
 
     /**
