@@ -253,7 +253,7 @@ export class EducationTemplate extends Component {
           >
             {teachers.map((teacher) => (
               <div class="m-4 p-8 md:min-w-1/2 sm:w-full flex flex-col items-center bg-background rounded-lg transition-transform duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-lg">
-                <img src={teacher.image} alt={teacher.name} class="w-48 rounded object-cover object-center mb-4" />
+                <img src={teacher.image} alt={teacher.name} class="w-48 rounded-sm object-cover object-center mb-4" />
                 <h2 class="text-xl font-semibold">{teacher.name}</h2>
                 <h3 class="text-lg dark:text-foreground">{teacher.title}</h3>
                 <p class="text-zinc-600 dark:text-foreground mt-2">{teacher.description}</p>

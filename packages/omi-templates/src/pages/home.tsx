@@ -14,7 +14,7 @@ export function Home() {
       >
         <div class=" container mx-auto">
           <h1
-            class="text-5xl md:text-7xl pb-1 font-bold mb-4 bg-gradient-to-r from-primary via-[#07c160]"
+            class="text-5xl md:text-7xl pb-1 font-bold mb-4 bg-linear-to-r from-primary via-[#07c160]"
             style="-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;"
           >
@@ -45,7 +45,7 @@ export function Home() {
 
       <div class="container mx-auto -mt-24">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-          <div class="dark:border bg-card text-card-foreground rounded-lg p-4 shadow">
+          <div class="dark:border bg-card text-card-foreground rounded-lg p-4 shadow-sm">
             <div class="rounded-full bg-zinc-200 h-20 w-20 mx-auto mb-4 flex items-center justify-center text-5xl">
               🔪
             </div>
@@ -54,7 +54,7 @@ export function Home() {
               Tailwind CSS为基础的响应式布局站点和管理系统，直接复制粘贴，到处都能用
             </p>
           </div>
-          <div class="dark:border bg-card text-card-foreground rounded-lg p-4 shadow">
+          <div class="dark:border bg-card text-card-foreground rounded-lg p-4 shadow-sm">
             <div class="rounded-full bg-zinc-200 h-20 w-20 mx-auto mb-4 flex items-center justify-center text-5xl">
               🎁
             </div>
@@ -64,7 +64,7 @@ export function Home() {
             </p>
           </div>
 
-          <div class="dark:border bg-card text-card-foreground rounded-lg p-4 shadow">
+          <div class="dark:border bg-card text-card-foreground rounded-lg p-4 shadow-sm">
             <div class="rounded-full bg-zinc-200 h-20 w-20 mx-auto mb-4 flex items-center justify-center text-5xl">
               ⚙️
             </div>
@@ -119,27 +119,27 @@ export function Home() {
       </section>
 
       <section class="container mx-auto my-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="p-6 shadow rounded bg-card text-card-foreground dark:border">
+        <div class="p-6 shadow-sm rounded-sm bg-card text-card-foreground dark:border">
           <h2 class="text-2xl font-bold mb-4">卡片1</h2>
           <p class="text-zinc-600 dark:text-card-foreground">这里是卡片1的描述内容。</p>
         </div>
-        <div class=" p-6 shadow rounded bg-card text-card-foreground dark:border">
+        <div class=" p-6 shadow-sm rounded-sm bg-card text-card-foreground dark:border">
           <h2 class="text-2xl font-bold mb-4">卡片2</h2>
           <p class="text-zinc-600 dark:text-card-foreground">这里是卡片2的描述内容。</p>
         </div>
-        <div class=" p-6 shadow rounded bg-card text-card-foreground dark:border">
+        <div class=" p-6 shadow-sm rounded-sm bg-card text-card-foreground dark:border">
           <h2 class="text-2xl font-bold mb-4">卡片3</h2>
           <p class="text-zinc-600 dark:text-card-foreground">这里是卡片3的描述内容。</p>
         </div>
-        <div class=" p-6 shadow rounded bg-card text-card-foreground dark:border">
+        <div class=" p-6 shadow-sm rounded-sm bg-card text-card-foreground dark:border">
           <h2 class="text-2xl font-bold mb-4">卡片1</h2>
           <p class="text-zinc-600 dark:text-card-foreground">这里是卡片1的描述内容。</p>
         </div>
-        <div class=" p-6 shadow rounded bg-card text-card-foreground dark:border">
+        <div class=" p-6 shadow-sm rounded-sm bg-card text-card-foreground dark:border">
           <h2 class="text-2xl font-bold mb-4">卡片2</h2>
           <p class="text-zinc-600 dark:text-card-foreground">这里是卡片2的描述内容。</p>
         </div>
-        <div class=" p-6 shadow rounded bg-card text-card-foreground dark:border">
+        <div class=" p-6 shadow-sm rounded-sm bg-card text-card-foreground dark:border">
           <h2 class="text-2xl font-bold mb-4">卡片3</h2>
           <p class="text-zinc-600 dark:text-card-foreground">这里是卡片3的描述内容。</p>
         </div>

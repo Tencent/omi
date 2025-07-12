@@ -6,7 +6,7 @@ import '../select'
 const theme = {
   td: 'text-center data-[dpk-cell-disabled]:text-neutral-300 data-[dpk-cell-disabled]:cursor-default data-[dpk-cell-disabled]:pointer-events-none data-[dpk-cell-disabled]:hover:cursor-default hover:cursor-pointer group w-6 h-8',
   tdInner:
-    'mx-auto box-border group-[:not([dpk-cell-disabled]):not([dpk-cell-selected]):hover]:bg-neutral-300 group-[[dpk-cell-selected]]:bg-primary group-[[dpk-cell-selected]]:text-white group-[:not([dpk-cell-selected])[dpk-cell-focused]]:bg-neutral-100 group-[[dpk-cell-focused]]:data-[dpk-cell-selected]:bg-primary group-[[dpk-cell-current]]:border-solid group-[[dpk-cell-current]]:border-black group-[[dpk-cell-current]]:border dark:group-[:not([dpk-cell-disabled]):not([dpk-cell-selected]):hover]:bg-white/10 dark:group-[[dpk-cell-current]]:border-white bg-background text-foreground dark:group-[:not([dpk-cell-selected])[dpk-cell-focused]]:bg-white/10 dark:group-[[dpk-cell-disabled]]:text-neutral-500 w-6 h-6 leading-6 rounded text-[13px] group-[[dpk-cell-current]]:leading-[21px] ',
+    'mx-auto box-border group-[:not([dpk-cell-disabled]):not([dpk-cell-selected]):hover]:bg-neutral-300 group-[[dpk-cell-selected]]:bg-primary group-[[dpk-cell-selected]]:text-white group-[:not([dpk-cell-selected])[dpk-cell-focused]]:bg-neutral-100 group-[[dpk-cell-focused]]:data-[dpk-cell-selected]:bg-primary group-[[dpk-cell-current]]:border-solid group-[[dpk-cell-current]]:border-black group-[[dpk-cell-current]]:border dark:group-[:not([dpk-cell-disabled]):not([dpk-cell-selected]):hover]:bg-white/10 dark:group-[[dpk-cell-current]]:border-white bg-background text-foreground dark:group-[:not([dpk-cell-selected])[dpk-cell-focused]]:bg-white/10 dark:group-[[dpk-cell-disabled]]:text-neutral-500 w-6 h-6 leading-6 rounded-sm text-[13px] group-[[dpk-cell-current]]:leading-[21px] ',
 }
 
 // dpk-cell-selected
@@ -163,9 +163,9 @@ export class CalendarComponent extends Component<Props> {
 
   render() {
     return (
-      <div class={classNames('w-[280px] h-[280px] border rounded')}>
-        <div class="relative h-full bg-background text-foreground rounded">
-          <div class="px-1 pt-2 pb-0 flex justify-between bg-background text-foreground items-center rounded ml-2">
+      <div class={classNames('w-[280px] h-[280px] border rounded-sm')}>
+        <div class="relative h-full bg-background text-foreground rounded-sm">
+          <div class="px-1 pt-2 pb-0 flex justify-between bg-background text-foreground items-center rounded-sm ml-2">
             <o-select
               value={this.calendar.getMonth()}
               onChange={this.onMonthClick}
@@ -193,7 +193,7 @@ export class CalendarComponent extends Component<Props> {
             <div class="flex gap-2">
               <button
                 onClick={this.prevMonth}
-                class="p-0 w-5 h-5 leading-10 border-none outline-none m-0 bg-background text-foreground mr-1 hover:bg-zinc-200  dark:hover:bg-zinc-600 hover:rounded  focus:rounded [&>svg]:w-4 [&>svg]:h-4 [&>svg]:mx-auto"
+                class="p-0 w-5 h-5 leading-10 border-none outline-hidden m-0 bg-background text-foreground mr-1 hover:bg-zinc-200  dark:hover:bg-zinc-600 hover:rounded-sm  focus:rounded-sm [&>svg]:w-4 [&>svg]:h-4 [&>svg]:mx-auto"
                 aria-label="Previous month"
                 dpk-previous-button-ref=""
               >
@@ -210,7 +210,7 @@ export class CalendarComponent extends Component<Props> {
               </button>
               <button
                 onClick={this.currentMonth}
-                class="flex items-center justify-center w-5 h-5 leading-10 border-none outline-none m-0  mr-1 hover:bg-zinc-200  dark:hover:bg-zinc-600 hover:rounded  focus:rounded  [&>svg]:mx-auto"
+                class="flex items-center justify-center w-5 h-5 leading-10 border-none outline-hidden m-0  mr-1 hover:bg-zinc-200  dark:hover:bg-zinc-600 hover:rounded-sm  focus:rounded-sm  [&>svg]:mx-auto"
                 aria-label="Previous month"
                 dpk-previous-button-ref=""
               >
@@ -229,7 +229,7 @@ export class CalendarComponent extends Component<Props> {
               </button>
               <button
                 onClick={this.nextMonth}
-                class="p-0 w-5 h-5 leading-10 border-none outline-none m-0 bg-background text-foreground hover:bg-zinc-200  dark:hover:bg-zinc-600 hover:rounded [&>svg]:w-4 [&>svg]:h-4 [&>svg]:rotate-180 [&>svg]:mx-auto"
+                class="p-0 w-5 h-5 leading-10 border-none outline-hidden m-0 bg-background text-foreground hover:bg-zinc-200  dark:hover:bg-zinc-600 hover:rounded-sm [&>svg]:w-4 [&>svg]:h-4 [&>svg]:rotate-180 [&>svg]:mx-auto"
                 aria-label="Next month"
                 dpk-next-button-ref=""
               >
@@ -247,7 +247,7 @@ export class CalendarComponent extends Component<Props> {
             </div>
           </div>
 
-          <div class="outline-none px-3 pt-2 bg-background text-foreground" dpk-view-ref="" tabindex="0">
+          <div class="outline-hidden px-3 pt-2 bg-background text-foreground" dpk-view-ref="" tabindex="0">
             <table class="mx-auto w-full">
               <thead>
                 <tr>

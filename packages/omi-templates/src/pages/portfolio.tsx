@@ -14,7 +14,7 @@ export function Portfolio() {
                 </a>
             </div>
             <div class="grid gap-8 md:grid-cols-2 mt-4 lg:grid-cols-3">
-                <div class="rounded-md border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+                <div class="rounded-md border bg-card text-card-foreground shadow-xs" data-v0-t="card">
                     <div class="flex flex-col items-center justify-center h-full p-6 text-center">
                         <img
                             src={simple}
@@ -30,7 +30,7 @@ export function Portfolio() {
                         </div>
                     </div>
                 </div>
-                <div class="rounded-md border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+                <div class="rounded-md border bg-card text-card-foreground shadow-xs" data-v0-t="card">
                     <div class="flex flex-col items-center justify-center h-full p-6 text-center">
                         <img
                             src={simple}
@@ -46,7 +46,7 @@ export function Portfolio() {
                         </div>
                     </div>
                 </div>
-                <div class="rounded-md border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+                <div class="rounded-md border bg-card text-card-foreground shadow-xs" data-v0-t="card">
                     <div class="flex flex-col items-center justify-center h-full p-6 text-center">
                         <img
                             src={simple}
@@ -62,7 +62,7 @@ export function Portfolio() {
                         </div>
                     </div>
                 </div>
-                <div class="rounded-md border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+                <div class="rounded-md border bg-card text-card-foreground shadow-xs" data-v0-t="card">
                     <div class="flex flex-col items-center justify-center h-full p-6 text-center">
                         <img
                             src={simple}
@@ -78,7 +78,7 @@ export function Portfolio() {
                         </div>
                     </div>
                 </div>
-                <div class="rounded-md border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+                <div class="rounded-md border bg-card text-card-foreground shadow-xs" data-v0-t="card">
                     <div class="flex flex-col items-center justify-center h-full p-6 text-center">
                         <img
                             src={simple}
@@ -94,7 +94,7 @@ export function Portfolio() {
                         </div>
                     </div>
                 </div>
-                <div class="rounded-md border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+                <div class="rounded-md border bg-card text-card-foreground shadow-xs" data-v0-t="card">
                     <div class="flex flex-col items-center justify-center h-full p-6 text-center">
                         <img
                             src={simple}
@@ -120,7 +120,7 @@ export function Portfolio() {
                     了解更多
                 </a>
             </div>
-            <div class="rounded-md border bg-card text-card-foreground shadow-sm mt-4" data-v0-t="card">
+            <div class="rounded-md border bg-card text-card-foreground shadow-xs mt-4" data-v0-t="card">
                 <div class="grid gap-6 p-6 md:grid-cols-2">
                     <div>
                         <img
@@ -150,7 +150,7 @@ export function Portfolio() {
                 <h2 class="text-2xl font-bold">联系方式</h2>
                
             </div>
-            <div class="rounded-md border bg-card text-card-foreground shadow-sm mt-4" data-v0-t="card">
+            <div class="rounded-md border bg-card text-card-foreground shadow-xs mt-4" data-v0-t="card">
                 <div class="grid gap-6 p-6 md:grid-cols-2">
                     <div>
                         <h3 class="text-xl font-semibold">联系信息</h3>
@@ -176,17 +176,17 @@ export function Portfolio() {
                     <div>
                         <form class="grid gap-4">
                             <input
-                                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring-3 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                 placeholder="Name"
                                 type="text"
                             />
                             <input
-                                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring-3 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                 placeholder="Email"
                                 type="email"
                             />
                             <textarea
-                                class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-gray-500 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring-3 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                 placeholder="Message"
                             ></textarea>
                             <o-button theme="primary">发送消息</o-button>

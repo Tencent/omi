@@ -24,10 +24,10 @@ export class Tag extends Component {
     const { closable, disabled, icon, maxWidth, shape, size, theme, variant } = this.props
 
     const baseClasses =
-      'inline-flex items-center justify-center border border-transparent text-base font-medium rounded-sm focus:outline-none transition duration-150 ease-in-out whitespace-nowrap'
+      'inline-flex items-center justify-center border border-transparent text-base font-medium rounded-xs focus:outline-hidden transition duration-150 ease-in-out whitespace-nowrap'
     const sizeClasses =
       size === 'small' ? 'px-1 text-xs h-5' : size === 'medium' ? 'px-3 text-xs h-6' : 'px-4 text-sm h-8'
-    const shapeClasses = shape === 'square' ? '' : shape === 'round' ? 'rounded' : 'rounded-full'
+    const shapeClasses = shape === 'square' ? '' : shape === 'round' ? 'rounded-sm' : 'rounded-full'
     const themeClasses =
       theme === 'default'
         ? 'bg-zinc-200'

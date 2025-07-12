@@ -82,10 +82,10 @@ export class Select extends Component<Props> {
   render() {
     return (
       <div class="relative w-full inline-block text-left">
-        <div class="bg-background text-foreground rounded border overflow-hidden">
+        <div class="bg-background text-foreground rounded-sm border overflow-hidden">
           <button
             type="button"
-            class="inline-flex justify-between w-full shadow-sm px-2 py-1.5 text-sm font-medium hover:bg-zinc-50  dark:hover:bg-zinc-700"
+            class="inline-flex justify-between w-full shadow-xs px-2 py-1.5 text-sm font-medium hover:bg-zinc-50  dark:hover:bg-zinc-700"
             id="options-menu"
             aria-haspopup="true"
             aria-expanded="true"
@@ -110,7 +110,7 @@ export class Select extends Component<Props> {
         </div>
 
         <div
-          class="border origin-top-right z-50 absolute whitespace-nowrap right-0 mt-2 rounded shadow-lg bg-background text-foreground ring-1 ring-black ring-opacity-5 max-h-48 overflow-auto"
+          class="border origin-top-right z-50 absolute whitespace-nowrap right-0 mt-2 rounded-sm shadow-lg bg-background text-foreground ring-1 ring-black ring-opacity-5 max-h-48 overflow-auto"
           ref={(e) => (this.menu = e)}
           style={{ display: this.state.isOpen ? 'block' : 'none' }}
         >
@@ -118,7 +118,7 @@ export class Select extends Component<Props> {
             {this.props.options.map((option) => (
               <a
                 href="javascript:"
-                class="block px-4 py-2 text-sm  hover:bg-zinc-100 rounded dark:hover:bg-zinc-400 hover:text-zinc-900"
+                class="block px-4 py-2 text-sm  hover:bg-zinc-100 rounded-sm dark:hover:bg-zinc-400 hover:text-zinc-900"
                 role="menuitem"
                 onClick={() => this.onSelectOption(option)}
               >

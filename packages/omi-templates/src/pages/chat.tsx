@@ -231,12 +231,12 @@ export function Chat() {
                   <div class="search flex-2 pb-6 px-2">
                     <input
                       type="text"
-                      class="outline-none py-2 block w-full bg-transparent border-b-2 border-zinc-200"
+                      class="outline-hidden py-2 block w-full bg-transparent border-b-2 border-zinc-200"
                       placeholder="Search"
                     />
                   </div>
                   <div class="flex-1 h-full overflow-auto px-2">
-                    <div class="entry cursor-pointer transform hover:scale-105 duration-300 transition-transform bg-white mb-4 rounded p-4 flex shadow-md">
+                    <div class="entry cursor-pointer transform hover:scale-105 duration-300 transition-transform bg-white mb-4 rounded-sm p-4 flex shadow-md">
                       <div class="flex-2">
                         <div class="w-12 h-12 relative">
                           <img
@@ -266,7 +266,7 @@ export function Chat() {
                         </div>
                       </div>
                     </div>
-                    <div class="entry cursor-pointer transform hover:scale-105 duration-300 transition-transform bg-white mb-4 rounded p-4 flex shadow-md">
+                    <div class="entry cursor-pointer transform hover:scale-105 duration-300 transition-transform bg-white mb-4 rounded-sm p-4 flex shadow-md">
                       <div class="flex-2">
                         <div class="w-12 h-12 relative">
                           <img
@@ -296,7 +296,7 @@ export function Chat() {
                         </div>
                       </div>
                     </div>
-                    <div class="entry cursor-pointer transform hover:scale-105 duration-300 transition-transform bg-white mb-4 rounded p-4 flex shadow-md border-l-4 border-red-500">
+                    <div class="entry cursor-pointer transform hover:scale-105 duration-300 transition-transform bg-white mb-4 rounded-sm p-4 flex shadow-md border-l-4 border-red-500">
                       <div class="flex-2">
                         <div class="w-12 h-12 relative">
                           <img
@@ -321,7 +321,7 @@ export function Chat() {
                         </div>
                       </div>
                     </div>
-                    <div class="entry cursor-pointer transform hover:scale-105 duration-300 transition-transform bg-white mb-4 rounded p-4 flex shadow-md">
+                    <div class="entry cursor-pointer transform hover:scale-105 duration-300 transition-transform bg-white mb-4 rounded-sm p-4 flex shadow-md">
                       <div class="flex-2">
                         <div class="w-12 h-12 relative">
                           <img
@@ -346,7 +346,7 @@ export function Chat() {
                         </div>
                       </div>
                     </div>
-                    <div class="entry cursor-pointer transform hover:scale-105 duration-300 transition-transform bg-white mb-4 rounded p-4 flex shadow-md">
+                    <div class="entry cursor-pointer transform hover:scale-105 duration-300 transition-transform bg-white mb-4 rounded-sm p-4 flex shadow-md">
                       <div class="flex-2">
                         <div class="w-12 h-12 relative">
                           <img
@@ -464,7 +464,7 @@ export function Chat() {
                     </div>
                   </div>
                   <div class="flex-2 pt-4 pb-10">
-                    <div class="write bg-white shadow flex rounded-lg">
+                    <div class="write bg-white shadow-sm flex rounded-lg">
                       <div class="flex-3 flex content-center items-center text-center p-4 pr-0">
                         <span class="block text-center text-zinc-400 hover:text-zinc-800">
                           <svg
@@ -483,7 +483,7 @@ export function Chat() {
                       <div class="flex-1">
                         <textarea
                           name="message"
-                          class="w-full block outline-none py-4 px-4 bg-transparent"
+                          class="w-full block outline-hidden py-4 px-4 bg-transparent"
                           rows="1"
                           placeholder="Type a message..."
                           autofocus
