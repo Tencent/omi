@@ -109,7 +109,7 @@ export class BlogTemplate extends Component {
   renderPostContent(post: BlogPost) {
     return (
       <div class="flex flex-col pl-6 pr-4 pt-3">
-        <article className="my-4 shadow bg-card dark:bg-gray-800 rounded-lg">
+        <article className="my-4 shadow-sm bg-card dark:bg-gray-800 rounded-lg">
           <div className="flex flex-col p-6">
             <h1 className="text-3xl font-serif font-bold">{post.title}</h1>
             <p className="pb-3 text-sm">
@@ -139,7 +139,7 @@ export class BlogTemplate extends Component {
           <div class="col-span-full text-center text-foreground">None</div>
         ) : (
           selectedBlogs.value.map((post, index) => (
-            <article key={index} class="my-4 shadow bg-card dark:bg-gray-800">
+            <article key={index} class="my-4 shadow-sm bg-card dark:bg-gray-800">
               <a onClick={() => this.handlePostClick(post)}>
                 <img class="hover:opacity-75" src={post.image} alt="Post Image" />
               </a>
@@ -165,7 +165,7 @@ export class BlogTemplate extends Component {
           <aside class="w-1/3 pl-4 pr-6">
             {/* 个人卡片 */}
             <section class="mt-12 md:mt-16">
-              <div class="rounded-md border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+              <div class="rounded-md border bg-card text-card-foreground shadow-xs" data-v0-t="card">
                 <div class="flex flex-col items-center p-6">
                   <img
                     src={"https://tdesign.gtimg.com/site/images/banner-thumb.jpg"}
@@ -198,8 +198,8 @@ export class BlogTemplate extends Component {
             {/* 搜索栏 */}
             <section class="mt-8">
               <form class="flex" onInput={(event) => this.handleSearchInput(event)}>
-                <input type="text" class="w-full px-3 py-2 rounded-l-lg focus:outline-none text-gray-800" placeholder="Search..." />
-                <button class="px-2 rounded-r-lg focus:outline-none text-center text-xl text-gray-400 hover:text-gray-900 bg-white"><i class="fas fa-search"></i></button>
+                <input type="text" class="w-full px-3 py-2 rounded-l-lg focus:outline-hidden text-gray-800" placeholder="Search..." />
+                <button class="px-2 rounded-r-lg focus:outline-hidden text-center text-xl text-gray-400 hover:text-gray-900 bg-white"><i class="fas fa-search"></i></button>
               </form>
             </section>
 
@@ -234,10 +234,10 @@ export class BlogTemplate extends Component {
 
             {/* 订阅表单 */}
             <section class="mt-8">
-              <div class="p-4 rounded-lg text-center bg-gradient-to-b from-blue-200 to-blue-400 dark:from-gray-800 dark:to-gray-900">
+              <div class="p-4 rounded-lg text-center bg-linear-to-b from-blue-200 to-blue-400 dark:from-gray-800 dark:to-gray-900">
                 <h3 class="font-semibold text-lg text-blue-500 dark:text-gray-300">Get the latest articles to your inbox</h3>
                 <form>
-                  <input type="email" placeholder="youremail@example.com" class="w-full mt-3 p-3 rounded-lg shadow border border-gray-400 focus:outline-none text-gray-800" />
+                  <input type="email" placeholder="youremail@example.com" class="w-full mt-3 p-3 rounded-lg shadow-sm border border-gray-400 focus:outline-hidden text-gray-800" />
                   <div class="mb-2 pt-3 w-full">
                     <o-button variant="dashed" style="background: transparent">
                       <i class="t-icon t-icon-send"></i>

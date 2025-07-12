@@ -21,7 +21,7 @@ class Msg extends Component<Props> {
   }
   render(props: Props) {
     return (
-      <div class="border flex items-center bg-background text-foreground  px-4 py-2 rounded shadow-lg space-x-2">
+      <div class="border flex items-center bg-background text-foreground  px-4 py-2 rounded-sm shadow-lg space-x-2">
         {this.renderIcon(props.type)}
         <span>{props.content}</span>
       </div>

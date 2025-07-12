@@ -33,7 +33,7 @@ export function AdminLayout(props: { current?: string; children?: VNode | VNode[
         <sidebar-wrpapper></sidebar-wrpapper>
       </div>
       <div class="flex-1 overflow-auto bg-background text-foreground border-l">
-        <header class="shadow py-2 px-4">
+        <header class="shadow-sm py-2 px-4">
           <div class="flex items-center justify-between">
             <button
               class="p-1 rounded-md hover:bg-slate-100 dark:hover:bg-zinc-600"

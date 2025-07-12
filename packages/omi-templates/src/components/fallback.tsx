@@ -35,10 +35,10 @@ export const fallback = (
       <p class="text-zinc-600 mb-6">网络异常，请稍后再试</p>
 
       <div class="flex justify-center space-x-4">
-        <a href="#/" class="py-2 px-4 bg-primary text-white rounded hover:bg-primary/85">
+        <a href="#/" class="py-2 px-4 bg-primary text-white rounded-sm hover:bg-primary/85">
           重新加载
         </a>
-        <a href="#/" class="py-2 px-4 bg-zinc-200 text-zinc-700 rounded hover:bg-zinc-300">
+        <a href="#/" class="py-2 px-4 bg-zinc-200 text-zinc-700 rounded-sm hover:bg-zinc-300">
           返回首页
         </a>
       </div>

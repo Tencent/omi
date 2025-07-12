@@ -120,7 +120,7 @@ export class Sidebar extends Component<Props> {
       <li
         onClick={() => this.select(child)}
         class={classNames(
-          'py-1 h-9 indent-10 rounded hover:bg-accent flex items-center text-sm text-zinc-500 dark:text-zinc-200 cursor-pointer',
+          'py-1 h-9 indent-10 rounded-sm hover:bg-accent flex items-center text-sm text-zinc-500 dark:text-zinc-200 cursor-pointer',
           {
             'bg-accent': this.state.active === child.value,
           },
@@ -135,7 +135,7 @@ export class Sidebar extends Component<Props> {
 
   renderToolTipChild(child: SidebarItem) {
     return (
-      <li class="py-1 h-9 px-3 rounded hover:bg-accent flex items-center text-sm text-zinc-500 dark:text-zinc-200">
+      <li class="py-1 h-9 px-3 rounded-sm hover:bg-accent flex items-center text-sm text-zinc-500 dark:text-zinc-200">
         <a href={child.href} class="flex items-center space-x-2 whitespace-nowrap">
           <span>{child.text}</span>
         </a>
@@ -172,7 +172,7 @@ export class Sidebar extends Component<Props> {
                 hidden: !this.state.isOpen,
               })}
             >
-              <input type="text" placeholder="Search" class="px-3 w-full p-1 border rounded" />
+              <input type="text" placeholder="Search" class="px-3 w-full p-1 border rounded-sm" />
             </div>
             <nav class="h-[calc(100vh-300px)] overflow-auto">
               <ul>
@@ -185,7 +185,7 @@ export class Sidebar extends Component<Props> {
                         onClick={() => this.onItemClick(item)}
                         onMouseEnter={() => this.onMouseEnter(item)}
                         onMouseLeave={() => this.onMouseLeave(item)}
-                        class={classNames('trigger flex items-center  hover:bg-accent h-9 rounded px-2', {
+                        class={classNames('trigger flex items-center  hover:bg-accent h-9 rounded-sm px-2', {
                           'justify-between': this.state.isOpen,
                           'justify-center': !this.state.isOpen,
                         })}
@@ -195,7 +195,7 @@ export class Sidebar extends Component<Props> {
                           {this.state.isOpen && <span class="text-sm">{item.text}</span>}
                         </div>
                         <ul
-                          class="p-1 border tip hidden overflow-hidden bg-background dark:bg-zinc-800 rounded shadow-md"
+                          class="p-1 border tip hidden overflow-hidden bg-background dark:bg-zinc-800 rounded-sm shadow-md"
                           style={{
                             opacity: this.state.isOpen ? '0' : '1',
                           }}
@@ -236,12 +236,12 @@ export class Sidebar extends Component<Props> {
             </nav>
           </div>
           {this.state.isOpen && (
-            <div class="bg-primary text-white rounded p-4 w-56">
+            <div class="bg-primary text-white rounded-sm p-4 w-56">
               <h2 class="font-semibold mb-2">重点公告位</h2>
               <p class="text-sm mb-4">
                 公告信息，公告信息，公告信息，公告信息，公告信息，公告信息，公告信息，公告信息，公告信息，公告信息，。
               </p>
-              <button class="bg-background text-primary dark:bg-white dark:text-primary px-2 py-0.5 text-sm rounded">
+              <button class="bg-background text-primary dark:bg-white dark:text-primary px-2 py-0.5 text-sm rounded-sm">
                 知道了
               </button>
             </div>

@@ -1,7 +1,7 @@
 export function About() {
   return (
     <main class="px-4 py-6">
-      <div class="bg-card text-card-foreground p-6 rounded shadow mb-8 max-w-[800px] mx-auto">
+      <div class="bg-card text-card-foreground p-6 rounded-sm shadow-sm mb-8 max-w-[800px] mx-auto">
         <h3 class="text-xl font-bold text-center mb-4">关于我们</h3>
         <div class="flex justify-center mb-4">
           <img
@@ -45,7 +45,7 @@ export function About() {
         <p>我们的使命是成为行业的领导者，为客户提供最佳的产品和服务，帮助他们实现业务目标。</p>
       </div>
 
-      <div class="bg-card text-card-foreground p-6 rounded shadow mb-8 max-w-[800px] mx-auto">
+      <div class="bg-card text-card-foreground p-6 rounded-sm shadow-sm mb-8 max-w-[800px] mx-auto">
         <h3 class="text-xl font-bold mb-4 text-center">关于公司</h3>
         <p class="mb-4">
           我们是一个专注于为客户提供优质产品和服务的公司。成立于 20XX
@@ -56,7 +56,7 @@ export function About() {
         </p>
         <p>我们的使命是成为行业的领导者，为客户提供最佳的产品和服务，帮助他们实现业务目标。</p>
       </div>
-      <div class="bg-card text-card-foreground p-6 rounded shadow max-w-[800px] mx-auto">
+      <div class="bg-card text-card-foreground p-6 rounded-sm shadow-sm max-w-[800px] mx-auto">
         <h3 class="text-xl font-bold mb-4 text-center">关于愿景</h3>
         <p class="mb-4">
           我们的愿景是通过提供卓越的产品和服务，成为全球领先的企业之一。我们希望建立一个可持续发展的企业，为全球客户创造价值，同时为员工提供一个充满挑战和机会的工作环境。

@@ -89,7 +89,7 @@ export function Food() {
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-blue-100 to-blue-400 dark:from-blue-900 dark:to-blue-800 pt-16 pb-10">
+        <div class="bg-linear-to-br from-blue-100 to-blue-400 dark:from-blue-900 dark:to-blue-800 pt-16 pb-10">
           <div class="flex lg:flex-row flex-col max-w-7xl mx-auto">
             <div class="lg:w-1/2 w-full pl-10 pr-5 flex flex-col justify-center mt-5 lg:mt-0 text-center lg:text-left">
               <h2 class="text-xl sm:text-2xl lg:text-3xl">

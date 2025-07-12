@@ -19,7 +19,7 @@ export class AdminChart extends Component {
     return (
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {Array.from({ length: 20 }).map((_, i) => (
-          <div class="w-full h-40 border rounded" ref={(e) => (this.chartDivs[i] = e)}></div>
+          <div class="w-full h-40 border rounded-sm" ref={(e) => (this.chartDivs[i] = e)}></div>
         ))}
       </div>
     )

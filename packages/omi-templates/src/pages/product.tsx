@@ -134,7 +134,7 @@ export function Product(props: { id: string }) {
                 type="button"
                 id="decrement-button"
                 data-input-counter-decrement="quantity-input"
-                class="bg-zinc-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:border-zinc-600 hover:bg-zinc-200 border border-zinc-300 rounded-s-lg p-3 h-10 focus:ring-zinc-100 dark:focus:ring-zinc-700 focus:ring-2 focus:outline-none"
+                class="bg-zinc-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:border-zinc-600 hover:bg-zinc-200 border border-zinc-300 rounded-s-lg p-3 h-10 focus:ring-zinc-100 dark:focus:ring-zinc-700 focus:ring-2 focus:outline-hidden"
               >
                 <svg
                   class="w-3 h-3 text-zinc-900 dark:text-white"
@@ -164,7 +164,7 @@ export function Product(props: { id: string }) {
                 type="button"
                 id="increment-button"
                 data-input-counter-increment="quantity-input"
-                class="bg-zinc-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:border-zinc-600 hover:bg-zinc-200 border border-zinc-300 rounded-e-lg p-3 h-10 focus:ring-zinc-100 dark:focus:ring-zinc-700 focus:ring-2 focus:outline-none"
+                class="bg-zinc-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:border-zinc-600 hover:bg-zinc-200 border border-zinc-300 rounded-e-lg p-3 h-10 focus:ring-zinc-100 dark:focus:ring-zinc-700 focus:ring-2 focus:outline-hidden"
               >
                 <svg
                   class="w-3 h-3 text-zinc-900 dark:text-white"
@@ -312,7 +312,7 @@ export function Product(props: { id: string }) {
       </div>
       <div class="w-full mx-auto px-4 pb-20 md:w-[1080px]">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-32">
-          <div class="mt-16 md:mt-0 bg-card text-card-foreground p-6 rounded shadow text-center">
+          <div class="mt-16 md:mt-0 bg-card text-card-foreground p-6 rounded-sm shadow-sm text-center">
             <div class="relative">
               <div
                 class="absolute border left-1/2 rounded-full -top-36 -ml-16 w-32 h-32 dark:brightness-90"
@@ -323,7 +323,7 @@ export function Product(props: { id: string }) {
             </div>
           </div>
 
-          <div class="mt-16 md:mt-0 bg-card text-card-foreground p-6 rounded shadow text-center">
+          <div class="mt-16 md:mt-0 bg-card text-card-foreground p-6 rounded-sm shadow-sm text-center">
             <div class="relative">
               <div
                 class="absolute border rounded-full left-1/2 -top-36 -ml-16 w-32 h-32 dark:brightness-90"
@@ -334,7 +334,7 @@ export function Product(props: { id: string }) {
             </div>
           </div>
 
-          <div class="mt-16 md:mt-0 bg-card text-card-foreground p-6 rounded shadow text-center">
+          <div class="mt-16 md:mt-0 bg-card text-card-foreground p-6 rounded-sm shadow-sm text-center">
             <div class="relative">
               <div
                 class="absolute border rounded-full left-1/2 -top-36 -ml-16 w-32 h-32 dark:brightness-90"

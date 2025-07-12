@@ -43,7 +43,7 @@ const getCompoundVariantsByTheme = (
 }
 
 export const buttonVariants = cva(
-  'inline-flex text-sm items-center justify-center whitespace-nowrap rounded ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 box-border gap-2',
+  'inline-flex text-sm items-center justify-center whitespace-nowrap rounded-sm ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-3 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 box-border gap-2',
   {
     variants: {
       variant: {
@@ -65,7 +65,7 @@ export const buttonVariants = cva(
         true: 'cursor-wait', // Add loading variant
       },
       shape: {
-        rectangle: 'rounded', // Add rectangle shape
+        rectangle: 'rounded-sm', // Add rectangle shape
         square: 'rounded-md', // Add square shape (adjust as needed)
         round: 'rounded-full', // Add round shape
         circle: 'rounded-full', // Add circle shape (adjust as needed)
