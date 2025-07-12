@@ -61,26 +61,21 @@ define(
           this.results = results
           let endTime = Date.now() // 记录加载完成的时间
           let elapsedTime = endTime - startTime // 计算已经过去的时间
-          if (elapsedTime < this.props.minLoadingTime) {
-            this.timeout = setTimeout(() => {
-              this.state = 'resolve'
-              this.fire('resolve')
-              this.fire('loaded', results)
-              this.fire('data-loaded', results[results.length - 1])
-              this.update()
-            }, this.props.minLoadingTime - elapsedTime)
-          } else {
-            // 否则，立即隐藏加载指示器
+          const dt = this.props.minLoadingTime - elapsedTime
+          // 不加 setTimeout 导致白屏，esm 加载还没执行，3g网络白屏
+          this.timeout = setTimeout(() => {
             this.state = 'resolve'
             this.fire('resolve')
             this.fire('loaded', results)
             this.fire('data-loaded', results[results.length - 1])
-          }
+            this.update()
+          }, dt > 0 ? dt : 0)
         } catch (error) {
           console.error(error)
           this.error = error
           this.state = 'fallback'
           this.fire('fallback', error)
+          this.update()
         }
       }
 
