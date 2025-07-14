@@ -20,12 +20,12 @@ export function Fail() {
         </p>
 
         <div class="flex justify-center space-x-4">
-          <a href="#/" class="py-2 px-4 bg-primary text-white rounded-sm hover:bg-primary/85">
+          <a href="#/" class="py-2 px-4 bg-primary text-white rounded hover:bg-primary/85">
             返回修改
           </a>
           <a
             href="#/"
-            class="bg-background shadow-xs border border-input hover:bg-accent hover:text-accent-foreground px-4 py-2 rounded-sm flex items-center"
+            class="bg-background shadow-sm border border-input hover:bg-accent hover:text-accent-foreground px-4 py-2 rounded flex items-center"
           >
             返回首页
           </a>

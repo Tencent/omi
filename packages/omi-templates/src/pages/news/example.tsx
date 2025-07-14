@@ -31,7 +31,7 @@ function renderNewsContent(content: NewsContent_t) {
 
 function shareCard() {
   return (
-    <div class="flex flex-row gap-4  shadow-sm rounded-sm bg-card text-card-foreground dark:border p-6 items-center justify-center my-8">
+    <div class="flex flex-row gap-4  shadow rounded bg-card text-card-foreground dark:border p-6 items-center justify-center my-8">
       <o-button theme="success">分享到微信</o-button>
       <o-button theme="primary">分享到微信</o-button>
       <o-button theme="default">收藏</o-button>
@@ -41,7 +41,7 @@ function shareCard() {
 
 function recommendationCard(config: BriefNewsList_t) {
   return (
-    <div class="flex flex-col gap-4 shadow-sm rounded-sm bg-card text-card-foreground dark:border p-6 my-8">
+    <div class="flex flex-col gap-4 shadow rounded bg-card text-card-foreground dark:border p-6 my-8">
       <div class="text-2xl font-bold text-zinc-700 dark:text-foreground py-4">推荐阅读</div>
       <div class="flex flex-col gap-2">
         {config.news.map((news) => {
@@ -58,7 +58,7 @@ function recommendationCard(config: BriefNewsList_t) {
 
 function authorCard(config: AuthorCardConfig_t) {
   return (
-    <div class="flex flex-col gap-4 shadow-sm rounded-sm bg-card text-card-foreground dark:border p-6 items-center my-8">
+    <div class="flex flex-col gap-4 shadow rounded bg-card text-card-foreground dark:border p-6 items-center my-8">
       <img src={config.avatar} alt="avatar" class="w-24 h-24 rounded-full shadow-lg object-cover" />
       <div class="text-2xl text-zinc-700 dark:text-foreground py-4 text-center">{config.name}</div>
       <div class="text-zinc-600 dark:text-zinc-400 text-sm">{config.introduction}</div>

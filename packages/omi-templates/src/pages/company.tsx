@@ -104,7 +104,7 @@ export function Company() {
           </div>
         </div>
 
-        <div class="bg-linear-to-br from-indigo-100 to-blue-400 dark:from-indigo-900 dark:to-blue-800 pt-16 pb-10">
+        <div class="bg-gradient-to-br from-indigo-100 to-blue-400 dark:from-indigo-900 dark:to-blue-800 pt-16 pb-10">
           <div class="flex lg:flex-row flex-col max-w-7xl mx-auto">
             <div class="lg:w-1/2 w-full sm:flex font-semibold text-gray-800">
               <div class="sm:w-1/2 flex flex-col justify-between items-center">

@@ -94,7 +94,7 @@ export function SystemMaintenance() {
         <p class="text-zinc-600 mb-6 dark:text-foreground">系统维护中，请稍后再试</p>
 
         <div class="flex justify-center space-x-4">
-          <a href="#/" class="py-2 px-4 bg-primary text-white rounded-sm hover:bg-primary/85">
+          <a href="#/" class="py-2 px-4 bg-primary text-white rounded hover:bg-primary/85">
             返回首页
           </a>
         </div>

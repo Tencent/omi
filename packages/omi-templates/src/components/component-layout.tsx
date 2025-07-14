@@ -17,7 +17,7 @@ class NavbarWrapper extends Component {
 export function ComponentLayout(props: { hideFooter?: boolean; current?: string; children?: VNode | VNode[] }) {
   return (
     <div class="bg-[#fafafa] pt-[56px] dark:bg-background dark:text-foreground">
-      <header class="bg-white dark:bg-background/10 dark:text-foreground bg-opacity-40 backdrop-filter backdrop-blur-md py-2 top-0 shadow-sm fixed w-full px-4 md:px-0 z-[100000]">
+      <header class="bg-white dark:bg-background/10 dark:text-foreground bg-opacity-40 backdrop-filter backdrop-blur-md py-2 top-0 shadow fixed w-full px-4 md:px-0 z-[100000]">
         <div class="container mx-auto flex justify-between items-center">
           <div class="text-xl font-bold">
             <a class="text-zinc-800 dark:text-white" title="TDesign" unsafeHTML={{ html: tdesignLogo }} href="#/"></a>
@@ -38,7 +38,7 @@ export function ComponentLayout(props: { hideFooter?: boolean; current?: string;
               <a
                 href="#/components/button"
                 class={classNames({
-                  'block px-2 py-3 mb-1 rounded-sm  transition-colors duration-200': true,
+                  'block px-2 py-3 mb-1 rounded  transition-colors duration-200': true,
                   'bg-primary text-white': props.current === '/components/button',
                   'hover:bg-zinc-100 hover:text-black/90': props.current !== '/components/button',
                 })}
@@ -48,7 +48,7 @@ export function ComponentLayout(props: { hideFooter?: boolean; current?: string;
               <a
                 href="#/components/icon"
                 class={classNames({
-                  'block px-2 py-3 mb-1 rounded-sm  transition-colors duration-200': true,
+                  'block px-2 py-3 mb-1 rounded  transition-colors duration-200': true,
                   'bg-primary text-white': props.current === '/components/icon',
                   'hover:bg-zinc-100 hover:text-black/90': props.current !== '/components/icon',
                 })}
@@ -65,7 +65,7 @@ export function ComponentLayout(props: { hideFooter?: boolean; current?: string;
               <a
                 href="#/components/breadcrumb"
                 class={classNames({
-                  'block px-2 py-3 mb-1 rounded-sm  transition-colors duration-200': true,
+                  'block px-2 py-3 mb-1 rounded  transition-colors duration-200': true,
                   'bg-primary text-white': props.current === '/components/breadcrumb',
                   'hover:bg-zinc-100 hover:text-black/90': props.current !== '/components/breadcrumb',
                 })}
@@ -82,7 +82,7 @@ export function ComponentLayout(props: { hideFooter?: boolean; current?: string;
               <a
                 href="#/components/switch"
                 class={classNames({
-                  'block px-2 py-3 mb-1 rounded-sm  transition-colors duration-200': true,
+                  'block px-2 py-3 mb-1 rounded  transition-colors duration-200': true,
                   'bg-primary text-white': props.current === '/components/switch',
                   'hover:bg-zinc-100 hover:text-black/90': props.current !== '/components/switch',
                 })}
