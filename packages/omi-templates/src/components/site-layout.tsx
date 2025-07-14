@@ -1,8 +1,9 @@
 import { Component, VNode, tag } from 'omi'
 import './navbar.tsx'
-import { navbarItems, activeMenuItem } from '../store.ts'
+import { navbarItems, activeMenuItem, isDark } from '../store.ts'
 import { CustomizeButton } from './customize-button.tsx'
 import tdesignLogo from '../assets/tdesign.svg?raw'
+import { tailwind } from '../tailwind'
 
 /* Because the menu needs to update user avatars, a separate component is packaged for local updates */
 @tag('navbar-wrpapper')
@@ -14,10 +15,15 @@ class NavbarWrapper extends Component {
   }
 }
 
-export function SiteLayout(props: { hideFooter?: boolean; current?: string; children?: VNode | VNode[] }) {
-  return (
-    <div class="bg-[#fafafa] pt-[56px] dark:bg-background dark:text-foreground">
-      <header class="bg-white dark:bg-background/10 dark:text-foreground bg-opacity-40 backdrop-filter backdrop-blur-md py-2 top-0 shadow-sm fixed w-full px-4 md:px-0 z-[100000]">
+@tag('site-header')
+export class SiteHeader extends Component {
+  static css = [tailwind]
+
+  render() {
+    isDark.value
+
+    return (
+      <header class="bg-white dark:bg-background dark:text-foreground bg-opacity-40 backdrop-filter backdrop-blur-md py-2 top-0 shadow fixed w-full px-4 md:px-0 z-[100000]">
         <div class="container mx-auto flex justify-between items-center">
           <div class="text-xl font-bold">
             <a class="text-zinc-800 dark:text-white" title="TDesign" unsafeHTML={{ html: tdesignLogo }} href="#/"></a>
@@ -28,10 +34,19 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
           </div>
         </div>
       </header>
+    )
+  }
+}
 
-      {props.children}
+@tag('site-footer')
+export class SiteFooter extends Component {
+  static css = [tailwind]
 
-      {!props.hideFooter && (
+  render() {
+    isDark.value
+
+    return (
+      <div>
         <section class="bg-[#eeeeee] dark:bg-background dark:text-foreground px-4 md:px-0 border-t">
           <div class="container  mx-auto py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
@@ -92,17 +107,27 @@ export function SiteLayout(props: { hideFooter?: boolean; current?: string; chil
             </div>
           </div>
         </section>
-      )}
 
-      <CustomizeButton />
-
-      {!props.hideFooter && (
         <footer class="bg-[#e7e7e7] border-t dark:bg-background dark:text-foreground py-6">
           <div class="container mx-auto text-center">
             <p class="text-zinc-600 dark:text-foreground">© 2024 Tencent OMI. All rights reserved.</p>
           </div>
         </footer>
-      )}
+      </div>
+    )
+  }
+}
+
+export function SiteLayout(props: { hideFooter?: boolean; current?: string; children?: VNode | VNode[] }) {
+  return (
+    <div class="bg-[#fafafa] dark:bg-background dark:text-foreground">
+      <site-header></site-header>
+
+      <div class="pt-[60px]">{props.children}</div>
+
+      {!props.hideFooter && <site-footer></site-footer>}
+
+      <CustomizeButton />
     </div>
   )
 }

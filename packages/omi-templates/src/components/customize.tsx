@@ -13,6 +13,16 @@ let currentTheme = ''
 
 @tag('o-customize')
 class Customize extends Component {
+  static css = [
+    `
+      :host {
+        --customize-bg: white;
+      }
+      :host(.dark) {
+        --customize-bg: #09090b;
+      }
+    `,
+  ]
   @bind
   onColorClick(evt: MouseEvent) {
     const target = evt.currentTarget as HTMLElement
@@ -73,10 +83,13 @@ class Customize extends Component {
   }
 
   render() {
+    isDark.value
+
     return (
       <div
         role="dialog"
-        class="border text-popover-foreground shadow-md outline-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 w-[340px] rounded-2xl bg-white p-6 dark:bg-zinc-950"
+        class="border text-popover-foreground shadow-md outline-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 w-[340px] rounded-2xl p-6"
+        style="background-color: var(--customize-bg)"
         tabindex="-1"
       >
         <div class="theme-zinc w-full flex flex-col space-y-4 md:space-y-6" style="--radius: 0.5rem;">
@@ -98,9 +111,11 @@ class Customize extends Component {
                       onClick={this.onColorClick}
                       class="inline-flex items-center whitespace-nowrap font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring-3 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs justify-start dark:text-foreground"
                       data-color={item.color}
-                      style={`--theme-primary: ${item.color};`}
                     >
-                      <span class="mr-0.5 flex h-5 w-5 shrink-0 -translate-x-1 items-center justify-center rounded-full bg-[--theme-primary]">
+                      <span
+                        class="mr-0.5 flex h-5 w-5 shrink-0 -translate-x-1 items-center justify-center rounded-full"
+                        style={{ backgroundColor: item.color }}
+                      >
                         {this.state.selectedColor === item.color && (
                           <svg
                             width="15"
