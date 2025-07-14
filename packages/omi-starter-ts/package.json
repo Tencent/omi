@@ -10,10 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "omi": "^7.1.0"
+    "omi": "^7.6.17"
   },
   "devDependencies": {
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^7.0.4"
   }
 }

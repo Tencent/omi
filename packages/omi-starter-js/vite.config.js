@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './',
+  base: "./",
   esbuild: {
     jsxFactory: "h",
-    jsxFragment: "h.f"
+    jsxFragment: "h.f",
   },
-})
+});

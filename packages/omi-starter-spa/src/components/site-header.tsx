@@ -1,4 +1,4 @@
-import { tag, Component } from 'omi'
+import { h, tag, Component } from 'omi'
 import css from '../app.css?raw'
 
 @tag('site-header')

@@ -11,9 +11,9 @@
     "p": "prettier --write src"
   },
   "dependencies": {
-    "omi": "latest",
-    "omi-router": "latest",
-    "omi-suspense": "latest"
+    "omi": "^7.6.17",
+    "omi-router": "^4.1.8",
+    "omi-suspense": "^0.1.6"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",
@@ -24,6 +24,6 @@
     "tailwindcss": "^3.3.3",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^7.0.4"
   }
 }

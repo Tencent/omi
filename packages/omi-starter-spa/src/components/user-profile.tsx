@@ -1,4 +1,4 @@
-import { define, Component } from 'omi'
+import { h, define, Component } from 'omi'
 import './site-header'
 import { Router } from 'omi-router'
 import { userState } from '../store'
@@ -19,5 +19,5 @@ define(
         </>
       )
     }
-  }
+  },
 )

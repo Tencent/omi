@@ -1,4 +1,4 @@
-import { define, Component } from 'omi'
+import { h, define, Component } from 'omi'
 
 define(
   'user-info',
@@ -11,5 +11,5 @@ define(
         </>
       )
     }
-  }
+  },
 )
