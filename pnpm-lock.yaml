@@ -1,0 +1,43 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      omi:
+        specifier: ^7.6.17
+        version: 7.7.13
+
+packages:
+
+  construct-style-sheets-polyfill@3.0.1:
+    resolution: {integrity: sha512-vyAiTcS3i29IxjzJ12K2MGUUBYgrF69p6fKD+8ZPRLFhwTtuaxXLpazl4Yw4FITsQXwUMrh8juI1bOHWYjzkwA==}
+    engines: {npm: '>=7'}
+
+  omi@7.7.13:
+    resolution: {integrity: sha512-LA/rLhGE7PO/OVN9Mp4TG4YL3Dt5dERM9fsVyiPmE75CRCuyW7vVfrYK8Ee7EPbQuTycYRsfbrD1YBQytOY/jw==}
+
+  reactive-signal@2.0.1:
+    resolution: {integrity: sha512-c+avHi2L+sHn9kkEsDZskRGtkfj6PtoTn1wGgutY2NZR9jCI0InXY7zqWbUXz6cGcuIXKMkQq/mtUiUXBFmKVA==}
+
+  weakmap-polyfill@2.0.4:
+    resolution: {integrity: sha512-ZzxBf288iALJseijWelmECm/1x7ZwQn3sMYIkDr2VvZp7r6SEKuT8D0O9Wiq6L9Nl5mazrOMcmiZE/2NCenaxw==}
+    engines: {node: '>=8.10.0'}
+
+snapshots:
+
+  construct-style-sheets-polyfill@3.0.1: {}
+
+  omi@7.7.13:
+    dependencies:
+      construct-style-sheets-polyfill: 3.0.1
+      reactive-signal: 2.0.1
+      weakmap-polyfill: 2.0.4
+
+  reactive-signal@2.0.1: {}
+
+  weakmap-polyfill@2.0.4: {}
