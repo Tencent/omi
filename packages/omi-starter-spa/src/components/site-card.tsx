@@ -1,4 +1,4 @@
-import { tag, Component } from 'omi'
+import { h, tag, Component } from 'omi'
 
 @tag('site-card')
 export class MyComponent extends Component {
@@ -20,8 +20,8 @@ export class MyComponent extends Component {
           <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
             <blockquote>
               <p class="text-lg font-medium">
-                “Tailwind CSS is the only framework that I've seen scale on large teams. It’s easy to customize, adapts
-                to any design, and the build size is tiny.”
+                "Tailwind CSS is the only framework that I've seen scale on large teams. It's easy to customize, adapts
+                to any design, and the build size is tiny."
               </p>
             </blockquote>
             <figcaption class="font-medium">
