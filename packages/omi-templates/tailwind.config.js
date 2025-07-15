@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ["class"],
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -11,19 +10,6 @@ export default {
       sans: '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Hiragino Sans GB,Microsoft YaHei UI,Microsoft YaHei,Source Han Sans CN,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol'
     },
     extend: {
-      typography: {
-        DEFAULT: {
-          css: {
-            // color: '#333',
-            a: {
-              // color: '#0052d9',
-              // '&:hover': {
-              //   color: '#0052d9',
-              // },
-            },
-          },
-        },
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -34,7 +20,6 @@ export default {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
-
         danger: {
           DEFAULT: "hsl(var(--danger))",
           foreground: "hsl(var(--primary-foreground))",
@@ -47,7 +32,6 @@ export default {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--primary-foreground))",
         },
-      
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -79,7 +63,7 @@ export default {
     },
   },
   plugins: [
-    require('@tailwindcss/typography'),
+    '@tailwindcss/typography',
   ],
 }
 

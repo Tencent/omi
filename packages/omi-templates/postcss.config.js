@@ -1,5 +1,4 @@
 import tailwindcss from 'tailwindcss'
-import autoprefixer from 'autoprefixer'
 
 const postcssDarkModeHost = (opts = {}) => {
   // Work with options here
@@ -14,5 +13,5 @@ const postcssDarkModeHost = (opts = {}) => {
   }
 }
 export default {
-  plugins: [tailwindcss, postcssDarkModeHost(), autoprefixer],
+  plugins: [tailwindcss, postcssDarkModeHost()],
 }
