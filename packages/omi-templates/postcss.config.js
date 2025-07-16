@@ -1,4 +1,4 @@
-import tailwindcss from 'tailwindcss'
+import tailwindcss from '@tailwindcss/postcss'
 
 const postcssDarkModeHost = (opts = {}) => {
   // Work with options here
@@ -12,6 +12,11 @@ const postcssDarkModeHost = (opts = {}) => {
     },
   }
 }
+postcssDarkModeHost.postcss = true
+
 export default {
-  plugins: [tailwindcss, postcssDarkModeHost()],
+  plugins: [
+    tailwindcss,
+    postcssDarkModeHost(),
+  ],
 }

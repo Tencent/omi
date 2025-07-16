@@ -63,7 +63,7 @@ export default {
     },
   },
   plugins: [
-    '@tailwindcss/typography',
+    // @tailwindcss/typography is not yet available for Tailwind CSS v4
   ],
 }
 
