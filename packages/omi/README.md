@@ -245,6 +245,110 @@ define('my-app', class extends withTwind(Component) {
 })
 ``` -->
 
+## ExportParts - Styling Nested Components
+
+Omi supports the Web Components `exportparts` attribute, allowing nested component CSS parts to be exposed for external styling. This enables powerful component composition while maintaining style encapsulation.
+
+### Basic Usage
+
+```tsx
+import { render, tag, Component, h } from 'omi'
+
+// Inner component defines CSS parts
+@tag('inner-button')
+class InnerButton extends Component {
+  static css = `
+    .btn {
+      padding: 10px 20px;
+      border: 2px solid #007bff;
+      background: #007bff;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  `
+
+  render() {
+    return (
+      <button class="btn" part="button">
+        <span part="icon">🚀</span>
+        <span part="text">{this.props.children}</span>
+      </button>
+    )
+  }
+}
+
+// Container component uses exportparts
+@tag('card-component')
+class CardComponent extends Component {
+  static css = `
+    .card {
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    
+    /* Style nested components via ::part() */
+    inner-button::part(button) {
+      background: #28a745;
+      border-color: #28a745;
+    }
+  `
+
+  render() {
+    return (
+      <div class="card" part="card">
+        {/* Export nested component parts */}
+        <inner-button exportparts="button, icon, text">
+          Click me
+        </inner-button>
+      </div>
+    )
+  }
+}
+
+// Parent component can style exported parts
+@tag('app-container')
+class AppContainer extends Component {
+  static css = `
+    /* Style parts exported from nested components */
+    card-component::part(button) {
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      border: none;
+      border-radius: 25px;
+    }
+    
+    card-component::part(icon) {
+      animation: spin 2s linear infinite;
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  `
+
+  render() {
+    return <card-component />
+  }
+}
+```
+
+### Core Features
+
+- **Part Definition**: Use `part="part-name"` attribute to define styleable parts within components
+- **Part Export**: Use `exportparts="part1, part2"` to expose nested component parts
+- **External Styling**: Use `component::part(part-name)` selector to style parts from outside
+- **Part Renaming**: Use `exportparts="internal-name:external-name"` to rename exported parts
+
+### Advanced Example
+
+For a complete working example, see [`exportparts-example.tsx`](./examples/exportparts-example.tsx), which demonstrates:
+- Multi-level component nesting
+- Part renaming and aliasing
+- Complex styling scenarios
+- Animations and hover effects
+
 ## Define Cross Framework Component
 
 The case of using Omi component in Vue is as follows:
@@ -328,13 +432,13 @@ const change = (e) => {
 
   <my-counter @change="change" :count="count" />
   <p>
-    【Omi】 
+    【Omi Component】 
   </p>
 
   <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
     <p>
-     【Vue】 
+     【Vue Component】 
     </p>
   </div>
 
