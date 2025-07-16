@@ -245,16 +245,16 @@ define('my-app', class extends withTwind(Component) {
 })
 ``` -->
 
-## ExportParts - 样式化嵌套组件
+## ExportParts - Styling Nested Components
 
-Omi 支持 Web Components 的 `exportparts` 属性，允许将嵌套组件的 CSS parts 暴露给外部进行样式化。这使得在保持样式封装的同时，实现强大的组件组合。
+Omi supports the Web Components `exportparts` attribute, allowing nested component CSS parts to be exposed for external styling. This enables powerful component composition while maintaining style encapsulation.
 
-### 基本用法
+### Basic Usage
 
 ```tsx
 import { render, tag, Component, h } from 'omi'
 
-// 内部组件定义 CSS parts
+// Inner component defines CSS parts
 @tag('inner-button')
 class InnerButton extends Component {
   static css = `
@@ -278,7 +278,7 @@ class InnerButton extends Component {
   }
 }
 
-// 容器组件使用 exportparts
+// Container component uses exportparts
 @tag('card-component')
 class CardComponent extends Component {
   static css = `
@@ -288,7 +288,7 @@ class CardComponent extends Component {
       border-radius: 8px;
     }
     
-    /* 通过 ::part() 样式化嵌套组件 */
+    /* Style nested components via ::part() */
     inner-button::part(button) {
       background: #28a745;
       border-color: #28a745;
@@ -298,7 +298,7 @@ class CardComponent extends Component {
   render() {
     return (
       <div class="card" part="card">
-        {/* 导出嵌套组件的 parts */}
+        {/* Export nested component parts */}
         <inner-button exportparts="button, icon, text">
           Click me
         </inner-button>
@@ -307,11 +307,11 @@ class CardComponent extends Component {
   }
 }
 
-// 父组件可以样式化导出的 parts
+// Parent component can style exported parts
 @tag('app-container')
 class AppContainer extends Component {
   static css = `
-    /* 样式化从嵌套组件导出的 parts */
+    /* Style parts exported from nested components */
     card-component::part(button) {
       background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
       border: none;
@@ -334,20 +334,20 @@ class AppContainer extends Component {
 }
 ```
 
-### 核心特性
+### Core Features
 
-- **Part 定义**: 使用 `part="part-name"` 属性定义组件中可样式化的部分
-- **Part 导出**: 使用 `exportparts="part1, part2"` 暴露嵌套组件的 parts
-- **外部样式化**: 使用 `component::part(part-name)` 选择器从外部样式化 parts
-- **Part 重命名**: 使用 `exportparts="internal-name:external-name"` 重命名导出的 parts
+- **Part Definition**: Use `part="part-name"` attribute to define styleable parts within components
+- **Part Export**: Use `exportparts="part1, part2"` to expose nested component parts
+- **External Styling**: Use `component::part(part-name)` selector to style parts from outside
+- **Part Renaming**: Use `exportparts="internal-name:external-name"` to rename exported parts
 
-### 高级示例
+### Advanced Example
 
-完整的工作示例请参考 [`exportparts-example.tsx`](./examples/exportparts-example.tsx)，演示了：
-- 多层组件嵌套
-- Part 重命名和别名
-- 复杂样式化场景
-- 动画和悬停效果
+For a complete working example, see [`exportparts-example.tsx`](./examples/exportparts-example.tsx), which demonstrates:
+- Multi-level component nesting
+- Part renaming and aliasing
+- Complex styling scenarios
+- Animations and hover effects
 
 ## Define Cross Framework Component
 
@@ -432,13 +432,13 @@ const change = (e) => {
 
   <my-counter @change="change" :count="count" />
   <p>
-    【Omi】 
+    【Omi Component】 
   </p>
 
   <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
     <p>
-     【Vue】 
+     【Vue Component】 
     </p>
   </div>
 
