@@ -4,9 +4,9 @@ import { omiVueify } from '../../../../src/index';
 import './OTree';
 import type { TreeNode } from './OTree';
 
-// 使用omiVueify封装o-tree组件
+// 使用omiVueify封装o-tree组件, 添加 CRUD 方法暴露
 const OmiTree = omiVueify('o-tree', {
-  methodNames: ['nodeExpand', 'nodeCollapse']
+  methodNames: ['nodeExpand', 'nodeCollapse', 'addNode', 'removeNode', 'updateNode', 'findNode']
 });
 
 // 树节点数据
@@ -48,6 +48,9 @@ const treeData = ref<TreeNode[]>([
   }
 ]);
 
+// ref to the tree component
+const treeRef = ref();
+
 onMounted(() => {
   console.log('Vue component mounted, treeData:', treeData.value);
 });
@@ -66,19 +69,58 @@ const handleNodeExpand = (e: CustomEvent) => {
 const handleNodeCollapse = (e: CustomEvent) => {
   console.log('节点被折叠:', e.detail);
 };
+
+// 示例: 添加新节点
+function addNewNode() {
+  const newNode = { id: Date.now(), label: 'New Node' };
+  treeRef.value.addNode(1, newNode);  // 添加到 id=1 的节点下
+}
+
+// 示例: 删除节点
+function removeNode() {
+  treeRef.value.removeNode(11);  // 删除 id=11 的节点
+}
+
+// 示例: 更新节点
+function updateNode() {
+  treeRef.value.updateNode(1, { label: 'Updated Node 1' });
+}
+
+// 示例: 查找节点
+function findNode() {
+  const found = treeRef.value.findNode(1);
+  console.log('Found node:', found);
+}
+
+// 处理事件如 nodeAdded
+function handleNodeAdded(e: CustomEvent) {
+  console.log('Node added:', e.detail);
+}
+
+// 类似处理其他事件
 </script>
 
 <template>
   <div class="tree-component">
     <h3>树组件示例</h3>
     <OmiTree 
+      ref="treeRef"
       :data="treeData"
       @nodeClick="handleNodeClick"
       @nodeExpand="handleNodeExpand"
       @nodeCollapse="handleNodeCollapse"
+      @nodeAdded="handleNodeAdded"
+      @nodeRemoved="(e) => console.log('Node removed:', e.detail)"
+      @nodeUpdated="(e) => console.log('Node updated:', e.detail)"
     >
       <!-- 可以在这里添加插槽内容 -->
     </OmiTree>
+    <div>
+      <button @click="addNewNode">Add New Node</button>
+      <button @click="removeNode">Remove Node 1-1</button>
+      <button @click="updateNode">Update Node 1</button>
+      <button @click="findNode">Find Node 1</button>
+    </div>
   </div>
 </template>
 

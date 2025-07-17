@@ -4,7 +4,7 @@ import App from './App.vue'
 
 
 import { define, render, signal, tag, Component, h } from 'omi'
-import { OTree } from './components/OTree'
+import { OTree } from './components/OTree.tsx'
 
 const count = signal(0)
 
@@ -16,7 +16,14 @@ function sub() {
   count.value--
 }
 
-export class CounterDemo extends Component {
+interface CounterDemoProps {
+  name: string
+  obj: {
+    age: number
+  }
+}
+
+export class CounterDemo extends Component<CounterDemoProps> {
   static css = 'span { color: red; }'
 
   static propTypes = {
