@@ -147,7 +147,6 @@ export class OTree extends Component<TreeProps> {
     lastUpdateTime: 0
   }
 
-  // New method to initialize signals recursively
   initializeSignals(node: TreeNode) {
     if (typeof node.expanded !== 'object' || !node.expanded?.value) {
       node.expanded = signal(node.expanded === true);
@@ -159,7 +158,6 @@ export class OTree extends Component<TreeProps> {
 
   install() {
     console.log('OTree installed, props:', this.props)
-    // Initialize treeData with signals
     this.treeData.value = this.props.data.map(node => {
       const copy = { ...node }
       this.initializeSignals(copy)
@@ -187,7 +185,7 @@ export class OTree extends Component<TreeProps> {
       node.expanded.value = !node.expanded.value;
     } else {
       node.expanded = !node.expanded;
-      this.treeData.update();  // Since not signal, manual update
+      this.treeData.update();  
     }
     this.fire('nodeClick', node)
     console.log('节点被点击 - 触发nodeClick事件:', node)
@@ -215,7 +213,6 @@ export class OTree extends Component<TreeProps> {
     console.log('节点被折叠 - 触发nodeCollapse事件:', node)
   }
 
-  // New traverseTree method
   traverseTree(
     nodes: TreeNode[],
     callback: (node: TreeNode, parent: TreeNode | null, index: number) => boolean | void,
@@ -298,12 +295,10 @@ export class OTree extends Component<TreeProps> {
       return;
     }
     
-    // 清除上一个目标的样式
     if (this.dragState.currentDropTarget && this.dragState.currentDropTarget !== element) {
       this.clearDropPositionClasses(this.dragState.currentDropTarget);
     }
-    
-    // 清除当前目标的所有放置样式
+
     this.clearDropPositionClasses(element);
     
     // 根据放置位置添加对应的样式类
@@ -341,12 +336,10 @@ export class OTree extends Component<TreeProps> {
 
   // 使用节流处理拖拽悬停事件
   handleDragOver = this.throttle((evt: DragEvent) => {
-    evt.preventDefault(); // 必须阻止默认事件才能触发 onDrop
+    evt.preventDefault(); 
     
     const element = evt.currentTarget as HTMLElement;
     const position = this.getDropPosition(evt, element);
-    
-    // 应用放置样式，只有当放置类型变化时才更新 DOM
     this.applyDropPositionStyle(element, position);
   }, 50); 
 

@@ -4,7 +4,7 @@ import { omiVueify } from '../../../../src/index';
 import './OTree';
 import type { TreeNode } from './OTree';
 
-// 使用omiVueify封装o-tree组件, 添加 CRUD 方法暴露
+// 使用omiVueify封装o-tree组件
 const OmiTree = omiVueify('o-tree', {
   methodNames: ['nodeExpand', 'nodeCollapse', 'addNode', 'removeNode', 'updateNode', 'findNode']
 });
@@ -65,7 +65,6 @@ const handleNodeCollapse = (e: CustomEvent) => {
   logEvent('节点被折叠:', e.detail);
 };
 
-// 新增 CRUD 操作函数
 const addNodeInput = ref('');
 const addLabelInput = ref('');
 const addPositionInput = ref('');
@@ -155,7 +154,6 @@ function closeModal() {
       @nodeRemoved="handleNodeRemoved"
       @nodeUpdated="handleNodeUpdated"
     >
-      <!-- 可以在这里添加插槽内容 -->
     </OmiTree>
     <div class="operations">
       <h4>添加节点</h4>

@@ -5,13 +5,12 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   esbuild: {
-    // 支持装饰器
     target: 'esnext',
     jsxFactory: 'h',
     jsxFragment: 'Fragment',
     jsxInject: `import { h } from 'omi'`,
     jsx: 'transform',
-    keepNames: true, // 保留函数和类名
+    keepNames: true,
     tsconfigRaw: `{
       "compilerOptions": {
         "experimentalDecorators": true

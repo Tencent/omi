@@ -15,15 +15,7 @@ function add() {
 function sub() {
   count.value--
 }
-
-interface CounterDemoProps {
-  name: string
-  obj: {
-    age: number
-  }
-}
-
-export class CounterDemo extends Component<CounterDemoProps> {
+export class CounterDemo extends Component {
   static css = 'span { color: red; }'
 
   static propTypes = {
