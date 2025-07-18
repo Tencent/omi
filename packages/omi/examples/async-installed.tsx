@@ -8,9 +8,7 @@ class Appear extends Component {
     }, 0)
   }
   render() {
-    return (
-      <span>1</span>
-    )
+    return <span>1</span>
   }
 }
 
@@ -27,10 +25,7 @@ class MyApp extends Component {
     if (!this.show) {
       return <div onClick={() => this.showAppear()}>click</div>
     }
-    return (
-      <o-appear class="aa bb cc">
-      </o-appear>
-    )
+    return <o-appear class="aa bb cc"></o-appear>
   }
 }
 

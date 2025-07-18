@@ -2,7 +2,7 @@ import 'omi-suspense'
 import './index.css'
 import './components/site-header'
 import { userState } from './store'
-import { VNode } from 'omi'
+import { h, VNode } from 'omi'
 
 const Layout = ({ children }: { children: VNode | VNode[] }) => {
   return (
@@ -19,18 +19,12 @@ export const routes = [
     render() {
       return (
         <Layout>
-          <o-suspense
-            imports={[
-              import('./home-page'),
-            ]}
-          >
+          <o-suspense imports={[import('./home-page')]}>
             <home-page />
           </o-suspense>
         </Layout>
-
-
       )
-    }
+    },
   },
   {
     path: '/user/:id/profile',
@@ -38,10 +32,7 @@ export const routes = [
       return (
         <Layout>
           <o-suspense
-            imports={[
-              import('./components/user-info'),
-              import('./components/user-profile'),
-            ]}
+            imports={[import('./components/user-info'), import('./components/user-profile')]}
             data={async () => {
               const fetchPromises = [
                 new Promise((resolve) => {
@@ -53,7 +44,7 @@ export const routes = [
                   setTimeout(() => {
                     resolve({ age: 5 })
                   }, 1000)
-                })
+                }),
               ]
               const responses = await Promise.all(fetchPromises)
               return responses
@@ -66,45 +57,43 @@ export const routes = [
             }}
           >
             <div slot="pending">Loading user profile...</div>
-            <div slot="fallback">Sorry, we are unable to load the user profile at the moment. Please try again later.</div>
+            <div slot="fallback">
+              Sorry, we are unable to load the user profile at the moment. Please try again later.
+            </div>
             <user-info>
               <user-profile></user-profile>
             </user-info>
           </o-suspense>
         </Layout>
-
       )
-    }
+    },
   },
   {
     path: '/user/:id/posts',
     render() {
       return (
         <Layout>
-          <o-suspense imports={[
-            import('./components/user-info'),
-            import('./components/user-posts'),
-          ]}>
+          <o-suspense imports={[import('./components/user-info'), import('./components/user-posts')]}>
             <div slot="fallback">Loading user posts...</div>
             <user-info>
               <user-posts></user-posts>
             </user-info>
           </o-suspense>
         </Layout>
-
       )
-    }
-  }, {
+    },
+  },
+  {
     path: '/before-enter/test',
     beforeEnter: () => {
       // reject the navigation
       return false
     },
-  }, {
+  },
+  {
     path: '*',
     render() {
-      return <h1 class='text-3xl'>404</h1>
-    }
-  }
+      return <h1 class="text-3xl">404</h1>
+    },
+  },
 ]
-

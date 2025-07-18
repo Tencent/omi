@@ -1,4 +1,4 @@
-import { tag, signal, Component } from 'omi'
+import { h, tag, signal, Component } from 'omi'
 import css from './app.css?raw'
 import './components/site-card'
 

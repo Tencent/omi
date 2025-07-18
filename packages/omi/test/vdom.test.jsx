@@ -5,7 +5,7 @@ import {
   cloneElement,
   createRef,
   getHost,
-  h
+  h,
 } from '@/index'
 
 test('cloneElement should return a cloned vnode with updated props', () => {

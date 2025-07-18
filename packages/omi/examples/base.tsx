@@ -1,7 +1,5 @@
 import { render, signal, tag, Component, h } from '@/index'
 
-
-
 @tag('aa-demo')
 class AADemo extends Component {
   static css = 'span { color: red; }'
@@ -9,14 +7,12 @@ class AADemo extends Component {
   render() {
     return (
       <>
-
-        <slot name='bc'></slot>
+        <slot name="bc"></slot>
         <slot></slot>
       </>
     )
   }
 }
-
 
 @tag('my-el')
 class myel extends Component {
@@ -25,7 +21,6 @@ class myel extends Component {
   render() {
     return (
       <>
-
         <div>myel</div>
       </>
     )
@@ -39,21 +34,17 @@ class myel2 extends Component {
   render() {
     return (
       <>
-
         <div>myel2</div>
       </>
     )
   }
 }
 
-
-
 @tag('my-app')
 class CounterDemo extends Component {
   static css = 'span { color: red; }'
   tagName = 'div'
   sub() {
-
     this.show = true
     this.update()
   }
@@ -62,7 +53,7 @@ class CounterDemo extends Component {
     if (this.show) {
       return (
         <aa-demo>
-          <h2 slot='bc'>sfsdaf</h2>
+          <h2 slot="bc">sfsdaf</h2>
           <my-el2 onClick={() => this.sub()}>click me</my-el2>
         </aa-demo>
       )
@@ -74,7 +65,5 @@ class CounterDemo extends Component {
     )
   }
 }
-
-
 
 render(<my-app />, document.body)

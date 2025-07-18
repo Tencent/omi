@@ -175,7 +175,7 @@ export class Component<State = any> extends HTMLElement {
    */
   private handleComplexProps() {
     const propTypes = this.constructor.propTypes as PropTypes
-    Object.keys(propTypes).forEach(propName => {
+    Object.keys(propTypes).forEach((propName) => {
       // 检查是否是复杂类型
       const isComplexType = this.constructor.isComplexType(propName)
       if (isComplexType) {
@@ -188,7 +188,7 @@ export class Component<State = any> extends HTMLElement {
             this.queuedUpdate()
           },
           enumerable: true,
-          configurable: true
+          configurable: true,
         })
       }
     })
@@ -202,12 +202,12 @@ export class Component<State = any> extends HTMLElement {
       return false
     }
     const types = isArray(propTypes[propName])
-      ? propTypes[propName] as PropType[]
-      : [propTypes[propName]] as PropType[]
+      ? (propTypes[propName] as PropType[])
+      : ([propTypes[propName]] as PropType[])
 
     // 检查是否是复杂类型
-    return types.some(t =>
-      t === Object || t === Array || (isArray(t) && t.includes(Object))
+    return types.some(
+      (t) => t === Object || t === Array || (isArray(t) && t.includes(Object)),
     )
   }
 
@@ -344,7 +344,7 @@ export class Component<State = any> extends HTMLElement {
 
         // add globalCSS
         styleSheets = [...options.globalCSS, ...styleSheets]
-          ;(this.renderRoot as ShadowRoot).adoptedStyleSheets = styleSheets
+        ;(this.renderRoot as ShadowRoot).adoptedStyleSheets = styleSheets
         adoptedStyleSheetsMap.set(this.constructor, styleSheets)
       } else {
         if (options.globalCSS.length) {
@@ -365,7 +365,9 @@ export class Component<State = any> extends HTMLElement {
         attributes: {},
         children: [this.props.css],
       }
-      return isArray(rendered) ? [...rendered, styleVNode] : [rendered, styleVNode]
+      return isArray(rendered)
+        ? [...rendered, styleVNode]
+        : [rendered, styleVNode]
     }
     return rendered
   }
@@ -496,9 +498,7 @@ export class Component<State = any> extends HTMLElement {
           constructor.defaultProps &&
           constructor.defaultProps.hasOwnProperty(key)
         ) {
-          ele.props[key] = constructor.defaultProps[
-            key
-          ]
+          ele.props[key] = constructor.defaultProps[key]
         } else {
           ele.props[key] = null
         }
@@ -561,17 +561,17 @@ export class Component<State = any> extends HTMLElement {
     }
   }
 
-  install() { }
+  install() {}
 
-  installed() { }
+  installed() {}
 
-  ready() { }
+  ready() {}
 
-  uninstall() { }
+  uninstall() {}
 
-  beforeUpdate() { }
+  beforeUpdate() {}
 
-  updated() { }
+  updated() {}
 
   beforeRender() {
     // 针对非omi环境使用children的情况
@@ -579,9 +579,9 @@ export class Component<State = any> extends HTMLElement {
     this.props.children = convertNodeListToVNodes.call(this, this.childNodes)
   }
 
-  rendered(vnode: VNode | VNode[]) { }
+  rendered(vnode: VNode | VNode[]) {}
 
-  receiveProps() { }
+  receiveProps() {}
 }
 
 export class FormAssociatedComponent extends Component {
@@ -589,12 +589,12 @@ export class FormAssociatedComponent extends Component {
   _form: HTMLFormElement | null = null // 引用表单元素
   _inputs: HTMLInputElement[] = [] // 引用表单元素内部的 input 元素
   _internals: ElementInternals | null = null // 表单元素内部对象
-  formAssociatedCallback(form: HTMLFormElement) { } // 当组件被添加到表单元素内部时调用
-  handleFormData(event: FormDataEvent) { } // 处理表单数据事件
-  getFieldValue(): Record<string, any> { } // 返回获取 input 元素的值
+  formAssociatedCallback(form: HTMLFormElement) {} // 当组件被添加到表单元素内部时调用
+  handleFormData(event: FormDataEvent) {} // 处理表单数据事件
+  getFieldValue(): Record<string, any> {} // 返回获取 input 元素的值
   resetFieldValue(): void // 当重新表单时调用
-  handleField(event: Event) { } // 处理 input 事件
-  formDisabledCallback() { } // 当表单元素被禁用时调用
-  formResetCallback() { } // 当表单元素被重置时调用
-  formStateRestoreCallback(state: any, mode: any) { } // 当表单元素状态被恢复时调用
+  handleField(event: Event) {} // 处理 input 事件
+  formDisabledCallback() {} // 当表单元素被禁用时调用
+  formResetCallback() {} // 当表单元素被重置时调用
+  formStateRestoreCallback(state: any, mode: any) {} // 当表单元素状态被恢复时调用
 }
