@@ -48,56 +48,98 @@ const treeData = ref<TreeNode[]>([
   }
 ]);
 
-// ref to the tree component
 const treeRef = ref();
 
 onMounted(() => {
   console.log('Vue component mounted, treeData:', treeData.value);
 });
 
-// 处理节点点击事件
-const handleNodeClick = (e: CustomEvent) => {
-  console.log('节点被点击:', e.detail);
+const logEvent = (message: string, detail: any) => {
+  console.log(message, detail);
 };
-
-// 处理节点展开事件
 const handleNodeExpand = (e: CustomEvent) => {
-  console.log('节点被展开:', e.detail);
+  logEvent('节点被展开:', e.detail);
 };
 
-// 处理节点折叠事件
 const handleNodeCollapse = (e: CustomEvent) => {
-  console.log('节点被折叠:', e.detail);
+  logEvent('节点被折叠:', e.detail);
 };
 
-// 示例: 添加新节点
-function addNewNode() {
-  const newNode = { id: Date.now(), label: 'New Node' };
-  treeRef.value.addNode(1, newNode);  // 添加到 id=1 的节点下
+// 新增 CRUD 操作函数
+const addNodeInput = ref('');
+const addLabelInput = ref('');
+const addPositionInput = ref('');
+
+function performAddNode() {
+  const parentId = addNodeInput.value ? parseInt(addNodeInput.value) : null;
+  const label = addLabelInput.value || 'New Node';
+  const position = addPositionInput.value ? parseInt(addPositionInput.value) : -1;
+
+  // 查找当前最大ID的函数
+  const findMaxId = (nodes: TreeNode[], max = 0): number => {
+    for (const node of nodes) {
+      if (typeof node.id === 'number' && node.id > max) max = node.id;
+      if (node.children) max = findMaxId(node.children, max);
+    }
+    return max;
+  };
+
+  const maxId = findMaxId(treeData.value);
+  const newId = maxId + 1;
+  const newNode = { id: newId, label };
+  treeRef.value.addNode(parentId, newNode, position);
+  addNodeInput.value = '';
+  addLabelInput.value = '';
+  addPositionInput.value = '';
 }
 
-// 示例: 删除节点
-function removeNode() {
-  treeRef.value.removeNode(11);  // 删除 id=11 的节点
+const removeNodeInput = ref('');
+
+function performRemoveNode() {
+  const id = parseInt(removeNodeInput.value);
+  if (!isNaN(id)) {
+    treeRef.value.removeNode(id);
+  }
+  removeNodeInput.value = '';
 }
 
-// 示例: 更新节点
-function updateNode() {
-  treeRef.value.updateNode(1, { label: 'Updated Node 1' });
+const updateNodeInput = ref('');
+const updateLabelInput = ref('');
+
+function performUpdateNode() {
+  const id = parseInt(updateNodeInput.value);
+  const label = updateLabelInput.value;
+  if (!isNaN(id) && label) {
+    treeRef.value.updateNode(id, { label });
+  }
+  updateNodeInput.value = '';
+  updateLabelInput.value = '';
 }
 
-// 示例: 查找节点
-function findNode() {
-  const found = treeRef.value.findNode(1);
-  console.log('Found node:', found);
+const findNodeInput = ref('');
+
+const showModal = ref(false);
+const foundNode = ref<TreeNode | null>(null);
+
+function performFindNode() {
+  const id = parseInt(findNodeInput.value);
+  if (!isNaN(id)) {
+    const found = treeRef.value.findNode(id);
+    if (found) {
+      foundNode.value = found;
+      showModal.value = true;
+      logEvent('Found node:', found);
+    } else {
+      logEvent('Node not found:', id);
+    }
+  }
+  findNodeInput.value = '';
 }
 
-// 处理事件如 nodeAdded
-function handleNodeAdded(e: CustomEvent) {
-  console.log('Node added:', e.detail);
+function closeModal() {
+  showModal.value = false;
+  foundNode.value = null;
 }
-
-// 类似处理其他事件
 </script>
 
 <template>
@@ -110,16 +152,37 @@ function handleNodeAdded(e: CustomEvent) {
       @nodeExpand="handleNodeExpand"
       @nodeCollapse="handleNodeCollapse"
       @nodeAdded="handleNodeAdded"
-      @nodeRemoved="(e) => console.log('Node removed:', e.detail)"
-      @nodeUpdated="(e) => console.log('Node updated:', e.detail)"
+      @nodeRemoved="handleNodeRemoved"
+      @nodeUpdated="handleNodeUpdated"
     >
       <!-- 可以在这里添加插槽内容 -->
     </OmiTree>
-    <div>
-      <button @click="addNewNode">Add New Node</button>
-      <button @click="removeNode">Remove Node 1-1</button>
-      <button @click="updateNode">Update Node 1</button>
-      <button @click="findNode">Find Node 1</button>
+    <div class="operations">
+      <h4>添加节点</h4>
+      <input v-model="addNodeInput" placeholder="Parent ID (null for root)" />
+      <input v-model="addLabelInput" placeholder="Label" />
+      <input v-model="addPositionInput" placeholder="Position (-1 for end)" />
+      <button @click="performAddNode">添加</button>
+
+      <h4>删除节点</h4>
+      <input v-model="removeNodeInput" placeholder="Node ID" />
+      <button @click="performRemoveNode">删除</button>
+
+      <h4>更新节点</h4>
+      <input v-model="updateNodeInput" placeholder="Node ID" />
+      <input v-model="updateLabelInput" placeholder="New Label" />
+      <button @click="performUpdateNode">更新</button>
+
+      <h4>查找节点</h4>
+      <input v-model="findNodeInput" placeholder="Node ID" />
+      <button @click="performFindNode">查找</button>
+    </div>
+    <div v-if="showModal" class="modal">
+      <div class="modal-content">
+        <h4>节点详情</h4>
+        <pre>{{ JSON.stringify(foundNode, null, 2) }}</pre>
+        <button @click="closeModal">关闭</button>
+      </div>
     </div>
   </div>
 </template>
@@ -137,5 +200,37 @@ h3 {
   margin-top: 0;
   margin-bottom: 20px;
   color: #303133;
+}
+.operations {
+  margin-top: 20px;
+}
+.operations h4 {
+  margin: 10px 0 5px;
+}
+.operations input {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+  max-width: 500px;
+  overflow: auto;
+}
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 </style> 

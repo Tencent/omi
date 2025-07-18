@@ -63,7 +63,6 @@ export class CounterDemo extends Component<CounterDemoProps> {
 }
 
 define('my-component', CounterDemo);
-// 注册OTree组件
 define('o-tree', OTree);
 
 createApp(App).mount('#app')

@@ -1,4 +1,4 @@
-import { Component, tag, signal, Signal as SignalValue } from 'omi'
+import { Component, tag, signal } from 'omi'
 
 // 树节点数据结构
 export interface TreeNode {
@@ -70,7 +70,7 @@ export class OTree extends Component<TreeProps> {
       transition: max-height 0.3s ease-in-out;
     }
     .o-tree-node-children.expanded {
-      max-height: 1000px; /* 足够大的高度 */
+      max-height: 1000px; 
     }
     .o-tree-node-loading {
       color: #909399;
@@ -83,7 +83,6 @@ export class OTree extends Component<TreeProps> {
     .o-tree-node.drag-over > * {
       pointer-events: none;
     }
-    /* 新增三种放置位置的样式，增加过渡效果 */
     .drop-inside {
       background-color: rgba(64, 158, 255, 0.1);
       border: 1px dashed #409eff;
@@ -267,13 +266,12 @@ export class OTree extends Component<TreeProps> {
     };
   }
 
-  // 获取放置位置，增加稳定区判断
+  // 获取放置位置
   getDropPosition(evt: DragEvent, element: HTMLElement): DropPosition {
     const rect = element.getBoundingClientRect();
     const offsetY = evt.clientY - rect.top;
     const height = rect.height;
     
-    // 增加稳定区判断，只有当鼠标明显在某个区域时才切换放置类型
     // 上部 20% 区域放置为前一个兄弟
     if (offsetY < height * 0.2) {
       return DropPosition.BEFORE;
@@ -293,7 +291,7 @@ export class OTree extends Component<TreeProps> {
     element.classList.remove('drop-before', 'drop-inside', 'drop-after', 'drag-over');
   }
 
-  // 应用放置样式，只有当放置类型变化时才更新 DOM
+  // 应用放置样式
   applyDropPositionStyle(element: HTMLElement, position: DropPosition) {
     // 如果放置类型没有变化，不做任何操作
     if (position === this.dragState.lastDropPosition && element === this.dragState.currentDropTarget) {
@@ -350,25 +348,20 @@ export class OTree extends Component<TreeProps> {
     
     // 应用放置样式，只有当放置类型变化时才更新 DOM
     this.applyDropPositionStyle(element, position);
-  }, 50); // 50ms 的节流延迟
+  }, 50); 
 
   handleDragEnter = (evt: DragEvent) => {
     evt.preventDefault();
-    // 不再在这里添加样式，而是在 handleDragOver 中处理
   }
 
   handleDragLeave = (evt: DragEvent) => {
     evt.preventDefault();
     
-    // 检查是否真的离开了元素，而不是进入了子元素
     const relatedTarget = evt.relatedTarget as Node;
     const currentTarget = evt.currentTarget as Node;
     
     if (!currentTarget.contains(relatedTarget)) {
-      // 真正离开了元素，清除样式
       this.clearDropPositionClasses(evt.currentTarget as HTMLElement);
-      
-      // 如果当前目标是记录的放置目标，重置状态
       if (this.dragState.currentDropTarget === evt.currentTarget) {
         this.dragState.currentDropTarget = null;
         this.dragState.lastDropPosition = DropPosition.NONE;
@@ -389,12 +382,10 @@ export class OTree extends Component<TreeProps> {
     return result
   }
 
-  // Public method to add a new node
   addNode(parentId: string | number | null, newNode: TreeNode, position: number = -1) {
     const data = this.treeData.value;
     this.initializeSignals(newNode);
     if (parentId === null) {
-      // Add to root
       if (position === -1) {
         data.push(newNode);
       } else {
@@ -425,7 +416,6 @@ export class OTree extends Component<TreeProps> {
     console.log(`Node ${newNode.label} added to parent ${parentId}`);
   }
 
-  // Public method to remove a node by id
   removeNode(id: string | number) {
     const data = this.treeData.value;
     const removed = this.removeNodeInternal(id.toString(), data);
@@ -438,7 +428,6 @@ export class OTree extends Component<TreeProps> {
     }
   }
 
-  // Rename existing removeNode to removeNodeInternal for internal use
   private removeNodeInternal(id: string, nodes: TreeNode[]): TreeNode | null {
     let removed: TreeNode | null = null;
     this.traverseTree(nodes, (node, parent, index) => {
@@ -456,7 +445,6 @@ export class OTree extends Component<TreeProps> {
     return removed;
   }
 
-  // Public method to update a node by id
   updateNode(id: string | number, updates: Partial<TreeNode>) {
     let updated = false;
     this.traverseTree(this.treeData.value, (node, parent, index) => {
@@ -479,13 +467,11 @@ export class OTree extends Component<TreeProps> {
     }
   }
 
-  // Public method to find a node by id (returns a copy to prevent direct mutation)
   findNode(id: string | number): TreeNode | null {
     const found = this.findNodeInternal(id.toString(), this.treeData.value);
     return found ? JSON.parse(JSON.stringify(found)) : null;
   }
 
-  // Rename existing findNode to findNodeInternal
   private findNodeInternal(id: string, nodes: TreeNode[]): TreeNode | null {
     let found: TreeNode | null = null;
     this.traverseTree(nodes, (node, parent, index) => {
@@ -518,11 +504,9 @@ export class OTree extends Component<TreeProps> {
     
     const data = this.treeData.value;
     
-    // First, remove the dragged node
     const removedNode = this.removeNodeInternal(draggedId, data);
     if (!removedNode) return;
     
-    // Then, determine where to add it back using addNode
     switch (position) {
       case DropPosition.BEFORE:
         const beforeResult = this.findParentAndIndex(targetId, data);
@@ -547,7 +531,6 @@ export class OTree extends Component<TreeProps> {
         break;
     }
     
-    // No need to call update() here as addNode already does it
     
     this.fire('nodeDrop', { 
       draggedNode: removedNode, 
@@ -598,7 +581,7 @@ export class OTree extends Component<TreeProps> {
           ) : (
             <span class="o-tree-node-expand-icon"></span>
           )}
-          <span class="o-tree-node-label">{node.label}</span>
+          <span class="o-tree-node-label">{`${node.label} (ID: ${node.id})`}</span>
           <slot name="node-icon" node={node}></slot>
         </div>
         {hasChildren && (
