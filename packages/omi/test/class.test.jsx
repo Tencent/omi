@@ -7,20 +7,17 @@ import {
   getHost,
   h,
   classNames,
-  extractClass
+  extractClass,
 } from '@/index'
 
 describe('class', () => {
-
-
   it('classNames1', () => {
     const res = classNames('a', 'b', {
       c: true,
-      d: false
+      d: false,
     })
     expect(res).toBe('a b c')
   })
-
 
   it('classNames2', () => {
     const res = classNames(['a', 'b'])
@@ -37,40 +34,42 @@ describe('class', () => {
     expect(res).toBe('a c d b')
   })
 
-
   it('classNames5', () => {
     const res = classNames(['class1', 'class2', 'class3'])
     expect(res).toEqual('class1 class2 class3')
   })
 
-
   it('extractClass1', () => {
-    const res = extractClass({
-      class: 'e f',
-    }, {
-      a: true,
-      b: false,
-      c: true
-    })
+    const res = extractClass(
+      {
+        class: 'e f',
+      },
+      {
+        a: true,
+        b: false,
+        c: true,
+      },
+    )
 
     expect(res).toEqual({
-      class: 'e f a c'
+      class: 'e f a c',
     })
   })
-
 
   it('extractClass2', () => {
-    const res = extractClass({
-      className: 'e f',
-    }, {
-      a: true,
-      b: false,
-      c: true
-    })
+    const res = extractClass(
+      {
+        className: 'e f',
+      },
+      {
+        a: true,
+        b: false,
+        c: true,
+      },
+    )
 
     expect(res).toEqual({
-      class: 'e f a c'
+      class: 'e f a c',
     })
   })
-
 })

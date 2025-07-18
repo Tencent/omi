@@ -410,11 +410,11 @@ function diffAttributes(
   // let update = false
   let isComponent = dom.update
   let oldClone
-  
+
   // merge defaultProps and props with their default values into oldClone
   if (dom.receiveProps) {
     oldClone = Object.assign({}, old)
-  
+
     // merge defaultProps
     if (dom) {
       if ((dom.constructor as typeof Component).defaultProps) {
@@ -431,7 +431,10 @@ function diffAttributes(
         const props = (dom.constructor as typeof Component).props
         for (const propName in props) {
           // @ts-ignore
-          if (props[propName]?.default !== undefined && oldClone[propName] === undefined) {
+          if (
+            props[propName]?.default !== undefined &&
+            oldClone[propName] === undefined
+          ) {
             // @ts-ignore
             oldClone[propName] = props[propName].default
           }

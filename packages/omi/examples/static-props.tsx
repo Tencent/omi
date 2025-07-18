@@ -11,12 +11,12 @@ class CounterDemo extends Component {
       // or reflect(value) {}
       changed(newValue, oldValue) {
         console.log('changed', newValue, oldValue)
-      }
-    }
+      },
+    },
   }
 
   state = {
-    count: 0
+    count: 0,
   }
 
   install() {
@@ -41,12 +41,13 @@ class CounterDemo extends Component {
   render() {
     return (
       <>
-        <span>{this.state.count}  <button onClick={this.add}>+</button></span>
+        <span>
+          {this.state.count} <button onClick={this.add}>+</button>
+        </span>
       </>
     )
   }
 }
-
 
 @tag('my-app')
 class MyApp extends Component {
@@ -60,9 +61,7 @@ class MyApp extends Component {
 
   render() {
     return (
-
       <counter-demo onChange={this.onChange} count={this.count}></counter-demo>
-
     )
   }
 }

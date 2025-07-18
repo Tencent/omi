@@ -28,7 +28,9 @@ class InnerButton extends Component {
   render() {
     return (
       <button class="btn" part="button">
+
         <span class="icon" part="icon">🚀</span>
+
         <span part="text">{this.props.children || 'Click me'}</span>
       </button>
     )
@@ -58,7 +60,9 @@ class CardComponent extends Component {
   render() {
     return (
       <div class="card" part="card">
+
         <h3 class="title" part="title">{this.props.title || 'Card Title'}</h3>
+
         {/* 使用 exportparts 将 inner-button 的 parts 暴露出来 */}
         <inner-button exportparts="button, icon, text">
           {this.props.buttonText || 'Action'}
@@ -155,6 +159,7 @@ class AppContainer extends Component {
       <div class="container">
         <div class="demo-section">
           <h1 class="demo-title">Omi ExportParts 示例</h1>
+
           
           <div class="description">
             <p><strong>ExportParts</strong> 允许 Web Components 将内部组件的 CSS parts 暴露给外部，
@@ -177,10 +182,13 @@ class AppContainer extends Component {
             title="另一个卡片" 
             buttonText="执行操作">
           </card-component>
+
         </div>
       </div>
     )
   }
 }
 
+
 render(<app-container />, document.body)
+

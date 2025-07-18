@@ -1,6 +1,10 @@
 import { render, tag, Component, h, css } from '@/index'
 
-const style = css`p { color: green; }`
+const style = css`
+  p {
+    color: green;
+  }
+`
 
 @tag('el-a')
 class ElA extends Component {
@@ -30,9 +34,10 @@ class ElB extends Component {
   }
 }
 
-render((
+render(
   <>
     <el-a></el-a>
     <el-b></el-b>
-  </>
-), document.body)
+  </>,
+  document.body,
+)

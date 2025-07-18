@@ -5,7 +5,7 @@ class CounterDemo extends Component<{ count: number }> {
   static css = 'span { color: red; }'
 
   state = {
-    count: 0
+    count: 0,
   }
 
   @bind

@@ -10,7 +10,6 @@ class CounterDemo extends Component {
   add() {
     this.count++
     this.update()
-
   }
 
   installed() {
@@ -25,7 +24,9 @@ class CounterDemo extends Component {
   render() {
     return (
       <>
-        <span>{this.count}  <button onClick={this.add}>+</button></span>
+        <span>
+          {this.count} <button onClick={this.add}>+</button>
+        </span>
         <div>
           <div ref={this.refSpan}></div>
         </div>

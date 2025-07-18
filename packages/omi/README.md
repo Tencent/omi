@@ -2,7 +2,7 @@
 <h2 align="center">Omi - Web Components Framework</h2>
 
 - 📶 **Signal**-driven reactive programming by [reactive-signal](https://github.com/Tencent/omi/tree/master/packages/reactive-signal)
-- 🧱 [TDesign Web Components](https://github.com/TDesignOteam/tdesign-web-components) 
+- 🧱 [TDesign Web Components](https://github.com/TDesignOteam/tdesign-web-components)
 - 💗 [100+ OMI Templates](https://omi.cdn-go.cn/templates/latest/) & [OMI Templates Source Code](https://github.com/Tencent/omi/tree/master/packages/omi-templates)
 - 🐲 [OMI Form](https://omi.cdn-go.cn/form/latest/docs/) & [OMI Form Playground](https://omi.cdn-go.cn/form/latest/play/) & [Lucide Omi Icons](https://github.com/omijs/lucide-omi)
 - ⚡ **Tiny** size, **Fast** performance
@@ -46,7 +46,7 @@ import './counter-demo'
 
 render(<counter-demo />, document.body)
 
-// or 
+// or
 import { CounterDemo, Other } from './counter-demo'
 // Prevent tree Shaking when importing other things
 render(<CounterDemo />, document.body)
@@ -55,7 +55,7 @@ render(<CounterDemo />, document.body)
 document.body.appendChild(document.createElement('counter-demo'))
 ```
 
-## Install 
+## Install
 
 ```bash
 npm i omi
@@ -65,7 +65,7 @@ To quickly create an Omi + Vite + TS/JS project:
 
 ```bash
 $ npx omi-cli init my-app    # or create js project by: npx omi-cli init-js my-app
-$ cd my-app           
+$ cd my-app
 $ npm start           # develop
 $ npm run build       # release
 ```
@@ -73,8 +73,8 @@ $ npm run build       # release
 To quickly create an Omi + **Router** + **Signal** + **Suspense** + **Tailwindcss** + Vite + TS project:
 
 ```bash
-$ npx omi-cli init-spa my-app  
-$ cd my-app           
+$ npx omi-cli init-spa my-app
+$ cd my-app
 $ npm start           # develop
 $ npm run build       # release
 ```
@@ -99,14 +99,13 @@ $ npm run build       # release
   - [`omi-weui`](https://github.com/Tencent/omi/tree/master/packages/omi-weui) - WeUI Components of omi.
   - [`omi-auto-animate`](https://github.com/Tencent/omi/tree/master/packages/omi-auto-animate) - Omi version of @formkit/auto-animate.
   - [`omi-suspense`](https://github.com/Tencent/omi/tree/master/packages/omi-suspense) - Handling asynchronous dependencies.
-- Directives  
+- Directives
   - [`omi-transition`](https://github.com/Tencent/omi/tree/master/packages/omi-transition) - Applying animations when an component is entering and leaving the DOM.
   - [`omi-ripple`](https://github.com/Tencent/omi/tree/master/packages/omi-ripple) - A lightweight component for adding ripple effects to user interface elements.
 - Examples (not published to npm)
   - [`snake-game-2tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-2tier) - SNake Game with `Signal` class
   - [`snake-game-3tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-3tier) - SNake Game with reactivity functions
   - [`omi-tutorial`](https://github.com/omijs/tutorial) - Source code of omi tutorial.
-
 
 **If you want to help the project grow, start by simply sharing it with your peers!**
 
@@ -123,15 +122,13 @@ $ npm run build       # release
 
 Thank you!
 
-
 ## Usage
 
 ### TodoApp with reactivity functions
 
-> Data oriented programming 
+> Data oriented programming
 
 In data-oriented programming, the focus is on the data itself and the operations on the data, rather than the objects or data structures that hold the data. This programming paradigm emphasizes the change and flow of data, and how to respond to these changes. The TodoApp with reactivity functions is a good example of this, using the concepts of reactive programming, where the UI automatically updates to reflect changes in the data (i.e., the to-do list).
-
 
 ```tsx
 import { render, signal, computed, tag, Component, h } from 'omi'
@@ -140,11 +137,11 @@ const todos = signal([
   { text: 'Learn OMI', completed: true },
   { text: 'Learn Web Components', completed: false },
   { text: 'Learn JSX', completed: false },
-  { text: 'Learn Signal', completed: false }
+  { text: 'Learn Signal', completed: false },
 ])
 
 const completedCount = computed(() => {
-  return todos.value.filter(todo => todo.completed).length
+  return todos.value.filter((todo) => todo.completed).length
 })
 
 const newItem = signal('')
@@ -153,7 +150,7 @@ function addTodo() {
   // api a
   todos.value.push({ text: newItem.value, completed: false })
   todos.update() // Trigger UI auto update
-  
+
   // api b, same as api a
   // todos.value = [...todos.value, { text: newItem.value, completed: false }]
 
@@ -191,8 +188,7 @@ class TodoList extends Component {
                     }}
                   />
                   {todo.completed ? <s>{todo.text}</s> : todo.text}
-                </label>
-                {' '}
+                </label>{' '}
                 <button onClick={() => removeTodo(index)}>❌</button>
               </li>
             )
@@ -217,9 +213,9 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   esbuild: {
     jsxInject: "import { h } from 'omi'",
-    jsxFactory: "h",
-    jsxFragment: "h.f"
-  }
+    jsxFactory: 'h',
+    jsxFragment: 'h.f',
+  },
 })
 ```
 
@@ -299,9 +295,11 @@ class CardComponent extends Component {
     return (
       <div class="card" part="card">
         {/* Export nested component parts */}
+
         <inner-button exportparts="button, icon, text">
           Click me
         </inner-button>
+
       </div>
     )
   }
@@ -344,6 +342,8 @@ class AppContainer extends Component {
 ### Advanced Example
 
 For a complete working example, see [`exportparts-example.tsx`](./examples/exportparts-example.tsx), which demonstrates:
+
+
 - Multi-level component nesting
 - Part renaming and aliasing
 - Complex styling scenarios
@@ -369,12 +369,12 @@ class MyCounter extends Component {
       changed(newValue, oldValue) {
         this.state.count = newValue
         this.update()
-      }
-    }
+      },
+    },
   }
 
   state = {
-    count: null
+    count: null,
   }
 
   install() {
@@ -424,13 +424,13 @@ const count = ref(0)
 const change = (e) => {
   count.value = e.detail
 }
-
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
 
   <my-counter @change="change" :count="count" />
+
   <p>
     【Omi Component】 
   </p>
@@ -440,8 +440,8 @@ const change = (e) => {
     <p>
      【Vue Component】 
     </p>
-  </div>
 
+  </div>
 </template>
 ```
 
@@ -506,6 +506,5 @@ export default App
 ## License
 
 MIT © Tencent
-
 
   <!-- - [`tdesign-omi`](https://github.com/omijs/tdesign) - `[in progress...]`Cross framework components based on tdesign. [Preview](https://omijs.github.io/tdesign/) -->

@@ -2,7 +2,9 @@
 <h2 align="center">Omi - Web Components 框架</h2>
 
 - 📶 基于 [reactive-signal](https://github.com/Tencent/omi/tree/master/packages/reactive-signal) 的 **Signal** 驱动响应式编程
+
 - 🧱 [TDesign Web Components](https://github.com/TDesignOteam/tdesign-web-components) 
+
 - 💗 [100+ OMI 模板](https://omi.cdn-go.cn/templates/latest/) & [OMI 模板源码](https://github.com/Tencent/omi/tree/master/packages/omi-templates)
 - 🐲 [OMI 表单](https://omi.cdn-go.cn/form/latest/docs/) & [OMI 表单演练场](https://omi.cdn-go.cn/form/latest/play/) & [Lucide Omi 图标](https://github.com/omijs/lucide-omi)
 - ⚡ **小巧**体积，**快速**性能
@@ -63,9 +65,11 @@ class CardComponent extends Component {
     return (
       <div class="card" part="card">
         {/* 导出嵌套组件的 parts */}
+
         <inner-button exportparts="button, icon, text">
           Click me
         </inner-button>
+
       </div>
     )
   }
@@ -108,6 +112,8 @@ class AppContainer extends Component {
 ### 高级示例
 
 完整的工作示例请参考 [`exportparts-example.tsx`](./examples/exportparts-example.tsx)，演示了：
+
+
 - 多层组件嵌套
 - Part 重命名和别名
 - 复杂样式化场景
@@ -120,6 +126,7 @@ class AppContainer extends Component {
   <h1>{{ msg }}</h1>
 
   <my-counter @change="change" :count="count" />
+
   <p>
     【Omi 组件】 
   </p>
@@ -131,9 +138,12 @@ class AppContainer extends Component {
     </p>
   </div>
 
+
 </template>
 ```
 
 ## 许可证
 
+
 MIT © Tencent
+

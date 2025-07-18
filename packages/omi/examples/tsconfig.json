@@ -14,27 +14,13 @@
     "jsxFragmentFactory": "h.f",
     "allowJs": true,
     "declaration": true,
-    "lib": [
-      "esnext",
-      "dom"
-    ],
-    "types": [
-      "vite/client",
-      "node"
-    ],
+    "lib": ["esnext", "dom"],
+    "types": ["vite/client", "node"],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "../src/*"
-      ]
-    },
+      "@/*": ["../src/*"]
+    }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx", 
-    "../omi.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", "../omi.d.ts"],
+  "exclude": ["node_modules"]
 }

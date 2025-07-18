@@ -4,11 +4,11 @@ const todos = signal([
   { text: 'Learn OMI', completed: true },
   { text: 'Learn Web Components', completed: false },
   { text: 'Learn JSX', completed: false },
-  { text: 'Learn Signal', completed: false }
+  { text: 'Learn Signal', completed: false },
 ])
 
 const completedCount = computed(() => {
-  return todos.value.filter(todo => todo.completed).length
+  return todos.value.filter((todo) => todo.completed).length
 })
 
 const newItem = signal('')
@@ -26,7 +26,6 @@ function removeTodo(index: number) {
 
 @tag('todo-list')
 class TodoList extends Component {
-
   onInput = (event: Event) => {
     const target = event.target as HTMLInputElement
     newItem.value = target.value
@@ -51,8 +50,7 @@ class TodoList extends Component {
                     }}
                   />
                   {todo.completed ? <s>{todo.text}</s> : todo.text}
-                </label>
-                {' '}
+                </label>{' '}
                 <button onClick={() => removeTodo(index)}>❌</button>
               </li>
             )
@@ -61,7 +59,6 @@ class TodoList extends Component {
         <p>Completed count: {completedCount.value}</p>
       </>
     )
-
   }
 }
 

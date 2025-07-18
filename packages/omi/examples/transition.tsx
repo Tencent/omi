@@ -20,13 +20,12 @@ class TransitionDemo extends Component {
   render() {
     return (
       <>
-        <button onClick={() => show.value = !show.value}>toggle</button>
+        <button onClick={() => (show.value = !show.value)}>toggle</button>
         <o-transition show={show.value} name="fade">
           <h4>OMI</h4>
         </o-transition>
         <div>abc</div>
       </>
-
     )
   }
 }

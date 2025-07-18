@@ -18,7 +18,11 @@ export {
   getActiveComponent,
   signalObject,
 } from 'reactive-signal'
-export type { Signal, SignalObject, Signal as SignalValue } from 'reactive-signal'
+export type {
+  Signal,
+  SignalObject,
+  Signal as SignalValue,
+} from 'reactive-signal'
 export { css } from './css-tag'
 export { mixin, globalCSS } from './options'
 export { registerDirective } from './directive'

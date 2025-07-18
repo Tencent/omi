@@ -6,17 +6,13 @@ module.exports = {
   },
   rules: {
     quotes: ['error', 'single'],
-    'semi': ['error', 'never']
+    semi: ['error', 'never'],
   },
   ignorePatterns: ['test/qunit/qunit.js'],
   overrides: [
     {
       files: ['**/*.ts'],
-      parserOptions: {
-       
-      },
-     
-   
+      parserOptions: {},
     },
   ],
-};
+}

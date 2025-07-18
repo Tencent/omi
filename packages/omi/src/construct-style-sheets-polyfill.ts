@@ -70,13 +70,13 @@
   nonConstructedProto.replace = function () {
     return Promise.reject(
       new _DOMException(
-        'Can\'t call replace on non-constructed CSSStyleSheets.',
+        "Can't call replace on non-constructed CSSStyleSheets.",
       ),
     )
   }
   nonConstructedProto.replaceSync = function () {
     throw new _DOMException(
-      'Failed to execute \'replaceSync\' on \'CSSStyleSheet\': Can\'t call replaceSync on non-constructed CSSStyleSheets.',
+      "Failed to execute 'replaceSync' on 'CSSStyleSheet': Can't call replaceSync on non-constructed CSSStyleSheets.",
     )
   }
   function isCSSStyleSheetInstance(instance) {
@@ -322,23 +322,23 @@
       $element.get(self) === document ? 'Document' : 'ShadowRoot'
     if (!Array.isArray(sheets)) {
       throw new TypeError(
-        'Failed to set the \'adoptedStyleSheets\' property on ' +
+        "Failed to set the 'adoptedStyleSheets' property on " +
           locationType +
           ': Iterator getter is not callable.',
       )
     }
     if (!sheets.every(isCSSStyleSheetInstance)) {
       throw new TypeError(
-        'Failed to set the \'adoptedStyleSheets\' property on ' +
+        "Failed to set the 'adoptedStyleSheets' property on " +
           locationType +
-          ': Failed to convert value to \'CSSStyleSheet\'',
+          ": Failed to convert value to 'CSSStyleSheet'",
       )
     }
     if (sheets.some(isNonConstructedStyleSheetInstance)) {
       throw new TypeError(
-        'Failed to set the \'adoptedStyleSheets\' property on ' +
+        "Failed to set the 'adoptedStyleSheets' property on " +
           locationType +
-          ': Can\'t adopt non-constructed stylesheets',
+          ": Can't adopt non-constructed stylesheets",
       )
     }
     self.sheets = sheets

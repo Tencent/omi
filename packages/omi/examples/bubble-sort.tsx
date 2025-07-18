@@ -1,4 +1,14 @@
-import { Component, bind, signal, tag, render, h, classNames, mixin, SignalValue } from '@/index'
+import {
+  Component,
+  bind,
+  signal,
+  tag,
+  render,
+  h,
+  classNames,
+  mixin,
+  SignalValue,
+} from '@/index'
 
 export default class Store {
   state: SignalValue<{
@@ -44,12 +54,14 @@ export default class Store {
         this.state.value.indexA = indexA
         this.state.value.indexB = indexB
         this.state.update()
-      }
+      },
     })
   }
 
-
-  async bubbleSort(arr: number[], options: { done: Function; check: Function }) {
+  async bubbleSort(
+    arr: number[],
+    options: { done: Function; check: Function },
+  ) {
     const max = arr.length - 1
     for (let j = 0; j < max; j++) {
       let done = true
@@ -69,7 +81,7 @@ export default class Store {
   }
 
   async swap(arr: number[], indexA: number, indexB: number) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         const temp = arr[indexA]
         arr[indexA] = arr[indexB]
@@ -81,9 +93,8 @@ export default class Store {
 }
 
 mixin({
-  store: new Store()
+  store: new Store(),
 })
-
 
 @tag('my-element')
 class MyElement extends Component {
@@ -108,14 +119,26 @@ class MyElement extends Component {
       <div>
         <div>
           {state.value.arr?.map((item: number, index: number) => (
-            <div class={classNames('bar', {
-              'active': index === state.value.indexA || index === state.value.indexB
-            })} style={{ height: item * 10 }}></div>
+            <div
+              class={classNames('bar', {
+                active:
+                  index === state.value.indexA || index === state.value.indexB,
+              })}
+              style={{ height: item * 10 }}
+            ></div>
           ))}
         </div>
 
-        <button disabled={state.value.sorting} onClick={this.store?.sort}>Start Bubble Sort</button>
-        <button style="margin-left: 5px" disabled={state.value.sorting} onClick={this.store?.reset}>Reset</button>
+        <button disabled={state.value.sorting} onClick={this.store?.sort}>
+          Start Bubble Sort
+        </button>
+        <button
+          style="margin-left: 5px"
+          disabled={state.value.sorting}
+          onClick={this.store?.reset}
+        >
+          Reset
+        </button>
       </div>
     )
   }
