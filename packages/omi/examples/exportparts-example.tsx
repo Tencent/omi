@@ -28,9 +28,9 @@ class InnerButton extends Component {
   render() {
     return (
       <button class="btn" part="button">
-        <span class="icon" part="icon">
-          🚀
-        </span>
+
+        <span class="icon" part="icon">🚀</span>
+
         <span part="text">{this.props.children || 'Click me'}</span>
       </button>
     )
@@ -60,9 +60,9 @@ class CardComponent extends Component {
   render() {
     return (
       <div class="card" part="card">
-        <h3 class="title" part="title">
-          {this.props.title || 'Card Title'}
-        </h3>
+
+        <h3 class="title" part="title">{this.props.title || 'Card Title'}</h3>
+
         {/* 使用 exportparts 将 inner-button 的 parts 暴露出来 */}
         <inner-button exportparts="button, icon, text">
           {this.props.buttonText || 'Action'}
@@ -160,45 +160,35 @@ class AppContainer extends Component {
         <div class="demo-section">
           <h1 class="demo-title">Omi ExportParts 示例</h1>
 
+          
           <div class="description">
-            <p>
-              <strong>ExportParts</strong> 允许 Web Components 将内部组件的 CSS
-              parts 暴露给外部， 使得父组件可以通过 <code>::part()</code>{' '}
-              选择器来样式化嵌套组件的特定部分。
-            </p>
-
+            <p><strong>ExportParts</strong> 允许 Web Components 将内部组件的 CSS parts 暴露给外部，
+            使得父组件可以通过 <code>::part()</code> 选择器来样式化嵌套组件的特定部分。</p>
+            
             <p>在这个示例中：</p>
             <ul>
-              <li>
-                <code>inner-button</code> 定义了 <code>button</code>、
-                <code>icon</code>、<code>text</code> 三个 parts
-              </li>
-              <li>
-                <code>card-component</code> 通过{' '}
-                <code>exportparts="button, icon, text"</code> 将这些 parts
-                暴露出来
-              </li>
-              <li>
-                <code>app-container</code> 可以通过{' '}
-                <code>card-component::part(button)</code>{' '}
-                等选择器来样式化这些部分
-              </li>
+              <li><code>inner-button</code> 定义了 <code>button</code>、<code>icon</code>、<code>text</code> 三个 parts</li>
+              <li><code>card-component</code> 通过 <code>exportparts="button, icon, text"</code> 将这些 parts 暴露出来</li>
+              <li><code>app-container</code> 可以通过 <code>card-component::part(button)</code> 等选择器来样式化这些部分</li>
             </ul>
           </div>
+          
+          <card-component 
+            title="自定义样式卡片" 
+            buttonText="点击我">
+          </card-component>
+          
+          <card-component 
+            title="另一个卡片" 
+            buttonText="执行操作">
+          </card-component>
 
-          <card-component
-            title="自定义样式卡片"
-            buttonText="点击我"
-          ></card-component>
-
-          <card-component
-            title="另一个卡片"
-            buttonText="执行操作"
-          ></card-component>
         </div>
       </div>
     )
   }
 }
 
+
 render(<app-container />, document.body)
+

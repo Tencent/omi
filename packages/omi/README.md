@@ -295,7 +295,11 @@ class CardComponent extends Component {
     return (
       <div class="card" part="card">
         {/* Export nested component parts */}
-        <inner-button exportparts="button, icon, text">Click me</inner-button>
+
+        <inner-button exportparts="button, icon, text">
+          Click me
+        </inner-button>
+
       </div>
     )
   }
@@ -338,6 +342,7 @@ class AppContainer extends Component {
 ### Advanced Example
 
 For a complete working example, see [`exportparts-example.tsx`](./examples/exportparts-example.tsx), which demonstrates:
+
 
 - Multi-level component nesting
 - Part renaming and aliasing
@@ -425,11 +430,17 @@ const change = (e) => {
   <h1>{{ msg }}</h1>
 
   <my-counter @change="change" :count="count" />
-  <p>【Omi Component】</p>
+
+  <p>
+    【Omi Component】 
+  </p>
 
   <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
-    <p>【Vue Component】</p>
+    <p>
+     【Vue Component】 
+    </p>
+
   </div>
 </template>
 ```
