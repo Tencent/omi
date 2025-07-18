@@ -167,6 +167,12 @@ export class OTree extends Component<TreeProps> {
 
   installed() {
     console.log('OTree component mounted, props:', this.props);
+    // 确保在Mac和Windows上都能正常工作
+    document.addEventListener('dragover', (e) => {
+      // 阻止文档默认的dragover行为
+      e.preventDefault();
+    });
+
   }
 
   receiveProps(props: TreeProps) {
@@ -220,8 +226,9 @@ export class OTree extends Component<TreeProps> {
   ): boolean {
     for (let i = 0; i < nodes.length; i++) {
       if (callback(nodes[i], parent, i)) return true
-      if (nodes[i].children && nodes[i].children.length > 0) {
-        if (this.traverseTree(nodes[i].children!, callback, nodes[i])) return true
+      const children = nodes[i].children;
+      if (children && children.length > 0) {
+        if (this.traverseTree(children, callback, nodes[i])) return true
       }
     }
     return false
@@ -231,7 +238,7 @@ export class OTree extends Component<TreeProps> {
   checkDropValidity(draggedNodeId: string, dropTargetId: string): boolean {
     if (draggedNodeId === dropTargetId) return false
 
-    const draggedNode = this.findNode(draggedNodeId, this.treeData.value)
+    const draggedNode = this.findNode(draggedNodeId)
     if (!draggedNode) return false
 
     // 检查目标是否是拖拽节点的子孙
@@ -322,9 +329,11 @@ export class OTree extends Component<TreeProps> {
   handleDragStart = (evt: DragEvent, node: TreeNode) => {
     evt.stopPropagation();
     const nodeId = node.id.toString();
-    evt.dataTransfer?.setData('node-id', nodeId);
-    // 设置拖拽效果
-    evt.dataTransfer!.effectAllowed = 'move';
+    if (evt.dataTransfer) {
+      evt.dataTransfer.setData('node-id', nodeId);
+      // 设置拖拽效果
+      evt.dataTransfer.effectAllowed = 'move';
+    }
     
     // 记录被拖拽的节点 ID
     this.dragState.draggedNodeId = nodeId;

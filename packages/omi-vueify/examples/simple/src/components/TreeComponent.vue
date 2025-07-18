@@ -50,8 +50,25 @@ const treeData = ref<TreeNode[]>([
 
 const treeRef = ref();
 
+// 跟踪最后使用的ID值
+let lastUsedId = 0;
+
+// 初始化lastUsedId为当前树中的最大ID
+const initializeLastUsedId = (nodes: TreeNode[]) => {
+  for (const node of nodes) {
+    if (typeof node.id === 'number' && node.id > lastUsedId) {
+      lastUsedId = node.id;
+    }
+    if (node.children) {
+      initializeLastUsedId(node.children);
+    }
+  }
+};
+
+
 onMounted(() => {
   console.log('Vue component mounted, treeData:', treeData.value);
+  initializeLastUsedId(treeData.value);
 });
 
 const logEvent = (message: string, detail: any) => {
@@ -65,6 +82,15 @@ const handleNodeCollapse = (e: CustomEvent) => {
   logEvent('节点被折叠:', e.detail);
 };
 
+// 处理节点添加事件
+const handleNodeAdded = (e: CustomEvent) => {
+  const { newNode } = e.detail;
+  if (typeof newNode.id === 'number') {
+    lastUsedId = Math.max(lastUsedId, newNode.id);
+  }
+  logEvent('节点已添加:', e.detail);
+};
+
 const addNodeInput = ref('');
 const addLabelInput = ref('');
 const addPositionInput = ref('');
@@ -74,17 +100,8 @@ function performAddNode() {
   const label = addLabelInput.value || 'New Node';
   const position = addPositionInput.value ? parseInt(addPositionInput.value) : -1;
 
-  // 查找当前最大ID的函数
-  const findMaxId = (nodes: TreeNode[], max = 0): number => {
-    for (const node of nodes) {
-      if (typeof node.id === 'number' && node.id > max) max = node.id;
-      if (node.children) max = findMaxId(node.children, max);
-    }
-    return max;
-  };
-
-  const maxId = findMaxId(treeData.value);
-  const newId = maxId + 1;
+  // 使用递增的ID，确保不重复
+  const newId = ++lastUsedId;
   const newNode = { id: newId, label };
   treeRef.value.addNode(parentId, newNode, position);
   addNodeInput.value = '';
@@ -147,12 +164,9 @@ function closeModal() {
     <OmiTree 
       ref="treeRef"
       :data="treeData"
-      @nodeClick="handleNodeClick"
       @nodeExpand="handleNodeExpand"
       @nodeCollapse="handleNodeCollapse"
       @nodeAdded="handleNodeAdded"
-      @nodeRemoved="handleNodeRemoved"
-      @nodeUpdated="handleNodeUpdated"
     >
     </OmiTree>
     <div class="operations">
