@@ -20,6 +20,19 @@ const buildConfig = {
       formats: ['es', 'umd'],
       fileName: (format) => `omi-component.${format}.js`
     },
+    outputDir: 'dist/demo', // 新增输出目录
+    rollupOptions: {
+      external: ['omi', 'react', 'react-dom', 'react-dom/client']
+    }
+  },
+  treeDemo: {
+    lib: {
+      entry: resolve(__dirname, 'src/demo/omi-tree.tsx'),
+      name: 'omi-tree',
+      formats: ['es', 'umd'],
+      fileName: (format) => `omi-tree.${format}.js`
+    },
+    outputDir: 'dist/treeDemo', // 新增输出目录
     rollupOptions: {
       external: ['omi', 'react', 'react-dom', 'react-dom/client']
     }
@@ -27,17 +40,17 @@ const buildConfig = {
 }
 
 // https://vitejs.dev/config/
-export default defineConfig(({mode}) => {
+export default defineConfig(({ mode }) => {
   return {
     build: buildConfig[mode] || {
       rollupOptions: {
         external: ['omi', 'react', 'react-dom', 'react-dom/client'],
       }
     },
-    esbuild: mode === 'demo' ? {
+    esbuild: mode === 'demo' || mode === 'treeDemo' ? {
       jsxFactory: 'OmiComponent.h',
       jsxFragment: 'OmiComponent.f',
-      jsxInject: `import { Component as OmiComponent  } from 'omi'`,
+      jsxInject: `import { Component as OmiComponent } from 'omi'`,
     } : {},
   }
 })

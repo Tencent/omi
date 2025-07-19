@@ -8,11 +8,12 @@
   },
   "types": "index.d.ts",
   "scripts": {
-    "dev": "rm -rf node_modules/.vite/* && npm run build:demo && vite --force",
-    "build": "vite build --mode build && npx tsc",
-    "build:demo": "vite build --mode demo",
-    "watch": "nodemon --watch src --ext ts,tsx --exec \"npm run dev\""
-  },
+  "dev": "npm run build:demo && npm run build:treeDemo && vite",
+  "build": "vite build --mode build && npx tsc",
+  "build:demo": "vite build --mode demo --outDir dist/demo",
+  "build:treeDemo": "vite build --mode treeDemo --outDir dist/treeDemo",
+  "watch": "nodemon --watch src --ext ts,tsx --exec \"npm run dev\""
+},
   "files": [
     "dist",
     "types",

@@ -1,10 +1,11 @@
-import '../../dist/omi-component.es.js';
+import '../../dist/demo/omi-component.es.js';
+import '../../dist/treeDemo/omi-tree.es.js';
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import reactify from '../index';
 
 const OmiReactComponent = reactify('omi-component-demo') as any;
-
+const OmiReactTree = reactify('omi-component-tree') as any;
 class ClassComponent extends React.Component<any, any> {
   constructor(props) {
     super(props);
@@ -63,6 +64,36 @@ const MockComponent = ({ name }: { name: string }): any => {
 }
 
 const RenderFunction = ({ name }) => <MockComponent name={name} />;
+const treeData = [
+  {
+    id: 1,
+    label: 'Parent 1',
+    children: [
+      {
+        id: 11,
+        label: 'Child 1',
+        children: [
+          {
+            id: 111,
+            label: 'Grandchild 1',
+          },
+          {
+            id: 112,
+            label: 'Grandchild 2',
+          },
+        ],
+      },
+      {
+        id: 12,
+        label: 'Child 2',
+      },
+    ],
+  },
+  {
+    id: 2,
+    label: 'Parent 2',
+  }
+]
 
 const App = (): any => {
   const [complex, setComplex] = React.useState({ name: 'React' });
@@ -80,19 +111,11 @@ const App = (): any => {
   }, [])
   console.log('=====App render=====');
   return <div>
-    <OmiReactComponent
-      show={true}
-      label='React Component'
-      complex={complex}
-      ref={ref}
-      camelCase="camelCase"
-      style={{ color: 'red' }}
-      onMockClick={(_e: React.MouseEvent) => { setComplex({ name: 'Omi' }) }}
-      renderFunction={MockComponent}
+    <OmiReactTree
+      treeData={treeData}
     >
       <span className='content'>content</span>
-    </OmiReactComponent>
-    <button className='content' onClick={btnClick}>change name</button>
+    </OmiReactTree>
   </div>
 }
 
