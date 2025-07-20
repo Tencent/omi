@@ -30,7 +30,7 @@ export type OmiTreeReactProps = {
   renderPanel?: (selectedNodes: TreeNode[], defaultPanel: ReactNode) => ReactNode
   onNodeAdd?: (parentKey: string | null, newNode: TreeNode) => void
   onNodeDelete?: (key: string) => void
-  onNodeMove?: (fromKeys: string[], toKey: string | null, asChild: boolean) => void
+  onNodeMove?: (fromKeys: string[], toKey: string | null, position: DropPosition) => void
   onNodeChange?: (key: string, newNode: TreeNode) => void
 }
 
@@ -145,14 +145,16 @@ function updateNode(
   })
 }
 
+// 新增：插入类型
+type DropPosition = 'before' | 'after' | 'child'
+
 function moveNodesNested(
   nodes: TreeNode[],
   fromKeys: string[],
   toKey: string | null,
-  asChild: boolean
+  position: DropPosition = 'child'
 ): TreeNode[] {
   let moving: TreeNode[] = []
-  let rest: TreeNode[] = []
   function collect(nodes: TreeNode[]): TreeNode[] {
     return nodes.reduce<TreeNode[]>((acc, n) => {
       if (fromKeys.includes(n.key)) {
@@ -162,17 +164,42 @@ function moveNodesNested(
       return [...acc, { ...n, children: collect(n.children) }]
     }, [])
   }
-  rest = collect(nodes)
-  if (toKey) {
-    rest = updateNode(rest, toKey, (node) => ({
-      ...node,
-      children: asChild ? [...node.children, ...moving] : node.children,
-    }))
-    if (!asChild) rest = [...rest, ...moving]
-  } else {
-    rest = [...rest, ...moving]
+  let rest = collect(nodes)
+  if (!toKey) {
+    // 根节点插入
+    if (position === 'before') {
+      return [...moving, ...rest]
+    } else if (position === 'after') {
+      return [...rest, ...moving]
+    } else {
+      return [...rest, ...moving]
+    }
   }
-  return rest
+  function insert(nodes: TreeNode[]): TreeNode[] {
+    let res: TreeNode[] = []
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i]
+      if (n.key === toKey) {
+        if (position === 'before') {
+          res = [...res, ...moving, n]
+        } else if (position === 'after') {
+          res = [...res, n, ...moving]
+        } else if (position === 'child') {
+          res = [
+            ...res,
+            {
+              ...n,
+              children: [...n.children, ...moving],
+            },
+          ]
+        }
+      } else {
+        res.push({ ...n, children: insert(n.children) })
+      }
+    }
+    return res
+  }
+  return insert(rest)
 }
 
 function TreeNodePropPanel({
@@ -295,7 +322,7 @@ function renderTree(
   nodes: TreeNode[],
   path: number[],
   onNodeChange: (key: string, newNode: TreeNode) => void,
-  onNodeMove: (fromKeys: string[], toKey: string | null, asChild: boolean) => void,
+  onNodeMove: (fromKeys: string[], toKey: string | null, position: DropPosition) => void,
   onNodeAdd: (parentKey: string | null) => void,
   onNodeDelete: (key: string) => void,
   selectedKeys: string[],
@@ -304,34 +331,45 @@ function renderTree(
 ): ReactNode[] {
   return nodes.map((node, idx) => {
     const selected = selectedKeys.includes(node.key)
-    // 每个节点内容单独一行横排，最外层 div 负责选中/多选和拖拽
+    // 三个 drop 区域：上方、内容区、下方
+    const dropZone = (pos: DropPosition) => (
+      <div
+        style={{ height: 8, background: 'transparent', cursor: 'pointer' }}
+        onDragOver={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+        }}
+        onDrop={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          const fromKey = e.dataTransfer.getData('text/plain')
+          if (fromKey && fromKey !== node.key) {
+            onNodeMove([fromKey], node.key, pos)
+          }
+        }}
+      />
+    )
     const nodeRow = (
       <div
         key={node.key}
         draggable={true}
         onDragStart={(e) => {
-          console.log('onDragStart', node.key)
           e.dataTransfer.setData('text/plain', node.key)
           e.dataTransfer.effectAllowed = 'move'
         }}
+        onClick={(e) => onSelect(e, node.key)}
         onDragOver={(e) => {
           e.preventDefault()
-          e.dataTransfer.dropEffect = 'move'
-          console.log('onDragOver', node.key)
+          e.stopPropagation()
         }}
         onDrop={(e) => {
           e.preventDefault()
+          e.stopPropagation()
           const fromKey = e.dataTransfer.getData('text/plain')
-          console.log('onDrop', fromKey, '->', node.key)
-          if (
-            fromKey &&
-            fromKey !== node.key &&
-            !(node.children || []).some((child) => child.key === fromKey)
-          ) {
-            onNodeMove([fromKey], node.key, node.group === true)
+          if (fromKey && fromKey !== node.key) {
+            onNodeMove([fromKey], node.key, 'child')
           }
         }}
-        onClick={(e) => onSelect(e, node.key)}
         style={{
           border: selected ? '2px solid #1890ff' : '1px solid #eee',
           margin: 4,
@@ -408,7 +446,6 @@ function renderTree(
         </div>
       </div>
     )
-    // 子节点竖着排列
     const children = node.children && node.children.length > 0 && (
       <div
         style={{
@@ -436,13 +473,17 @@ function renderTree(
       renderNode(
         node,
         <React.Fragment key={node.key}>
+          {dropZone('before')}
           {nodeRow}
+          {dropZone('after')}
           {children}
         </React.Fragment>
       )
     ) : (
       <React.Fragment key={node.key}>
+        {dropZone('before')}
         {nodeRow}
+        {dropZone('after')}
         {children}
       </React.Fragment>
     )
@@ -500,10 +541,10 @@ export default forwardRef<{ dispatch: (action: TreeAction) => void }, OmiTreeRea
       }
     }
 
-    const handleNodeMove = (fromKeys: string[], toKey: string | null, asChild: boolean) => {
+    const handleNodeMove = (fromKeys: string[], toKey: string | null, position: DropPosition) => {
       if (toKey && fromKeys.includes(toKey)) return
-      if (onNodeMove) onNodeMove(fromKeys, toKey, asChild)
-      const newTree = moveNodesNested(treeData, fromKeys, toKey, asChild)
+      if (onNodeMove) onNodeMove(fromKeys, toKey, position)
+      const newTree = moveNodesNested(treeData, fromKeys, toKey, position)
       if (isControlled && !!onChange) {
         onChange(newTree)
       } else {
@@ -728,6 +769,14 @@ export default forwardRef<{ dispatch: (action: TreeAction) => void }, OmiTreeRea
             borderRadius: 6,
             padding: 16,
             background: '#fafafa',
+          }}
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => {
+            e.preventDefault()
+            const fromKey = e.dataTransfer.getData('text/plain')
+            if (fromKey) {
+              handleNodeMove([fromKey], null, 'after') // 正确传递 DropPosition 类型
+            }
           }}
         >
           {renderTree(
