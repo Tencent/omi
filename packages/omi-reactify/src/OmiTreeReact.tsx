@@ -223,6 +223,7 @@ function TreeNodePropPanel({
   const [editDesc, setEditDesc] = useState(
     multiEdit ? multiEditValues?.desc || '' : node.desc || ''
   )
+  const [editing, setEditing] = useState<'label' | 'desc' | null>(null)
   useEffect(() => {
     setEditLabel(multiEdit ? multiEditValues?.label || '' : node.label)
     setEditDesc(multiEdit ? multiEditValues?.desc || '' : node.desc || '')
@@ -233,6 +234,7 @@ function TreeNodePropPanel({
     } else if (editLabel.trim() !== node.label || editDesc !== (node.desc || '')) {
       onChange(node.key, { ...node, label: editLabel.trim(), desc: editDesc })
     }
+    setEditing(null)
   }
   return (
     <div
@@ -249,30 +251,60 @@ function TreeNodePropPanel({
       onClick={(e) => onSelect(e, node.key)}
       onDragOver={(e) => e.preventDefault()}
     >
-      <input
-        value={editLabel}
-        onChange={(e) => setEditLabel(e.target.value)}
-        onBlur={save}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') save()
-        }}
-        placeholder={multiEdit ? '批量修改名称' : '节点名称'}
-        style={{ width: 100, padding: 4, border: '1px solid #d9d9d9', borderRadius: 4 }}
-        onClick={(e) => e.stopPropagation()}
-        onDragOver={(e) => e.preventDefault()}
-      />
-      <input
-        value={editDesc}
-        onChange={(e) => setEditDesc(e.target.value)}
-        onBlur={save}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') save()
-        }}
-        placeholder={multiEdit ? '批量修改描述' : '描述（可选）'}
-        style={{ width: 120, padding: 4, border: '1px solid #d9d9d9', borderRadius: 4 }}
-        onClick={(e) => e.stopPropagation()}
-        onDragOver={(e) => e.preventDefault()}
-      />
+      {/* 节点名称：双击可编辑 */}
+      {editing === 'label' ? (
+        <input
+          value={editLabel}
+          autoFocus
+          onChange={(e) => setEditLabel(e.target.value)}
+          onBlur={save}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') save()
+          }}
+          placeholder={multiEdit ? '批量修改名称' : '节点名称'}
+          style={{ width: 100, padding: 4, border: '1px solid #d9d9d9', borderRadius: 4 }}
+          onClick={(e) => e.stopPropagation()}
+          onDragOver={(e) => e.preventDefault()}
+        />
+      ) : (
+        <span
+          style={{ minWidth: 100, padding: 4, borderRadius: 4, cursor: 'text' }}
+          title="双击编辑名称"
+          onDoubleClick={(e) => {
+            e.stopPropagation()
+            setEditing('label')
+          }}
+        >
+          {editLabel || <span style={{ color: '#ccc' }}>节点名称</span>}
+        </span>
+      )}
+      {/* 节点描述：双击可编辑 */}
+      {editing === 'desc' ? (
+        <input
+          value={editDesc}
+          autoFocus
+          onChange={(e) => setEditDesc(e.target.value)}
+          onBlur={save}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') save()
+          }}
+          placeholder={multiEdit ? '批量修改描述' : '描述（可选）'}
+          style={{ width: 120, padding: 4, border: '1px solid #d9d9d9', borderRadius: 4 }}
+          onClick={(e) => e.stopPropagation()}
+          onDragOver={(e) => e.preventDefault()}
+        />
+      ) : (
+        <span
+          style={{ minWidth: 120, padding: 4, borderRadius: 4, cursor: 'text', color: '#888' }}
+          title="双击编辑描述"
+          onDoubleClick={(e) => {
+            e.stopPropagation()
+            setEditing('desc')
+          }}
+        >
+          {editDesc || <span style={{ color: '#ccc' }}>描述（可选）</span>}
+        </span>
+      )}
       {node.group && <span style={{ color: '#1890ff', marginLeft: 8 }}>分组</span>}
     </div>
   )
@@ -321,6 +353,10 @@ function DragHandle({
 function renderTree(
   nodes: TreeNode[],
   path: number[],
+  treeData: TreeNode[],
+  expandedKeys: string[],
+  setExpandedKeys: React.Dispatch<React.SetStateAction<string[]>>,
+  isDescendant: (nodes: TreeNode[], parentKey: string, childKey: string) => boolean,
   onNodeChange: (key: string, newNode: TreeNode) => void,
   onNodeMove: (fromKeys: string[], toKey: string | null, position: DropPosition) => void,
   onNodeAdd: (parentKey: string | null) => void,
@@ -331,6 +367,7 @@ function renderTree(
 ): ReactNode[] {
   return nodes.map((node, idx) => {
     const selected = selectedKeys.includes(node.key)
+    const isExpanded = expandedKeys.includes(node.key)
     // 三个 drop 区域：上方、内容区、下方
     const dropZone = (pos: DropPosition) => (
       <div
@@ -366,14 +403,17 @@ function renderTree(
           e.preventDefault()
           e.stopPropagation()
           const fromKey = e.dataTransfer.getData('text/plain')
-          if (fromKey && fromKey !== node.key) {
+          if (fromKey && fromKey !== node.key && !isDescendant(treeData, fromKey, node.key)) {
             onNodeMove([fromKey], node.key, 'child')
           }
         }}
         style={{
           border: selected ? '2px solid #1890ff' : '1px solid #eee',
           margin: 4,
-          padding: 8,
+          padding: '14px 8px',
+          fontSize: 16,
+          minHeight: 44,
+          lineHeight: '24px',
           borderRadius: 6,
           background: selected ? '#e6f7ff' : '#fff',
           display: 'flex',
@@ -390,6 +430,22 @@ function renderTree(
           ;(e.currentTarget as HTMLElement).style.cursor = 'grab'
         }}
       >
+        {/* 展开/折叠箭头 */}
+        {node.children && node.children.length > 0 && (
+          <span
+            style={{ cursor: 'pointer', marginRight: 4 }}
+            onClick={(e) => {
+              e.stopPropagation()
+              if (isExpanded) {
+                setExpandedKeys(expandedKeys.filter((k) => k !== node.key))
+              } else {
+                setExpandedKeys([...expandedKeys, node.key])
+              }
+            }}
+          >
+            {isExpanded ? '▼' : '▶'}
+          </span>
+        )}
         <span
           style={{
             marginRight: 8,
@@ -446,7 +502,8 @@ function renderTree(
         </div>
       </div>
     )
-    const children = node.children && node.children.length > 0 && (
+    // 只有展开时才渲染子节点
+    const children = node.children && node.children.length > 0 && isExpanded && (
       <div
         style={{
           marginLeft: 16,
@@ -459,6 +516,10 @@ function renderTree(
         {renderTree(
           node.children,
           [...path, idx],
+          treeData,
+          expandedKeys,
+          setExpandedKeys,
+          isDescendant,
           onNodeChange,
           onNodeMove,
           onNodeAdd,
@@ -511,6 +572,7 @@ export default forwardRef<{ dispatch: (action: TreeAction) => void }, OmiTreeRea
     })
 
     const [selectedKeys, setSelectedKeys] = useState<string[]>([])
+    const [expandedKeys, setExpandedKeys] = useState<string[]>([])
 
     const isControlled = typeof onChange === 'function'
     const treeData = isControlled ? data : state.present
@@ -666,6 +728,23 @@ export default forwardRef<{ dispatch: (action: TreeAction) => void }, OmiTreeRea
       )
     }
 
+    // 判断 childKey 是否为 parentKey 的子孙节点
+    function isDescendant(nodes: TreeNode[], parentKey: string, childKey: string): boolean {
+      for (const node of nodes) {
+        if (node.key === parentKey) {
+          if (node.children.some((child) => child.key === childKey)) {
+            return true
+          }
+          for (const child of node.children) {
+            if (isDescendant(child.children, parentKey, childKey)) {
+              return true
+            }
+          }
+        }
+      }
+      return false
+    }
+
     const canUndo = !isControlled && state.past.length > 0
     const canRedo = !isControlled && state.future.length > 0
 
@@ -684,112 +763,231 @@ export default forwardRef<{ dispatch: (action: TreeAction) => void }, OmiTreeRea
 
     const panel = renderPanel ? renderPanel(selectedNodes, defaultPanel) : defaultPanel
 
-    return (
-      <div style={{ padding: 16, fontFamily: 'Arial, sans-serif' }}>
-        {/* 控制按钮 */}
-        <div style={{ marginBottom: 16, display: 'flex', gap: 8 }}>
-          <button
-            onClick={() => dispatch({ type: 'UNDO' })}
-            disabled={isControlled || !canUndo}
-            style={{
-              padding: '8px 16px',
-              border: '1px solid #d9d9d9',
-              borderRadius: 4,
-              background: !isControlled && canUndo ? '#fff' : '#f5f5f5',
-              cursor: !isControlled && canUndo ? 'pointer' : 'not-allowed',
-              color: !isControlled && canUndo ? '#000' : '#ccc',
-            }}
-          >
-            撤销
-          </button>
-          <button
-            onClick={() => dispatch({ type: 'REDO' })}
-            disabled={isControlled || !canRedo}
-            style={{
-              padding: '8px 16px',
-              border: '1px solid #d9d9d9',
-              borderRadius: 4,
-              background: !isControlled && canRedo ? '#fff' : '#f5f5f5',
-              cursor: !isControlled && canRedo ? 'pointer' : 'not-allowed',
-              color: !isControlled && canRedo ? '#000' : '#ccc',
-            }}
-          >
-            重做
-          </button>
-          <button
-            onClick={() => handleNodeAdd(null)}
-            disabled={false}
-            style={{
-              padding: '8px 16px',
-              border: '1px solid #d9d9d9',
-              borderRadius: 4,
-              background: '#fff',
-              cursor: 'pointer',
-              color: '#000',
-            }}
-          >
-            添加根节点
-          </button>
-          <button
-            onClick={handleBatchDelete}
-            disabled={selectedKeys.length === 0}
-            style={{
-              padding: '8px 16px',
-              border: '1px solid #d9d9d9',
-              borderRadius: 4,
-              background: selectedKeys.length > 0 ? '#fff' : '#f5f5f5',
-              cursor: selectedKeys.length > 0 ? 'pointer' : 'not-allowed',
-              color: selectedKeys.length > 0 ? '#000' : '#ccc',
-            }}
-          >
-            批量删除 ({selectedKeys.length})
-          </button>
-        </div>
+    // 右侧属性面板内容
+    let propertyPanel: ReactNode = null
+    if (selectedKeys.length === 0) {
+      propertyPanel = <div style={{ color: '#888', padding: 16 }}>请选择节点</div>
+    } else if (selectedKeys.length === 1 && selectedNodes[0]) {
+      propertyPanel = (
+        <TreeNodePropPanel
+          node={selectedNodes[0]}
+          onChange={handleNodeChange}
+          selected={true}
+          onSelect={() => {}}
+        />
+      )
+    } else if (selectedKeys.length > 1) {
+      // 批量编辑，取交集/空字符串
+      const multiEditValues = selectedNodes.reduce<Partial<TreeNode>>((acc, node) => {
+        if (acc.label === undefined) acc.label = node.label
+        if (acc.desc === undefined) acc.desc = node.desc
+        if (acc.label !== node.label) acc.label = ''
+        if (acc.desc !== node.desc) acc.desc = ''
+        return acc
+      }, {})
+      const handleMultiEdit = (values: Partial<TreeNode>) => {
+        const newTree = updateNodesBatch(treeData, selectedKeys, values)
+        if (isControlled && !!onChange) {
+          onChange(newTree)
+        } else {
+          dispatch({ type: 'SET', data: newTree })
+        }
+      }
+      propertyPanel = (
+        <TreeNodePropPanel
+          node={{ key: '', label: '', desc: '', group: false, children: [] }}
+          onChange={() => {}}
+          selected={false}
+          onSelect={() => {}}
+          multiEdit
+          multiEditValues={multiEditValues}
+          onMultiEdit={handleMultiEdit}
+        />
+      )
+    }
 
-        {/* 属性面板 */}
-        {panel && (
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        {/* 顶部大标题和小树图标 */}
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24, marginTop: 8 }}>
+          <span style={{ fontSize: 32, marginRight: 12 }}>🌳</span>
+          <span style={{ fontSize: 28, fontWeight: 700, color: '#1890ff', letterSpacing: 1 }}>
+            Omi Tree React 组件演示
+          </span>
+        </div>
+        <div style={{ display: 'flex', gap: 20, flex: 1, minHeight: 0, alignItems: 'flex-start' }}>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            {/* 树结构标题 */}
+            <div style={{ fontWeight: 600, fontSize: 18, marginBottom: 12, marginLeft: 2 }}>
+              树形结构
+            </div>
+            {/* 操作按钮区 */}
+            <div style={{ marginBottom: 16, display: 'flex', gap: 8 }}>
+              <button
+                onClick={() => dispatch({ type: 'UNDO' })}
+                disabled={isControlled || !canUndo}
+                style={{
+                  padding: '8px 16px',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: 4,
+                  background: !isControlled && canUndo ? '#fff' : '#f5f5f5',
+                  cursor: !isControlled && canUndo ? 'pointer' : 'not-allowed',
+                  color: !isControlled && canUndo ? '#000' : '#ccc',
+                }}
+              >
+                撤销
+              </button>
+              <button
+                onClick={() => dispatch({ type: 'REDO' })}
+                disabled={isControlled || !canRedo}
+                style={{
+                  padding: '8px 16px',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: 4,
+                  background: !isControlled && canRedo ? '#fff' : '#f5f5f5',
+                  cursor: !isControlled && canRedo ? 'pointer' : 'not-allowed',
+                  color: !isControlled && canRedo ? '#000' : '#ccc',
+                }}
+              >
+                重做
+              </button>
+              <button
+                onClick={() => handleNodeAdd(null)}
+                disabled={false}
+                style={{
+                  padding: '8px 16px',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: 4,
+                  background: '#fff',
+                  cursor: 'pointer',
+                  color: '#000',
+                }}
+              >
+                添加根节点
+              </button>
+              <button
+                onClick={handleBatchDelete}
+                disabled={selectedKeys.length === 0}
+                style={{
+                  padding: '8px 16px',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: 4,
+                  background: selectedKeys.length > 0 ? '#fff' : '#f5f5f5',
+                  cursor: selectedKeys.length > 0 ? 'pointer' : 'not-allowed',
+                  color: selectedKeys.length > 0 ? '#000' : '#ccc',
+                }}
+              >
+                批量删除 ({selectedKeys.length})
+              </button>
+            </div>
+            {/* 树结构区 */}
+            <div
+              style={{
+                border: '1px solid #d9d9d9',
+                borderRadius: 6,
+                padding: 16,
+                background: '#fff',
+                minHeight: 400,
+              }}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault()
+                const fromKey = e.dataTransfer.getData('text/plain')
+                if (fromKey) {
+                  handleNodeMove([fromKey], null, 'after')
+                }
+              }}
+            >
+              {renderTree(
+                treeData,
+                [],
+                treeData,
+                expandedKeys,
+                setExpandedKeys,
+                isDescendant,
+                handleNodeChange,
+                handleNodeMove,
+                handleNodeAdd,
+                handleNodeDelete,
+                selectedKeys,
+                handleSelect,
+                renderNode
+              )}
+            </div>
+          </div>
           <div
             style={{
-              marginBottom: 16,
-              padding: 12,
+              width: 340,
+              height: '400px',
+              minWidth: 220,
               border: '1px solid #d9d9d9',
-              borderRadius: 4,
-              background: '#fafafa',
+              borderRadius: 6,
+              background: '#fff',
+              padding: 16,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              marginTop: '88px',
+              marginBottom: 0,
+              marginLeft: '0px',
             }}
           >
-            <h4 style={{ margin: '0 0 8px 0' }}>批量编辑</h4>
-            {panel}
+            {/* 属性面板标题，和树结构标题对齐 */}
+            <div
+              style={{
+                fontWeight: 600,
+                fontSize: 18,
+                marginBottom: 12,
+                marginLeft: 2,
+                color: '#1890ff',
+              }}
+            >
+              属性面板
+            </div>
+            {propertyPanel}
           </div>
-        )}
-
-        {/* 树结构 */}
+        </div>
+        {/* 功能说明单独一行，不重叠 */}
         <div
           style={{
-            border: '1px solid #d9d9d9',
+            width: '100%',
+            marginTop: 20,
+            background: '#fff',
             borderRadius: 6,
-            padding: 16,
-            background: '#fafafa',
-          }}
-          onDragOver={(e) => e.preventDefault()}
-          onDrop={(e) => {
-            e.preventDefault()
-            const fromKey = e.dataTransfer.getData('text/plain')
-            if (fromKey) {
-              handleNodeMove([fromKey], null, 'after') // 正确传递 DropPosition 类型
-            }
+            boxShadow: '0 1px 4px #eee',
+            padding: 20,
           }}
         >
-          {renderTree(
-            treeData,
-            [],
-            handleNodeChange,
-            handleNodeMove,
-            handleNodeAdd,
-            handleNodeDelete,
-            selectedKeys,
-            handleSelect,
-            renderNode
-          )}
+          <h3 style={{ marginTop: 0, color: '#333' }}>功能说明</h3>
+          <ul style={{ margin: 0, paddingLeft: '20px', fontSize: 15, lineHeight: 2 }}>
+            <li>
+              <strong>拖拽排序：</strong>拖拽节点手柄可以移动节点位置
+            </li>
+            <li>
+              <strong>展开/折叠：</strong>点击节点前的箭头可以展开或折叠子节点
+            </li>
+            <li>
+              <strong>节点编辑：</strong>双击节点名称或描述可以编辑
+            </li>
+            <li>
+              <strong>添加节点：</strong>点击 "+" 按钮可以添加子节点
+            </li>
+            <li>
+              <strong>删除节点：</strong>点击 "×" 按钮可以删除节点
+            </li>
+            <li>
+              <strong>多选操作：</strong>按住 Ctrl 键可以多选节点
+            </li>
+            <li>
+              <strong>批量删除：</strong>选中多个节点后可以批量删除
+            </li>
+            <li>
+              <strong>撤回/重做：</strong>支持操作历史记录
+            </li>
+            <li>
+              <strong>属性面板：</strong>选中节点后可以在右侧面板编辑属性
+            </li>
+          </ul>
         </div>
       </div>
     )
