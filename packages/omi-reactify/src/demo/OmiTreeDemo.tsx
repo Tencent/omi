@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import OmiTreeReact, { TreeNode } from '../OmiTreeReact'
 
 const initialData: TreeNode[] = [
@@ -41,38 +41,39 @@ const initialData: TreeNode[] = [
 ]
 
 export default function OmiTreeDemo() {
-  const [treeData, setTreeData] = useState<TreeNode[]>(initialData)
-
-  const handleChange = (data: TreeNode[]) => {
+  const handleChange = useCallback((data: TreeNode[]) => {
     console.log('树数据变化:', data)
-    setTreeData(data)
-  }
+  }, [])
 
-  const handleNodeAdd = (parentKey: string | null, newNode: TreeNode) => {
+  const handleNodeAdd = useCallback((parentKey: string | null, newNode: TreeNode) => {
     console.log('添加节点:', { parentKey, newNode })
-  }
+  }, [])
 
-  const handleNodeDelete = (key: string) => {
+  const handleNodeDelete = useCallback((key: string) => {
     console.log('删除节点:', key)
-  }
+  }, [])
 
-  const handleNodeMove = (fromKeys: string[], toKey: string | null, asChild: boolean) => {
-    console.log('移动节点:', { fromKeys, toKey, asChild })
-  }
+  const handleNodeMove = useCallback(
+    (fromKeys: string[], toKey: string | null, asChild: boolean) => {
+      console.log('移动节点:', { fromKeys, toKey, asChild })
+    },
+    []
+  )
 
-  const handleNodeChange = (key: string, newNode: TreeNode) => {
+  const handleNodeChange = useCallback((key: string, newNode: TreeNode) => {
     console.log('修改节点:', { key, newNode })
-  }
+  }, [])
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1 style={{ color: '#1890ff', marginBottom: '20px' }}>🌳 Omi Tree React 组件演示</h1>
+
       <div style={{ display: 'flex', gap: '20px', height: '600px' }}>
         <div style={{ flex: 1, border: '1px solid #d9d9d9', borderRadius: '8px', padding: '16px' }}>
           <h3 style={{ marginTop: 0, color: '#333' }}>树形结构</h3>
           <OmiTreeReact
-            data={treeData}
-            onChange={handleChange}
+            data={initialData}
+            // onChange={handleChange} // 注释掉，改为非受控模式
             onNodeAdd={handleNodeAdd}
             onNodeDelete={handleNodeDelete}
             onNodeMove={handleNodeMove}
@@ -108,7 +109,7 @@ export default function OmiTreeDemo() {
             <strong>批量删除：</strong>选中多个节点后可以批量删除
           </li>
           <li>
-            <strong>撤回/重做：</strong>支持操作历史记录
+            <strong>撤回/重做：</strong>支持操作历史记录（现在可用！）
           </li>
           <li>
             <strong>属性面板：</strong>选中节点后可以在右侧面板编辑属性

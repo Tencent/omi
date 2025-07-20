@@ -1,4 +1,12 @@
-import React, { useReducer, useRef, useState, ReactNode, useEffect } from 'react'
+import React, {
+  useReducer,
+  useRef,
+  useState,
+  ReactNode,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from 'react'
 
 export type TreeNode = {
   key: string
@@ -17,6 +25,7 @@ export type TreeState = {
 export type OmiTreeReactProps = {
   data: TreeNode[]
   onChange?: (data: TreeNode[]) => void
+  onStateChange?: (state: TreeState) => void
   renderNode?: (node: TreeNode, defaultNode: ReactNode) => ReactNode
   renderPanel?: (selectedNodes: TreeNode[], defaultPanel: ReactNode) => ReactNode
   onNodeAdd?: (parentKey: string | null, newNode: TreeNode) => void
@@ -435,276 +444,300 @@ function renderTree(
   })
 }
 
-export default function OmiTreeReact(props: OmiTreeReactProps): JSX.Element {
-  const {
-    data,
-    onChange,
-    renderNode,
-    renderPanel,
-    onNodeAdd,
-    onNodeDelete,
-    onNodeMove,
-    onNodeChange,
-  } = props
+export default forwardRef<{ dispatch: (action: TreeAction) => void }, OmiTreeReactProps>(
+  function OmiTreeReact(props, ref) {
+    const {
+      data,
+      onChange,
+      onStateChange,
+      renderNode,
+      renderPanel,
+      onNodeAdd,
+      onNodeDelete,
+      onNodeMove,
+      onNodeChange,
+    } = props
 
-  const [state, dispatch] = useReducer(treeReducer, {
-    past: [],
-    present: data,
-    future: [],
-  })
+    const [state, dispatch] = useReducer(treeReducer, {
+      past: [],
+      present: data,
+      future: [],
+    })
 
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([])
+    const [selectedKeys, setSelectedKeys] = useState<string[]>([])
 
-  const isControlled = typeof onChange === 'function'
-  const treeData = isControlled ? data : state.present
+    const isControlled = typeof onChange === 'function'
+    const treeData = isControlled ? data : state.present
 
-  const handleNodeChange = (key: string, newNode: TreeNode) => {
-    if (onNodeChange) onNodeChange(key, newNode)
-    const newTree = updateNode(treeData, key, () => newNode)
-    if (isControlled && !!onChange) {
-      onChange(newTree)
-    } else {
-      dispatch({ type: 'SET', data: newTree })
-    }
-  }
-
-  const handleNodeMove = (fromKeys: string[], toKey: string | null, asChild: boolean) => {
-    if (toKey && fromKeys.includes(toKey)) return
-    if (onNodeMove) onNodeMove(fromKeys, toKey, asChild)
-    const newTree = moveNodesNested(treeData, fromKeys, toKey, asChild)
-    if (isControlled && !!onChange) {
-      onChange(newTree)
-    } else {
-      dispatch({ type: 'SET', data: newTree })
-    }
-    setSelectedKeys(fromKeys)
-  }
-
-  const handleNodeAdd = (parentKey: string | null) => {
-    const newNode: TreeNode = {
-      key: Date.now().toString() + Math.random().toString(36).slice(2),
-      label: '新节点',
-      desc: '',
-      children: [],
-    }
-    if (onNodeAdd) onNodeAdd(parentKey, newNode)
-    if (isControlled && !!onChange) {
-      let newTree: TreeNode[]
-      if (!parentKey) {
-        newTree = [...treeData, newNode]
-      } else {
-        newTree = updateNode(treeData, parentKey, (node) => ({
-          ...node,
-          children: [...node.children, newNode],
-        }))
-      }
-      onChange(newTree)
-    } else {
-      dispatch({ type: 'ADD', parentKey })
-    }
-  }
-
-  const handleBatchDelete = () => {
-    if (selectedKeys.length === 0) return
-    if (onNodeDelete) selectedKeys.forEach((k) => onNodeDelete(k))
-    if (isControlled && !!onChange) {
-      const newTree = deleteNodesBatch(treeData, selectedKeys)
-      onChange(newTree)
-    } else {
-      dispatch({ type: 'DELETE_BATCH', keys: selectedKeys })
-    }
-    setSelectedKeys([])
-  }
-
-  const handleNodeDelete = (key: string) => {
-    if (onNodeDelete) onNodeDelete(key)
-    if (isControlled && !!onChange) {
-      const newTree = deleteNode(treeData, key)
-      onChange(newTree)
-    } else {
-      dispatch({ type: 'DELETE', key })
-    }
-    setSelectedKeys((keys) => keys.filter((k) => k !== key))
-  }
-
-  const handleSelect = (e: React.MouseEvent, key: string) => {
-    e.stopPropagation()
-    if (e.ctrlKey || e.metaKey) {
-      setSelectedKeys((keys) =>
-        keys.includes(key) ? keys.filter((k) => k !== key) : [...keys, key]
-      )
-    } else if (e.shiftKey && selectedKeys.length > 0) {
-      const allKeys = treeData.map((n) => n.key)
-      const last = allKeys.indexOf(selectedKeys[selectedKeys.length - 1])
-      const cur = allKeys.indexOf(key)
-      if (last !== -1 && cur !== -1) {
-        const [start, end] = [last, cur].sort((a, b) => a - b)
-        setSelectedKeys(allKeys.slice(start, end + 1))
-      }
-    } else {
-      setSelectedKeys([key])
-    }
-  }
-
-  const multiEdit = selectedKeys.length > 1
-  const selectedNodes = selectedKeys
-    .map((k) => findNodeByKey(treeData, k))
-    .filter(Boolean) as TreeNode[]
-  const allGroups = selectedNodes.every((n) => n.group)
-  const multiEditValues = multiEdit
-    ? selectedNodes.reduce<Partial<TreeNode>>((acc, node) => {
-        if (acc.label === undefined) acc.label = node.label
-        if (acc.desc === undefined) acc.desc = node.desc
-        if (acc.label !== node.label) acc.label = ''
-        if (acc.desc !== node.desc) acc.desc = ''
-        return acc
-      }, {})
-    : undefined
-
-  const handleMultiEdit = (values: Partial<TreeNode>) => {
-    const newTree = updateNodesBatch(treeData, selectedKeys, values)
-    if (isControlled && !!onChange) {
-      onChange(newTree)
-    } else {
-      dispatch({ type: 'SET', data: newTree })
-    }
-  }
-
-  function findNodeByKey(nodes: TreeNode[], key: string): TreeNode | null {
-    for (const n of nodes) {
-      if (n.key === key) return n
-      if (n.children.length > 0) {
-        const found = findNodeByKey(n.children, key)
-        if (found) return found
-      }
-    }
-    return null
-  }
-
-  function updateNodesBatch(
-    nodes: TreeNode[],
-    keys: string[],
-    values: Partial<TreeNode>
-  ): TreeNode[] {
-    return nodes.map((n) =>
-      keys.includes(n.key)
-        ? { ...n, ...values }
-        : { ...n, children: updateNodesBatch(n.children, keys, values) }
+    // 暴露 dispatch 方法给外部
+    useImperativeHandle(
+      ref,
+      () => ({
+        dispatch,
+      }),
+      [dispatch]
     )
-  }
 
-  const canUndo = !isControlled && state.past.length > 0
-  const canRedo = !isControlled && state.future.length > 0
+    // 监听状态变化，通知外部
+    useEffect(() => {
+      if (onStateChange) {
+        onStateChange(state)
+      }
+    }, [state, onStateChange])
 
-  const defaultPanel =
-    multiEdit && allGroups ? (
-      <TreeNodePropPanel
-        node={{ key: '', label: '', desc: '', group: true, children: [] }}
-        onChange={() => {}}
-        selected={false}
-        onSelect={() => {}}
-        multiEdit
-        multiEditValues={multiEditValues}
-        onMultiEdit={handleMultiEdit}
-      />
-    ) : null
+    const handleNodeChange = (key: string, newNode: TreeNode) => {
+      if (onNodeChange) onNodeChange(key, newNode)
+      const newTree = updateNode(treeData, key, () => newNode)
+      if (isControlled && !!onChange) {
+        onChange(newTree)
+      } else {
+        dispatch({ type: 'SET', data: newTree })
+      }
+    }
 
-  const panel = renderPanel ? renderPanel(selectedNodes, defaultPanel) : defaultPanel
+    const handleNodeMove = (fromKeys: string[], toKey: string | null, asChild: boolean) => {
+      if (toKey && fromKeys.includes(toKey)) return
+      if (onNodeMove) onNodeMove(fromKeys, toKey, asChild)
+      const newTree = moveNodesNested(treeData, fromKeys, toKey, asChild)
+      if (isControlled && !!onChange) {
+        onChange(newTree)
+      } else {
+        dispatch({ type: 'SET', data: newTree })
+      }
+      setSelectedKeys(fromKeys)
+    }
 
-  return (
-    <div style={{ padding: 16, fontFamily: 'Arial, sans-serif' }}>
-      {/* 控制按钮 */}
-      <div style={{ marginBottom: 16, display: 'flex', gap: 8 }}>
-        <button
-          onClick={() => dispatch({ type: 'UNDO' })}
-          disabled={isControlled || !canUndo}
-          style={{
-            padding: '8px 16px',
-            border: '1px solid #d9d9d9',
-            borderRadius: 4,
-            background: !isControlled && canUndo ? '#fff' : '#f5f5f5',
-            cursor: !isControlled && canUndo ? 'pointer' : 'not-allowed',
-            color: !isControlled && canUndo ? '#000' : '#ccc',
-          }}
-        >
-          撤销
-        </button>
-        <button
-          onClick={() => dispatch({ type: 'REDO' })}
-          disabled={isControlled || !canRedo}
-          style={{
-            padding: '8px 16px',
-            border: '1px solid #d9d9d9',
-            borderRadius: 4,
-            background: !isControlled && canRedo ? '#fff' : '#f5f5f5',
-            cursor: !isControlled && canRedo ? 'pointer' : 'not-allowed',
-            color: !isControlled && canRedo ? '#000' : '#ccc',
-          }}
-        >
-          重做
-        </button>
-        <button
-          onClick={() => handleNodeAdd(null)}
-          disabled={false}
-          style={{
-            padding: '8px 16px',
-            border: '1px solid #d9d9d9',
-            borderRadius: 4,
-            background: '#fff',
-            cursor: 'pointer',
-            color: '#000',
-          }}
-        >
-          添加根节点
-        </button>
-        <button
-          onClick={handleBatchDelete}
-          disabled={selectedKeys.length === 0}
-          style={{
-            padding: '8px 16px',
-            border: '1px solid #d9d9d9',
-            borderRadius: 4,
-            background: selectedKeys.length > 0 ? '#fff' : '#f5f5f5',
-            cursor: selectedKeys.length > 0 ? 'pointer' : 'not-allowed',
-            color: selectedKeys.length > 0 ? '#000' : '#ccc',
-          }}
-        >
-          批量删除 ({selectedKeys.length})
-        </button>
-      </div>
+    const handleNodeAdd = (parentKey: string | null) => {
+      const newNode: TreeNode = {
+        key: Date.now().toString() + Math.random().toString(36).slice(2),
+        label: '新节点',
+        desc: '',
+        children: [],
+      }
+      if (onNodeAdd) onNodeAdd(parentKey, newNode)
+      if (isControlled && !!onChange) {
+        let newTree: TreeNode[]
+        if (!parentKey) {
+          newTree = [...treeData, newNode]
+        } else {
+          newTree = updateNode(treeData, parentKey, (node) => ({
+            ...node,
+            children: [...node.children, newNode],
+          }))
+        }
+        onChange(newTree)
+      } else {
+        dispatch({ type: 'ADD', parentKey })
+      }
+    }
 
-      {/* 属性面板 */}
-      {panel && (
+    const handleBatchDelete = () => {
+      if (selectedKeys.length === 0) return
+      if (onNodeDelete) selectedKeys.forEach((k) => onNodeDelete(k))
+      if (isControlled && !!onChange) {
+        const newTree = deleteNodesBatch(treeData, selectedKeys)
+        onChange(newTree)
+      } else {
+        dispatch({ type: 'DELETE_BATCH', keys: selectedKeys })
+      }
+      setSelectedKeys([])
+    }
+
+    const handleNodeDelete = (key: string) => {
+      if (onNodeDelete) onNodeDelete(key)
+      if (isControlled && !!onChange) {
+        const newTree = deleteNode(treeData, key)
+        onChange(newTree)
+      } else {
+        dispatch({ type: 'DELETE', key })
+      }
+      setSelectedKeys((keys) => keys.filter((k) => k !== key))
+    }
+
+    const handleSelect = (e: React.MouseEvent, key: string) => {
+      e.stopPropagation()
+      if (e.ctrlKey || e.metaKey) {
+        setSelectedKeys((keys) =>
+          keys.includes(key) ? keys.filter((k) => k !== key) : [...keys, key]
+        )
+      } else if (e.shiftKey && selectedKeys.length > 0) {
+        const allKeys = treeData.map((n) => n.key)
+        const last = allKeys.indexOf(selectedKeys[selectedKeys.length - 1])
+        const cur = allKeys.indexOf(key)
+        if (last !== -1 && cur !== -1) {
+          const [start, end] = [last, cur].sort((a, b) => a - b)
+          setSelectedKeys(allKeys.slice(start, end + 1))
+        }
+      } else {
+        setSelectedKeys([key])
+      }
+    }
+
+    const multiEdit = selectedKeys.length > 1
+    const selectedNodes = selectedKeys
+      .map((k) => findNodeByKey(treeData, k))
+      .filter(Boolean) as TreeNode[]
+    const allGroups = selectedNodes.every((n) => n.group)
+    const multiEditValues = multiEdit
+      ? selectedNodes.reduce<Partial<TreeNode>>((acc, node) => {
+          if (acc.label === undefined) acc.label = node.label
+          if (acc.desc === undefined) acc.desc = node.desc
+          if (acc.label !== node.label) acc.label = ''
+          if (acc.desc !== node.desc) acc.desc = ''
+          return acc
+        }, {})
+      : undefined
+
+    const handleMultiEdit = (values: Partial<TreeNode>) => {
+      const newTree = updateNodesBatch(treeData, selectedKeys, values)
+      if (isControlled && !!onChange) {
+        onChange(newTree)
+      } else {
+        dispatch({ type: 'SET', data: newTree })
+      }
+    }
+
+    function findNodeByKey(nodes: TreeNode[], key: string): TreeNode | null {
+      for (const n of nodes) {
+        if (n.key === key) return n
+        if (n.children.length > 0) {
+          const found = findNodeByKey(n.children, key)
+          if (found) return found
+        }
+      }
+      return null
+    }
+
+    function updateNodesBatch(
+      nodes: TreeNode[],
+      keys: string[],
+      values: Partial<TreeNode>
+    ): TreeNode[] {
+      return nodes.map((n) =>
+        keys.includes(n.key)
+          ? { ...n, ...values }
+          : { ...n, children: updateNodesBatch(n.children, keys, values) }
+      )
+    }
+
+    const canUndo = !isControlled && state.past.length > 0
+    const canRedo = !isControlled && state.future.length > 0
+
+    const defaultPanel =
+      multiEdit && allGroups ? (
+        <TreeNodePropPanel
+          node={{ key: '', label: '', desc: '', group: true, children: [] }}
+          onChange={() => {}}
+          selected={false}
+          onSelect={() => {}}
+          multiEdit
+          multiEditValues={multiEditValues}
+          onMultiEdit={handleMultiEdit}
+        />
+      ) : null
+
+    const panel = renderPanel ? renderPanel(selectedNodes, defaultPanel) : defaultPanel
+
+    return (
+      <div style={{ padding: 16, fontFamily: 'Arial, sans-serif' }}>
+        {/* 控制按钮 */}
+        <div style={{ marginBottom: 16, display: 'flex', gap: 8 }}>
+          <button
+            onClick={() => dispatch({ type: 'UNDO' })}
+            disabled={isControlled || !canUndo}
+            style={{
+              padding: '8px 16px',
+              border: '1px solid #d9d9d9',
+              borderRadius: 4,
+              background: !isControlled && canUndo ? '#fff' : '#f5f5f5',
+              cursor: !isControlled && canUndo ? 'pointer' : 'not-allowed',
+              color: !isControlled && canUndo ? '#000' : '#ccc',
+            }}
+          >
+            撤销
+          </button>
+          <button
+            onClick={() => dispatch({ type: 'REDO' })}
+            disabled={isControlled || !canRedo}
+            style={{
+              padding: '8px 16px',
+              border: '1px solid #d9d9d9',
+              borderRadius: 4,
+              background: !isControlled && canRedo ? '#fff' : '#f5f5f5',
+              cursor: !isControlled && canRedo ? 'pointer' : 'not-allowed',
+              color: !isControlled && canRedo ? '#000' : '#ccc',
+            }}
+          >
+            重做
+          </button>
+          <button
+            onClick={() => handleNodeAdd(null)}
+            disabled={false}
+            style={{
+              padding: '8px 16px',
+              border: '1px solid #d9d9d9',
+              borderRadius: 4,
+              background: '#fff',
+              cursor: 'pointer',
+              color: '#000',
+            }}
+          >
+            添加根节点
+          </button>
+          <button
+            onClick={handleBatchDelete}
+            disabled={selectedKeys.length === 0}
+            style={{
+              padding: '8px 16px',
+              border: '1px solid #d9d9d9',
+              borderRadius: 4,
+              background: selectedKeys.length > 0 ? '#fff' : '#f5f5f5',
+              cursor: selectedKeys.length > 0 ? 'pointer' : 'not-allowed',
+              color: selectedKeys.length > 0 ? '#000' : '#ccc',
+            }}
+          >
+            批量删除 ({selectedKeys.length})
+          </button>
+        </div>
+
+        {/* 属性面板 */}
+        {panel && (
+          <div
+            style={{
+              marginBottom: 16,
+              padding: 12,
+              border: '1px solid #d9d9d9',
+              borderRadius: 4,
+              background: '#fafafa',
+            }}
+          >
+            <h4 style={{ margin: '0 0 8px 0' }}>批量编辑</h4>
+            {panel}
+          </div>
+        )}
+
+        {/* 树结构 */}
         <div
           style={{
-            marginBottom: 16,
-            padding: 12,
             border: '1px solid #d9d9d9',
-            borderRadius: 4,
+            borderRadius: 6,
+            padding: 16,
             background: '#fafafa',
           }}
         >
-          <h4 style={{ margin: '0 0 8px 0' }}>批量编辑</h4>
-          {panel}
+          {renderTree(
+            treeData,
+            [],
+            handleNodeChange,
+            handleNodeMove,
+            handleNodeAdd,
+            handleNodeDelete,
+            selectedKeys,
+            handleSelect,
+            renderNode
+          )}
         </div>
-      )}
-
-      {/* 树结构 */}
-      <div
-        style={{ border: '1px solid #d9d9d9', borderRadius: 6, padding: 16, background: '#fafafa' }}
-      >
-        {renderTree(
-          treeData,
-          [],
-          handleNodeChange,
-          handleNodeMove,
-          handleNodeAdd,
-          handleNodeDelete,
-          selectedKeys,
-          handleSelect,
-          renderNode
-        )}
       </div>
-    </div>
-  )
-}
+    )
+  }
+)
