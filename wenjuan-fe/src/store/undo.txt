@@ -1,0 +1,15 @@
+// 模拟，输入框的输入、撤销、重做的过程
+
+present = 'abc1' // 存储当前输入框的值
+
+past = ['a', 'ab', 'abc', 'abc1'] // 历史数据的记录
+
+future = [] // 未来数据的记录
+
+---
+
+输入：past 入栈；future 清空内容；
+
+撤销：past 出栈；future 入栈；present 重新赋值；
+
+重做：future 出栈；past 入栈；present 重新赋值；
