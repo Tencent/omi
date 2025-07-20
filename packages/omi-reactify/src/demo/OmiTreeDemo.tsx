@@ -12,22 +12,23 @@ const initialData: TreeNode[] = [
 
 export default function OmiTreeDemo() {
   const handleNodeAdd = useCallback((parentKey: string | null, newNode: TreeNode) => {
-    console.log('添加节点:', { parentKey, newNode })
+    // 已删除 console.log
   }, [])
 
   const handleNodeDelete = useCallback((key: string) => {
-    console.log('删除节点:', key)
+    // 已删除 console.log
   }, [])
 
+  // 修正参数类型
   const handleNodeMove = useCallback(
-    (fromKeys: string[], toKey: string | null, asChild: boolean) => {
-      console.log('移动节点:', { fromKeys, toKey, asChild })
+    (fromKeys: string[], toKey: string | null, position: 'before' | 'after' | 'child') => {
+      // 已删除 console.log
     },
     []
   )
 
   const handleNodeChange = useCallback((key: string, newNode: TreeNode) => {
-    console.log('修改节点:', { key, newNode })
+    // 已删除 console.log
   }, [])
 
   return (

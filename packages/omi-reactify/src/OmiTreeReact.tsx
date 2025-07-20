@@ -1,6 +1,5 @@
 import React, {
   useReducer,
-  useRef,
   useState,
   ReactNode,
   useEffect,
@@ -268,21 +267,21 @@ function TreeNodePropPanel({
         <input
           value={editLabel}
           autoFocus
-          onChange={e => handleLabelChange(e.target.value)}
+          onChange={(e) => handleLabelChange(e.target.value)}
           onBlur={save}
-          onKeyDown={e => {
+          onKeyDown={(e) => {
             if (e.key === 'Enter') save()
           }}
           placeholder={multiEdit ? '批量修改名称' : '节点名称'}
           style={{ width: 100, padding: 4, border: '1px solid #d9d9d9', borderRadius: 4 }}
-          onClick={e => e.stopPropagation()}
-          onDragOver={e => e.preventDefault()}
+          onClick={(e) => e.stopPropagation()}
+          onDragOver={(e) => e.preventDefault()}
         />
       ) : (
         <span
           style={{ minWidth: 100, padding: 4, borderRadius: 4, cursor: 'text' }}
           title="双击编辑名称"
-          onDoubleClick={e => {
+          onDoubleClick={(e) => {
             e.stopPropagation()
             setEditing('label')
           }}
@@ -295,21 +294,21 @@ function TreeNodePropPanel({
         <input
           value={editDesc}
           autoFocus
-          onChange={e => handleDescChange(e.target.value)}
+          onChange={(e) => handleDescChange(e.target.value)}
           onBlur={save}
-          onKeyDown={e => {
+          onKeyDown={(e) => {
             if (e.key === 'Enter') save()
           }}
           placeholder={multiEdit ? '批量修改描述' : '描述（可选）'}
           style={{ width: 120, padding: 4, border: '1px solid #d9d9d9', borderRadius: 4 }}
-          onClick={e => e.stopPropagation()}
-          onDragOver={e => e.preventDefault()}
+          onClick={(e) => e.stopPropagation()}
+          onDragOver={(e) => e.preventDefault()}
         />
       ) : (
         <span
           style={{ minWidth: 120, padding: 4, borderRadius: 4, cursor: 'text', color: '#888' }}
           title="双击编辑描述"
-          onDoubleClick={e => {
+          onDoubleClick={(e) => {
             e.stopPropagation()
             setEditing('desc')
           }}
@@ -319,46 +318,6 @@ function TreeNodePropPanel({
       )}
       {node.group && <span style={{ color: '#1890ff', marginLeft: 8 }}>分组</span>}
     </div>
-  )
-}
-
-function DragHandle({
-  onDragStart,
-  onDragOver,
-  onDrop,
-  isOver,
-}: {
-  onDragStart: (e: React.DragEvent) => void
-  onDragOver: (e: React.DragEvent) => void
-  onDrop: (e: React.DragEvent) => void
-  isOver: boolean
-}) {
-  return (
-    <span
-      draggable={true}
-      onDragStart={onDragStart}
-      onDragOver={onDragOver}
-      onDrop={onDrop}
-      style={{
-        cursor: 'grab',
-        marginRight: 8,
-        color: isOver ? '#1890ff' : '#888',
-        fontSize: '16px',
-        userSelect: 'none',
-        opacity: 1,
-        pointerEvents: 'auto',
-      }}
-      title="拖拽排序"
-      onMouseDown={(e) => {
-        // 保证鼠标按下时也是抓手
-        ;(e.target as HTMLElement).style.cursor = 'grabbing'
-      }}
-      onMouseUp={(e) => {
-        ;(e.target as HTMLElement).style.cursor = 'grab'
-      }}
-    >
-      ⋮⋮
-    </span>
   )
 }
 
@@ -773,14 +732,12 @@ export default forwardRef<{ dispatch: (action: TreeAction) => void }, OmiTreeRea
         />
       ) : null
 
-    const panel = renderPanel ? renderPanel(selectedNodes, defaultPanel) : defaultPanel
-
     // 右侧属性面板内容
-    let propertyPanel: ReactNode = null
+    let propertyPanelContent: ReactNode = null
     if (selectedKeys.length === 0) {
-      propertyPanel = <div style={{ color: '#888', padding: 16 }}>请选择节点</div>
+      propertyPanelContent = <div style={{ color: '#888', padding: 16 }}>请选择节点</div>
     } else if (selectedKeys.length === 1 && selectedNodes[0]) {
-      propertyPanel = (
+      propertyPanelContent = (
         <TreeNodePropPanel
           node={selectedNodes[0]}
           onChange={handleNodeChange}
@@ -805,7 +762,7 @@ export default forwardRef<{ dispatch: (action: TreeAction) => void }, OmiTreeRea
           dispatch({ type: 'SET', data: newTree })
         }
       }
-      propertyPanel = (
+      propertyPanelContent = (
         <TreeNodePropPanel
           node={{ key: '', label: '', desc: '', group: false, children: [] }}
           onChange={() => {}}
@@ -956,7 +913,7 @@ export default forwardRef<{ dispatch: (action: TreeAction) => void }, OmiTreeRea
             >
               属性面板
             </div>
-            {propertyPanel}
+            {propertyPanelContent}
           </div>
         </div>
         {/* 功能说明单独一行，不重叠 */}
@@ -982,10 +939,10 @@ export default forwardRef<{ dispatch: (action: TreeAction) => void }, OmiTreeRea
               <strong>节点编辑：</strong>双击节点名称或描述可以编辑
             </li>
             <li>
-              <strong>添加节点：</strong>点击 "+" 按钮可以添加子节点
+              <strong>添加节点：</strong>点击 "添加子节点" 按钮可以添加子节点
             </li>
             <li>
-              <strong>删除节点：</strong>点击 "×" 按钮可以删除节点
+              <strong>删除节点：</strong>点击 "批量删除" 按钮可以删除节点
             </li>
             <li>
               <strong>多选操作：</strong>按住 Ctrl 键可以多选节点
