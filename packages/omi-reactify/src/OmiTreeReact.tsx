@@ -220,6 +220,7 @@ function TreeNodePropPanel({
         cursor: 'pointer',
       }}
       onClick={(e) => onSelect(e, node.key)}
+      onDragOver={(e) => e.preventDefault()}
     >
       <input
         value={editLabel}
@@ -231,6 +232,7 @@ function TreeNodePropPanel({
         placeholder={multiEdit ? '批量修改名称' : '节点名称'}
         style={{ width: 100, padding: 4, border: '1px solid #d9d9d9', borderRadius: 4 }}
         onClick={(e) => e.stopPropagation()}
+        onDragOver={(e) => e.preventDefault()}
       />
       <input
         value={editDesc}
@@ -242,6 +244,7 @@ function TreeNodePropPanel({
         placeholder={multiEdit ? '批量修改描述' : '描述（可选）'}
         style={{ width: 120, padding: 4, border: '1px solid #d9d9d9', borderRadius: 4 }}
         onClick={(e) => e.stopPropagation()}
+        onDragOver={(e) => e.preventDefault()}
       />
       {node.group && <span style={{ color: '#1890ff', marginLeft: 8 }}>分组</span>}
     </div>
@@ -301,10 +304,33 @@ function renderTree(
 ): ReactNode[] {
   return nodes.map((node, idx) => {
     const selected = selectedKeys.includes(node.key)
-    // 每个节点内容单独一行横排，最外层 div 负责选中/多选
+    // 每个节点内容单独一行横排，最外层 div 负责选中/多选和拖拽
     const nodeRow = (
       <div
         key={node.key}
+        draggable={true}
+        onDragStart={(e) => {
+          console.log('onDragStart', node.key)
+          e.dataTransfer.setData('text/plain', node.key)
+          e.dataTransfer.effectAllowed = 'move'
+        }}
+        onDragOver={(e) => {
+          e.preventDefault()
+          e.dataTransfer.dropEffect = 'move'
+          console.log('onDragOver', node.key)
+        }}
+        onDrop={(e) => {
+          e.preventDefault()
+          const fromKey = e.dataTransfer.getData('text/plain')
+          console.log('onDrop', fromKey, '->', node.key)
+          if (
+            fromKey &&
+            fromKey !== node.key &&
+            !(node.children || []).some((child) => child.key === fromKey)
+          ) {
+            onNodeMove([fromKey], node.key, node.group === true)
+          }
+        }}
         onClick={(e) => onSelect(e, node.key)}
         style={{
           border: selected ? '2px solid #1890ff' : '1px solid #eee',
@@ -315,49 +341,26 @@ function renderTree(
           display: 'flex',
           alignItems: 'center',
           boxShadow: selected ? '0 0 0 2px #91d5ff' : undefined,
-          cursor: 'pointer',
+          cursor: 'grab',
           transition: 'background 0.2s, box-shadow 0.2s',
+          userSelect: 'none',
+        }}
+        onMouseDown={(e) => {
+          ;(e.currentTarget as HTMLElement).style.cursor = 'grabbing'
+        }}
+        onMouseUp={(e) => {
+          ;(e.currentTarget as HTMLElement).style.cursor = 'grab'
         }}
       >
         <span
-          draggable={true}
-          onDragStart={(e) => {
-            console.log('onDragStart', node.key)
-            e.dataTransfer.setData('text/plain', node.key)
-          }}
-          onDragOver={(e) => {
-            e.preventDefault()
-            console.log('onDragOver', node.key)
-          }}
-          onDrop={(e) => {
-            e.preventDefault()
-            const fromKey = e.dataTransfer.getData('text/plain')
-            console.log('onDrop', fromKey, '->', node.key)
-            if (
-              fromKey &&
-              fromKey !== node.key &&
-              !(node.children || []).some((child) => child.key === fromKey)
-            ) {
-              onNodeMove([fromKey], node.key, node.group === true)
-            }
-          }}
           style={{
-            cursor: 'grab',
             marginRight: 8,
             color: selected ? '#1890ff' : '#888',
             fontSize: '16px',
             userSelect: 'none',
-            opacity: 1,
-            pointerEvents: 'auto',
+            pointerEvents: 'none',
           }}
-          title="拖拽排序"
-          onMouseDown={(e) => {
-            ;(e.target as HTMLElement).style.cursor = 'grabbing'
-          }}
-          onMouseUp={(e) => {
-            ;(e.target as HTMLElement).style.cursor = 'grab'
-          }}
-          onClick={(e) => e.stopPropagation()}
+          title="拖拽手柄"
         >
           ⋮⋮
         </span>
@@ -381,6 +384,7 @@ function renderTree(
               e.stopPropagation()
               onNodeAdd(node.key)
             }}
+            onDragOver={(e) => e.preventDefault()}
           >
             添加子节点
           </button>
@@ -397,6 +401,7 @@ function renderTree(
               e.stopPropagation()
               onNodeDelete(node.key)
             }}
+            onDragOver={(e) => e.preventDefault()}
           >
             删除
           </button>
