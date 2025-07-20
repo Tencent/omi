@@ -1,9 +1,11 @@
 import '../../dist/omi-component.es.js';
+import './omi-tree';
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import reactify from '../index';
 
 const OmiReactComponent = reactify('omi-component-demo') as any;
+const OmiTree = reactify('omi-tree') as any;
 
 class ClassComponent extends React.Component<any, any> {
   constructor(props) {
@@ -13,7 +15,7 @@ class ClassComponent extends React.Component<any, any> {
     };
   }
 
-  ref = null;
+  ref: HTMLHeadingElement | null = null;
 
   componentDidMount(): void {
     console.log('componentDidMount', this.ref);
@@ -79,21 +81,51 @@ const App = (): any => {
     console.log('ref', ref.current)
   }, [])
   console.log('=====App render=====');
-  return <div>
-    <OmiReactComponent
-      show={true}
-      label='React Component'
-      complex={complex}
-      ref={ref}
-      camelCase="camelCase"
-      style={{ color: 'red' }}
-      onMockClick={(_e: React.MouseEvent) => { setComplex({ name: 'Omi' }) }}
-      renderFunction={MockComponent}
-    >
-      <span className='content'>content</span>
-    </OmiReactComponent>
-    <button className='content' onClick={btnClick}>change name</button>
-  </div>
+  const [treeData] = useState([
+    {
+      name: 'Root',
+      children: [
+        { name: 'Child 1' },
+        { 
+          name: 'Child 2',
+          children: [
+            { name: 'Grandchild 1' },
+            { name: 'Grandchild 2' }
+          ]
+        }
+      ]
+    }
+  ]);
+
+  const handleNodeClick = (e: CustomEvent) => {
+    console.log('Node clicked:', e.detail);
+  };
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <OmiReactComponent
+        show={true}
+        label='React Component'
+        complex={complex}
+        ref={ref}
+        camelCase="camelCase"
+        style={{ color: 'red' }}
+        onMockClick={(_e: React.MouseEvent) => { setComplex({ name: 'Omi' }) }}
+        renderFunction={MockComponent}
+      >
+        <span className='content'>content</span>
+      </OmiReactComponent>
+      <button className='content' onClick={btnClick}>change name</button>
+      
+      <div style={{ marginTop: '20px', padding: '20px', border: '1px solid #eee', borderRadius: '4px' }}>
+        <h2>Tree Demo</h2>
+        <OmiTree 
+          nodes={treeData} 
+          onNodeClick={handleNodeClick}
+        />
+      </div>
+    </div>
+  )
 }
 
-createRoot(document.getElementById('app')!).render(<App /> as any);
+createRoot(document.getElementById('app')!).render(<App />);
