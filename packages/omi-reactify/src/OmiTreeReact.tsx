@@ -228,12 +228,24 @@ function TreeNodePropPanel({
     setEditLabel(multiEdit ? multiEditValues?.label || '' : node.label)
     setEditDesc(multiEdit ? multiEditValues?.desc || '' : node.desc || '')
   }, [node.label, node.desc, multiEdit, multiEditValues])
-  const save = () => {
+  // 实时同步：输入时立即同步到树节点
+  const handleLabelChange = (val: string) => {
+    setEditLabel(val)
     if (multiEdit && onMultiEdit) {
-      onMultiEdit({ label: editLabel.trim(), desc: editDesc })
-    } else if (editLabel.trim() !== node.label || editDesc !== (node.desc || '')) {
-      onChange(node.key, { ...node, label: editLabel.trim(), desc: editDesc })
+      onMultiEdit({ label: val, desc: editDesc })
+    } else {
+      onChange(node.key, { ...node, label: val, desc: editDesc })
     }
+  }
+  const handleDescChange = (val: string) => {
+    setEditDesc(val)
+    if (multiEdit && onMultiEdit) {
+      onMultiEdit({ label: editLabel, desc: val })
+    } else {
+      onChange(node.key, { ...node, label: editLabel, desc: val })
+    }
+  }
+  const save = () => {
     setEditing(null)
   }
   return (
@@ -256,21 +268,21 @@ function TreeNodePropPanel({
         <input
           value={editLabel}
           autoFocus
-          onChange={(e) => setEditLabel(e.target.value)}
+          onChange={e => handleLabelChange(e.target.value)}
           onBlur={save}
-          onKeyDown={(e) => {
+          onKeyDown={e => {
             if (e.key === 'Enter') save()
           }}
           placeholder={multiEdit ? '批量修改名称' : '节点名称'}
           style={{ width: 100, padding: 4, border: '1px solid #d9d9d9', borderRadius: 4 }}
-          onClick={(e) => e.stopPropagation()}
-          onDragOver={(e) => e.preventDefault()}
+          onClick={e => e.stopPropagation()}
+          onDragOver={e => e.preventDefault()}
         />
       ) : (
         <span
           style={{ minWidth: 100, padding: 4, borderRadius: 4, cursor: 'text' }}
           title="双击编辑名称"
-          onDoubleClick={(e) => {
+          onDoubleClick={e => {
             e.stopPropagation()
             setEditing('label')
           }}
@@ -283,21 +295,21 @@ function TreeNodePropPanel({
         <input
           value={editDesc}
           autoFocus
-          onChange={(e) => setEditDesc(e.target.value)}
+          onChange={e => handleDescChange(e.target.value)}
           onBlur={save}
-          onKeyDown={(e) => {
+          onKeyDown={e => {
             if (e.key === 'Enter') save()
           }}
           placeholder={multiEdit ? '批量修改描述' : '描述（可选）'}
           style={{ width: 120, padding: 4, border: '1px solid #d9d9d9', borderRadius: 4 }}
-          onClick={(e) => e.stopPropagation()}
-          onDragOver={(e) => e.preventDefault()}
+          onClick={e => e.stopPropagation()}
+          onDragOver={e => e.preventDefault()}
         />
       ) : (
         <span
           style={{ minWidth: 120, padding: 4, borderRadius: 4, cursor: 'text', color: '#888' }}
           title="双击编辑描述"
-          onDoubleClick={(e) => {
+          onDoubleClick={e => {
             e.stopPropagation()
             setEditing('desc')
           }}
