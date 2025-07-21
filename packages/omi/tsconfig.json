@@ -14,28 +14,19 @@
     "jsxFragmentFactory": "h.f",
     "allowJs": true,
     "declaration": true,
-    "lib": [
-      "esnext",
-      "dom"
-    ],
-    "types": [
-      "jest",
-      "vite/client",
-      "node"
-    ],
+    "lib": ["esnext", "dom"],
+    "types": ["jest", "vite/client", "node"],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*" 
-      ]
-    },
+      "@/*": ["./src/*"]
+    }
   },
   "include": [
     "src/*.ts",
-    "src/*/*.ts"
-, "src/construct-style-sheets-polyfill.js"  ],
-  "exclude": [
-    "node_modules",
-    "examples"
-  ]
+    "src/*/*.ts",
+    "src/construct-style-sheets-polyfill.js",
+    "../omi-reactify/src/demo/tree-node.ts",
+    "../omi-reactify/src/demo/tree.ts"
+  ],
+  "exclude": ["node_modules", "examples"]
 }

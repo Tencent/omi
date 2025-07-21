@@ -16,9 +16,9 @@ const buildConfig = {
   demo: {
     lib: {
       entry: resolve(__dirname, 'src/demo/index.tsx'),
-      name: 'omi-demo',
+      name: 'omi-component',
       formats: ['es', 'umd'],
-      fileName: (format) => `omi-demo.${format}.js`,
+      fileName: (format) => `omi-component.${format}.js`,
     },
     rollupOptions: {
       external: ['omi', 'react', 'react-dom', 'react-dom/client'],

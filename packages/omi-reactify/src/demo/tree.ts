@@ -4,7 +4,7 @@ import './tree-node'
 @tag('omi-tree')
 export class OmiTree extends Component {
   static props = {
-    data: Array
+    data: Array,
   }
 
   // 移动节点
@@ -56,10 +56,10 @@ export class OmiTree extends Component {
   render() {
     return (
       <ul>
-        {this.props.data.map(child => (
+        {this.props.data.map((child) => (
           <omi-tree-node key={child.id} data={child} moveNode={this.moveNode.bind(this)} />
         ))}
       </ul>
     )
   }
-} 
+}
