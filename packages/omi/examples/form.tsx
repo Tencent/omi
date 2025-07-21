@@ -16,12 +16,19 @@ class FormDemo extends Component {
   render() {
     return (
       <div>
-        {this.state.show && <select id="cars" value={this.state.value1} onChange={this.onChange} name="cars">
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select>}
+        {this.state.show && (
+          <select
+            id="cars"
+            value={this.state.value1}
+            onChange={this.onChange}
+            name="cars"
+          >
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
+        )}
 
         <select id="cars2" value={this.state.value2} name="cars">
           <option value="volvo">Volvo</option>
@@ -30,10 +37,14 @@ class FormDemo extends Component {
           <option value="audi">Audi</option>
         </select>
 
-        <button onClick={(evt) => {
-          this.state.show = !this.state.show
-          this.update()
-        }}>验证this.update后表单状态</button>
+        <button
+          onClick={(evt) => {
+            this.state.show = !this.state.show
+            this.update()
+          }}
+        >
+          验证this.update后表单状态
+        </button>
       </div>
     )
   }

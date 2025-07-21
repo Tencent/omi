@@ -9,7 +9,9 @@ fs.readFile(outputFile, 'utf8', (err, data) => {
     return
   }
 
-  const sourceMappingIndex = data.lastIndexOf('//# sourceMappingURL=omi.umd.js.map')
+  const sourceMappingIndex = data.lastIndexOf(
+    '//# sourceMappingURL=omi.umd.js.map',
+  )
   const updatedData = [
     data.slice(0, sourceMappingIndex),
     customCode,
@@ -26,7 +28,7 @@ fs.readFile(outputFile, 'utf8', (err, data) => {
   })
 })
 
-const noop = () => { }
+const noop = () => {}
 fs.unlink('class.d.ts', noop)
 fs.unlink('component.d.ts', noop)
 fs.unlink('constants.d.ts', noop)

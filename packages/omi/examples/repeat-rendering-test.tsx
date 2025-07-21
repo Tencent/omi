@@ -33,12 +33,13 @@ class GrandsonEl2 extends Component {
     return (
       <>
         <br />
-        <span>{props.count}----times{times}</span>
+        <span>
+          {props.count}----times{times}
+        </span>
       </>
     )
   }
 }
-
 
 @tag('counter-demo')
 class CounterDemo extends Component {
@@ -48,7 +49,7 @@ class CounterDemo extends Component {
     console.log('render child')
     return (
       <>
-       <grandson-el2 count={count.value} />
+        <grandson-el2 count={count.value} />
         <button onClick={sub}>-</button>
         <span>{count.value}</span>
         <button onClick={add}>+</button>
@@ -60,7 +61,6 @@ class CounterDemo extends Component {
 
 @tag('my-app')
 class MyApp extends Component {
-
   render() {
     console.log('render parent')
     return (
@@ -68,14 +68,11 @@ class MyApp extends Component {
         <div>{count.value}</div>
         <counter-demo />
       </div>
-
     )
   }
 }
 
-
 async function renderAsync() {
-
   console.log(times === 0, times)
   render(<my-app />, document.body)
   console.log(times === 2, times)
@@ -88,6 +85,5 @@ async function renderAsync() {
   await Promise.resolve()
   console.log(times === 4, times)
 }
-
 
 renderAsync()

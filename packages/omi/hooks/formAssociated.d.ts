@@ -9,10 +9,10 @@
  *
  *
  */
-import { FormAssociatedComponent } from '../component';
+import { FormAssociatedComponent } from '../component'
 declare const _default: {
-    define: (cls: typeof FormAssociatedComponent) => void;
-    initial: (self: FormAssociatedComponent) => void;
-    connected: (self: FormAssociatedComponent) => void;
-};
-export default _default;
+  define: (cls: typeof FormAssociatedComponent) => void
+  initial: (self: FormAssociatedComponent) => void
+  connected: (self: FormAssociatedComponent) => void
+}
+export default _default

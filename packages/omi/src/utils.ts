@@ -327,7 +327,6 @@ export function convertNodeListToVNodes(
 ): Array<VNode | string> {
   return Array.from(childNodes)
     .map((node): VNode | string => {
-      
       const cached = nodeToVNodeCache.get(node)
       if (cached) return cached
 
@@ -337,7 +336,7 @@ export function convertNodeListToVNodes(
         nodeToVNodeCache.set(node, textContent)
         return textContent
       }
-      
+
       const element = node as Element
       // 处理元素节点
       if (element.nodeType === Node.ELEMENT_NODE) {
@@ -358,7 +357,7 @@ export function convertNodeListToVNodes(
           children,
           key: attributes.key,
         }
-        
+
         nodeToVNodeCache.set(element, vnode)
         return vnode
       }
