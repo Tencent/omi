@@ -2,24 +2,41 @@ import { render, signal, tag, Component, h, registerDirective } from '@/index'
 
 const show = signal(true)
 
-registerDirective('transition', (dom: HTMLElement, options: { name: string, delay?: number }) => {
-  const { name, delay = 0 } = options
+registerDirective(
+  'transition',
+  (dom: HTMLElement, options: { name: string; delay?: number }) => {
+    const { name, delay = 0 } = options
 
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === 'attributes' && mutation.attributeName === 'show') {
-        const show = dom.getAttribute('show') === 'true' || dom.getAttribute('show') === '1' || dom.props?.show
-        updateClasses(dom, name, show, delay)
-      }
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === 'attributes' &&
+          mutation.attributeName === 'show'
+        ) {
+          const show =
+            dom.getAttribute('show') === 'true' ||
+            dom.getAttribute('show') === '1' ||
+            dom.props?.show
+          updateClasses(dom, name, show, delay)
+        }
+      })
     })
-  })
 
-  observer.observe(dom, { attributes: true })
-  const show = dom.getAttribute('show') === 'true' || dom.getAttribute('show') === '1' || dom.props?.show
-  updateClasses(dom, name, show, delay)
-})
+    observer.observe(dom, { attributes: true })
+    const show =
+      dom.getAttribute('show') === 'true' ||
+      dom.getAttribute('show') === '1' ||
+      dom.props?.show
+    updateClasses(dom, name, show, delay)
+  },
+)
 
-function updateClasses(dom: HTMLElement, name: string, show: boolean, delay: number) {
+function updateClasses(
+  dom: HTMLElement,
+  name: string,
+  show: boolean,
+  delay: number,
+) {
   if (show) {
     dom.classList.remove(name + '-leave-to')
     dom.classList.remove(name + '-leave-active')
@@ -45,7 +62,6 @@ function updateClasses(dom: HTMLElement, name: string, show: boolean, delay: num
   }
 }
 
-
 @tag('my-el')
 class MyEl extends Component {
   static css = `
@@ -53,15 +69,10 @@ class MyEl extends Component {
   display: block;
 }`
 
-
   render() {
-    return (
-      <div>abc</div>
-    )
+    return <div>abc</div>
   }
 }
-
-
 
 @tag('my-app')
 class MyAPP extends Component {
@@ -90,14 +101,14 @@ class MyAPP extends Component {
           show={show.value}
           o-transition={{
             name: 'fade',
-            delay: 300
-          }}>aaaa</my-el>
-        
+            delay: 300,
+          }}
+        >
+          aaaa
+        </my-el>
       </>
     )
   }
 }
 
-
 render(<my-app />, document.body)
-

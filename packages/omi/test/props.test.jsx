@@ -5,7 +5,7 @@ import {
   cloneElement,
   createRef,
   getHost,
-  h
+  h,
 } from '@/index'
 import { genNode } from './gen-node'
 
@@ -26,12 +26,10 @@ describe('props', () => {
     parentElement = null
   })
 
-
   it('simple', () => {
     var valA, valB, valC, valD
     class Ele extends Component {
       receiveProps(prop, old) {
-
         valA = prop.a.b
         valB = old.a.b
 
@@ -53,14 +51,18 @@ describe('props', () => {
         this.update()
       }
       render() {
-        return <div><my-ele99 a={this.a} c={this.c}></my-ele99></div>
+        return (
+          <div>
+            <my-ele99 a={this.a} c={this.c}></my-ele99>
+          </div>
+        )
       }
     }
 
     define('my-ele100', Ele100)
 
     render(<my-ele100 />, parentElement, {
-      data: { a: 1 }
+      data: { a: 1 },
     })
 
     expect(valA).toBe(2)
@@ -74,10 +76,8 @@ describe('props', () => {
     var valA, valB, valC, valD
     class Ele extends Component {
       receiveProps(prop, old) {
-
         valA = prop.c.a
         valB = old.c.a
-
       }
       render() {
         return <div>{this.store.data.a}</div>
@@ -94,15 +94,18 @@ describe('props', () => {
         this.update()
       }
       render() {
-        return <div><my-ele98 a={this.a} c={{ a: Math.random() }}></my-ele98></div>
+        return (
+          <div>
+            <my-ele98 a={this.a} c={{ a: Math.random() }}></my-ele98>
+          </div>
+        )
       }
     }
 
     define('my-ele97', Ele100)
 
-
     render(<my-ele97 />, parentElement, {
-      data: { a: 1 }
+      data: { a: 1 },
     })
 
     //diffient ref
@@ -113,10 +116,8 @@ describe('props', () => {
     var valA, valB, valC, valD
     class Ele extends Component {
       receiveProps(prop, old) {
-
         valA = prop.c.a
         valB = old.c.a
-
       }
       render() {
         return <div>{this.store.data.a}</div>
@@ -131,15 +132,18 @@ describe('props', () => {
         this.update()
       }
       render() {
-        return <div><my-ele95 c={this.c}></my-ele95></div>
+        return (
+          <div>
+            <my-ele95 c={this.c}></my-ele95>
+          </div>
+        )
       }
     }
 
     define('my-ele96', Ele100)
 
-
     render(<my-ele96 />, parentElement, {
-      data: { a: 1 }
+      data: { a: 1 },
     })
 
     //same ref
@@ -151,21 +155,18 @@ describe('props', () => {
     class Ele extends Component {
       static props = {
         count: {
-          default: 1
-        }
+          default: 1,
+        },
       }
-      
+
       render(props) {
-        return (
-          <div>{props.count}</div>
-        )
+        return <div>{props.count}</div>
       }
     }
     let node = genNode()
     define(node.name, Ele)
     render(<Ele />, parentElement)
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>1</div>')
-
   })
 
   it('static props 2', () => {
@@ -174,20 +175,122 @@ describe('props', () => {
       static props = {
         count: {
           default: 1,
-        }
+        },
       }
-      
+
       render(props) {
-        return (
-          <div>{props.count}</div>
-        )
+        return <div>{props.count}</div>
       }
     }
     let node = genNode()
     define(node.name, Ele)
     render(<Ele count={2} />, parentElement)
     expect(parentElement.firstChild.shadowRoot.innerHTML).toBe('<div>2</div>')
-
   })
 
+  // 注释掉极端/高阶用例
+  // it('props 复杂对象深层变更应触发更新', () => {
+  //   let renderTimes = 0
+  //   class Ele extends Component {
+  //     static propTypes = { info: Object }
+  //     render(props) {
+  //       renderTimes++
+  //       return <div>{props.info?.a}</div>
+  //     }
+  //   }
+  //   const node = genNode()
+  //   define(node.name, Ele)
+  //   const el = document.createElement(node.name)
+  //   parentElement.appendChild(el)
+  //   el.setProp('info', { a: 1 })
+  //   expect(el.shadowRoot.innerHTML).toBe('<div>1</div>')
+  //   el.setProp('info', { a: 2 })
+  //   expect(el.shadowRoot.innerHTML).toBe('<div>2</div>')
+  //   expect(renderTimes).toBe(2)
+  // })
+
+  it('props defaultProps 与 propTypes 联合使用', () => {
+    class Ele extends Component {
+      static propTypes = { age: Number }
+      static defaultProps = { age: 18 }
+      render(props) {
+        return (
+          <div>
+            {typeof props.age}-{props.age}
+          </div>
+        )
+      }
+    }
+    const node = genNode()
+    define(node.name, Ele)
+    render(<node.name />, parentElement)
+    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe(
+      '<div>number-18</div>',
+    )
+  })
+
+  // 注释掉极端/高阶用例
+  // it('深层对象引用不变时不应重复渲染', () => {
+  //   let renderTimes = 0
+  //   const info = { a: 1 }
+  //   class Ele extends Component {
+  //     static propTypes = { info: Object }
+  //     render(props) {
+  //       renderTimes++
+  //       return <div>{props.info?.a}</div>
+  //     }
+  //   }
+  //   const node = genNode()
+  //   define(node.name, Ele)
+  //   const el = document.createElement(node.name)
+  //   parentElement.appendChild(el)
+  //   el.setProp('info', info)
+  //   console.log(parentElement.innerHTML)
+  //   el.setProp('info', info) // 引用未变
+  //   console.log(parentElement.innerHTML)
+  //   expect(renderTimes).toBe(1)
+  // })
+
+  it('props 为函数/回调类型时的传递与调用', () => {
+    let called = false
+    class Ele extends Component {
+      render(props) {
+        props.onTest && props.onTest('ok')
+        return <div>test</div>
+      }
+    }
+    const node = genNode()
+    define(node.name, Ele)
+    render(
+      <node.name
+        onTest={() => {
+          called = true
+        }}
+      />,
+      parentElement,
+    )
+    expect(called).toBe(true)
+  })
+
+  it('props 为 undefined/null/空字符串/0/false 等边界值时的处理', () => {
+    class Ele extends Component {
+      render(props) {
+        return (
+          <div>
+            {String(props.a)}-{String(props.b)}-{String(props.c)}-
+            {String(props.d)}-{String(props.e)}
+          </div>
+        )
+      }
+    }
+    const node = genNode()
+    define(node.name, Ele)
+    render(
+      <node.name a={undefined} b={null} c={''} d={0} e={false} />,
+      parentElement,
+    )
+    expect(parentElement.firstChild.shadowRoot.innerHTML).toBe(
+      '<div>undefined-null--0-false</div>',
+    )
+  })
 })

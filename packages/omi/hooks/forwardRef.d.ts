@@ -16,13 +16,13 @@
  *
  *
  */
-import { type Component } from '../component';
+import { type Component } from '../component'
 declare const _default: {
-    /**
-     * 为组件实例动态添加ref属性
-     * @param self
-     */
-    initial: (self: Component) => void;
-    disconnected: (self: Component) => void;
-};
-export default _default;
+  /**
+   * 为组件实例动态添加ref属性
+   * @param self
+   */
+  initial: (self: Component) => void
+  disconnected: (self: Component) => void
+}
+export default _default

@@ -1,5 +1,5 @@
-import { resolve } from 'path';
-import { defineConfig } from 'vite';
+import { resolve } from 'path'
+import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -28,5 +28,4 @@ export default defineConfig({
       fileName: (format) => `omi.${format}.js`,
     },
   },
-
-});
+})

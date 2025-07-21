@@ -27,7 +27,6 @@ class CounterDemo extends Component {
 
 @tag('my-app')
 class MyApp extends Component {
-
   cssProp: string = ''
 
   installed(): void {
@@ -35,7 +34,6 @@ class MyApp extends Component {
       this.cssProp = `span{ font-size: ${Math.floor(Math.random() * 120)}px }`
       this.update()
     }, 500)
-
   }
   render() {
     return (

@@ -1,4 +1,15 @@
-import { signal, computed, effect, batch, setActiveComponent, clearActiveComponent, tag, Component, render, h } from '@/index'
+import {
+  signal,
+  computed,
+  effect,
+  batch,
+  setActiveComponent,
+  clearActiveComponent,
+  tag,
+  Component,
+  render,
+  h,
+} from '@/index'
 
 describe('signal', () => {
   let parentElement
@@ -17,9 +28,7 @@ describe('signal', () => {
     parentElement = null
   })
 
-
   it('should not repeat rendering', async () => {
-
     const count = signal(0)
 
     function add() {
@@ -67,7 +76,6 @@ describe('signal', () => {
             <div>{count.value}</div>
             <counter-demo />
           </div>
-
         )
       }
     }
@@ -79,7 +87,6 @@ describe('signal', () => {
   })
 
   it('should update grandson-el2', async () => {
-
     const count = signal(0)
     let times = 0
     function add() {
@@ -114,12 +121,9 @@ describe('signal', () => {
       }
     }
 
-
     @tag('counter-demo3')
     class CounterDemo extends Component {
-
       render() {
-
         return (
           <>
             <button onClick={sub}>-</button>
@@ -133,20 +137,18 @@ describe('signal', () => {
 
     @tag('my-app2')
     class MyApp extends Component {
-
       render() {
         return (
           <div>
             <div>{count.value}</div>
             <counter-demo3 />
           </div>
-
         )
       }
     }
 
     render(<my-app2 />, parentElement)
-   
+
     count.value++
     count.value++
     count.value++
@@ -159,9 +161,6 @@ describe('signal', () => {
     await Promise.resolve()
     expect(times).toBe(4)
   })
-
-
-
 
   it('should initialize with the correct value', () => {
     const testSignal = signal(10)
@@ -202,7 +201,6 @@ describe('signal', () => {
     expect(effectTimes).toBe(1)
   })
 
-
   it('should get correct value', () => {
     const name = signal('Dnt')
     const surname = signal('Zhang')
@@ -215,7 +213,6 @@ describe('signal', () => {
     })
     name.value = 'John'
     expect(effectTimes).toBe(2)
-
   })
 
   it('should get correct value', () => {
@@ -244,7 +241,6 @@ describe('signal', () => {
 
     name.value = 'John'
     expect(effectTimes).toBe(1)
-
   })
 
   it('should get the value correctly', () => {
@@ -288,12 +284,10 @@ describe('computed', () => {
   })
 
   it('should not dead loop', () => {
-    const todos = signal([
-      { text: 'Learn OMI', completed: true },
-    ])
+    const todos = signal([{ text: 'Learn OMI', completed: true }])
 
     const completedCount = computed(() => {
-      return todos.value.filter(todo => todo.completed)
+      return todos.value.filter((todo) => todo.completed)
     })
 
     function addTodo(text) {
@@ -303,7 +297,7 @@ describe('computed', () => {
 
     const mockComponent = {
       render() {
-        todos.value.map((todo, index) => { })
+        todos.value.map((todo, index) => {})
         return completedCount.value.length
       },
 
@@ -323,7 +317,9 @@ describe('computed', () => {
 describe('effect', () => {
   it('should run the effect function', () => {
     let testValue = 0
-    effect(() => { testValue = 10 })
+    effect(() => {
+      testValue = 10
+    })
     expect(testValue).toBe(10)
   })
 })
