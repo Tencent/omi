@@ -1,7 +1,9 @@
-
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import OmiTreeDemo from './OmiTreeDemo'
+import reactify from '../index'
+import './omi-tree-demo'
+
+const OmiTreeDemo = reactify('omi-tree-demo')
 
 const App = () => <OmiTreeDemo />
 
