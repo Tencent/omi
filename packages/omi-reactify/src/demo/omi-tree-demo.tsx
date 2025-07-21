@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import OmiTreeReact, { TreeNode } from '../OmiTreeReact'
+import OmiTreeReact, { TreeNode } from '../omi-tree-react'
 
 const initialData: TreeNode[] = [
   {

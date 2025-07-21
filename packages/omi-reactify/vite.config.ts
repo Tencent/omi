@@ -7,37 +7,40 @@ const buildConfig = {
       entry: resolve(__dirname, 'src/index.tsx'),
       name: 'index',
       formats: ['es', 'umd'],
-      fileName: (format) => `index.${format}.js`
+      fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
-      external: ['omi', 'react', 'react-dom', 'react-dom/client']
-    }
+      external: ['omi', 'react', 'react-dom', 'react-dom/client'],
+    },
   },
   demo: {
     lib: {
-      entry: resolve(__dirname, 'src/demo/omi-component.tsx'),
-      name: 'omi-component',
+      entry: resolve(__dirname, 'src/demo/index.tsx'),
+      name: 'omi-demo',
       formats: ['es', 'umd'],
-      fileName: (format) => `omi-component.${format}.js`
+      fileName: (format) => `omi-demo.${format}.js`,
     },
     rollupOptions: {
-      external: ['omi', 'react', 'react-dom', 'react-dom/client']
-    }
-  }
+      external: ['omi', 'react', 'react-dom', 'react-dom/client'],
+    },
+  },
 }
 
 // https://vitejs.dev/config/
-export default defineConfig(({mode}) => {
+export default defineConfig(({ mode }) => {
   return {
     build: buildConfig[mode] || {
       rollupOptions: {
         external: ['omi', 'react', 'react-dom', 'react-dom/client'],
-      }
+      },
     },
-    esbuild: mode === 'demo' ? {
-      jsxFactory: 'OmiComponent.h',
-      jsxFragment: 'OmiComponent.f',
-      jsxInject: `import { Component as OmiComponent  } from 'omi'`,
-    } : {},
+    esbuild:
+      mode === 'demo'
+        ? {
+            jsxFactory: 'OmiComponent.h',
+            jsxFragment: 'OmiComponent.f',
+            jsxInject: `import { Component as OmiComponent  } from 'omi'`,
+          }
+        : {},
   }
 })
