@@ -4,7 +4,6 @@ import App from './App.vue'
 
 
 import { define, render, signal, tag, Component, h } from 'omi'
-import { OTree } from './components/OTree.tsx'
 
 const count = signal(0)
 
@@ -56,6 +55,5 @@ export class CounterDemo extends Component {
 }
 
 define('my-component', CounterDemo);
-define('o-tree', OTree);
 
 createApp(App).mount('#app')

@@ -24,6 +24,17 @@ export enum DropPosition {
   NONE = 'none'
 }
 
+interface TreeState {
+  data: TreeNode[];
+  draggedNodeId: string | null;
+  currentDropTarget: HTMLElement | null;
+  currentDropPosition: DropPosition;
+  lastDropPosition: DropPosition;
+  lastUpdateTime: number;
+  highlightedNodeId: string | number | null;
+}
+
+
 @tag('o-tree')
 export class OTree extends Component<TreeProps> {
   static css = `
@@ -33,7 +44,9 @@ export class OTree extends Component<TreeProps> {
     .o-tree-node {
       padding: 5px 0;
       position: relative;
-      transition: all 0.2s ease;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      box-sizing: border-box;
+      border: 1px solid transparent;
     }
     .o-tree-node-content {
       display: flex;
@@ -45,6 +58,10 @@ export class OTree extends Component<TreeProps> {
     }
     .o-tree-node-content:hover {
       background-color: #f5f7fa;
+    }
+    .o-tree-node-content.highlight {
+      background-color: #e6f7ff;
+      border-color: #91d5ff;
     }
     .o-tree-node-label {
       font-size: 14px;
@@ -85,8 +102,8 @@ export class OTree extends Component<TreeProps> {
     }
     .drop-inside {
       background-color: rgba(64, 158, 255, 0.1);
-      border: 1px dashed #409eff;
-      transition: all 0.2s ease-in-out;
+      border-color: #409eff;
+      border-style: dashed;
     }
     .drop-before {
       position: relative;
@@ -121,10 +138,7 @@ export class OTree extends Component<TreeProps> {
   static props = {
     data: {
       type: Array,
-      default: [],
-      changed(this: OTree, newValue: TreeNode[], oldValue: TreeNode[]) {
-        console.log('props.data changed:', newValue);
-      }
+      default: []
     },
     expanded: {
       type: Boolean,
@@ -136,87 +150,74 @@ export class OTree extends Component<TreeProps> {
     }
   }
 
-  treeData = signal<TreeNode[]>([])
   
-  // 记录当前拖拽状态
-  private dragState = {
-    draggedNodeId: null as string | null,
-    currentDropTarget: null as HTMLElement | null,
+  store = signal<TreeState>({
+    data: [],
+    draggedNodeId: null,
+    currentDropTarget: null,
     currentDropPosition: DropPosition.NONE,
     lastDropPosition: DropPosition.NONE,
-    lastUpdateTime: 0
+    lastUpdateTime: 0,
+    highlightedNodeId: null,
+  })
+
+  private lastUsedId = 0
+
+  constructor() {
+    super();
   }
 
-  initializeSignals(node: TreeNode) {
+
+  initializeSignals(node: TreeNode): TreeNode {
     if (typeof node.expanded !== 'object' || !node.expanded?.value) {
       node.expanded = signal(node.expanded === true);
     }
     if (node.children) {
-      node.children.forEach(child => this.initializeSignals(child))
+      node.children = node.children.map(child => this.initializeSignals(child))
+    }
+    return node;
+  }
+
+  private _initializeLastUsedId(nodes: TreeNode[]) {
+    for (const node of nodes) {
+      if (typeof node.id === 'number' && node.id > this.lastUsedId) {
+        this.lastUsedId = node.id;
+      }
+      if (node.children) {
+        this._initializeLastUsedId(node.children);
+      }
     }
   }
 
   install() {
-    console.log('OTree installed, props:', this.props)
-    this.treeData.value = this.props.data.map(node => {
-      const copy = { ...node }
-      this.initializeSignals(copy)
-      return copy
-    })
-  }
-
-  installed() {
-    console.log('OTree component mounted, props:', this.props);
-    // 确保在Mac和Windows上都能正常工作
+    this.store.value.data = this.props.data.map(node => this.initializeSignals({ ...node }));
+    this._initializeLastUsedId(this.store.value.data);
+    
     document.addEventListener('dragover', (e) => {
-      // 阻止文档默认的dragover行为
       e.preventDefault();
     });
-
   }
 
-  receiveProps(props: TreeProps) {
-    console.log('OTree receiveProps:', props);
-    if (props.data !== this.treeData.peek()) {
-      this.treeData.value = props.data.map(node => {
-        const copy = { ...node }
-        this.initializeSignals(copy)
-        return copy
-      })
-    }
-  }
 
   nodeClick(node: TreeNode): void {
     if (typeof node.expanded === 'object') {
       node.expanded.value = !node.expanded.value;
-    } else {
-      node.expanded = !node.expanded;
-      this.treeData.update();  
     }
     this.fire('nodeClick', node)
-    console.log('节点被点击 - 触发nodeClick事件:', node)
   }
 
   nodeExpand(node: TreeNode): void {
     if (typeof node.expanded === 'object') {
       node.expanded.value = true;
-    } else {
-      node.expanded = true;
-      this.treeData.update();
     }
     this.fire('nodeExpand', node)
-    console.log('节点被展开 - 触发nodeExpand事件:', node)
   }
 
   nodeCollapse(node: TreeNode): void {
     if (typeof node.expanded === 'object') {
       node.expanded.value = false;
-    } else {
-      node.expanded = false;
-      this.treeData.update();
     }
     this.fire('nodeCollapse', node)
-    console.log('节点被折叠 - 触发nodeCollapse事件:', node)
   }
 
   traverseTree(
@@ -249,7 +250,6 @@ export class OTree extends Component<TreeProps> {
     }
 
     if (isDescendant(draggedNode, dropTargetId)) {
-      console.error("Cannot drop a node into its own descendant.")
       return false
     }
 
@@ -263,8 +263,8 @@ export class OTree extends Component<TreeProps> {
   ): (...args: Parameters<T>) => void {
     return (...args: Parameters<T>) => {
       const now = Date.now();
-      if (now - this.dragState.lastUpdateTime > delay) {
-        this.dragState.lastUpdateTime = now;
+      if (now - this.store.value.lastUpdateTime > delay) {
+        this.store.value.lastUpdateTime = now;
         fn.apply(this, args);
       }
     };
@@ -297,13 +297,14 @@ export class OTree extends Component<TreeProps> {
 
   // 应用放置样式
   applyDropPositionStyle(element: HTMLElement, position: DropPosition) {
+    const state = this.store.value;
     // 如果放置类型没有变化，不做任何操作
-    if (position === this.dragState.lastDropPosition && element === this.dragState.currentDropTarget) {
+    if (position === state.lastDropPosition && element === state.currentDropTarget) {
       return;
     }
     
-    if (this.dragState.currentDropTarget && this.dragState.currentDropTarget !== element) {
-      this.clearDropPositionClasses(this.dragState.currentDropTarget);
+    if (state.currentDropTarget && state.currentDropTarget !== element) {
+      this.clearDropPositionClasses(state.currentDropTarget);
     }
 
     this.clearDropPositionClasses(element);
@@ -322,54 +323,10 @@ export class OTree extends Component<TreeProps> {
     }
     
     // 更新状态
-    this.dragState.currentDropTarget = element;
-    this.dragState.lastDropPosition = position;
+    this.store.value.currentDropTarget = element;
+    this.store.value.lastDropPosition = position;
   }
 
-  handleDragStart = (evt: DragEvent, node: TreeNode) => {
-    evt.stopPropagation();
-    const nodeId = node.id.toString();
-    if (evt.dataTransfer) {
-      evt.dataTransfer.setData('node-id', nodeId);
-      // 设置拖拽效果
-      evt.dataTransfer.effectAllowed = 'move';
-    }
-    
-    // 记录被拖拽的节点 ID
-    this.dragState.draggedNodeId = nodeId;
-    
-    // 重置拖拽状态
-    this.dragState.currentDropTarget = null;
-    this.dragState.lastDropPosition = DropPosition.NONE;
-  }
-
-  // 使用节流处理拖拽悬停事件
-  handleDragOver = this.throttle((evt: DragEvent) => {
-    evt.preventDefault(); 
-    
-    const element = evt.currentTarget as HTMLElement;
-    const position = this.getDropPosition(evt, element);
-    this.applyDropPositionStyle(element, position);
-  }, 50); 
-
-  handleDragEnter = (evt: DragEvent) => {
-    evt.preventDefault();
-  }
-
-  handleDragLeave = (evt: DragEvent) => {
-    evt.preventDefault();
-    
-    const relatedTarget = evt.relatedTarget as Node;
-    const currentTarget = evt.currentTarget as Node;
-    
-    if (!currentTarget.contains(relatedTarget)) {
-      this.clearDropPositionClasses(evt.currentTarget as HTMLElement);
-      if (this.dragState.currentDropTarget === evt.currentTarget) {
-        this.dragState.currentDropTarget = null;
-        this.dragState.lastDropPosition = DropPosition.NONE;
-      }
-    }
-  }
 
   // 查找节点的父节点和在父节点中的索引
   findParentAndIndex(nodeId: string, nodes: TreeNode[]): { parent: TreeNode | null, index: number } | null {
@@ -384,9 +341,17 @@ export class OTree extends Component<TreeProps> {
     return result
   }
 
-  addNode(parentId: string | number | null, newNode: TreeNode, position: number = -1) {
-    const data = this.treeData.value;
-    this.initializeSignals(newNode);
+  addNode(parentId: string | number | null, newNodeData: Partial<TreeNode>, position: number = -1) {
+    if (newNodeData.id === undefined) {
+      this.lastUsedId++;
+      newNodeData.id = this.lastUsedId;
+    } else if (typeof newNodeData.id === 'number' && newNodeData.id > this.lastUsedId) {
+      this.lastUsedId = newNodeData.id;
+    }
+
+    const newNode = this.initializeSignals(newNodeData as TreeNode);
+
+    const data = this.store.value.data;
     if (parentId === null) {
       if (position === -1) {
         data.push(newNode);
@@ -394,8 +359,7 @@ export class OTree extends Component<TreeProps> {
         data.splice(position, 0, newNode);
       }
     } else {
-      let added = false;
-      this.traverseTree(data, (node, parent, index) => {
+      this.traverseTree(data, (node) => {
         if (node.id.toString() === parentId.toString()) {
           node.children = node.children || [];
           if (position === -1) {
@@ -403,28 +367,21 @@ export class OTree extends Component<TreeProps> {
           } else {
             node.children.splice(position, 0, newNode);
           }
-          added = true;
           return true;
         }
         return false;
       });
-      if (!added) {
-        console.error(`Parent node with id ${parentId} not found.`);
-        return;
-      }
     }
-    this.treeData.update();
+    this.store.update();
     this.fire('nodeAdded', { newNode, parentId });
-    console.log(`Node ${newNode.label} added to parent ${parentId}`);
   }
 
   removeNode(id: string | number) {
-    const data = this.treeData.value;
+    const data = this.store.value.data;
     const removed = this.removeNodeInternal(id.toString(), data);
     if (removed) {
-      this.treeData.update();
+      this.store.update();
       this.fire('nodeRemoved', { removedNode: removed, id });
-      console.log(`Node with id ${id} removed`);
     } else {
       console.error(`Node with id ${id} not found.`);
     }
@@ -448,35 +405,28 @@ export class OTree extends Component<TreeProps> {
   }
 
   updateNode(id: string | number, updates: Partial<TreeNode>) {
-    let updated = false;
-    this.traverseTree(this.treeData.value, (node, parent, index) => {
+    this.traverseTree(this.store.value.data, (node) => {
       if (node.id.toString() === id.toString()) {
         Object.assign(node, updates);
         if (updates.children) {
           updates.children.forEach(child => this.initializeSignals(child));
         }
-        updated = true;
+        this.store.update();
+        this.fire('nodeUpdated', { id, updates });
         return true;
       }
       return false;
     });
-    if (updated) {
-      this.treeData.update();
-      this.fire('nodeUpdated', { id, updates });
-      console.log(`Node with id ${id} updated`);
-    } else {
-      console.error(`Node with id ${id} not found.`);
-    }
   }
 
   findNode(id: string | number): TreeNode | null {
-    const found = this.findNodeInternal(id.toString(), this.treeData.value);
+    const found = this.findNodeInternal(id.toString(), this.store.peek().data);
     return found ? JSON.parse(JSON.stringify(found)) : null;
   }
 
   private findNodeInternal(id: string, nodes: TreeNode[]): TreeNode | null {
     let found: TreeNode | null = null;
-    this.traverseTree(nodes, (node, parent, index) => {
+    this.traverseTree(nodes, (node) => {
       if (node.id.toString() === id) {
         found = node;
         return true;
@@ -486,89 +436,144 @@ export class OTree extends Component<TreeProps> {
     return found;
   }
 
-  handleDrop = (evt: DragEvent, targetNode: TreeNode) => {
-    evt.preventDefault();
-    evt.stopPropagation();
-    
-    const element = evt.currentTarget as HTMLElement;
-    this.clearDropPositionClasses(element);
-    
-    const draggedId = evt.dataTransfer?.getData('node-id');
-    if (!draggedId) return;
-    
-    const targetId = targetNode.id.toString();
-    
-    if (!this.checkDropValidity(draggedId, targetId)) return;
-    
-    const position = this.dragState.lastDropPosition !== DropPosition.NONE
-      ? this.dragState.lastDropPosition
-      : this.getDropPosition(evt, element);
-    
-    const data = this.treeData.value;
-    
-    const removedNode = this.removeNodeInternal(draggedId, data);
-    if (!removedNode) return;
-    
-    switch (position) {
-      case DropPosition.BEFORE:
-        const beforeResult = this.findParentAndIndex(targetId, data);
-        if (beforeResult) {
-          const { parent, index } = beforeResult;
-          const parentId = parent ? parent.id : null;
-          this.addNode(parentId, removedNode, index);
+  private findNodePath(id: string | number, nodes: TreeNode[]): TreeNode[] | null {
+    for (const node of nodes) {
+      if (node.id === id) {
+        return [node];
+      }
+      if (node.children) {
+        const path = this.findNodePath(id, node.children);
+        if (path) {
+          return [node, ...path];
         }
-        break;
-      
-      case DropPosition.INSIDE:
-        this.addNode(targetId, removedNode);
-        break;
-      
-      case DropPosition.AFTER:
-        const afterResult = this.findParentAndIndex(targetId, data);
-        if (afterResult) {
-          const { parent, index } = afterResult;
-          const parentId = parent ? parent.id : null;
-          this.addNode(parentId, removedNode, index + 1);
-        }
-        break;
+      }
     }
-    
-    
-    this.fire('nodeDrop', { 
-      draggedNode: removedNode, 
-      targetNode, 
-      position 
-    });
-    console.log(`Node ${removedNode.label} dropped ${position} ${targetNode.label}`);
-    
-    this.dragState = {
-      draggedNodeId: null,
-      currentDropTarget: null,
-      currentDropPosition: DropPosition.NONE,
-      lastDropPosition: DropPosition.NONE,
-      lastUpdateTime: 0
-    };
+    return null;
+  }
+
+  highlightNode(id: string | number | null) {
+    this.store.value.highlightedNodeId = id;
+    if (id !== null) {
+      const path = this.findNodePath(id, this.store.value.data);
+      if (path) {
+        // Expand all nodes in the path except the last one (the target node)
+        for (let i = 0; i < path.length - 1; i++) {
+          const node = path[i];
+          if (typeof node.expanded === 'object') {
+            node.expanded.value = true;
+          }
+        }
+      }
+    }
+    this.store.update();
   }
 
   // 递归渲染树节点
   renderNode(node: TreeNode, level: number = 0) {
     const hasChildren = node.children && node.children.length > 0
     const isExpanded = typeof node.expanded === 'object' ? node.expanded.value : (node.expanded ?? false);
+    const isHighlighted = this.store.value.highlightedNodeId !== null && this.store.value.highlightedNodeId === node.id;
+
+    const handleDragStart = (evt: DragEvent) => {
+      evt.stopPropagation();
+      const nodeId = node.id.toString();
+      if (evt.dataTransfer) {
+        evt.dataTransfer.setData('node-id', nodeId);
+        evt.dataTransfer.effectAllowed = 'move';
+      }
+      this.store.value.draggedNodeId = nodeId;
+    };
+
+    const handleDrop = (evt: DragEvent) => {
+      evt.preventDefault();
+      evt.stopPropagation();
+      
+      const element = evt.currentTarget as HTMLElement;
+      this.clearDropPositionClasses(element);
+      
+      const draggedId = this.store.value.draggedNodeId;
+      if (!draggedId) return;
+      
+      const targetId = node.id.toString();
+      
+      if (!this.checkDropValidity(draggedId, targetId)) return;
+      
+      const position = this.store.value.lastDropPosition !== DropPosition.NONE
+        ? this.store.value.lastDropPosition
+        : this.getDropPosition(evt, element);
+      
+      const data = this.store.value.data;
+      
+      const removedNode = this.removeNodeInternal(draggedId, data);
+      if (!removedNode) return;
+      
+      switch (position) {
+        case DropPosition.BEFORE:
+          const beforeResult = this.findParentAndIndex(targetId, data);
+          if (beforeResult) {
+            const { parent, index } = beforeResult;
+            this.addNode(parent ? parent.id : null, removedNode, index);
+          }
+          break;
+        
+        case DropPosition.INSIDE:
+          this.addNode(targetId, removedNode);
+          break;
+        
+        case DropPosition.AFTER:
+          const afterResult = this.findParentAndIndex(targetId, data);
+          if (afterResult) {
+            const { parent, index } = afterResult;
+            this.addNode(parent ? parent.id : null, removedNode, index + 1);
+          }
+          break;
+      }
+      
+      this.fire('nodeDrop', { 
+        draggedNode: removedNode, 
+        targetNode: node, 
+        position 
+      });
+      
+      this.store.value.draggedNodeId = null;
+      this.store.value.currentDropTarget = null;
+      this.store.value.lastDropPosition = DropPosition.NONE;
+    };
+
+    const handleDragOver = this.throttle((evt: DragEvent) => {
+      evt.preventDefault(); 
+      const element = evt.currentTarget as HTMLElement;
+      const position = this.getDropPosition(evt, element);
+      this.applyDropPositionStyle(element, position);
+    }, 50);
+
+    const handleDragLeave = (evt: DragEvent) => {
+      evt.preventDefault();
+      const relatedTarget = evt.relatedTarget as Node;
+      const currentTarget = evt.currentTarget as Node;
+      if (!currentTarget.contains(relatedTarget)) {
+        this.clearDropPositionClasses(evt.currentTarget as HTMLElement);
+        if (this.store.value.currentDropTarget === evt.currentTarget) {
+          this.store.value.currentDropTarget = null;
+          this.store.value.lastDropPosition = DropPosition.NONE;
+        }
+      }
+    };
 
     return (
       <div 
         class="o-tree-node"
-        onDrop={(e: DragEvent) => this.handleDrop(e, node)}
-        onDragOver={this.handleDragOver}
-        onDragEnter={this.handleDragEnter}
-        onDragLeave={this.handleDragLeave}
+        onDrop={handleDrop}
+        onDragover={handleDragOver}
+        onDragenter={(e:DragEvent) => e.preventDefault()}
+        onDragleave={handleDragLeave}
       >
         <div
-          class="o-tree-node-content"
+          class={`o-tree-node-content ${isHighlighted ? 'highlight' : ''}`}
           style={{ paddingLeft: `${level * 18}px` }}
           onClick={() => this.nodeClick(node)}
           draggable="true"
-          onDragStart={(e: DragEvent) => this.handleDragStart(e, node)}
+          onDragstart={handleDragStart}
         >
           {hasChildren ? (
             <span
@@ -596,9 +601,8 @@ export class OTree extends Component<TreeProps> {
   }
 
   render() {
-    console.log('OTree render data:', this.treeData.value);
-    
-    if (!this.treeData.value || this.treeData.value.length === 0) {
+    const data = this.store.value.data;
+    if (!data || data.length === 0) {
       return (
         <div class="o-tree">
           <div class="o-tree-empty">暂无数据</div>
@@ -608,7 +612,7 @@ export class OTree extends Component<TreeProps> {
     
     return (
       <div class="o-tree">
-        {this.treeData.value.map(node => this.renderNode(node))}
+        {data.map(node => this.renderNode(node))}
       </div>
     )
   }

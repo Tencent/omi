@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { omiVueify } from '../../../../src/index';
 import './OTree';
 import type { TreeNode } from './OTree';
 
 // 使用omiVueify封装o-tree组件
 const OmiTree = omiVueify('o-tree', {
-  methodNames: ['nodeExpand', 'nodeCollapse', 'addNode', 'removeNode', 'updateNode', 'findNode']
+  methodNames: ['nodeExpand', 'nodeCollapse', 'addNode', 'removeNode', 'updateNode', 'highlightNode']
 });
 
 // 树节点数据
@@ -50,47 +50,6 @@ const treeData = ref<TreeNode[]>([
 
 const treeRef = ref();
 
-// 跟踪最后使用的ID值
-let lastUsedId = 0;
-
-// 初始化lastUsedId为当前树中的最大ID
-const initializeLastUsedId = (nodes: TreeNode[]) => {
-  for (const node of nodes) {
-    if (typeof node.id === 'number' && node.id > lastUsedId) {
-      lastUsedId = node.id;
-    }
-    if (node.children) {
-      initializeLastUsedId(node.children);
-    }
-  }
-};
-
-
-onMounted(() => {
-  console.log('Vue component mounted, treeData:', treeData.value);
-  initializeLastUsedId(treeData.value);
-});
-
-const logEvent = (message: string, detail: any) => {
-  console.log(message, detail);
-};
-const handleNodeExpand = (e: CustomEvent) => {
-  logEvent('节点被展开:', e.detail);
-};
-
-const handleNodeCollapse = (e: CustomEvent) => {
-  logEvent('节点被折叠:', e.detail);
-};
-
-// 处理节点添加事件
-const handleNodeAdded = (e: CustomEvent) => {
-  const { newNode } = e.detail;
-  if (typeof newNode.id === 'number') {
-    lastUsedId = Math.max(lastUsedId, newNode.id);
-  }
-  logEvent('节点已添加:', e.detail);
-};
-
 const addNodeInput = ref('');
 const addLabelInput = ref('');
 const addPositionInput = ref('');
@@ -100,9 +59,7 @@ function performAddNode() {
   const label = addLabelInput.value || 'New Node';
   const position = addPositionInput.value ? parseInt(addPositionInput.value) : -1;
 
-  // 使用递增的ID，确保不重复
-  const newId = ++lastUsedId;
-  const newNode = { id: newId, label };
+  const newNode = { label };
   treeRef.value.addNode(parentId, newNode, position);
   addNodeInput.value = '';
   addLabelInput.value = '';
@@ -134,66 +91,51 @@ function performUpdateNode() {
 
 const findNodeInput = ref('');
 
-const showModal = ref(false);
-const foundNode = ref<TreeNode | null>(null);
-
 function performFindNode() {
-  const id = parseInt(findNodeInput.value);
-  if (!isNaN(id)) {
-    const found = treeRef.value.findNode(id);
-    if (found) {
-      foundNode.value = found;
-      showModal.value = true;
-      logEvent('Found node:', found);
-    } else {
-      logEvent('Node not found:', id);
-    }
-  }
-  findNodeInput.value = '';
+  const id = findNodeInput.value ? parseInt(findNodeInput.value) : null;
+  treeRef.value.highlightNode(id);
 }
 
-function closeModal() {
-  showModal.value = false;
-  foundNode.value = null;
-}
 </script>
 
 <template>
   <div class="tree-component">
     <h3>树组件示例</h3>
-    <OmiTree 
-      ref="treeRef"
-      :data="treeData"
-      @nodeExpand="handleNodeExpand"
-      @nodeCollapse="handleNodeCollapse"
-      @nodeAdded="handleNodeAdded"
-    >
-    </OmiTree>
-    <div class="operations">
-      <h4>添加节点</h4>
-      <input v-model="addNodeInput" placeholder="Parent ID (null for root)" />
-      <input v-model="addLabelInput" placeholder="Label" />
-      <input v-model="addPositionInput" placeholder="Position (-1 for end)" />
-      <button @click="performAddNode">添加</button>
+    <div class="container">
+      <div class="tree-container">
+        <OmiTree 
+          ref="treeRef"
+          :data="treeData"
+        >
+        </OmiTree>
+      </div>
+      <div class="operations">
+        <div class="form-group">
+          <h4>添加节点</h4>
+          <input v-model="addNodeInput" placeholder="Parent ID (null for root)" />
+          <input v-model="addLabelInput" placeholder="Label" />
+          <input v-model="addPositionInput" placeholder="Position (-1 for end)" />
+          <button @click="performAddNode">添加</button>
+        </div>
 
-      <h4>删除节点</h4>
-      <input v-model="removeNodeInput" placeholder="Node ID" />
-      <button @click="performRemoveNode">删除</button>
+        <div class="form-group">
+          <h4>删除节点</h4>
+          <input v-model="removeNodeInput" placeholder="Node ID" />
+          <button @click="performRemoveNode">删除</button>
+        </div>
 
-      <h4>更新节点</h4>
-      <input v-model="updateNodeInput" placeholder="Node ID" />
-      <input v-model="updateLabelInput" placeholder="New Label" />
-      <button @click="performUpdateNode">更新</button>
+        <div class="form-group">
+          <h4>更新节点</h4>
+          <input v-model="updateNodeInput" placeholder="Node ID" />
+          <input v-model="updateLabelInput" placeholder="New Label" />
+          <button @click="performUpdateNode">更新</button>
+        </div>
 
-      <h4>查找节点</h4>
-      <input v-model="findNodeInput" placeholder="Node ID" />
-      <button @click="performFindNode">查找</button>
-    </div>
-    <div v-if="showModal" class="modal">
-      <div class="modal-content">
-        <h4>节点详情</h4>
-        <pre>{{ JSON.stringify(foundNode, null, 2) }}</pre>
-        <button @click="closeModal">关闭</button>
+        <div class="form-group">
+          <h4>查找节点</h4>
+          <input v-model="findNodeInput" placeholder="Node ID" />
+          <button @click="performFindNode">查找</button>
+        </div>
       </div>
     </div>
   </div>
@@ -201,48 +143,82 @@ function closeModal() {
 
 <style scoped>
 .tree-component {
-  margin: 20px;
   padding: 20px;
-  border: 1px solid #ebeef5;
-  border-radius: 4px;
-  max-width: 400px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
 }
 
-h3 {
+h3, .operations h4 {
   margin-top: 0;
-  margin-bottom: 20px;
-  color: #303133;
+  margin-bottom: 1em;
+  font-weight: 600;
 }
+
+.container {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.tree-container {
+  flex: 1;
+}
+
 .operations {
-  margin-top: 20px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-.operations h4 {
-  margin: 10px 0 5px;
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
-.operations input {
-  margin-right: 10px;
-  margin-bottom: 10px;
+
+.operations input,
+.operations button {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
 }
+
+.operations button {
+  background-color: #f0f0f0;
+  border-color: #ccc;
+  cursor: pointer;
+  font-weight: 500;
+}
+.operations button:hover {
+  background-color: #e0e0e0;
+}
+
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
 }
 .modal-content {
   background: white;
-  padding: 20px;
-  border-radius: 4px;
+  padding: 20px 25px;
+  border-radius: 5px;
   max-width: 500px;
-  overflow: auto;
+  width: calc(100% - 40px);
+}
+.modal-content button {
+    margin-top: 15px;
 }
 pre {
   white-space: pre-wrap;
   word-wrap: break-word;
+  background: #f7f7f7;
+  padding: 10px;
+  border-radius: 4px;
 }
 </style> 

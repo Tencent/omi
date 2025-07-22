@@ -5,12 +5,9 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   esbuild: {
-    target: 'esnext',
     jsxFactory: 'h',
-    jsxFragment: 'Fragment',
+    jsxFragment: 'h.f',
     jsxInject: `import { h } from 'omi'`,
-    jsx: 'transform',
-    keepNames: true,
     tsconfigRaw: `{
       "compilerOptions": {
         "experimentalDecorators": true
