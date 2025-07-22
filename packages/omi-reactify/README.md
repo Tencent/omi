@@ -37,3 +37,5 @@ const App = () => {
   </OmiReactComponent>
 }
 ```
+
+更多 OmiTreeReact 组件文档请见 [OmiTreeReact.md](./OmiTreeReact.md)
