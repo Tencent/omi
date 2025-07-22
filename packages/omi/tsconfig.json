@@ -24,11 +24,7 @@
   "include": [
     "src/*.ts",
     "src/*/*.ts",
-
-    "src/construct-style-sheets-polyfill.js",
-    "../omi-reactify/src/demo/tree-node.ts",
-    "../omi-reactify/src/demo/tree.ts"
-
+    "src/construct-style-sheets-polyfill.js"
   ],
   "exclude": ["node_modules", "examples"]
 }
