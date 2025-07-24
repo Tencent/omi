@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
-import TreeComponent from './components/TreeComponent.vue'
+import TreeComponent from './components/tree-component.vue'
 </script>
 
 <template>
