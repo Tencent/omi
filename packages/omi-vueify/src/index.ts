@@ -1,4 +1,4 @@
-import { h, defineComponent, ref, onMounted, onBeforeUnmount, computed } from 'vue';
+import { h, defineComponent, ref, onMounted, onBeforeUnmount, computed, isRef, unref, isReactive, toRaw } from 'vue';
 
 export function omiVueify(
   tagName: string,
@@ -35,6 +35,13 @@ export function omiVueify(
             // 仅处理非事件
             .filter(([key]) => !key.match(/^on[A-Za-z]/))
             .map(([key, value]) => {
+              // 处理 ref 和 reactive
+              if (isRef(value)) {
+                value = unref(value);
+              } else if (isReactive(value)) {
+                value = toRaw(value);
+              }
+              
               // 复杂类型 转驼峰
               if (value && typeof value === 'object') {
                 return [kebabToCamel(key), value];
@@ -50,6 +57,9 @@ export function omiVueify(
         .filter(attrKey => attrKey.match(/^on[A-Za-z]/))
         .map(oriEvent => oriEventToOmi(oriEvent));
 
+      // 存储事件处理函数的引用，以便正确移除
+      const eventHandlers = new Map<string, (e: Event) => void>();
+
       onMounted(() => {
         // 添加事件监听
         omiEvents.forEach((omiEvent) => {
@@ -57,17 +67,20 @@ export function omiVueify(
           // 仅处理kebab-case风格
           if (!isKebabString(vueEvent)) return;
 
-          elRef.value?.addEventListener(omiEvent, (e: Event) => {
+          const handler = (e: Event) => {
             emit(vueEvent, e);
-          })
+          };
+          eventHandlers.set(omiEvent, handler);
+          elRef.value?.addEventListener(omiEvent, handler);
         })
       })
 
       // 清理事件监听
       onBeforeUnmount(() => {
-        omiEvents.forEach((omiEvent) => {
-          elRef.value?.removeEventListener(omiEvent, () => {})
-        })
+        eventHandlers.forEach((handler, omiEvent) => {
+          elRef.value?.removeEventListener(omiEvent, handler);
+        });
+        eventHandlers.clear();
       })
 
       return () => {
