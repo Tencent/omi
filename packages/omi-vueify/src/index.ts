@@ -1,4 +1,4 @@
-import { h, defineComponent, ref, onMounted, onBeforeUnmount, computed, isRef, unref, isReactive, toRaw } from 'vue';
+import { h, defineComponent, ref, onMounted, onBeforeUnmount, computed } from 'vue';
 
 export function omiVueify(
   tagName: string,
@@ -35,13 +35,6 @@ export function omiVueify(
             // 仅处理非事件
             .filter(([key]) => !key.match(/^on[A-Za-z]/))
             .map(([key, value]) => {
-              // 处理 ref 和 reactive
-              if (isRef(value)) {
-                value = unref(value);
-              } else if (isReactive(value)) {
-                value = toRaw(value);
-              }
-              
               // 复杂类型 转驼峰
               if (value && typeof value === 'object') {
                 return [kebabToCamel(key), value];
