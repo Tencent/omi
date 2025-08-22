@@ -35,6 +35,9 @@ export function omiVueify(
         .filter(attrKey => attrKey.match(/^on[A-Za-z]/))
         .map(oriEvent => oriEventToOmi(oriEvent));
 
+      // 存储事件处理函数的引用，以便正确移除
+      const eventHandlers = new Map<string, (e: Event) => void>();
+
       onMounted(() => {
         // 添加事件监听
         omiEvents.forEach((omiEvent) => {
@@ -42,17 +45,20 @@ export function omiVueify(
           // 仅处理kebab-case风格
           if (!isKebabString(vueEvent)) return;
 
-          elRef.value?.addEventListener(omiEvent, (e: Event) => {
+          const handler = (e: Event) => {
             emit(vueEvent, e);
-          })
+          };
+          eventHandlers.set(omiEvent, handler);
+          elRef.value?.addEventListener(omiEvent, handler);
         })
       })
 
       // 清理事件监听
       onBeforeUnmount(() => {
-        omiEvents.forEach((omiEvent) => {
-          elRef.value?.removeEventListener(omiEvent, () => {})
-        })
+        eventHandlers.forEach((handler, omiEvent) => {
+          elRef.value?.removeEventListener(omiEvent, handler);
+        });
+        eventHandlers.clear();
       })
 
       return () => {
@@ -131,7 +137,6 @@ const camelToKebab = (omiEvent: string): string => {
 const kebabToCamel = (str: string): string => {
   return str.replace(/-([a-z])/g, (_match, p1) => p1.toUpperCase());
 }
-
 
 const deepUnwrap = (val: any): any => {
   if (isRef(val)) return deepUnwrap(val.value);
