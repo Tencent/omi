@@ -1,4 +1,4 @@
-import { h, defineComponent, ref, onMounted, onBeforeUnmount, computed } from 'vue';
+import { h, defineComponent, ref, onMounted, onBeforeUnmount, watch, isRef, isReactive, toRaw } from 'vue';
 
 export function omiVueify(
   tagName: string,
@@ -28,22 +28,7 @@ export function omiVueify(
 
       expose(methods);
 
-      // 处理属性命名规则
-      const formatAttrs = computed(() =>
-        Object.fromEntries(
-          Object.entries(attrs)
-            // 仅处理非事件
-            .filter(([key]) => !key.match(/^on[A-Za-z]/))
-            .map(([key, value]) => {
-              // 复杂类型 转驼峰
-              if (value && typeof value === 'object') {
-                return [kebabToCamel(key), value];
-              }
-              // 基本数据类型 转kebab-case
-              return [camelToKebab(key), value];
-            }),
-        ),
-      );
+      const formatAttrs = useUnwrapAndFormatAttrs(attrs);
 
       // 处理事件监听
       const omiEvents = Object.keys(attrs)
@@ -152,3 +137,51 @@ const camelToKebab = (omiEvent: string): string => {
 const kebabToCamel = (str: string): string => {
   return str.replace(/-([a-z])/g, (_match, p1) => p1.toUpperCase());
 }
+
+const deepUnwrap = (val: any): any => {
+  if (isRef(val)) return deepUnwrap(val.value);
+  if (isReactive(val)) val = toRaw(val);
+  if (Array.isArray(val)) return val.map(deepUnwrap);
+  if (val && typeof val === 'object') {
+    const obj: Record<string, any> = {};
+    for (const k in val) obj[k] = deepUnwrap(val[k]);
+    return obj;
+  }
+  return val;
+};
+
+/**
+ * 将 attrs 里的非事件属性递归解包为普通对象，且驼峰kebab命名兼容
+ */
+const useUnwrapAndFormatAttrs = (attrs: Record<string, any>) => {
+  const unwraped = ref({});
+
+  // watch keys变化，自动维护监听
+  watch(
+    () => Object.entries(attrs),
+    (entries) => {
+      const result: Record<string, any> = {};
+      entries.forEach(([key, value]) => {
+        if (!key.match(/^on[A-Za-z]/)) {
+          // 对象类型转驼峰，基本类型转kebab
+          let finalKey = key;
+          let finalValue = value;
+          if (isRef(value) || isReactive(value)) {
+            finalValue = deepUnwrap(value);
+          }
+
+          if (finalValue && typeof finalValue === 'object') {
+            finalKey = kebabToCamel(key);
+          } else {
+            finalKey = camelToKebab(key);
+          }
+          result[finalKey] = finalValue;
+        }
+      });
+      unwraped.value = result;
+    },
+    { immediate: true, deep: true },
+  );
+
+  return unwraped;
+};
