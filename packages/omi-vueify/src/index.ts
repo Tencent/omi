@@ -50,7 +50,17 @@ export function omiVueify(
           };
           eventHandlers.set(omiEvent, handler);
           elRef.value?.addEventListener(omiEvent, handler);
-        })
+        });
+        // 处理函数参数传入
+        Object.entries(formatAttrs.value).forEach(([key, value]) => {
+          if (typeof value === 'function') {
+            // 函数参数通过props而非attrs传入
+            // @ts-ignore
+            elRef.value[kebabToCamel(key)] = value;
+            // @ts-ignore
+            delete formatAttrs.value[key];
+          }
+        });
       })
 
       // 清理事件监听
