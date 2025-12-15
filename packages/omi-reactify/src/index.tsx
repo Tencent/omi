@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 // 检测 React 版本
 const isReact18Plus = () => typeof createRoot !== 'undefined';
 const isReact19Plus = (): boolean => {
-  const majorVersion = parseInt(React.version.split('.')[0]);
+  const majorVersion = parseInt(React.version.split('.')[0], 10);
   return majorVersion >= 19;
 };
 
@@ -118,6 +118,15 @@ const styleObjectToString = (style: any) => {
     .join(' ');
 };
 
+/**
+ * 动态slot配置白名单
+ * 某些webc的slot是动态渲染的（即只有当light dom中存在对应的slot内容时，shadow dom才会渲染slot标签）。此时无法通过shadow dom检测到slot是否存在，需要通过配置白名单来强制启用
+ */
+const dynamicSlotConfig: Record<string, (slotName: string) => boolean> = {
+  't-chatbot': (slotName) => slotName.startsWith('sender-'),
+  't-chat-item': (slotName) => slotName === 'actionbar',
+};
+
 const reactify = <T extends AnyProps = AnyProps>(
   WC: string,
 ): React.ForwardRefExoticComponent<Omit<T, 'ref'> & React.RefAttributes<HTMLElement | undefined>> => {
@@ -154,9 +163,18 @@ const reactify = <T extends AnyProps = AnyProps>(
         return;
       }
 
+      // 将React prop转换为slot，如innerHeader -> inner-header
+      let slotName = prop;
+      if (prop.endsWith('Slot')) {
+        // 移除 'Slot' 后缀
+        slotName = prop.slice(0, -4);
+      }
+      // 转换驼峰命名为连字符命名
+      slotName = hyphenate(slotName);
+
       // 检查是否需要更新（避免相同内容的重复渲染）
-      const currentRenderer = this.slotRenderers.get(prop);
-      if (currentRenderer && this.isSameReactElement(prop, val)) {
+      const currentRenderer = this.slotRenderers.get(slotName);
+      if (currentRenderer && this.isSameReactElement(slotName, val)) {
         return; // 相同内容，跳过更新
       }
 
@@ -165,19 +183,19 @@ const reactify = <T extends AnyProps = AnyProps>(
 
       // 立即缓存新元素，防止重复调用
       if (isValidReactNode(val)) {
-        this.lastRenderedElements.set(prop, val);
-      }
-
-      // 清理旧的渲染器
-      if (currentRenderer) {
-        this.cleanupSlotRenderer(prop);
+        this.lastRenderedElements.set(slotName, val);
       }
 
       // 如果val是函数，为WebComponent提供一个函数，该函数返回渲染后的DOM
       if (typeof val === 'function') {
+        // 清理旧的渲染器
+        if (currentRenderer) {
+          this.cleanupSlotRenderer(slotName);
+        }
+
         const renderSlot = (params?: any) => {
           const reactNode = val(params);
-          return this.renderReactNodeToSlot(reactNode, prop);
+          return this.renderReactNodeToSlot(reactNode, slotName);
         };
         webComponent[prop] = renderSlot;
         // 函数类型处理完成后立即移除标记
@@ -190,10 +208,23 @@ const reactify = <T extends AnyProps = AnyProps>(
 
         // 使用微任务延迟渲染，确保在当前渲染周期完成后执行
         Promise.resolve().then(() => {
-          if (webComponent.update) {
-            webComponent.update();
+          // 已有渲染器则直接更新，避免failed to execute removeChild
+          if (currentRenderer) {
+            this.updateSlotContent(slotName, val);
+          } else if (!currentRenderer && dynamicSlotConfig[WC]?.(slotName)) {
+            // 如果webc组件是动态生成slot容器的话，先将<div slot='xx'>appendChild到webc中
+            this.renderReactNodeToSlot(val, slotName);
+
+            // 强制更新一次，确保shadow dom生成对应的slot
+            if (webComponent.update) {
+              webComponent.update();
+            }
+          } else {
+            if (webComponent.update) {
+              webComponent.update();
+            }
+            this.renderReactNodeToSlot(val, slotName);
           }
-          this.renderReactNodeToSlot(val, prop);
           // 渲染完成后移除处理标记
           this.processingSlots.delete(prop);
         });
@@ -210,14 +241,41 @@ const reactify = <T extends AnyProps = AnyProps>(
 
       // 总是异步清理React渲染器，避免竞态条件
       Promise.resolve().then(() => {
-        this.safeCleanupRenderer(renderer);
+        Reactify.safeCleanupRenderer(renderer);
       });
 
       this.slotRenderers.delete(slotName);
     }
 
+    private updateSlotContent(slotName: string, reactNode: React.ReactNode) {
+      const webComponent = this.ref.current;
+      if (!webComponent) return;
+
+      // 查找现有的slot容器
+      const existingContainer = webComponent.querySelector(`[slot="${slotName}"]`) as HTMLElement;
+
+      if (existingContainer && isValidReactNode(reactNode)) {
+        // 在现有容器中重新渲染webc的slot
+        try {
+          if (React.isValidElement(reactNode)) {
+            const renderer = createRenderer(existingContainer);
+            renderer.render(reactNode);
+          } else if (typeof reactNode === 'string' || typeof reactNode === 'number') {
+            existingContainer.textContent = String(reactNode);
+          }
+        } catch (error) {
+          console.warn('[reactify] Error updating slot content:', error);
+          // 如果更新失败，回退到清理重建
+          this.cleanupSlotRenderer(slotName);
+          this.renderReactNodeToSlot(reactNode, slotName);
+        }
+      } else {
+        this.renderReactNodeToSlot(reactNode, slotName);
+      }
+    }
+
     // 安全清理渲染器
-    private safeCleanupRenderer(cleanup: () => void) {
+    private static safeCleanupRenderer(cleanup: () => void) {
       try {
         cleanup();
       } catch (error) {
@@ -230,13 +288,22 @@ const reactify = <T extends AnyProps = AnyProps>(
       const webComponent = this.ref.current;
       if (!webComponent) return;
 
-      // 查找并移除所有匹配的slot容器
-      const containers = webComponent.querySelectorAll(`[slot="${slotName}"]`);
-      containers.forEach((container: Element) => {
-        if (container.parentNode) {
-          container.parentNode.removeChild(container);
-        }
-      });
+      try {
+        // 查找并移除所有匹配的slot容器
+        const containers = webComponent.querySelectorAll(`[slot="${slotName}"]`);
+        containers.forEach((container: Element) => {
+          // 确保容器仍然在dom树中且有父节点
+          if (container.parentNode && container.parentNode.contains(container)) {
+            try {
+              container.parentNode.removeChild(container);
+            } catch (error) {
+              console.warn(`[reactify] Error removing slot container for "${slotName}":`, error);
+            }
+          }
+        });
+      } catch (error) {
+        console.warn(`[reactify] Error clearing slot containers for "${slotName}":`, error);
+      }
     }
 
     // 缓存最后渲染的React元素，用于比较
@@ -255,12 +322,10 @@ const reactify = <T extends AnyProps = AnyProps>(
         return true;
       }
 
-      // 对于React元素，比较type、key和props
+      // 对于React元素，只比较type和key，不比较props，因为当props包含函数或react dom 时会导致循环引用
       if (React.isValidElement(lastElement) && React.isValidElement(val)) {
-        const typeMatch = lastElement.type === val.type;
-        const keyMatch = lastElement.key === val.key;
-        const propsMatch = JSON.stringify(lastElement.props) === JSON.stringify(val.props);
-        return typeMatch && keyMatch && propsMatch;
+        // 允许props更新
+        return false;
       }
 
       return false;
@@ -367,12 +432,21 @@ const reactify = <T extends AnyProps = AnyProps>(
           return;
         }
 
-        // 检查是否是slot prop（通过组件的slotProps静态属性或Slot后缀）
-        if (isReactElement(val) && !prop.match(/^on[A-Za-z]/) && !prop.match(/^render[A-Za-z]/)) {
-          const componentClass = this.ref.current?.constructor as any;
-          const declaredSlots = componentClass?.slotProps || [];
+        // 检查是否是slot prop
+        if (isValidReactNode(val) && !prop.match(/^on[A-Za-z]/) && !prop.match(/^render[A-Za-z]/)) {
+          const isSlotProp = prop.endsWith('Slot');
+          const possibleSlotName = hyphenate(isSlotProp ? prop.slice(0, -4) : prop);
 
-          if (declaredSlots.includes(prop) || prop.endsWith('Slot')) {
+          // 将react组件的prop当做slot处理
+          // 1. 检查webc中shadow dom是否存在该slot
+          let hasSlotInDOM = this.ref.current?.shadowRoot?.querySelector(`slot[name="${possibleSlotName}"]`) !== null;
+
+          // 2. 检查是否配置了动态slot白名单
+          if (!hasSlotInDOM && dynamicSlotConfig[WC]) {
+            hasSlotInDOM = dynamicSlotConfig[WC](possibleSlotName);
+          }
+
+          if (hasSlotInDOM) {
             this.handleSlotProp(prop, val);
             return;
           }
@@ -430,14 +504,14 @@ const reactify = <T extends AnyProps = AnyProps>(
 
     clearSlotRenderers() {
       this.slotRenderers.forEach((cleanup) => {
-        this.safeCleanupRenderer(cleanup);
+        Reactify.safeCleanupRenderer(cleanup);
       });
       this.slotRenderers.clear();
       this.processingSlots.clear();
     }
 
     render() {
-      const { children, className, innerRef, ...rest } = this.props;
+      const { children, className, ...rest } = this.props;
 
       return createElement(WC, { class: className, ...rest, ref: this.ref }, children);
     }
