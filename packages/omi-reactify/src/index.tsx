@@ -515,8 +515,16 @@ const reactify = <T extends AnyProps = AnyProps>(
 
     render() {
       const { children, className, ...rest } = this.props
-
-      return createElement(WC, { class: className, ...rest, ref: this.ref }, children)
+      // 过滤掉不应该作为attribute传递的props，它们会在update()中处理
+      const filteredProps: Record<string, any> = {}
+      Object.keys(rest).forEach((key) => {
+        const val = rest[key]
+        // 仅允许基本类型作为 attribute 传递
+        if (typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean') {
+          filteredProps[key] = val
+        }
+      })
+      return createElement(WC, { class: className, ...filteredProps, ref: this.ref }, children)
     }
   }
 
