@@ -1142,3 +1142,4 @@ declare namespace OmiJSX {
 
   type Ref<T=HTMLElement> = { current?: T }
 }
+export {OmiJSX};
