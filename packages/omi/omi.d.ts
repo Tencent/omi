@@ -1141,6 +1141,4 @@ declare global {
       [tagName: string]: any;
     }
   }
-  
-  type Ref<T=HTMLElement> = { current?: T }
 }
