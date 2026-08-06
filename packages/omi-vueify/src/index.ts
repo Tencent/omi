@@ -1,4 +1,4 @@
-import { h, defineComponent, ref, onMounted, onBeforeUnmount, watch, isRef, isReactive, toRaw } from 'vue';
+import { h, defineComponent, ref, shallowRef, onMounted, onBeforeUnmount, watch, isRef, isReactive, toRaw } from 'vue';
 
 export function omiVueify(
   tagName: string,
@@ -52,12 +52,12 @@ export function omiVueify(
           elRef.value?.addEventListener(omiEvent, handler);
         });
         // 处理函数参数传入
+        const element = elRef.value;
+        if (!element) return;
         Object.entries(formatAttrs.value).forEach(([key, value]) => {
           if (typeof value === 'function') {
             // 函数参数通过props而非attrs传入
-            // @ts-ignore
-            elRef.value[kebabToCamel(key)] = value;
-            // @ts-ignore
+            Reflect.set(element, kebabToCamel(key), value);
             delete formatAttrs.value[key];
           }
         });
@@ -164,7 +164,7 @@ const deepUnwrap = (val: any): any => {
  * 将 attrs 里的非事件属性递归解包为普通对象，且驼峰kebab命名兼容
  */
 const useUnwrapAndFormatAttrs = (attrs: Record<string, any>) => {
-  const unwraped = ref({});
+  const unwraped = shallowRef<Record<string, any>>({});
 
   // watch keys变化，自动维护监听
   watch(

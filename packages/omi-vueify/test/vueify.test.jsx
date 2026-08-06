@@ -1,5 +1,5 @@
 import { render } from '@testing-library/vue'
-import { defineComponent, nextTick, Fragment, h } from 'vue'
+import { defineComponent, nextTick, Fragment, h, reactive, isProxy } from 'vue'
 import { define, Component, h as hOmi } from 'omi'
 import { omiVueify } from '../src'
 
@@ -380,6 +380,31 @@ describe('methods', () => {
 })
 
 describe('complex data types', () => {
+  it('should pass plain objects to Omi without creating Vue proxies', async () => {
+    const TestVue = omiVueify(nodeName, { methodNames: [] })
+    const items = [{ name: 'test.txt' }]
+    const complexData = { value: 'plain', items }
+
+    const { container } = render(defineComponent({
+      components: { TestComponent: TestVue },
+      template: '<test-component :complex-data="complexData" />',
+      setup() {
+        return { complexData }
+      }
+    }))
+
+    await nextTick()
+
+    const webComponent = container.querySelector(nodeName)
+    const receivedData = webComponent.props.complexData
+
+    expect(isProxy(receivedData)).toBe(false)
+    expect(receivedData).toBe(complexData)
+    expect(receivedData.items).toBe(items)
+    Object.freeze(receivedData.items)
+    expect(() => receivedData.items[0]).not.toThrow()
+  })
+
   it('should properly handle complex data types', async () => {
     class ComplexDataComponent extends Component {
       static propTypes = {
@@ -425,6 +450,63 @@ describe('complex data types', () => {
     expect(retrievedData.nested.value).toBe('test')
     expect(retrievedData.array).toEqual([1, 2, 3])
   })
+
+  it('should keep reactive nested updates without proxying values passed to Omi', async () => {
+    const TestVue = omiVueify(nodeName, { methodNames: [] })
+    const complexData = reactive({
+      value: 'initial',
+      nested: { count: 0 }
+    })
+
+    const { container } = render(defineComponent({
+      components: { TestComponent: TestVue },
+      template: '<test-component :complex-data="complexData" />',
+      setup() {
+        return { complexData }
+      }
+    }))
+
+    await nextTick()
+
+    const webComponent = container.querySelector(nodeName)
+    const initialData = webComponent.props.complexData
+    expect(isProxy(initialData)).toBe(false)
+    expect(isProxy(initialData.nested)).toBe(false)
+
+    complexData.nested.count++
+    await nextTick()
+    await Promise.resolve()
+
+    const updatedData = webComponent.props.complexData
+    expect(updatedData).not.toBe(initialData)
+    expect(updatedData.nested.count).toBe(1)
+    expect(isProxy(updatedData)).toBe(false)
+    expect(isProxy(updatedData.nested)).toBe(false)
+  })
+
+  it('should preserve nested reactive values owned by a plain attrs object', async () => {
+    const TestVue = omiVueify(nodeName, { methodNames: [] })
+    const items = reactive([{ name: 'nested-proxy.txt' }])
+    const complexData = { items }
+
+    const { container } = render(defineComponent({
+      components: { TestComponent: TestVue },
+      template: '<test-component :complex-data="complexData" />',
+      setup() {
+        return { complexData }
+      }
+    }))
+
+    await nextTick()
+
+    const receivedData = container.querySelector(nodeName).props.complexData
+    expect(receivedData).toBe(complexData)
+    expect(receivedData.items).toBe(items)
+    expect(isProxy(receivedData)).toBe(false)
+    expect(isProxy(receivedData.items)).toBe(true)
+    expect(isProxy(receivedData.items[0])).toBe(true)
+  })
+
 }) 
 
 describe('dynamic prop updates', () => {
