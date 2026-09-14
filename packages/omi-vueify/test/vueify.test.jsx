@@ -290,6 +290,60 @@ describe('slots', () => {
     expect(html()).toContain('Fragment Item 1')
     expect(html()).toContain('Fragment Item 2')
   })
+
+  it('should update an Omi component when a named slot is added', async () => {
+    class SlotAwareComponent extends Component {
+      render(props) {
+        const hasNamedSlot = props.children?.some(
+          (child) => child && typeof child === 'object' && child.attributes?.slot === 'named'
+        )
+
+        return hOmi(
+          'div',
+          { id: 'slot-status' },
+          hasNamedSlot ? 'visible' : 'missing'
+        )
+      }
+    }
+
+    const slotAwareNodeName = generateNodeName()
+    define(slotAwareNodeName, SlotAwareComponent)
+    const SlotAwareVue = omiVueify(slotAwareNodeName, { methodNames: [] })
+
+    const TestWrapper = defineComponent({
+      components: {
+        SlotAware: SlotAwareVue
+      },
+      props: {
+        showSlot: Boolean
+      },
+      template: `
+        <slot-aware>
+          <template #named>
+            <div v-if="showSlot">Named Slot</div>
+          </template>
+        </slot-aware>
+      `
+    })
+
+    const { container, rerender } = render(TestWrapper, {
+      props: { showSlot: false }
+    })
+    await nextTick()
+
+    const webComponent = container.querySelector(slotAwareNodeName)
+    expect(webComponent?.shadowRoot.querySelector('#slot-status')?.textContent).toBe('missing')
+
+    await rerender({ showSlot: true })
+    await nextTick()
+
+    expect(webComponent?.shadowRoot.querySelector('#slot-status')?.textContent).toBe('visible')
+
+    await rerender({ showSlot: false })
+    await nextTick()
+
+    expect(webComponent?.shadowRoot.querySelector('#slot-status')?.textContent).toBe('missing')
+  })
 })
 
 describe('methods', () => {
