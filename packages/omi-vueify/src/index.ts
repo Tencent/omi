@@ -1,4 +1,4 @@
-import { h, defineComponent, ref, onMounted, onBeforeUnmount, watch, isRef, isReactive, toRaw } from 'vue';
+import { h, defineComponent, ref, onMounted, onBeforeUnmount, onUpdated, watch, isRef, isReactive, toRaw } from 'vue';
 
 export function omiVueify(
   tagName: string,
@@ -70,6 +70,19 @@ export function omiVueify(
         });
         eventHandlers.clear();
       })
+
+      onUpdated(() => {
+        // Vue patches slot children after the Web Component has been updated.
+        // Clear the published Omi children cache before asking it to re-read
+        // the patched light-DOM children.
+        const element = elRef.value as (HTMLElement & {
+          props?: { children?: unknown };
+          update?: () => void;
+        }) | null;
+        if (!element?.update) return;
+        if (element.props) element.props.children = undefined;
+        element.update();
+      });
 
       return () => {
         // 收集所有 slot vnode
