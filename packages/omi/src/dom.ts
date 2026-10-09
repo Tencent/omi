@@ -173,7 +173,12 @@ export function setAccessor(
  */
 function eventProxy(e: Event) {
   // @ts-ignore
-  return this._listeners[e.type](e)
+  return this._listeners[e.type + false](e)
+}
+
+function eventProxyCapture(e: Event) {
+  // @ts-ignore
+  return this._listeners[e.type + true](e)
 }
 
 function bindEvent(node: ExtendedElement, name: string, value: any, old: any) {
@@ -184,14 +189,15 @@ function bindEvent(node: ExtendedElement, name: string, value: any, old: any) {
       ? nameLower
       : name
   ).slice(2)
+  const proxy = useCapture ? eventProxyCapture : eventProxy
   if (value) {
     if (!old) {
-      node.addEventListener(name, eventProxy, useCapture)
+      node.addEventListener(name, proxy, useCapture)
     }
   } else {
-    node.removeEventListener(name, eventProxy, useCapture)
+    node.removeEventListener(name, proxy, useCapture)
   }
-  ;(node._listeners || (node._listeners = {}))[name] = value
+  ;(node._listeners || (node._listeners = {}))[name + useCapture] = value
 }
 
 function setStyle(
