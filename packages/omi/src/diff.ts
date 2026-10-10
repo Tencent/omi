@@ -428,9 +428,11 @@ function diffAttributes(
 
       // merge props with default values
       if ((dom.constructor as typeof Component).props) {
-        const props = (dom.constructor as typeof Component).props
+        const props = (dom.constructor as typeof Component).props as Record<
+          string,
+          any
+        >
         for (const propName in props) {
-          // @ts-ignore
           if (
             props[propName]?.default !== undefined &&
             oldClone[propName] === undefined
