@@ -205,9 +205,14 @@ export class Component<State = any> extends HTMLElement {
       ? (propTypes[propName] as PropType[])
       : ([propTypes[propName]] as PropType[])
 
-    // 检查是否是复杂类型
+    // Function 类型的 props 同样无法通过 attribute 传递，
+    // 需要和 Object/Array 一样使用 DOM Property 的方式接收（如 Vue/React 传入的回调）
     return types.some(
-      (t) => t === Object || t === Array || (isArray(t) && t.includes(Object)),
+      (t) =>
+        t === Object ||
+        t === Function ||
+        t === Array ||
+        (isArray(t) && (t.includes(Object) || t.includes(Function))),
     )
   }
 
