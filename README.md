@@ -85,7 +85,6 @@ $ npm run build       # release
 
 - Core packages
   - [`omi`](https://github.com/Tencent/omi/tree/master/packages/omi) - Implementation of omi framework.
-  - [`omi-form`](https://github.com/Tencent/omi/tree/master/packages/omi-form) - Powerful, simple and cross frameworks form solution.
   - [`lucide-omi`](https://github.com/omijs/lucide-omi) - Lucide icon collection for omi.
   - [`omiu`](https://github.com/Tencent/omi/tree/master/packages/omiu) - Hope to create the best web components. For example, the powerful [vchart](https://visactor.io/vchart) and [vtable](https://visactor.io/vtable)
   - [`omi-router`](https://github.com/Tencent/omi/tree/master/packages/omi-router) - Create SPA of omi framework.
@@ -105,7 +104,6 @@ $ npm run build       # release
   - [`omi-transition`](https://github.com/Tencent/omi/tree/master/packages/omi-transition) - Applying animations when an component is entering and leaving the DOM.
   - [`omi-ripple`](https://github.com/Tencent/omi/tree/master/packages/omi-ripple) - A lightweight component for adding ripple effects to user interface elements.
 - Examples (not published to npm)
-  - [`snake-game-2tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-2tier) - SNake Game with `Signal` class
   - [`snake-game-3tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-3tier) - SNake Game with reactivity functions
   - [`omi-tutorial`](https://github.com/omijs/tutorial) - Source code of omi tutorial.
 
