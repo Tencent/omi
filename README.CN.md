@@ -85,7 +85,6 @@ $ npm run build       # release
 
 - 核心包
   - [`omi`](https://github.com/Tencent/omi/tree/master/packages/omi) - Omi 框架的实现代码。
-  - [`omi-form`](https://github.com/Tencent/omi/tree/master/packages/omi-form) - 强大易用且跨框架的表单解决方案。
   - [`lucide-omi`](https://github.com/omijs/lucide-omi) - Lucide 的 Omi 图标集合。
   - [`omiu`](https://github.com/Tencent/omi/tree/master/packages/omiu) - 希望打造最好的 web 组件。
   - [`omi-router`](https://github.com/Tencent/omi/tree/master/packages/omi-router) - 创建单页应用。
@@ -105,7 +104,6 @@ $ npm run build       # release
   - [`omi-transition`](https://github.com/Tencent/omi/tree/master/packages/omi-transition) - 提供进入和离开动画。
   - [`omi-ripple`](https://github.com/Tencent/omi/tree/master/packages/omi-ripple) - 用于为用户界面元素添加涟漪（ripple）效果。当用户与元素交互（例如点击按钮）时，涟漪效果会从交互点开始扩散开来。
 - 综合性例子 (未发布到 npm)
-  - [`snake-game-2tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-2tier) - 基于 Omi `Signal` class 两层架构的贪吃蛇游戏。
   - [`snake-game-3tier`](https://github.com/Tencent/omi/tree/master/packages/snake-game-3tier) - 基于 Omi 响应是函数三层架构的贪吃蛇游戏。
   - [`omi-tutorial`](https://github.com/omijs/tutorial) - Omi 官方教程源代码。
 
