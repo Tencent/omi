@@ -650,9 +650,13 @@ describe('Advanced Features and Edge Cases', () => {
     expect(c1.value).toBe(1)
     expect(c2.value).toBe(2)
 
+    // 之前这里断言的是 toThrow()，但抛出的其实是「上一个用例里抛错的 effect
+    // 泄漏的 activeEffect」重新被触发而抛出的 'effect error'，与循环依赖无关：
+    // 单跑这个用例时它会失败，只有跟着整个文件跑才通过。
+    // 真正的循环依赖检测目前并不存在（见 #1009），这里只断言「不挂死、不抛错」。
     expect(() => {
       enabled.value = false
-    }).toThrow()
+    }).not.toThrow()
   })
 
   it('should not trigger updates when the value has not changed', () => {
@@ -693,5 +697,90 @@ describe('Advanced Features and Edge Cases', () => {
 
     count.value = 2
     expect(effectTimes).toBe(2)
+  })
+})
+
+describe('error recovery', () => {
+  it('should keep tracking dependencies after a subscriber throws', () => {
+    const testSignal = signal(1)
+    let shouldThrow = true
+    testSignal.subscribe(() => {
+      if (shouldThrow) {
+        shouldThrow = false
+        throw new Error('subscriber error')
+      }
+    })
+
+    expect(() => {
+      testSignal.value = 2
+    }).toThrow('subscriber error')
+
+    const seen = []
+    effect(() => {
+      seen.push(testSignal.value)
+    })
+    expect(seen).toEqual([2])
+
+    testSignal.value = 3
+    expect(seen).toEqual([2, 3])
+  })
+
+  it('should not keep depending on a signal after an effect throws', () => {
+    const first = signal(1)
+    const second = signal(0)
+    let runs = 0
+    let shouldThrow = true
+
+    expect(() => {
+      effect(() => {
+        runs++
+        first.value
+        if (shouldThrow) {
+          shouldThrow = false
+          throw new Error('effect error')
+        }
+      })
+    }).toThrow('effect error')
+    expect(runs).toBe(1)
+
+    // 在 effect 之外的普通读取，不应该给已经抛错的 effect 建立依赖
+    second.value
+    second.value = 1
+    expect(runs).toBe(1)
+  })
+
+  it('should keep running an effect after it throws once', () => {
+    const testSignal = signal(0)
+    let runs = 0
+    effect(() => {
+      runs++
+      if (testSignal.value === 1) {
+        throw new Error('effect error')
+      }
+    })
+    expect(runs).toBe(1)
+
+    expect(() => {
+      testSignal.value = 1
+    }).toThrow('effect error')
+
+    testSignal.value = 2
+    expect(runs).toBe(3)
+  })
+
+  it('should unsubscribe a computed that failed to be created', () => {
+    const testSignal = signal(1)
+
+    expect(() =>
+      computed(() => {
+        testSignal.value
+        throw new Error('computed error')
+      }),
+    ).toThrow('computed error')
+
+    // 没能构造成功的 computed 不应该继续留在依赖的订阅列表里
+    expect(() => {
+      testSignal.value = 2
+    }).not.toThrow()
   })
 })
