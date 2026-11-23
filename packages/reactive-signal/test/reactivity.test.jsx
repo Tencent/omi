@@ -375,6 +375,47 @@ describe('batch', () => {
     expect(effectTimes).toBe(2)
   })
 
+  it('should not flush effects inside a nested batch', () => {
+    const testSignal = signal(0)
+    const seen = []
+    effect(() => {
+      seen.push(testSignal.value)
+    })
+    expect(seen).toEqual([0])
+
+    let duringOuter = null
+    batch(() => {
+      testSignal.value = 1
+      batch(() => {
+        testSignal.value = 2
+      })
+      duringOuter = seen.slice()
+    })
+
+    expect(duringOuter).toEqual([0])
+    expect(seen).toEqual([0, 2])
+  })
+
+  it('should run the effect once for a batch that contains a nested batch', () => {
+    const testSignal = signal(0)
+    let effectTimes = 0
+    effect(() => {
+      testSignal.value
+      effectTimes++
+    })
+    expect(effectTimes).toBe(1)
+
+    batch(() => {
+      testSignal.value = 1
+      batch(() => {
+        testSignal.value = 2
+      })
+      testSignal.value = 3
+    })
+
+    expect(effectTimes).toBe(2)
+  })
+
   it('should get the value correctly', async () => {
     const testSignal = signal(10)
     let effectTimes = 0
