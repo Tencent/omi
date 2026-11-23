@@ -89,6 +89,46 @@ describe('o-suspense', () => {
     expect(events).toEqual(['fallback:data failed'])
   })
 
+  it('should not fire resolve、loaded after being removed during minLoadingTime', async () => {
+    const events = []
+    mount({
+      imports: [Promise.resolve(1)],
+      minLoadingTime: 200,
+      onResolve: () => events.push('resolve'),
+      onLoaded: () => events.push('loaded'),
+    })
+
+    await tick()
+    expect(el.state).toBe('pending')
+
+    el.parentNode.removeChild(el)
+    await new Promise((resolve) => setTimeout(resolve, 300))
+
+    expect(events).toEqual([])
+    expect(el.state).toBe('pending')
+  })
+
+  it('should not fire resolve、loaded when the tasks settle after the removal', async () => {
+    const events = []
+    let resolveImport
+    const pending = new Promise((resolve) => {
+      resolveImport = resolve
+    })
+    mount({
+      imports: [pending],
+      onResolve: () => events.push('resolve'),
+      onLoaded: () => events.push('loaded'),
+    })
+
+    await tick()
+    el.parentNode.removeChild(el)
+
+    resolveImport('late')
+    await tick()
+
+    expect(events).toEqual([])
+  })
+
   it('should resolve when data() returns a promise', async () => {
     mount({ imports: [], data: () => Promise.resolve('data') })
 

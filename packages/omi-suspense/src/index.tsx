@@ -36,6 +36,16 @@ define(
     }
 
     timeout: NodeJS.Timeout | null = null
+
+    isUninstalled = false
+
+    uninstall() {
+      this.isUninstalled = true
+      if (this.timeout !== null) {
+        clearTimeout(this.timeout)
+        this.timeout = null
+      }
+    }
     /**
      * Handles the tasks of components and updates the state accordingly
      * @param imports - Array of import promises
@@ -68,6 +78,8 @@ define(
 
         try {
           const results = await Promise.all(tasks)
+          // 等待期间组件可能已经被移除，此时不再驱动状态和事件
+          if (this.isUninstalled) return
           this.results = results
           let endTime = Date.now() // 记录加载完成的时间
           let elapsedTime = endTime - startTime // 计算已经过去的时间
