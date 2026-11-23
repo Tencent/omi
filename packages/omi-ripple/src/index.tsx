@@ -1,6 +1,20 @@
 import { registerDirective } from 'omi'
 
-registerDirective('ripple', (el: HTMLElement, options: { color: string }) => {
+interface RippleElement extends HTMLElement {
+  /** 最近一次传入的配置：重渲染会覆盖它，点击时始终读最新值 */
+  __omiRippleOptions?: { color: string }
+  /** 已插入样式并绑定过监听，防止重渲染时重复执行 */
+  __omiRippleBound?: boolean
+}
+
+registerDirective('ripple', (el: RippleElement, options: { color: string }) => {
+  // 组件重渲染会让指令再执行一次：这里只更新配置，不重复插样式、不重复绑监听
+  el.__omiRippleOptions = options
+  if (el.__omiRippleBound) {
+    return
+  }
+  el.__omiRippleBound = true
+
   // 插入 CSS
   const style = document.createElement('style')
   style.innerHTML = `
@@ -38,7 +52,11 @@ registerDirective('ripple', (el: HTMLElement, options: { color: string }) => {
     const top = event.clientY - rect.top - radius
     const ripple = document.createElement('div')
     ripple.classList.add('ripple')
-    ripple.style.backgroundColor = options.color
+    const color = el.__omiRippleOptions?.color
+    // 没有传颜色时保留样式表里的默认色
+    if (color) {
+      ripple.style.backgroundColor = color
+    }
 
     // 设置涟漪位置
     ripple.style.left = `${left}px`
