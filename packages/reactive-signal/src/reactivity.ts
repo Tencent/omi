@@ -69,20 +69,24 @@ export class Signal<T> {
   }
 
   update(): void {
-    this.notify()
-    this.depsComponents.forEach(
-      (component) => component[component._tempActiveUpdateFnName!]?.(),
-    )
-    // 信号值修改后 hook，重置已经执行的 effect
-    this.subscribers.forEach((callback) => {
-      // 重置计算属性的 subscribers，防止不依赖 signal 但依赖 computed的 effect不执行
-      if (callback.computedInstance) {
-        callback.computedInstance.subscribers.forEach((cb: Subscriber) => {
-          cb.done = false
-        })
-      }
-      callback.done = false
-    })
+    try {
+      this.notify()
+      this.depsComponents.forEach(
+        (component) => component[component._tempActiveUpdateFnName!]?.(),
+      )
+    } finally {
+      // 信号值修改后 hook，重置已经执行的 effect。订阅者抛错时也必须复位，
+      // 否则 done 停在 true，这个 effect 之后再也不会被触发（静默失效）
+      this.subscribers.forEach((callback) => {
+        // 重置计算属性的 subscribers，防止不依赖 signal 但依赖 computed的 effect不执行
+        if (callback.computedInstance) {
+          callback.computedInstance.subscribers.forEach((cb: Subscriber) => {
+            cb.done = false
+          })
+        }
+        callback.done = false
+      })
+    }
   }
 
   subscribe(callback: Subscriber): void {
@@ -98,13 +102,18 @@ export class Signal<T> {
       this.subscribers.forEach((callback) => pendingSubscribers.add(callback))
     } else {
       this.notifying = true
-      this.subscribers.forEach((callback) => {
-        if (typeof callback === 'function' && !callback.done) {
-          callback.done = true
-          callback()
-        }
-      })
-      this.notifying = false
+      try {
+        this.subscribers.forEach((callback) => {
+          if (typeof callback === 'function' && !callback.done) {
+            callback.done = true
+            callback()
+          }
+        })
+      } finally {
+        // 订阅者抛错也要复位：残留的 notifying 会让这个信号之后再也不登记依赖，
+        // 反应式更新会静默失效
+        this.notifying = false
+      }
     }
   }
 }
@@ -119,7 +128,18 @@ export class Computed<T> {
 
   constructor(computeFn: () => T) {
     this.computeFn = computeFn
-    this._value = this.compute()
+    try {
+      this._value = this.compute()
+    } catch (error) {
+      // 构造失败时，本次 compute 登记的依赖与订阅都是残留：不清理的话，
+      // 这个没能构造成功的 Computed 会一直留在依赖的订阅列表里，
+      // 之后每次依赖变化都重新抛同一个错
+      this.dependencies.forEach((dep) =>
+        dep.unsubscribe(this.recompute as unknown as Subscriber),
+      )
+      this.dependencies.clear()
+      throw error
+    }
   }
 
   get value(): T {
@@ -141,9 +161,13 @@ export class Computed<T> {
   private compute(): T {
     const previousEffect = activeEffect
     activeEffect = this as any
-    const newValue = this.computeFn()
-    activeEffect = previousEffect
-    return newValue
+    try {
+      return this.computeFn()
+    } finally {
+      // computeFn 抛错也要还原：残留的 activeEffect 会让之后在 effect 之外的
+      // 普通读取被误记成这个实例的依赖
+      activeEffect = previousEffect
+    }
   }
 
   private recompute = (): void => {
@@ -172,13 +196,16 @@ export class Computed<T> {
       this.subscribers.forEach((callback) => pendingSubscribers.add(callback))
     } else {
       this.notifying = true
-      this.subscribers.forEach((callback) => {
-        if (!callback.done) {
-          callback.done = true
-          callback()
-        }
-      })
-      this.notifying = false
+      try {
+        this.subscribers.forEach((callback) => {
+          if (!callback.done) {
+            callback.done = true
+            callback()
+          }
+        })
+      } finally {
+        this.notifying = false
+      }
     }
   }
 
@@ -204,8 +231,13 @@ export class Effect {
     if (this.disposed) return
     const previousEffect = activeEffect
     activeEffect = this
-    this.effectFn()
-    activeEffect = previousEffect
+    try {
+      this.effectFn()
+    } finally {
+      // effectFn 抛错也要还原，否则残留的 activeEffect 会把之后普通读取的依赖
+      // 全部记到这个已经出错的 effect 上
+      activeEffect = previousEffect
+    }
   }
 
   addDependency(dep: Signal<unknown> | Computed<unknown>): void {
