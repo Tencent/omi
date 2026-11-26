@@ -2,6 +2,7 @@ type Subscriber = (() => void) & { done?: boolean; computedInstance: any }
 
 let activeEffect: Effect | null = null
 let isBatching = false
+let batchDepth = 0
 let pendingSubscribers: Set<Subscriber> = new Set()
 
 export interface Component {
@@ -242,21 +243,27 @@ export function effect(effectFn: () => void): () => void {
 }
 
 export function batch(fn: () => void): void {
+  batchDepth++
   isBatching = true
   try {
     fn()
   } finally {
-    isBatching = false
-    pendingSubscribers.forEach((callback) => {
-      if (!callback.done) {
-        callback.done = true
-        callback()
-      }
-    })
-    pendingSubscribers.forEach((callback) => {
-      callback.done = false
-    })
-    pendingSubscribers.clear()
+    batchDepth--
+    // 只有最外层 batch 结束才刷新：内层提前刷新会让 effect 观察到批量的中间值，
+    // 而且会把 isBatching 置回 false，导致外层后续的赋值不再被批量处理。
+    if (batchDepth === 0) {
+      isBatching = false
+      pendingSubscribers.forEach((callback) => {
+        if (!callback.done) {
+          callback.done = true
+          callback()
+        }
+      })
+      pendingSubscribers.forEach((callback) => {
+        callback.done = false
+      })
+      pendingSubscribers.clear()
+    }
   }
 }
 
