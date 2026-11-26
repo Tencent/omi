@@ -48,7 +48,14 @@ define(
       let startTime = Date.now()
       const tasks = [...imports]
       if (this.props.data) {
-        tasks.push(this.props.data())
+        try {
+          tasks.push(this.props.data())
+        } catch (error) {
+          // data() 同步抛错时当成一个 rejected task 交给下面的 Promise.all 统一处理，
+          // 否则异常会逃出 handleTasks：state 停在 pending、pending 事件不触发、
+          // fallback 永远不可达，而且留下一个未处理的 promise rejection
+          tasks.push(Promise.reject(error))
+        }
       }
       if (tasks.length === 0) {
         this.state = 'resolve'
