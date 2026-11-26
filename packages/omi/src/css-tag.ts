@@ -1,7 +1,9 @@
 /**
  * Cache for storing created CSSStyleSheets.
+ *
+ * 用无原型的对象，避免 css 文本恰好是 `constructor` / `toString` 这类键时取到原型上的属性。
  */
-let styleSheetCache: { [key: string]: CSSStyleSheet } = {}
+const styleSheetCache = Object.create(null) as { [key: string]: CSSStyleSheet }
 
 /**
  * A tagged template function for CSS that supports JavaScript expressions.
@@ -29,7 +31,8 @@ export function css(
       throw new Error(`Unsupported value in CSS: ${values[i]}`)
     }
 
-    str += string + (values[i] || '')
+    // 用 ?? 而不是 ||：0 是合法的 CSS 值，不能被当成空值丢掉
+    str += string + (values[i] ?? '')
   })
 
   // Check if the style sheet is in the cache
