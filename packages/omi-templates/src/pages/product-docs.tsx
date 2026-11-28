@@ -118,13 +118,9 @@ export class ProductDocs extends Component<Props> {
       }
     }
 
-    // 如果切换到新的 h2，但没有找到对应的 h3，就清空 h3 的激活状态
-    if (this.state.active[0] !== activeH2) {
-      activeH3 = null
-    }
-
-    if (this.state.active[0] !== activeH2 || this.state.active[1] !== activeH3) {
-      this.state.active = [activeH2 || '', activeH3 || '']
+    const active: [string, string] = [activeH2 || '', activeH3 || '']
+    if (this.state.active[0] !== active[0] || this.state.active[1] !== active[1]) {
+      this.state.active = active
       this.update()
     }
   }
