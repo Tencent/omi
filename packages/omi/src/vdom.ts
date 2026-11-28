@@ -54,7 +54,7 @@ export function createElement(
   }
 
   if (arguments.length > 2) {
-    children = restChildren.flat() as VNode[]
+    children = restChildren.flat(Infinity) as VNode[]
   } else if (attributes.children != null) {
     children = attributes.children as VNode[]
     delete attributes.children
