@@ -71,3 +71,22 @@ test('cloneElement should return a cloned vnode with updated children', () => {
     children: ['Hello, Jest!'],
   })
 })
+
+test('renders nested fragment arrays in child order', () => {
+  const parent = document.createElement('div')
+  const groups = ['first', 'second'].map((label) => [
+    <span key={label}>{label}</span>,
+  ])
+
+  render(
+    <div>
+      <>{groups}</>
+      <span>third</span>
+    </div>,
+    parent,
+  )
+
+  expect(parent.innerHTML).toBe(
+    '<div><span>first</span><span>second</span><span>third</span></div>',
+  )
+})
